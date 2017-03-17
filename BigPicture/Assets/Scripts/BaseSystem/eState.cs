@@ -1,0 +1,1 @@
+﻿public enum eSTATE {IDLE , PATROL, TRACE , ATTACK , ESCAPE , DIE }
