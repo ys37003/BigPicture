@@ -1,1 +1,0 @@
-﻿public enum ENTITY_TYPE { OBJECT , PLAYER , NPC , MONSTER , ITEM }
