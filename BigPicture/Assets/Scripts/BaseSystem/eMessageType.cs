@@ -1,0 +1,1 @@
+﻿enum eChangeState { TO_PATROL , TTO_IDLE};

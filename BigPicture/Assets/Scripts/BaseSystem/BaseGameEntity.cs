@@ -1,8 +1,11 @@
-﻿
+﻿using UnityEngine;
 
-public abstract class BaseGameEntity
+public class BaseGameEntity : MonoBehaviour
 {
-    protected ENTITY_TYPE entityType
+    private eENTITY_TYPE entityType;
+    private int entityID;
+
+    public eENTITY_TYPE Type
     {
         get
         {
@@ -14,7 +17,7 @@ public abstract class BaseGameEntity
         }
     }
 
-    protected int entityID
+    public int ID
     {
         get
         {
@@ -25,10 +28,19 @@ public abstract class BaseGameEntity
             entityID = value;
         }
     }
-    protected void SetEntity(ENTITY_TYPE _eEntity_Type, int _entityID)
+
+    protected void EntityInit(eENTITY_TYPE _type, int _id)
     {
-        entityType = _eEntity_Type;
-        entityID = _entityID;
+        Type = _type;
+        ID = _id;
+
+        EntityManager.Instance.AddEntity(_id, this);
     }
+
+    public virtual bool HanleMessage(Telegram _msg)
+    {
+        return false;
+    }
+
 }
 
