@@ -1,7 +1,11 @@
 fileFormatVersion: 2
 guid: 3b8a8b255f7719b448231ada94ceaab8
 folderAsset: yes
+<<<<<<< HEAD:BigPicture/Assets/AI/Script.meta
+timeCreated: 1489748573
+=======
 timeCreated: 1489747803
+>>>>>>> f639b70e5280936d664fb9633b57d69a5e1c04d4:BigPicture/Assets/Scripts.meta
 licenseType: Free
 DefaultImporter:
   userData: 
