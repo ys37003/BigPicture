@@ -4,22 +4,30 @@ using UnityEditor;
 using UnityEngine;
 
 [CanEditMultipleObjects]
-#if UNITY_3_5
-[CustomEditor(typeof(UIButton))]
-#else
-[CustomEditor(typeof(UIButton), true)]
-#endif
+[CustomEditor(typeof(UIButtonEx))]
 public class UIButtonExEditor : Editor
 {
-    // Use this for initialization
-    void Start()
-    {
+    UIButtonEx uiButtonEx;
 
+    void OnEnable()
+    {
+        uiButtonEx = target as UIButtonEx;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
 
+        if (GUILayout.Button("초기화"))
+        {
+            uiButtonEx.InitButtonEx();
+        }
+
+        if (GUILayout.Button("복제"))
+        {
+            uiButtonEx.Copy();
+        }
+
+        serializedObject.Update();
     }
 }
