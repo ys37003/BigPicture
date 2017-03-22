@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <record>
+       <Tribe>0</Tribe>
+       <Job>0</Job>
+       <Strength>5</Strength>
+       <Spell>5</Spell>
+       <Agility>5</Agility>
+       <Avoid>5</Avoid>
+       <Defense>5</Defense>
+       <Recovery>5</Recovery>
+       <Luck>5</Luck>
+       <Range>5</Range>
+       <EyeSight>5</EyeSight> 
+    </record>
+    <record>
+       <Tribe>0</Tribe>
+       <Job>1</Job>
+       <Strength>6</Strength>
+       <Spell>6</Spell>
+       <Agility>6</Agility>
+       <Avoid>6</Avoid>
+       <Defense>6</Defense>
+       <Recovery>6</Recovery>
+       <Luck>6</Luck>
+       <Range>6</Range>
+       <EyeSight>6</EyeSight>
+    </record>
+</data-set>

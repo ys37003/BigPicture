@@ -2,10 +2,10 @@
 
 public class BaseGameEntity : MonoBehaviour
 {
-    private eENTITY_TYPE entityType;
+    private eType entityType;
     private int entityID;
 
-    public eENTITY_TYPE Type
+    public eType Type
     {
         get
         {
@@ -29,12 +29,12 @@ public class BaseGameEntity : MonoBehaviour
         }
     }
 
-    protected void EntityInit(eENTITY_TYPE _type, int _id)
+    protected void EntityInit(eType _type, int _id)
     {
         Type = _type;
-        ID = _id;
+        ID = EntityManager.Instance.GetCount();
 
-        EntityManager.Instance.AddEntity(_id, this);
+        EntityManager.Instance.AddEntity(EntityManager.Instance.GetCount(), this);
     }
 
     public virtual bool HanleMessage(Telegram _msg)
