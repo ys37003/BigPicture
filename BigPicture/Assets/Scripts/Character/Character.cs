@@ -23,6 +23,30 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
+    }
 
+    private IEnumerator Idle()
+    {
+        yield return null;
+    }
+
+    private IEnumerator Walk()
+    {
+        yield return null;
+    }
+
+    private IEnumerator Run()
+    {
+        yield return null;
+    }
+
+    private IEnumerator Battle()
+    {
+        yield return null;
+    }
+
+    private IEnumerator DIe()
+    {
+        yield return null;
     }
 }
