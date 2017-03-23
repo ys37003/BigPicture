@@ -1,38 +1,41 @@
-﻿public class MonsterData
+﻿using System.Xml.Serialization;
+
+public class MonsterData
 {
     /// <summary>
     /// 개체 타입
     /// </summary>
-    public readonly eENTITY_TYPE Type;
+    public readonly eTRIBE_TYPE Type;
+
+    public readonly eJOB_TYPE Job;
 
     /// <summary>
-    /// 고유 번호 
+    /// 사정거리
     /// </summary>
-    public readonly int No;
+    public int Range;
 
     /// <summary>
-    /// 이름
+    /// 인식범위
     /// </summary>
-    public readonly string Name;
+    public int EyeSight;
 
-    /// <summary>
-    /// 능력치
-    /// </summary>
     public readonly StatusData StatusData;
 
-    public MonsterData(eENTITY_TYPE type, int no, string name, int str, int sp, int ag, int av, int def, int rec, int lck)
+    public MonsterData(eTRIBE_TYPE tribe, eJOB_TYPE job, int str, int sp, int ag, int av, int def, int rec, int lck , int rg , int es)
     {
-        Type = type;
-        No = no;
-        Name = name;
+        Type = tribe;
+        Job = job;
+        Range = rg;
+        EyeSight = es;
         StatusData = new StatusData(str, sp, ag, av, def, rec, lck);
     }
 
-    public MonsterData(eENTITY_TYPE type, int no, string name, StatusData stat)
+    public MonsterData(eTRIBE_TYPE tribe, eJOB_TYPE job, int rg,int es, StatusData stat)
     {
-        Type = type;
-        No = no;
-        Name = name;
+        Type = tribe;
+        Job = job;
+        Range = rg;
+        EyeSight = es;
         StatusData = stat;
     }
 }

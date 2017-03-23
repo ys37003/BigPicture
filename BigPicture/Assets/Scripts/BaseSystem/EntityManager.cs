@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityManager  {
-    public Dictionary<int , BaseGameEntity> entityDic = new Dictionary<int , BaseGameEntity>();
+    public Dictionary<int, BaseGameEntity> entityDic = new Dictionary<int , BaseGameEntity>();
 
     private static EntityManager instance;
 
@@ -33,5 +33,10 @@ public class EntityManager  {
     public BaseGameEntity IDToEntity(int _entityID)
     {
         return entityDic[_entityID];
+    }
+
+    public int GetCount()
+    {
+        return entityDic.Count;
     }
 }

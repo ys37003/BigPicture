@@ -7,9 +7,12 @@ public class Ork : Monster {
 
     StateMachine<Ork> stateMachine;
 
+    public bool isToPatrol = false;
+    public bool isToIdle = false;
+    MonsterData data;
     void Start()
     {
-        EntityInit(eENTITY_TYPE.Ork, 0);
+        EntityInit(eType.Ork, 0);
         stateMachine = new StateMachine<Ork>(this);
     }
 
@@ -35,5 +38,21 @@ public class Ork : Monster {
     public override bool HanleMessage(Telegram _msg)
     {
         return stateMachine.HandleMessgae(_msg);
+    }
+
+    public bool ToPatrol()
+    {
+        if (true == isToPatrol)
+            return true;
+
+        return false;
+    }
+
+    public bool ToIdle()
+    {
+        if (true == isToIdle)
+            return true;
+
+        return false;
     }
 }

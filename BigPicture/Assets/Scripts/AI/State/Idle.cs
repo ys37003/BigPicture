@@ -17,8 +17,13 @@
     {
         _monster.Idle();
         
-        if(Clock.Instance.GetTime()  > _monster.clock + 5.0f)
+        //if(Clock.Instance.GetTime()  > _monster.clock + 5.0f)
+        //    MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eChangeState.TO_PATROL, null);
+
+        if(_monster.ToPatrol())
+        {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eChangeState.TO_PATROL, null);
+        }
     }
     public override void Enter(entity_type _monster)
     {

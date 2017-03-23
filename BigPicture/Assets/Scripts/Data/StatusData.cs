@@ -1,4 +1,6 @@
-﻿public class StatusData
+﻿using System.Xml.Serialization;
+
+public class StatusData
 {
     /// <summary>
     /// 힘
@@ -35,11 +37,16 @@
     /// </summary>
     public int Luck;
 
+
+
+    /// <summary>
+    /// 능력치
+    /// </summary>
     public StatusData(int str, int sp, int ag, int av, int def, int rec, int lck)
     {
         Strength = str;
         Spell    = sp;
-        ag       = Agility;
+        Agility  = ag;
         Avoid    = av;
         Defense  = def;
         Recovery = rec;
