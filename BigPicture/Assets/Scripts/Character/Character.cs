@@ -21,8 +21,22 @@ public class Character : MonoBehaviour
 
     public int StatusPoint { get; set; }
 
+    [SerializeField]
+    private Animator animator;
+
     private void Awake()
     {
+        if (animator == null)
+            animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        animator.SetFloat("Forward", v);
+        animator.SetFloat("Strafe", h);
     }
 
     private IEnumerator Idle()
