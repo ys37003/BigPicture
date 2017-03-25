@@ -3,7 +3,7 @@
     OBJECT ,
     PLAYER ,
     NPC ,
-    Ork ,
+    MONSTER ,
     ITEM
 }
 public enum eTRIBE_TYPE

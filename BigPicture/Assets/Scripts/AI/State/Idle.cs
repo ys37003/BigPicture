@@ -22,7 +22,7 @@
 
         if(_monster.ToPatrol())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eChangeState.TO_PATROL, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eChangeState.TO_WALK, null);
         }
     }
     public override void Enter(entity_type _monster)
@@ -38,8 +38,8 @@
     {
         switch(_msg.message)
         {
-            case (int)eChangeState.TO_PATROL:
-                _monster.GetStateMachine().ChangeState(eSTATE.PATROL);
+            case (int)eChangeState.TO_WALK:
+                _monster.GetStateMachine().ChangeState(eSTATE.WALK);
                 return true;
         }
 

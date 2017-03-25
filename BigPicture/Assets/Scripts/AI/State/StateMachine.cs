@@ -40,19 +40,18 @@ public class StateMachine<entity_type> where entity_type : Ork
             case eSTATE.IDLE:
                 currentState = Idle<entity_type>.Instance();
                 break;
-            case eSTATE.ATTACK:
+
+            case eSTATE.WALK:
+                currentState = Walk<entity_type>.Instance();
+                break;
+            case eSTATE.DEAD:
+
+
+                break;
+            case eSTATE.AVOID:
                 
                 break;
-            case eSTATE.PATROL:
-                currentState = Patrol<entity_type>.Instance();
-                break;
-            case eSTATE.DIE:
-                
-                break;
-            case eSTATE.ESCAPE:
-                
-                break;
-            case eSTATE.TRACE:
+            case eSTATE.RUN:
                
                 break;
         }

@@ -10,10 +10,15 @@ public class Ork : Monster {
     public bool isToPatrol = false;
     public bool isToIdle = false;
     MonsterData data;
+    Animator animator;
+
+
     void Start()
     {
-        EntityInit(eType.Ork, 0);
+        EntityInit( eType.MONSTER , eTRIBE_TYPE.Ork ,eJOB_TYPE.TANKER );
         stateMachine = new StateMachine<Ork>(this);
+        data = DataManager.Instance().GetData(this.Tribe, this.Job);
+        animator = this.GetComponent<Animator>();
     }
 
     private void Update()
@@ -25,9 +30,14 @@ public class Ork : Monster {
         Debug.Log(this.Type+ this.ID.ToString() + "'State is Idle" );
     }
 
-    public void Patrol()
+    public void Walk()
     {
-        Debug.Log(this.Type + this.ID.ToString() + "'State is Patrol");
+        Debug.Log(this.Type + this.ID.ToString() + "'State is Walk");
+    }
+
+    public void Run()
+    {
+        Debug.Log(this.Type + this.ID.ToString() + "'State is Run");
     }
 
     public StateMachine<Ork> GetStateMachine()

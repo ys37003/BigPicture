@@ -18,7 +18,10 @@ public class DataManager {
         }
         return instance;
     }
-
+    /// <summary>
+    /// List : 종족
+    /// List<List<>> : 직업
+    /// </summary>
     List<List<MonsterData>> monsterDatas = new List<List<MonsterData>>();
     public string monsterData_path = "DataSheets/MonsterElement";
 
@@ -63,6 +66,10 @@ public class DataManager {
                 monsterDatas[i].Add(monsterData);
             }
         }
-    
+    }
+
+    public MonsterData GetData(eTRIBE_TYPE _entityTribe , eJOB_TYPE _entityJob)
+    {
+        return monsterDatas[(int)_entityTribe][(int)_entityJob];
     }
 }

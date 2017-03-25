@@ -3,7 +3,10 @@
 public class BaseGameEntity : MonoBehaviour
 {
     private eType entityType;
+    private eTRIBE_TYPE entityTribe;
+    private eJOB_TYPE entityJob;
     private int entityID;
+    
 
     public eType Type
     {
@@ -17,6 +20,29 @@ public class BaseGameEntity : MonoBehaviour
         }
     }
 
+    public eTRIBE_TYPE Tribe
+    {
+        get
+        {
+            return entityTribe;
+        }
+        private set
+        {
+            entityTribe = value;
+        }
+    }
+
+    public eJOB_TYPE Job
+    {
+        get
+        {
+            return entityJob;
+        }
+        private set
+        {
+            entityJob = value;
+        }
+    }
     public int ID
     {
         get
@@ -29,9 +55,11 @@ public class BaseGameEntity : MonoBehaviour
         }
     }
 
-    protected void EntityInit(eType _type, int _id)
+    protected void EntityInit(eType _type , eTRIBE_TYPE _tribe , eJOB_TYPE _job )
     {
         Type = _type;
+        Tribe = _tribe;
+        Job = _job;
         ID = EntityManager.Instance.GetCount();
 
         EntityManager.Instance.AddEntity(EntityManager.Instance.GetCount(), this);

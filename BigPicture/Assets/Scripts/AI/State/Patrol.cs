@@ -20,7 +20,7 @@ public class Patrol<entity_type> : State<entity_type> where entity_type : Ork
 
     public override void Excute(entity_type _monster)
     {
-        _monster.Patrol();
+        _monster.Walk();
 
         if(_monster.ToIdle())
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eChangeState.TO_IDLE, null);
