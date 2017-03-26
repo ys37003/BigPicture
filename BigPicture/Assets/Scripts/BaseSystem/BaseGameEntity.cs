@@ -62,6 +62,7 @@ public class BaseGameEntity : MonoBehaviour
         Job = _job;
         ID = EntityManager.Instance.GetCount();
 
+        // 생성된 순서대로 EntityDIc에 저장
         EntityManager.Instance.AddEntity(EntityManager.Instance.GetCount(), this);
     }
 

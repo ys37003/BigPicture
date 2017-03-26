@@ -23,7 +23,10 @@ public class NavAgent : MonoBehaviour {
     public Vector3 target
     {
         get { return m_target; }
-        set { m_target = value; }
+        set
+        {
+            m_target = value;
+        }
     }
 
     public void Clear()

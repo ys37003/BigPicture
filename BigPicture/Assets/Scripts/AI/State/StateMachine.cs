@@ -7,7 +7,7 @@ public class StateMachine<entity_type> where entity_type : Ork
 {
     State<entity_type> currentState;
     State<entity_type> previousState;
-    State<entity_type> globalState;
+    eSTATE ePreviousState;
     entity_type owner;
 
     public StateMachine(entity_type _owner)
@@ -15,8 +15,8 @@ public class StateMachine<entity_type> where entity_type : Ork
         owner = _owner;
         currentState = null;
         previousState = null;
-        globalState = null;
         currentState = Idle<entity_type>.Instance();
+        ePreviousState = eSTATE.IDLE;
     }
 
     // Update is called once per frame
@@ -27,10 +27,17 @@ public class StateMachine<entity_type> where entity_type : Ork
 
     public void ChangeState( eSTATE _stateType )
     {
-        currentState.Exit(owner);
-        previousState = currentState;
-        EnumToState(_stateType);
-        currentState.Enter(owner);
+        if (ePreviousState != _stateType)
+        {
+            currentState.Exit(owner);
+            previousState = currentState;
+            EnumToState(_stateType);
+            currentState.Enter(owner);
+        }
+        else
+        {
+            Debug.Log("newState == currentState");
+        }
     }
 
     private void EnumToState(eSTATE _stateType)
@@ -52,21 +59,27 @@ public class StateMachine<entity_type> where entity_type : Ork
                 
                 break;
             case eSTATE.RUN:
-               
+                currentState = Run<entity_type>.Instance();
                 break;
         }
     }
 
     public bool HandleMessgae(Telegram _msg)
     {
+        // 각 상태별 메세지 처리
         if (null != currentState && currentState.OnMessage(owner , _msg))
         {
             return true;
         }
 
-        if(null != globalState && globalState.OnMessage(owner , _msg))
+        // 전역 메세지 처리
+
+        switch(_msg.message)
         {
-            return true;
+            case(int)eChangeState.FIND_ENEMY :
+                ChangeState(eSTATE.RUN);
+                owner.SetTarget((Vector3)_msg.extraInfo);
+                return true;
         }
 
         return false;

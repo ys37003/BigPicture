@@ -7,5 +7,6 @@
     TO_ATTACK2 ,
     TO_ATTACK3 ,
     TO_AVOID ,
-    TO_DIE
+    TO_DIE,
+    FIND_ENEMY
 };

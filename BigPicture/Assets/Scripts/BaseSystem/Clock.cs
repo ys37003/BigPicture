@@ -30,6 +30,10 @@ public class Clock  : MonoBehaviour{
         currentTime += Time.deltaTime;
     }
 
+    /// <summary>
+    /// 현재 시간 반환
+    /// </summary>
+    /// <returns></returns>
     public float GetTime()
     {
         return currentTime;

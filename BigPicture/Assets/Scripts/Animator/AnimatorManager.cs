@@ -17,6 +17,12 @@ public class AnimatorManager  {
         return instance;
     }
 
+    /// <summary>
+    /// Animator의 값을 변화시켜주는 오버로드된 함수들
+    /// </summary>
+    /// <param name="_ani"></param>
+    /// <param name="_key"></param>
+    /// <param name="_value"></param>
     public void SetAnimation(Animator _ani , string _key , bool _value)
     {
         _ani.SetBool(_key, _value);
