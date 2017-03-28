@@ -183,7 +183,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
 		}
 
-
 		public void OnAnimatorMove()
 		{
 			// we implement this function to override the default root motion.
