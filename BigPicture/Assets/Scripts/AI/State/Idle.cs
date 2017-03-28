@@ -1,4 +1,6 @@
-﻿public class Idle<entity_type> : State<entity_type> where entity_type : Ork
+﻿using UnityEngine;
+
+public class Idle<entity_type> : State<entity_type> where entity_type : Ork
 {
     private static Idle<entity_type> instance;
     private Idle()
@@ -17,9 +19,9 @@
     {
         _monster.Idle();
 
-        if(_monster.ToWalk())
+        if(_monster.IdleToWalk())
         { 
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eChangeState.TO_WALK, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_WALK, null);
         }
     }
     public override void Enter(entity_type _monster)
@@ -43,7 +45,7 @@
     {
         switch(_msg.message)
         {
-            case (int)eChangeState.TO_WALK:
+            case (int)eMESSAGE_TYPE.TO_WALK:
                 _monster.GetStateMachine().ChangeState(eSTATE.WALK);
                 return true;
         }

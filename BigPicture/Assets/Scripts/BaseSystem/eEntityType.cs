@@ -1,4 +1,4 @@
-﻿public enum eType
+﻿public enum eTYPE
 {
     OBJECT ,
     PLAYER ,

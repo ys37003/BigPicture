@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Ork : Monster {
+public class Ork : Monster
+{
 
 
     /// <summary>
     /// 몬스터의 상태를 변화시켜줄 템플릿 스크립트
     /// </summary>
     StateMachine<Ork> stateMachine;
-    
+
     /// <summary>
     /// 이동할 목적지가 정해졌을때 몬서터와 목적지 사이의 초기 거리
     /// </summary>
     public float distenceToTarget;
 
+    public GameObject enemy;
+
+    float attackDeley = 5.0f;
 
     BoxCollider colEyeSight;
     void Start()
     {
-        EntityInit( eType.MONSTER , eTRIBE_TYPE.Ork ,eJOB_TYPE.TANKER );
+        EntityInit(eTYPE.MONSTER, eTRIBE_TYPE.Ork, eJOB_TYPE.TANKER);
         stateMachine = new StateMachine<Ork>(this);
         Data = DataManager.Instance().GetData(this.Tribe, this.Job);
         Animator = this.GetComponent<Animator>();
@@ -28,7 +32,7 @@ public class Ork : Monster {
 
         // EyeSight Collider 초기화
         colEyeSight = this.GetComponent<BoxCollider>();
-        Vector3 colCenter = new Vector3(0 , this.transform.position.y , Data.EyeSight/2 );
+        Vector3 colCenter = new Vector3(0, this.transform.position.y, Data.EyeSight / 2);
         Vector3 colSize = new Vector3(Data.EyeSight * 2, 1, Data.EyeSight);
 
         colEyeSight.center = colCenter;
@@ -43,7 +47,7 @@ public class Ork : Monster {
 
     public void Idle()
     {
-        Debug.Log(this.Type+ this.ID.ToString() + "'State is Idle" );
+        Debug.Log(this.Type + this.ID.ToString() + "'State is Idle");
     }
 
     public void Walk()
@@ -56,7 +60,6 @@ public class Ork : Monster {
             if (distenceToTarget - 0.5f <= Vector3.Distance(this.transform.position, this.NavAgent.target))
             {
                 NavAgent.target = MathAssist.Instance().RandomVector3(this.transform.position, 30.0f);
-               
             }
             this.erorrCheckClock = Clock.Instance.GetTime();
         }
@@ -67,6 +70,44 @@ public class Ork : Monster {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Run");
     }
 
+    public void Attack()
+    {
+        //if (Animator.GetCurrentAnimatorStateInfo(0).IsName("attack3"))
+        //{
+            
+        //    SetClock(Time.time);
+        //}
+        Debug.Log(this.Type + this.ID.ToString() + "'State is Attack");
+        this.transform.LookAt(enemy.transform.position);
+    }
+
+    public bool AttackAble()
+    {
+        
+        if (enemy == null)
+            return false;
+
+
+        if (Data.Range > Vector3.Distance(this.transform.position, enemy.transform.position) )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool EndAttack()
+    {
+        if (Data.Range > Vector3.Distance(this.transform.position, enemy.transform.position) &&
+            MonsterClock + 3.0f < Time.time)
+        {
+            if (Animator.GetCurrentAnimatorStateInfo(0).IsName("attack3"))
+            {
+                Debug.Log("Attack3");
+                return true;
+            }
+        }
+        return false;
+    }
     /// <summary>
     /// 상태 머신에 메세지 송출
     /// </summary>
@@ -79,10 +120,10 @@ public class Ork : Monster {
     /// Idle 상태에서 5초후 true반환
     /// MonsterClock 설정은 Idle상태의 Enter함수에서
     /// </summary>
-    public bool ToWalk()
+    public bool IdleToWalk()
     {
-        if(this.MonsterClock + 5.0f <  Clock.Instance.GetTime())
-           return true;
+        if (this.MonsterClock + 5.0f < Clock.Instance.GetTime())
+            return true;
 
         return false;
     }
@@ -90,15 +131,21 @@ public class Ork : Monster {
     /// <summary>
     /// 이동한지 5초후 또는 목적지에 도착했을때 true반환
     /// </summary>
-    public bool ToIdle()
+    public bool WalkToIdle()
     {
-        if (this.MonsterClock + 5.0f < Clock.Instance.GetTime() ||
-            1.0f> Vector3.Distance(this.transform.position , this.NavAgent.target))
+        if (this.MonsterClock + 5.0f < Clock.Instance.GetTime() || true == IsArrive())
             return true;
 
         return false;
     }
 
+    public bool IsArrive()
+    {
+        if (1.0f > Vector3.Distance(this.transform.position, this.NavAgent.target))
+            return true;
+
+        return false;
+    }
     public StateMachine<Ork> GetStateMachine() { return stateMachine; }
 
     /// <summary>
@@ -120,7 +167,16 @@ public class Ork : Monster {
         EroorCheckClock = _clock;
     }
 
-    private void OnTriggerStay(Collider other)
+    public void SetEnemy(GameObject _enemy)
+    {
+        enemy = _enemy;
+    }
+
+    public void EnemyClear()
+    {
+        enemy = null;
+    }
+    void OnTriggerStay(Collider other)
     {
         //eType colType = other.GetComponent<BaseGameEntity>().Type;
 
@@ -129,11 +185,21 @@ public class Ork : Monster {
         //    Vector3 colPos = other.transform.position;
         //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eChangeState.FIND_ENEMY, colPos);
         //}
-        if ("Player" == other.tag)
+        if ("Player" == other.tag && false == AttackAble())
         {
+            SetEnemy(other.gameObject);
+            SetTarget(enemy.transform.position);
             Vector3 colPos = other.transform.position;
-            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eChangeState.FIND_ENEMY, colPos);
+            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
         }
     }
-
+    void OnTriggerExit(Collider other)
+    {
+        if ("Player" == other.tag && false == AttackAble())
+        {
+            SetTarget(other.transform.position);
+            Vector3 colPos = other.transform.position;
+            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
+        }
+    }
 }

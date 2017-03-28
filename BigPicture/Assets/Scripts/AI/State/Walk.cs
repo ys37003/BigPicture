@@ -21,8 +21,8 @@ public class Walk<entity_type> : State<entity_type> where entity_type : Ork
     {
         _monster.Walk();
         Debug.DrawLine(_monster.transform.position, _monster.NavAgent.target, Color.red);
-        if (_monster.ToIdle()) // ToIdle()이 true일때 자신한태 메세지 송출
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eChangeState.TO_IDLE, null);
+        if (_monster.WalkToIdle()) // ToIdle()이 true일때 자신한태 메세지 송출
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
 
     }
 
@@ -49,7 +49,7 @@ public class Walk<entity_type> : State<entity_type> where entity_type : Ork
     {
         switch (_msg.message)
         {
-            case (int)eChangeState.TO_IDLE:
+            case (int)eMESSAGE_TYPE.TO_IDLE:
                 _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
                 return true;
         }

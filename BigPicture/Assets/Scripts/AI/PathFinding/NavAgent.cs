@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class NavAgent : MonoBehaviour {
 
-    public Vector3 m_target;
+    public Vector3 destination;
 
     NavMeshAgent m_agent;
     // Use this for initialization
@@ -17,21 +17,21 @@ public class NavAgent : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.zero != m_target)
-            m_agent.SetDestination(m_target);
+        if (Vector3.zero != destination)
+            m_agent.SetDestination(destination);
     }
     public Vector3 target
     {
-        get { return m_target; }
+        get { return destination; }
         set
         {
-            m_target = value;
+            destination = value;
         }
     }
 
     public void Clear()
     {
-        m_target = this.gameObject.transform.position;
-        m_agent.SetDestination(m_target);
+        destination = this.gameObject.transform.position;
+        m_agent.SetDestination(destination);
     }
 }

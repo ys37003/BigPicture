@@ -1,12 +1,10 @@
-﻿enum eChangeState
+﻿enum eMESSAGE_TYPE
 {
-    TO_WALK ,
-    TO_IDLE ,
-    TO_RUN ,
-    TO_ATTACK1 ,
-    TO_ATTACK2 ,
-    TO_ATTACK3 ,
-    TO_AVOID ,
+    TO_WALK,
+    TO_IDLE,
+    TO_RUN,
+    TO_ATTACK,
+    TO_AVOID,
     TO_DIE,
-    FIND_ENEMY
-};
+    FIND_ENEMY,
+}

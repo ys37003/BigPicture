@@ -6,7 +6,6 @@ using UnityEngine;
 public class StateMachine<entity_type> where entity_type : Ork
 {
     State<entity_type> currentState;
-    State<entity_type> previousState;
     eSTATE ePreviousState;
     entity_type owner;
 
@@ -14,9 +13,8 @@ public class StateMachine<entity_type> where entity_type : Ork
     {
         owner = _owner;
         currentState = null;
-        previousState = null;
         currentState = Idle<entity_type>.Instance();
-        ePreviousState = eSTATE.IDLE;
+        ChangeState(eSTATE.IDLE);
     }
 
     // Update is called once per frame
@@ -30,8 +28,8 @@ public class StateMachine<entity_type> where entity_type : Ork
         if (ePreviousState != _stateType)
         {
             currentState.Exit(owner);
-            previousState = currentState;
             EnumToState(_stateType);
+            ePreviousState = _stateType;
             currentState.Enter(owner);
         }
         else
@@ -61,13 +59,16 @@ public class StateMachine<entity_type> where entity_type : Ork
             case eSTATE.RUN:
                 currentState = Run<entity_type>.Instance();
                 break;
+            case eSTATE.ATTACK:
+                currentState = Attack<entity_type>.Instance();
+                break;
         }
     }
 
     public bool HandleMessgae(Telegram _msg)
     {
         // 각 상태별 메세지 처리
-        if (null != currentState && currentState.OnMessage(owner , _msg))
+        if (null != currentState && currentState.OnMessage(owner , _msg ))
         {
             return true;
         }
@@ -76,7 +77,7 @@ public class StateMachine<entity_type> where entity_type : Ork
 
         switch(_msg.message)
         {
-            case(int)eChangeState.FIND_ENEMY :
+            case(int)eMESSAGE_TYPE.FIND_ENEMY :
                 ChangeState(eSTATE.RUN);
                 owner.SetTarget((Vector3)_msg.extraInfo);
                 return true;
