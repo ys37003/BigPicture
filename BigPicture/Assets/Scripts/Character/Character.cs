@@ -53,6 +53,13 @@ public class Character : MonoBehaviour
         float v = 0;
         float move = 0;
 
+        Vector3 forward = Vector3.zero;
+        Vector3 right = Vector3.zero;
+        Vector3 dir = Vector3.zero;
+
+        float turn = 0;
+        float turnSpeed = 0;
+
         while (true)
         {
             h = Input.GetAxis("Horizontal");
@@ -64,14 +71,17 @@ public class Character : MonoBehaviour
 
             animator.SetFloat("Move", move);
 
-            if (move > 0)
+            if(!InputMoveKey())
             {
                 // 카메라의 정면을 기준으로 캐릭터 방향 설정
-                Vector3 forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
-                Vector3 dir = transform.InverseTransformDirection(v * forward + h * followedCamera.right);
-
-                float turn = Mathf.Atan2(dir.x, dir.z);
-                float turnSpeed = Mathf.Lerp(180, 360, dir.z);
+                forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
+                right = followedCamera.right;
+            }
+            else
+            {
+                dir = transform.InverseTransformDirection(v * forward + h * right);
+                turn = Mathf.Atan2(dir.x, dir.z);
+                turnSpeed = Mathf.Lerp(180, 360, dir.z);
 
                 transform.Rotate(0, turn * Time.deltaTime * turnSpeed, 0);
                 transform.Translate(dir * Time.deltaTime * MoveSpeed * move);
@@ -119,10 +129,7 @@ public class Character : MonoBehaviour
 
             if (run)
             {
-                if (!Input.GetKey(KeyCode.W) &&
-                    !Input.GetKey(KeyCode.A) &&
-                    !Input.GetKey(KeyCode.S) &&
-                    !Input.GetKey(KeyCode.D))
+                if (!InputMoveKey())
                 {
                     run = false;
                     for (int i = 0; i < 4; ++i)
@@ -200,5 +207,17 @@ public class Character : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// WASD 중 하나라도 누르고 있다면 참을 반환
+    /// </summary>
+    /// <returns></returns>
+    private bool InputMoveKey()
+    {
+        return Input.GetKey(KeyCode.W) ||
+               Input.GetKey(KeyCode.A) ||
+               Input.GetKey(KeyCode.S) ||
+               Input.GetKey(KeyCode.D);
     }
 }
