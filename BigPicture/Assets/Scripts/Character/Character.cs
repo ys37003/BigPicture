@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
     /// 구르기 속도는 이동속도(MoveSpeed) %이다.
     /// ex) RollSpeed가 0.7이면 7(MoveSpeed * 0.7)의 속도로 구른다.
     /// </summary>
-    public float RollSpeed = 0.7f;
+    public float RollSpeedRate = 0.7f;
     public float CameraTurnSpeed = 30;
 
     [SerializeField]
@@ -47,11 +47,18 @@ public class Character : MonoBehaviour
         StartCoroutine("CameraRotation");
    }
 
-    IEnumerator Move()
+    private IEnumerator Move()
     {
         float h = 0;
         float v = 0;
         float move = 0;
+
+        Vector3 forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 right = followedCamera.right;
+        Vector3 dir = Vector3.zero;
+
+        float turn = 0;
+        float turnSpeed = 0;
 
         while (true)
         {
@@ -64,16 +71,23 @@ public class Character : MonoBehaviour
 
             animator.SetFloat("Move", move);
 
-            if (move > 0)
+            if(!IsMove())
             {
                 // 카메라의 정면을 기준으로 캐릭터 방향 설정
-                Vector3 forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
-                Vector3 dir = transform.InverseTransformDirection(v * forward + h * followedCamera.right);
+                forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
+                right = followedCamera.right;
+            }
+            else
+            {
+                dir = transform.InverseTransformDirection(v * forward + h * right);
+                turn = Mathf.Atan2(dir.x, dir.z);
+                turnSpeed = Mathf.Lerp(180, 360, dir.z);
 
-                float turn = Mathf.Atan2(dir.x, dir.z);
-                float turnSpeed = Mathf.Lerp(180, 360, dir.z);
+                if(!IsAttack())
+                {
+                    transform.Rotate(0, turn * Time.deltaTime * turnSpeed, 0);
+                }
 
-                transform.Rotate(0, turn * Time.deltaTime * turnSpeed, 0);
                 transform.Translate(dir * Time.deltaTime * MoveSpeed * move);
             }
 
@@ -87,7 +101,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    IEnumerator RunCheck()
+    private IEnumerator RunCheck()
     {
         float[] beforeInputTime = new float[4];
         Action<KeyCode, int> inputCheck = (KeyCode key, int i) =>
@@ -119,10 +133,7 @@ public class Character : MonoBehaviour
 
             if (run)
             {
-                if (!Input.GetKey(KeyCode.W) &&
-                    !Input.GetKey(KeyCode.A) &&
-                    !Input.GetKey(KeyCode.S) &&
-                    !Input.GetKey(KeyCode.D))
+                if (!IsMove())
                 {
                     run = false;
                     for (int i = 0; i < 4; ++i)
@@ -136,10 +147,12 @@ public class Character : MonoBehaviour
         }
     }
 
-    IEnumerator Roll()
+    private IEnumerator Roll()
     {
         animator.SetBool("Roll", true);
-        yield return new WaitForSeconds(0.05f);
+
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Roll"))
+            yield return null;
 
         Vector3 vec = Vector3.zero;
         if(Input.GetKey(KeyCode.W))
@@ -162,14 +175,17 @@ public class Character : MonoBehaviour
             vec += Vector3.right;
         }
 
-        float turn = Mathf.Atan2(vec.x, vec.z) * Mathf.Rad2Deg;
+        if (vec != Vector3.zero)
+        {
+            float turn = Mathf.Atan2(vec.x, vec.z) * Mathf.Rad2Deg;
 
-        // 카메라 정면을 기준으로 입력한 방향으로 즉시 회전
-        transform.eulerAngles = followedCamera.eulerAngles + Vector3.up * turn;
+            // 카메라 정면을 기준으로 입력한 방향으로 즉시 회전
+            transform.eulerAngles = followedCamera.eulerAngles + Vector3.up * turn;
+        }
 
         while (animator.GetCurrentAnimatorStateInfo(0).IsName("Roll"))
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeed * 0.7f);
+            transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeed * RollSpeedRate);
             yield return null;
         }
 
@@ -177,7 +193,7 @@ public class Character : MonoBehaviour
         yield return Move();
     }
 
-    IEnumerator Attack()
+    private IEnumerator Attack()
     {
         while (true)
         {
@@ -189,7 +205,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    IEnumerator CameraRotation()
+    private IEnumerator CameraRotation()
     {
         while (true)
         {
@@ -200,5 +216,26 @@ public class Character : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// WASD 중 하나라도 누르고 있다면 참을 반환
+    /// </summary>
+    /// <returns></returns>
+    private bool IsMove()
+    {
+        return Input.GetKey(KeyCode.W) ||
+               Input.GetKey(KeyCode.A) ||
+               Input.GetKey(KeyCode.S) ||
+               Input.GetKey(KeyCode.D);
+    }
+
+    /// <summary>
+    /// 공격 중 일때 참을 반환
+    /// </summary>
+    /// <returns></returns>
+    private bool IsAttack()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
     }
 }
