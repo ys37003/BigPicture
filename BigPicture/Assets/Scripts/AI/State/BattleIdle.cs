@@ -19,14 +19,16 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Or
 
     public override void Excute(entity_type _monster)
     {
-       
+        _monster.BattleIdle();
+
     }
     public override void Enter(entity_type _monster)
     {
-       
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", true);
     }
     public override void Exit(entity_type _monster)
     {
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", false);
     }
 
     /// <summary>
@@ -39,7 +41,12 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Or
     {
         switch (_msg.message)
         {
-           
+            case (int)eMESSAGE_TYPE.TO_ATTACK:
+                _monster.GetStateMachine().ChangeState(eSTATE.ATTACK);
+                return true;
+            case (int)eMESSAGE_TYPE.ATTACKABLE:
+                _monster.AttackAble = true;
+                return true;
         }
 
         return false;

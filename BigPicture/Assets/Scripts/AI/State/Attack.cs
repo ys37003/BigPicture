@@ -22,14 +22,15 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
 
         if (true == _monster.EndAttack())
         {
-            _monster.SetClock(Time.time);
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(3, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
         }
     }
 
     public override void Enter(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Attack", true);
+        _monster.AttackAble = false;
     }
 
     public override void Exit(entity_type _monster)
@@ -48,12 +49,8 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
     {
         switch (_msg.message)
         {
-            case (int)eMESSAGE_TYPE.TO_IDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
-                return true;
-
-            case (int)eMESSAGE_TYPE.TO_ATTACK:
-                _monster.GetStateMachine().ChangeState(eSTATE.ATTACK);
+            case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
+                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
 

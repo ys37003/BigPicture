@@ -22,10 +22,16 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
         _monster.Run();
 
         if (true == _monster.IsArrive())
+        {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+            _monster.EnemyClear();
+            return;
+        }
 
-        if (true == _monster.AttackAble())
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
+        if (true == _monster.ToBattleIdle())
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+        }
     }
 
     public override void Enter(entity_type _monster)
@@ -54,8 +60,8 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
                 _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
                 return true;
 
-            case (int)eMESSAGE_TYPE.TO_ATTACK:
-                _monster.GetStateMachine().ChangeState(eSTATE.ATTACK);
+            case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
+                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
 

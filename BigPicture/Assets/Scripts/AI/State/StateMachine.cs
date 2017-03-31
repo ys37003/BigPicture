@@ -6,13 +6,18 @@ using UnityEngine;
 public class StateMachine<entity_type> where entity_type : Ork
 {
     State<entity_type> currentState;
-    eSTATE ePreviousState;
+    eSTATE ePreviousState = eSTATE.NULL;
+    eSTATE eCurrentState = eSTATE.NULL;
     entity_type owner;
+
+    public eSTATE CurrentState
+    {
+        get { return eCurrentState; }
+    }
 
     public StateMachine(entity_type _owner)
     {
         owner = _owner;
-        currentState = null;
         currentState = Idle<entity_type>.Instance();
         ChangeState(eSTATE.IDLE);
     }
@@ -25,11 +30,12 @@ public class StateMachine<entity_type> where entity_type : Ork
 
     public void ChangeState( eSTATE _stateType )
     {
-        if (ePreviousState != _stateType)
+        if (eCurrentState != _stateType)
         {
             currentState.Exit(owner);
+            ePreviousState = eCurrentState;
             EnumToState(_stateType);
-            ePreviousState = _stateType;
+            eCurrentState = _stateType;
             currentState.Enter(owner);
         }
         else
@@ -62,6 +68,9 @@ public class StateMachine<entity_type> where entity_type : Ork
             case eSTATE.ATTACK:
                 currentState = Attack<entity_type>.Instance();
                 break;
+            case eSTATE.BATTLEIDLE:
+                currentState = BattleIdle<entity_type>.Instance();
+                break;
         }
     }
 
@@ -74,14 +83,6 @@ public class StateMachine<entity_type> where entity_type : Ork
         }
 
         // 전역 메세지 처리
-
-        switch(_msg.message)
-        {
-            case(int)eMESSAGE_TYPE.FIND_ENEMY :
-                ChangeState(eSTATE.RUN);
-                owner.SetTarget((Vector3)_msg.extraInfo);
-                return true;
-        }
 
         return false;
     }

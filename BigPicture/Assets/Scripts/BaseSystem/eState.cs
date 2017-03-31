@@ -5,5 +5,7 @@
     RUN ,
     ATTACK,
     AVOID,
-    DEAD
+    BATTLEIDLE,
+    DEAD,
+    NULL
 }

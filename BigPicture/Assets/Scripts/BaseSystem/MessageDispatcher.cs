@@ -2,34 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MessageDispatcher {
-
+public class MessageDispatcher : MonoBehaviour {
 
     private static MessageDispatcher instance;
-
-    private MessageDispatcher()
-    {
-        //entityDic.Clear();
-    }
-
+    SortedDictionary<float, Telegram> delayMessageSD = new SortedDictionary<float, Telegram>();
+    List<float> removeList = new List<float>();
     public static MessageDispatcher Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = new MessageDispatcher();
+                instance = FindObjectOfType(typeof(MessageDispatcher)) as MessageDispatcher;
+            }
+
+            if (instance == null)
+            {
+                GameObject obj = new GameObject("MessageDispatcher");
+                instance = obj.AddComponent<MessageDispatcher>() as MessageDispatcher;
             }
 
             return instance;
         }
     }
 
-
-    Telegram telegram = new Telegram();
+    private void Update()
+    {
+        StartCoroutine("DispatchDelayedMessages");
+    }
 
     public void DispatchMessage(float _delay , int _sender , int _receiver , int _msg , object _extraInfo)
     {
+        Telegram telegram = new Telegram();
         telegram.Clear();
         telegram.sender = _sender;
         telegram.receiver = _receiver;
@@ -42,10 +46,8 @@ public class MessageDispatcher {
         }
         else
         {
-            //
-            telegram.dispatchTime = Clock.Instance.GetTime() + _delay;
-
-            //PriorityQ.insert(telegram);
+            telegram.dispatchTime = Time.time + _delay;
+            delayMessageSD.Add(telegram.dispatchTime, telegram);
         }
     }
 
@@ -53,5 +55,23 @@ public class MessageDispatcher {
     {
         BaseGameEntity receiver = EntityManager.Instance.IDToEntity(_receiver);
         receiver.HanleMessage(_telegram);
+    }
+
+    public IEnumerator DispatchDelayedMessages()
+    {
+        foreach (KeyValuePair<float, Telegram> iter in delayMessageSD)
+        {
+            if ( iter.Value.dispatchTime < Time.time && iter.Value.dispatchTime > 0 )
+            {
+                DisCharge(iter.Value.receiver, iter.Value);
+                removeList.Add(iter.Key);
+            }
+        }
+
+        foreach (float iter in removeList)
+        {
+            delayMessageSD.Remove(iter);
+        }
+        yield return null;
     }
 }

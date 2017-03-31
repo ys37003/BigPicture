@@ -6,5 +6,7 @@
     TO_ATTACK,
     TO_AVOID,
     TO_DIE,
+    TO_BATTLEIDLE,
     FIND_ENEMY,
+    ATTACKABLE
 }
