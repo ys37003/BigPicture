@@ -32,12 +32,5 @@ public class ColliderAttack : MonoBehaviour
         EType      = type;
         Animator   = animator;
         StatusData = stat;
-
-        AnimatorStateInfo nInfo = animator.GetNextAnimatorStateInfo(0);
-    }
-
-    IEnumerator Attack()
-    {
-        yield return null;
     }
 }

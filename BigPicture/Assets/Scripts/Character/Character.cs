@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : BaseGameEntity
 {
     /// <summary>
     /// 기본 능력치
@@ -38,16 +38,36 @@ public class Character : MonoBehaviour
     [SerializeField]
     private Transform followedCamera = null;
 
-    private bool run = false;
+    [SerializeField]
+    private ColliderAttack colliderAttack = null;
+
+    private bool isRun = false;
+
+    public eTYPE currentType { get; private set; }
 
     private void Awake()
     {
+        EntityInit(eTYPE.PLAYER, eTRIBE_TYPE.Ork, eJOB_TYPE.DEALER);
+
+        // 임시
+        Init(new StatusData(1, 1, 1, 1, 1, 1, 1));
+
         StartCoroutine("Move");
         StartCoroutine("RunCheck");
         StartCoroutine("Battle");
         StartCoroutine("Attack");
         StartCoroutine("CameraRotation");
-   }
+
+        foreach (AnimationTrigger trigger in animator.GetBehaviours<AnimationTrigger>())
+        {
+            trigger.ColliderAttack = colliderAttack;
+        }
+    }
+
+    public void Init(StatusData status)
+    {
+        Status = status;
+    }
 
     private IEnumerator Move()
     {
@@ -69,7 +89,7 @@ public class Character : MonoBehaviour
 
             // 이동 입력이 있으면 1, 달리기(쉬프트) 입력이 있으면 x2
             move = Mathf.Abs(h) > Mathf.Abs(v) ? Mathf.Abs(h) : Mathf.Abs(v);
-            move += run ? move : 0;
+            move += isRun ? move : 0;
 
             animator.SetFloat("Move", move);
 
@@ -117,7 +137,7 @@ public class Character : MonoBehaviour
                 }
                 else if (Time.time - beforeInputTime[i] < 0.2f)
                 {
-                    run = true;
+                    isRun = true;
                 }
                 else
                 {
@@ -133,11 +153,11 @@ public class Character : MonoBehaviour
             inputCheck(KeyCode.S, 2);
             inputCheck(KeyCode.D, 3);
 
-            if (run)
+            if (isRun)
             {
                 if (!IsMove())
                 {
-                    run = false;
+                    isRun = false;
                     for (int i = 0; i < 4; ++i)
                     {
                         beforeInputTime[i] = 0;
@@ -228,8 +248,8 @@ public class Character : MonoBehaviour
         while (true)
         {
             // 공격(마우스 좌클릭)
-            bool attack = Input.GetMouseButton(0);
-            animator.SetBool("Attack", attack);
+            bool mouse_left = Input.GetMouseButton(0);
+            animator.SetBool("Attack", mouse_left);
 
             yield return null;
         }
@@ -267,5 +287,13 @@ public class Character : MonoBehaviour
     private bool IsAttack()
     {
         return animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Monster")
+        {
+            Debug.Log("공격당했당.");
+        }
     }
 }
