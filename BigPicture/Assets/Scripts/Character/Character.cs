@@ -30,6 +30,7 @@ public class Character : MonoBehaviour
     /// </summary>
     public float RollSpeedRate = 0.7f;
     public float CameraTurnSpeed = 30;
+    public float WaitTime = 5.0f;
 
     [SerializeField]
     private Animator animator = null;
@@ -43,6 +44,7 @@ public class Character : MonoBehaviour
     {
         StartCoroutine("Move");
         StartCoroutine("RunCheck");
+        StartCoroutine("Battle");
         StartCoroutine("Attack");
         StartCoroutine("CameraRotation");
    }
@@ -193,13 +195,41 @@ public class Character : MonoBehaviour
         yield return Move();
     }
 
+    private IEnumerator Battle()
+    {
+        float bTime = Time.time;
+
+        while (true)
+        {
+            // Tab으로 배틀상태 전환
+            if(Input.GetKeyDown(KeyCode.Tab))
+            {
+                animator.SetBool("Battle", !animator.GetBool("Battle"));
+            }
+
+            // 키를 입력하면 대기시간 초기화
+            if(Input.anyKey)
+            {
+                bTime = Time.time;
+            }
+
+            // 대기시간이 5초를 넘으면 배틀상태 종료
+            if(Time.time - bTime >= WaitTime)
+            {
+                animator.SetBool("Battle", false);
+            }
+
+            yield return null;
+        }
+    }
+
     private IEnumerator Attack()
     {
         while (true)
         {
             // 공격(마우스 좌클릭)
-            bool mouse_left = Input.GetMouseButton(0);
-            animator.SetBool("MouseL", mouse_left);
+            bool attack = Input.GetMouseButton(0);
+            animator.SetBool("Attack", attack);
 
             yield return null;
         }
