@@ -5,8 +5,11 @@ using UnityEngine;
 public class Attack<entity_type> : State<entity_type> where entity_type : Ork
 {
     private static Attack<entity_type> instance;
+
     private Attack()
-    { }
+    {
+
+    }
 
     public static Attack<entity_type> Instance()
     {
@@ -14,9 +17,11 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
         {
             instance = new Attack<entity_type>();
         }
+
         return instance;
     }
-    public override void Excute(entity_type _monster)
+
+    public void Excute(entity_type _monster)
     {
         _monster.Attack();
 
@@ -27,13 +32,13 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
         }
     }
 
-    public override void Enter(entity_type _monster)
+    public void Enter(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Attack", true);
         _monster.AttackAble = false;
     }
 
-    public override void Exit(entity_type _monster)
+    public void Exit(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Attack", false);
     }
@@ -45,7 +50,7 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
     /// <param name="_msg"></param>
     /// <returns></returns>
     /// 
-    public override bool OnMessage(entity_type _monster, Telegram _msg)
+    public bool OnMessage(entity_type _monster, Telegram _msg)
     {
         switch (_msg.message)
         {
@@ -56,5 +61,4 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
 
         return false;
     }
-
 }

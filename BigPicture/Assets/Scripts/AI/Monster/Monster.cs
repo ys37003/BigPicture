@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Monster : BaseGameEntity
 {
-    
-    MonsterData data;
-    Animator animator;
-    NavAgent navAgent;
+    private MonsterData data;
+    private Animator animator;
+    private NavAgent navAgent;
+
     public float monsterClock;
     public float erorrCheckClock;
 
@@ -19,6 +19,7 @@ public class Monster : BaseGameEntity
         get { return monsterClock; }
         set { monsterClock = value; }
     }
+
     /// <summary>
     /// 몬스터가 가지고 있을 Data
     /// </summary>
@@ -27,6 +28,7 @@ public class Monster : BaseGameEntity
         get { return data; }
         set { data = value; }
     }
+
     /// <summary>
     /// 몬스터의 에니메이터
     /// </summary>

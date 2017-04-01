@@ -1,16 +1,18 @@
 ﻿public enum eTYPE
 {
-    OBJECT ,
-    PLAYER ,
-    NPC ,
-    MONSTER ,
+    OBJECT,
+    PLAYER,
+    NPC,
+    MONSTER,
     ITEM
 }
+
 public enum eTRIBE_TYPE
 {
     Ork,
     GOBLIN
 }
+
 public enum eJOB_TYPE
 {
     TANKER,

@@ -7,7 +7,7 @@ using UnityEngine;
 [CustomEditor(typeof(UIButtonEx))]
 public class UIButtonExEditor : Editor
 {
-    UIButtonEx uiButtonEx;
+    private UIButtonEx uiButtonEx;
 
     void OnEnable()
     {

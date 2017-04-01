@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityManager  {
-    public Dictionary<int, BaseGameEntity> entityDic = new Dictionary<int , BaseGameEntity>();
-
+public class EntityManager
+{
+    public Dictionary<int, BaseGameEntity> entityDic = new Dictionary<int, BaseGameEntity>();
     private static EntityManager instance;
 
     private EntityManager()

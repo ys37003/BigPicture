@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MathAssist {
+public class MathAssist
+{
     private static MathAssist instance;
+
     private MathAssist()
-    { }
+    {
+
+    }
 
     public static MathAssist Instance()
     {
@@ -20,7 +24,7 @@ public class MathAssist {
     {
         Vector3 vector3 = new Vector3(Random.Range(_vector3.x - _range, _vector3.x + _range),
                                       _vector3.y,
-                                    Random.Range(_vector3.z - _range, _vector3.z + _range));
+                                      Random.Range(_vector3.z - _range, _vector3.z + _range));
 
         return vector3;
     }

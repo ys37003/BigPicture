@@ -8,7 +8,7 @@ public class Ork : Monster
     /// <summary>
     /// 몬스터의 상태를 변화시켜줄 템플릿 스크립트
     /// </summary>
-    StateMachine<Ork> stateMachine;
+    private StateMachine<Ork> stateMachine;
 
     /// <summary>
     /// 이동할 목적지가 정해졌을때 몬서터와 목적지 사이의 초기 거리
@@ -17,7 +17,7 @@ public class Ork : Monster
 
     public GameObject enemy;
 
-    bool attackAble = true;
+    private bool attackAble = true;
 
     public bool AttackAble
     {
@@ -25,24 +25,21 @@ public class Ork : Monster
         set { attackAble = value;  }
     }
 
-    BoxCollider colEyeSight;
+    private BoxCollider colEyeSight;
+
     void Start()
     {
         EntityInit(eTYPE.MONSTER, eTRIBE_TYPE.Ork, eJOB_TYPE.TANKER);
         
-        Data = DataManager.Instance().GetData(this.Tribe, this.Job);
-        Animator = this.GetComponent<Animator>();
-        NavAgent = this.GetComponent<NavAgent>();
+        Data         = DataManager.Instance().GetData(this.Tribe, this.Job);
+        Animator     = this.GetComponent<Animator>();
+        NavAgent     = this.GetComponent<NavAgent>();
         stateMachine = new StateMachine<Ork>(this);
+
         // EyeSight Collider 초기화
-        colEyeSight = this.GetComponent<BoxCollider>();
-        Vector3 colCenter = new Vector3(0, this.transform.position.y, Data.EyeSight / 2);
-        Vector3 colSize = new Vector3(Data.EyeSight * 2, 1, Data.EyeSight);
-
-        colEyeSight.center = colCenter;
-        colEyeSight.size = colSize;
-
-
+        colEyeSight        = this.GetComponent<BoxCollider>();
+        colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight / 2);
+        colEyeSight.size   = new Vector3(Data.EyeSight * 2, 1, Data.EyeSight);
     }
 
     private void Update()
@@ -54,6 +51,7 @@ public class Ork : Monster
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Idle");
     }
+
     public void BattleIdle()
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is BattleIdle");
@@ -64,6 +62,7 @@ public class Ork : Monster
             MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
         }
     }
+
     public void Walk()
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Walk");
@@ -95,7 +94,7 @@ public class Ork : Monster
         this.transform.LookAt(enemy.transform.position);
     }
 
-////////////////////////////////////////상태 변화 채크 함수들////////////////////////////////////////////////
+    ////////////////////////////////////////상태 변화 채크 함수들////////////////////////////////////////////////
     public bool ToBattleIdle()
     {
         if (enemy == null)
@@ -117,6 +116,7 @@ public class Ork : Monster
         }
         return false;
     }
+
     /// <summary>
     /// 상태 머신에 메세지 송출
     /// </summary>
@@ -160,6 +160,7 @@ public class Ork : Monster
     }
 
     public StateMachine<Ork> GetStateMachine() { return stateMachine; }
+
     /// <summary>
     /// 목적지 설정
     /// </summary>
@@ -169,6 +170,7 @@ public class Ork : Monster
         NavAgent.target = _target;
         distenceToTarget = Vector3.Distance(this.transform.position, _target);
     }
+
     /// <summary>
     /// 시간 설정
     /// </summary>
@@ -208,6 +210,7 @@ public class Ork : Monster
             MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
         }
     }
+
     void OnTriggerExit(Collider other)
     {
         if ( "Player" == other.tag )

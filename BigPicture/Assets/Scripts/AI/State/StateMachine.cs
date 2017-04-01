@@ -5,15 +5,12 @@ using UnityEngine;
 
 public class StateMachine<entity_type> where entity_type : Ork
 {
-    State<entity_type> currentState;
-    eSTATE ePreviousState = eSTATE.NULL;
-    eSTATE eCurrentState = eSTATE.NULL;
-    entity_type owner;
+    private State<entity_type>  currentState;
+    private eSTATE              ePreviousState = eSTATE.NULL;
+    private eSTATE              eCurrentState  = eSTATE.NULL;
+    private entity_type         owner;
 
-    public eSTATE CurrentState
-    {
-        get { return eCurrentState; }
-    }
+    public eSTATE CurrentState { get { return eCurrentState; } }
 
     public StateMachine(entity_type _owner)
     {
@@ -48,29 +45,13 @@ public class StateMachine<entity_type> where entity_type : Ork
     {
         switch (_stateType)
         {
-            case eSTATE.IDLE:
-                currentState = Idle<entity_type>.Instance();
-                break;
-
-            case eSTATE.WALK:
-                currentState = Walk<entity_type>.Instance();
-                break;
-            case eSTATE.DEAD:
-
-
-                break;
-            case eSTATE.AVOID:
-                
-                break;
-            case eSTATE.RUN:
-                currentState = Run<entity_type>.Instance();
-                break;
-            case eSTATE.ATTACK:
-                currentState = Attack<entity_type>.Instance();
-                break;
-            case eSTATE.BATTLEIDLE:
-                currentState = BattleIdle<entity_type>.Instance();
-                break;
+            case eSTATE.IDLE:       currentState = Idle<entity_type>.Instance();        break;
+            case eSTATE.WALK:       currentState = Walk<entity_type>.Instance();        break;
+            case eSTATE.RUN:        currentState = Run<entity_type>.Instance();         break;
+            case eSTATE.ATTACK:     currentState = Attack<entity_type>.Instance();      break;
+            case eSTATE.AVOID:      break;
+            case eSTATE.BATTLEIDLE: currentState = BattleIdle<entity_type>.Instance();  break;
+            case eSTATE.DEAD:       break;
         }
     }
 

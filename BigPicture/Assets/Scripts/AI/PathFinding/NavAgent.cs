@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavAgent : MonoBehaviour {
-
+public class NavAgent : MonoBehaviour
+{
     public Vector3 destination;
 
     NavMeshAgent m_agent;
@@ -20,13 +20,11 @@ public class NavAgent : MonoBehaviour {
         if (Vector3.zero != destination)
             m_agent.SetDestination(destination);
     }
+
     public Vector3 target
     {
         get { return destination; }
-        set
-        {
-            destination = value;
-        }
+        set { destination = value; }
     }
 
     public void Clear()

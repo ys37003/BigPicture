@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MessageDispatcher : MonoBehaviour {
-
+public class MessageDispatcher : MonoBehaviour
+{
     private static MessageDispatcher instance;
-    SortedDictionary<float, Telegram> delayMessageSD = new SortedDictionary<float, Telegram>();
-    List<float> removeList = new List<float>();
+    private SortedDictionary<float, Telegram> delayMessageSD = new SortedDictionary<float, Telegram>();
+    private List<float> removeList = new List<float>();
+
     public static MessageDispatcher Instance
     {
         get
@@ -31,16 +32,16 @@ public class MessageDispatcher : MonoBehaviour {
         StartCoroutine("DispatchDelayedMessages");
     }
 
-    public void DispatchMessage(float _delay , int _sender , int _receiver , int _msg , object _extraInfo)
+    public void DispatchMessage(float _delay, int _sender, int _receiver, int _msg, object _extraInfo)
     {
         Telegram telegram = new Telegram();
         telegram.Clear();
-        telegram.sender = _sender;
-        telegram.receiver = _receiver;
-        telegram.message = _msg;
-        telegram.extraInfo = _extraInfo;
+        telegram.sender     = _sender;
+        telegram.receiver   = _receiver;
+        telegram.message    = _msg;
+        telegram.extraInfo  = _extraInfo;
 
-        if(0 >= _delay)
+        if (0 >= _delay)
         {
             DisCharge(_receiver, telegram);
         }
@@ -51,7 +52,7 @@ public class MessageDispatcher : MonoBehaviour {
         }
     }
 
-    void DisCharge(int _receiver , Telegram _telegram)
+    void DisCharge(int _receiver, Telegram _telegram)
     {
         BaseGameEntity receiver = EntityManager.Instance.IDToEntity(_receiver);
         receiver.HanleMessage(_telegram);
@@ -61,7 +62,7 @@ public class MessageDispatcher : MonoBehaviour {
     {
         foreach (KeyValuePair<float, Telegram> iter in delayMessageSD)
         {
-            if ( iter.Value.dispatchTime < Time.time && iter.Value.dispatchTime > 0 )
+            if (iter.Value.dispatchTime < Time.time && iter.Value.dispatchTime > 0)
             {
                 DisCharge(iter.Value.receiver, iter.Value);
                 removeList.Add(iter.Key);

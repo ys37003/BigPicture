@@ -5,8 +5,11 @@ using UnityEngine;
 public class Run<entity_type> : State<entity_type> where entity_type : Ork
 {
     private static Run<entity_type> instance;
+
     private Run()
-    { }
+    {
+
+    }
 
     public static Run<entity_type> Instance()
     {
@@ -14,10 +17,11 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
         {
             instance = new Run<entity_type>();
         }
+
         return instance;
     }
 
-    public override void Excute(entity_type _monster)
+    public void Excute(entity_type _monster)
     {
         _monster.Run();
 
@@ -34,12 +38,12 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
         }
     }
 
-    public override void Enter(entity_type _monster)
+    public void Enter(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", true);
     }
 
-    public override void Exit(entity_type _monster)
+    public void Exit(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", false);
         _monster.NavAgent.Clear();
@@ -52,7 +56,7 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
     /// <param name="_msg"></param>
     /// <returns></returns>
     /// 
-    public override bool OnMessage(entity_type _monster, Telegram _msg)
+    public bool OnMessage(entity_type _monster, Telegram _msg)
     {
         switch (_msg.message)
         {
@@ -67,5 +71,4 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
 
         return false;
     }
-
 }

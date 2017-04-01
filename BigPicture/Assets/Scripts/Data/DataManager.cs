@@ -4,11 +4,14 @@ using System.Xml;
 using System.Xml.Serialization;
 using UnityEngine;
 
-public class DataManager {
-
+public class DataManager
+{
     private static DataManager instance;
+
     private DataManager()
-    { }
+    {
+
+    }
 
     public static DataManager Instance()
     {
@@ -18,21 +21,22 @@ public class DataManager {
         }
         return instance;
     }
+
     /// <summary>
     /// List : 종족
     /// List<List<>> : 직업
     /// </summary>
-    List<List<MonsterData>> monsterDatas = new List<List<MonsterData>>();
+    private List<List<MonsterData>> monsterDatas = new List<List<MonsterData>>();
     public string monsterData_path = "DataSheets/MonsterElement";
 
-    XmlNodeList[] xmlTable;
-    LoadXML loadXml = new LoadXML();
+    private XmlNodeList[] xmlTable;
+    private LoadXML loadXml = new LoadXML();
 
     const int JOB_NUM = 4;
     public void monsterDataLoad()
     {
-       xmlTable = loadXml.LoadXml(monsterData_path);
-       DataInit();
+        xmlTable = loadXml.LoadXml(monsterData_path);
+        DataInit();
     }
 
     void DataInit()
@@ -40,14 +44,14 @@ public class DataManager {
         // 각 종족별 직업의 수 : 4
         int TribeNum = xmlTable[(int)eDATASHEET.TRIBE].Count / JOB_NUM;
 
-        for(int i = 0; i < TribeNum; ++i)
+        for (int i = 0; i < TribeNum; ++i)
         {
             monsterDatas.Add(new List<MonsterData>());
         }
-        
-        for(int i = 0; i < TribeNum; ++i)
+
+        for (int i = 0; i < TribeNum; ++i)
         {
-            for(int j = i * JOB_NUM; j < (i+1) * JOB_NUM; ++j )
+            for (int j = i * JOB_NUM; j < (i + 1) * JOB_NUM; ++j)
             {
                 MonsterData monsterData = new MonsterData(
                     (eTRIBE_TYPE)int.Parse(xmlTable[(int)eDATASHEET.TRIBE].Item(j).InnerText),
@@ -68,7 +72,7 @@ public class DataManager {
         }
     }
 
-    public MonsterData GetData(eTRIBE_TYPE _entityTribe , eJOB_TYPE _entityJob)
+    public MonsterData GetData(eTRIBE_TYPE _entityTribe, eJOB_TYPE _entityJob)
     {
         return monsterDatas[(int)_entityTribe][(int)_entityJob];
     }

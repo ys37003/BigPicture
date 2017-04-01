@@ -37,8 +37,6 @@ public class StatusData
     /// </summary>
     public int Luck;
 
-
-
     /// <summary>
     /// 능력치
     /// </summary>
@@ -67,11 +65,11 @@ public class StatusData
     public static StatusData operator +(StatusData stat1, StatusData stat2)
     {
         return new StatusData(stat1.Strength + stat2.Strength,
-                              stat1.Spell + stat2.Spell,
-                              stat1.Agility + stat2.Agility,
-                              stat1.Avoid + stat2.Avoid,
-                              stat1.Defense + stat2.Defense,
+                              stat1.Spell    + stat2.Spell,
+                              stat1.Agility  + stat2.Agility,
+                              stat1.Avoid    + stat2.Avoid,
+                              stat1.Defense  + stat2.Defense,
                               stat1.Recovery + stat2.Recovery,
-                              stat1.Luck + stat2.Luck);
+                              stat1.Luck     + stat2.Luck);
     }
 }
