@@ -26,7 +26,7 @@ public class Ork : Monster
     }
 
     private BoxCollider colEyeSight;
-
+    private BoxCollider colAttack;
     void Start()
     {
         EntityInit(eTYPE.MONSTER, eTRIBE_TYPE.Ork, eJOB_TYPE.TANKER);
@@ -37,9 +37,9 @@ public class Ork : Monster
         stateMachine = new StateMachine<Ork>(this);
 
         // EyeSight Collider 초기화
-        colEyeSight        = this.GetComponent<BoxCollider>();
+        colEyeSight = this.transform.FindChild("EyeSightCol").GetComponent<BoxCollider>();
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight / 2);
-        colEyeSight.size   = new Vector3(Data.EyeSight * 2, 1, Data.EyeSight);
+        colEyeSight.size = new Vector3(Data.EyeSight * 2, 1, Data.EyeSight);
     }
 
     private void Update()
@@ -61,6 +61,11 @@ public class Ork : Monster
         {
             MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
         }
+
+        if(false == ToBattleIdle())
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+        }
     }
 
     public void Walk()
@@ -68,13 +73,13 @@ public class Ork : Monster
         Debug.Log(this.Type + this.ID.ToString() + "'State is Walk");
 
         // 1초마다 목적지와의 거리를 검사후 줄지 않았을떄 목적지 재설정
-        if (this.erorrCheckClock + 1.0f < Clock.Instance.GetTime())
+        if (this.erorrCheckClock + 0.5f < Time.time)
         {
             if (distenceToTarget - 0.5f <= Vector3.Distance(this.transform.position, this.NavAgent.target))
             {
                 NavAgent.target = MathAssist.Instance().RandomVector3(this.transform.position, 30.0f);
             }
-            this.erorrCheckClock = Clock.Instance.GetTime();
+            this.erorrCheckClock = Time.time;
         }
     }
 
@@ -87,7 +92,6 @@ public class Ork : Monster
     {
         //if (Animator.GetCurrentAnimatorStateInfo(0).IsName("attack3"))
         //{
-            
         //    SetClock(Time.time);
         //}
         Debug.Log(this.Type + this.ID.ToString() + "'State is Attack");
@@ -211,14 +215,14 @@ public class Ork : Monster
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if ( "Player" == other.tag )
-        {
-            SetEnemy(other.gameObject);
-            SetTarget(other.transform.position);
-            Vector3 colPos = other.transform.position;
-            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
-        }
-    }
+    //void OnTriggerExit(Collider other)
+    //{
+    //    if ( "Player" == other.tag )
+    //    {
+    //        EnemyClear();
+    //        SetTarget(other.transform.position);
+    //        Vector3 colPos = other.transform.position;
+    //        MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
+    //    }
+    //}
 }

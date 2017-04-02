@@ -47,6 +47,7 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", false);
         _monster.NavAgent.Clear();
+        //_monster.EnemyClear();
     }
 
     /// <summary>

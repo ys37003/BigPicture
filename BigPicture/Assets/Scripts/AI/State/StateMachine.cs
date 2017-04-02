@@ -49,7 +49,7 @@ public class StateMachine<entity_type> where entity_type : Ork
             case eSTATE.WALK:       currentState = Walk<entity_type>.Instance();        break;
             case eSTATE.RUN:        currentState = Run<entity_type>.Instance();         break;
             case eSTATE.ATTACK:     currentState = Attack<entity_type>.Instance();      break;
-            case eSTATE.AVOID:      break;
+            case eSTATE.ROLLING:      break;
             case eSTATE.BATTLEIDLE: currentState = BattleIdle<entity_type>.Instance();  break;
             case eSTATE.DEAD:       break;
         }
@@ -64,7 +64,12 @@ public class StateMachine<entity_type> where entity_type : Ork
         }
 
         // 전역 메세지 처리
-
+        switch (_msg.message)
+        {
+            case (int)eMESSAGE_TYPE.ATTACKABLE:
+                owner.AttackAble = true;
+                return true;
+        }
         return false;
     }
 }

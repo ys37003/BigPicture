@@ -4,7 +4,7 @@
     WALK,
     RUN ,
     ATTACK,
-    AVOID,
+    ROLLING,
     BATTLEIDLE,
     DEAD,
     NULL

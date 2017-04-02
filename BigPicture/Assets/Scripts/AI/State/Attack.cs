@@ -28,7 +28,7 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
         if (true == _monster.EndAttack())
         {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
-            MessageDispatcher.Instance.DispatchMessage(3, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
+            
         }
     }
 
@@ -40,6 +40,7 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
 
     public void Exit(entity_type _monster)
     {
+        MessageDispatcher.Instance.DispatchMessage(3, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Attack", false);
     }
 

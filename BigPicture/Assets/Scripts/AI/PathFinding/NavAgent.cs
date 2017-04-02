@@ -17,8 +17,7 @@ public class NavAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.zero != destination)
-            m_agent.SetDestination(destination);
+        m_agent.SetDestination(destination);
     }
 
     public Vector3 target
