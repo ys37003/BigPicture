@@ -226,7 +226,7 @@ public class Character : BaseGameEntity
         while (true)
         {
             // Tab으로 배틀상태 전환
-            if(Input.GetKeyDown(KeyCode.Tab))
+            if(Input.GetKeyDown(KeyCode.Tab) && !IsAttack())
             {
                 bool active = !animator.GetBool("Battle");
                 animator.SetBool("Battle", active);
@@ -289,6 +289,15 @@ public class Character : BaseGameEntity
     }
 
     /// <summary>
+    /// 구르기 중 일때 참을 반환
+    /// </summary>
+    /// <returns></returns>
+    private bool IsRoll()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("Roll");
+    }
+
+    /// <summary>
     /// 공격 중 일때 참을 반환
     /// </summary>
     /// <returns></returns>
@@ -299,9 +308,11 @@ public class Character : BaseGameEntity
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Monster")
+        ColliderAttack ct = other.GetComponent<ColliderAttack>();
+
+        if(ct != null && ct.EType == eTYPE.MONSTER)
         {
-            Debug.Log("공격당했당.");
+            Debug.Log("피격, 데미지 계산 필요");
         }
     }
 }
