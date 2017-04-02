@@ -9,8 +9,6 @@ public class MessageDispatcher
     private SortedDictionary<float, Telegram> delayMessageSD = new SortedDictionary<float, Telegram>();
     private List<float> removeList = new List<float>();
 
-    
-
     private MessageDispatcher()
     {
 

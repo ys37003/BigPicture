@@ -26,7 +26,12 @@ public class Ork : Monster
     }
 
     private BoxCollider colEyeSight;
-    private BoxCollider colAttack;
+
+    [SerializeField]
+    private ColliderAttack colliderAttack = null;
+
+    [SerializeField]
+    private float attackRange = 1.0f;
     void Start()
     {
         EntityInit(eTYPE.MONSTER, eTRIBE_TYPE.Ork, eJOB_TYPE.TANKER);
@@ -40,6 +45,14 @@ public class Ork : Monster
         colEyeSight = this.transform.FindChild("EyeSightCol").GetComponent<BoxCollider>();
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight / 2);
         colEyeSight.size = new Vector3(Data.EyeSight * 2, 1, Data.EyeSight);
+
+
+        colliderAttack.Init(eTYPE.MONSTER, Animator, Data.StatusData );
+        foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
+        {
+            trigger.ColliderAttack = colliderAttack;
+        }
+
     }
 
     private void Update()
@@ -104,7 +117,7 @@ public class Ork : Monster
         if (enemy == null)
             return false;
 
-        if (Data.Range > Vector3.Distance(this.transform.position, enemy.transform.position) )
+        if ( attackRange > Vector3.Distance(this.transform.position, enemy.transform.position) )
         {
             return true;
         }
@@ -150,7 +163,7 @@ public class Ork : Monster
 
     public bool IsArrive()
     {
-        if (1.0f > Vector3.Distance(this.transform.position, this.NavAgent.target))
+        if (0.5f > Vector3.Distance(this.transform.position, this.NavAgent.target))
             return true;
 
         return false;
@@ -199,30 +212,46 @@ public class Ork : Monster
 
     void OnTriggerStay(Collider other)
     {
-        //eType colType = other.GetComponent<BaseGameEntity>().Type;
-
-        //if(colType == eType.PLAYER || colType == eType.NPC )
-        //{
-        //    Vector3 colPos = other.transform.position;
-        //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eChangeState.FIND_ENEMY, colPos);
-        //}
-        if ("Player" == other.tag && enemy == null )
+        eTYPE colType = other.GetComponent<BaseGameEntity>().Type;
+        Debug.Log("Stay");
+        if (true == (colType == eTYPE.PLAYER || colType == eTYPE.NPC) && 
+            enemy == null )
         {
             SetEnemy(other.gameObject);
             SetTarget(enemy.transform.position);
             Vector3 colPos = other.transform.position;
             MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
         }
+        //if ("Player" == other.tag && enemy == null ) 
+        //{
+        //    SetEnemy(other.gameObject);
+        //    SetTarget(enemy.transform.position);
+        //    Vector3 colPos = other.transform.position;
+        //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
+        //}
     }
 
-    //void OnTriggerExit(Collider other)
-    //{
-    //    if ( "Player" == other.tag )
-    //    {
-    //        EnemyClear();
-    //        SetTarget(other.transform.position);
-    //        Vector3 colPos = other.transform.position;
-    //        MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
-    //    }
-    //}
+    void OnTriggerExit(Collider other)
+    {
+        //if ("Player" == other.tag)
+        //{
+        //    EnemyClear();
+        //    SetTarget(other.transform.position);
+        //    Vector3 colPos = other.transform.position;
+        //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
+        //}
+        Debug.Log("Exit");
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        //if ("Player" == other.tag)
+        //{
+        //    EnemyClear();
+        //    SetTarget(other.transform.position);
+        //    Vector3 colPos = other.transform.position;
+        //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
+        //}
+        Debug.Log("Enter");
+    }
 }
