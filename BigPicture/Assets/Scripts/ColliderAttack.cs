@@ -43,7 +43,6 @@ public class ColliderAttack : MonoBehaviour
     public void AttackStart(AnimatorStateInfo info)
     {
         StateInfo = info;
-        SetCollider(true);
         StopCoroutine("Attack");
         StartCoroutine("Attack");
     }
@@ -55,6 +54,10 @@ public class ColliderAttack : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        SetCollider(false);
+        yield return null;
+        SetCollider(true);
+
         while (Animator.GetNextAnimatorStateInfo(0).fullPathHash == StateInfo.fullPathHash)
             yield return null;
 
