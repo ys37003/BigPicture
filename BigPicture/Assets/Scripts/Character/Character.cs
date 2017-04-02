@@ -43,7 +43,7 @@ public class Character : BaseGameEntity
 
     private bool isRun = false;
 
-    public eTYPE currentType { get; private set; }
+    public eSTATE currentState { get; private set; }
 
     private void Awake()
     {
@@ -58,6 +58,7 @@ public class Character : BaseGameEntity
         StartCoroutine("Attack");
         StartCoroutine("CameraRotation");
 
+        colliderAttack.Init(eTYPE.PLAYER, animator, Status);
         foreach (AnimationTrigger trigger in animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
@@ -71,15 +72,15 @@ public class Character : BaseGameEntity
 
     private IEnumerator Move()
     {
-        float h = 0;
-        float v = 0;
+        float h    = 0;
+        float v    = 0;
         float move = 0;
 
         Vector3 forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 right = followedCamera.right;
-        Vector3 dir = Vector3.zero;
+        Vector3 right   = followedCamera.right;
+        Vector3 dir     = Vector3.zero;
 
-        float turn = 0;
+        float turn      = 0;
         float turnSpeed = 0;
 
         while (true)
@@ -101,8 +102,8 @@ public class Character : BaseGameEntity
             }
             else
             {
-                dir = transform.InverseTransformDirection(v * forward + h * right);
-                turn = Mathf.Atan2(dir.x, dir.z);
+                dir       = transform.InverseTransformDirection(v * forward + h * right);
+                turn      = Mathf.Atan2(dir.x, dir.z);
                 turnSpeed = Mathf.Lerp(180, 360, dir.z);
 
                 if(!IsAttack())
@@ -219,12 +220,17 @@ public class Character : BaseGameEntity
     {
         float bTime = Time.time;
 
+        animator.SetBool("Battle", false);
+        colliderAttack.SetActive(false);
+
         while (true)
         {
             // Tab으로 배틀상태 전환
             if(Input.GetKeyDown(KeyCode.Tab))
             {
-                animator.SetBool("Battle", !animator.GetBool("Battle"));
+                bool active = !animator.GetBool("Battle");
+                animator.SetBool("Battle", active);
+                colliderAttack.SetActive(active);
             }
 
             // 키를 입력하면 대기시간 초기화
@@ -237,6 +243,7 @@ public class Character : BaseGameEntity
             if(Time.time - bTime >= WaitTime)
             {
                 animator.SetBool("Battle", false);
+                colliderAttack.SetActive(false);
             }
 
             yield return null;
@@ -264,6 +271,7 @@ public class Character : BaseGameEntity
             {
                 followedCamera.RotateAround(followedCamera.position, Vector3.down, Input.GetAxis("Mouse Y") * CameraTurnSpeed);
             }
+
             yield return null;
         }
     }
