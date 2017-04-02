@@ -1,8 +1,8 @@
 ﻿public enum eSTATE
 {
-    IDLE ,
+    IDLE,
     WALK,
-    RUN ,
+    RUN,
     ATTACK,
     AVOID,
     BATTLEIDLE,
