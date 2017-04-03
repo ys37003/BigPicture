@@ -18,11 +18,18 @@ public class Ork : Monster
     public GameObject enemy;
 
     private bool attackAble = true;
+    private bool rollingAble = true;
 
     public bool AttackAble
     {
         get { return attackAble; }
         set { attackAble = value;  }
+    }
+
+    public bool RollingAble
+    {
+        get { return rollingAble; }
+        set { rollingAble = value; }
     }
 
     private BoxCollider colEyeSight;
@@ -111,6 +118,15 @@ public class Ork : Monster
         this.transform.LookAt(enemy.transform.position);
     }
 
+    public void Rolling()
+    {
+        Debug.Log(this.Type + this.ID.ToString() + "'State is Rolling");
+
+        if(false == RollingAble )
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+        }
+    }
     ////////////////////////////////////////상태 변화 채크 함수들////////////////////////////////////////////////
     public bool ToBattleIdle()
     {
@@ -213,7 +229,7 @@ public class Ork : Monster
     void OnTriggerStay(Collider other)
     {
         eTYPE colType = other.GetComponent<BaseGameEntity>().Type;
-        Debug.Log("Stay");
+        Debug.Log(other.name);
         if (true == (colType == eTYPE.PLAYER || colType == eTYPE.NPC) && 
             enemy == null )
         {
@@ -240,18 +256,24 @@ public class Ork : Monster
         //    Vector3 colPos = other.transform.position;
         //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
         //}
-        Debug.Log("Exit");
+        //Debug.Log("Exit");
     }
 
     void OnTriggerEnter(Collider other)
     {
-        //if ("Player" == other.tag)
-        //{
-        //    EnemyClear();
-        //    SetTarget(other.transform.position);
-        //    Vector3 colPos = other.transform.position;
-        //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
-        //}
-        Debug.Log("Enter");
+        ColliderAttack ct = other.GetComponent<ColliderAttack>();
+
+        if (ct != null && ct.EType == eTYPE.PLAYER)
+        {
+            if (true == RollingAble)
+            {
+                MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_ROLLING, null);
+            }
+            else
+            {
+                Debug.Log("Monster 피격, 데미지 계산 필요");
+            }
+        }
+        //Debug.Log("Enter");
     }
 }

@@ -59,6 +59,9 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Or
             case (int)eMESSAGE_TYPE.TO_IDLE:
                 _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
                 return true;
+            case (int)eMESSAGE_TYPE.TO_ROLLING:
+                _monster.GetStateMachine().ChangeState(eSTATE.ROLLING);
+                return true;
         }
 
         return false;

@@ -4,9 +4,10 @@
     TO_IDLE,
     TO_RUN,
     TO_ATTACK,
-    TO_AVOID,
+    TO_ROLLING,
     TO_DIE,
     TO_BATTLEIDLE,
     FIND_ENEMY,
-    ATTACKABLE
+    ATTACKABLE,
+    ROLLINGABLE
 }
