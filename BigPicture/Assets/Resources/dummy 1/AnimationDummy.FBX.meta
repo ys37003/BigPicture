@@ -175,7 +175,7 @@ ModelImporter:
     7400008: attack1
     7400010: attack2
     7400012: attack3
-    7400014: avoid
+    7400014: rolling
     7400016: dead
     9500000: //RootNode
     13700000: Object001
@@ -192,11 +192,7 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\n\t'Bip001 Spine2' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'Bip001 R Thigh' has translation
-      animation that will be discarded.\n\t'Bip001 L Thigh' has translation animation
-      that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -2237,7 +2233,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: avoid
+      name: rolling
       takeName: Take 001
       firstFrame: 171
       lastFrame: 230

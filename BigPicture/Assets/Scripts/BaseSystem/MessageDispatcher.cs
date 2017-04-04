@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MessageDispatcher : MonoBehaviour
+public class MessageDispatcher
 {
     private static MessageDispatcher instance;
+
     private SortedDictionary<float, Telegram> delayMessageSD = new SortedDictionary<float, Telegram>();
     private List<float> removeList = new List<float>();
+
+    private MessageDispatcher()
+    {
+
+    }
 
     public static MessageDispatcher Instance
     {
@@ -14,24 +20,13 @@ public class MessageDispatcher : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType(typeof(MessageDispatcher)) as MessageDispatcher;
-            }
-
-            if (instance == null)
-            {
-                GameObject obj = new GameObject("MessageDispatcher");
-                instance = obj.AddComponent<MessageDispatcher>() as MessageDispatcher;
+                instance = new MessageDispatcher();
             }
 
             return instance;
         }
+        private set { }
     }
-
-    private void Update()
-    {
-        StartCoroutine("DispatchDelayedMessages");
-    }
-
     public void DispatchMessage(float _delay, int _sender, int _receiver, int _msg, object _extraInfo)
     {
         Telegram telegram = new Telegram();

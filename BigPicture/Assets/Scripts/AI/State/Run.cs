@@ -25,28 +25,30 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
     {
         _monster.Run();
 
-        if (true == _monster.IsArrive())
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
-            _monster.EnemyClear();
-            return;
-        }
-
         if (true == _monster.ToBattleIdle())
         {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            return;
+        }
+
+        if (true == _monster.IsArrive())
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+            return;
         }
     }
 
     public void Enter(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", true);
+        _monster.SetTarget(_monster.enemy.transform.position);
     }
 
     public void Exit(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", false);
         _monster.NavAgent.Clear();
+        //_monster.EnemyClear();
     }
 
     /// <summary>

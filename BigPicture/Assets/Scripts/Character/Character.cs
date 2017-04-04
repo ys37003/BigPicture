@@ -312,7 +312,7 @@ public class Character : BaseGameEntity
 
         if(ct != null && ct.EType == eTYPE.MONSTER)
         {
-            Debug.Log("피격, 데미지 계산 필요");
+            Debug.Log("Player 피격, 데미지 계산 필요");
         }
     }
 }

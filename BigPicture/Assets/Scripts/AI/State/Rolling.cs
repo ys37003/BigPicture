@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack<entity_type> : State<entity_type> where entity_type : Ork
-{
-    private static Attack<entity_type> instance;
+public class Rolling<entity_type> : State<entity_type> where entity_type : Ork
+{ 
+    private static Rolling<entity_type> instance;
 
-    private Attack()
+    private Rolling()
     {
 
     }
 
-    public static Attack<entity_type> Instance()
+    public static Rolling<entity_type> Instance()
     {
         if (instance == null)
         {
-            instance = new Attack<entity_type>();
+            instance = new Rolling<entity_type>();
         }
 
         return instance;
@@ -23,34 +23,33 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
 
     public void Excute(entity_type _monster)
     {
-        _monster.Attack();
+        _monster.Rolling();
 
-        if (true == _monster.EndAttack())
+        if (true == _monster.RollingAble)
         {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
-            
         }
     }
 
     public void Enter(entity_type _monster)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Attack", true);
-        _monster.AttackAble = false;
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Rolling", true);
+        
     }
 
     public void Exit(entity_type _monster)
     {
-        MessageDispatcher.Instance.DispatchMessage(3, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Attack", false);
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Rolling", false);
+        MessageDispatcher.Instance.DispatchMessage(3, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.ROLLINGABLE, null);
+        _monster.RollingAble = false;
     }
 
     /// <summary>
-    /// Walk 상태에서 받은 메세지 처리
+    /// Idle상태에서 받은 메세지 처리
     /// </summary>
     /// <param name="_monster"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    /// 
     public bool OnMessage(entity_type _monster, Telegram _msg)
     {
         switch (_msg.message)

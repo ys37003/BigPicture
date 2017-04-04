@@ -34,6 +34,8 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Or
     public void Exit(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", false);
+        //_monster.NavAgent.Clear();
+        //_monster.EnemyClear();
     }
 
     /// <summary>
@@ -52,6 +54,13 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Or
 
             case (int)eMESSAGE_TYPE.ATTACKABLE:
                 _monster.AttackAble = true;
+                return true;
+
+            case (int)eMESSAGE_TYPE.TO_IDLE:
+                _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
+                return true;
+            case (int)eMESSAGE_TYPE.TO_ROLLING:
+                _monster.GetStateMachine().ChangeState(eSTATE.ROLLING);
                 return true;
         }
 
