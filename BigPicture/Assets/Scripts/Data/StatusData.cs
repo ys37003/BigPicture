@@ -2,6 +2,7 @@
 
 public class StatusData
 {
+    #region 능력치
     /// <summary>
     /// 힘
     /// </summary>
@@ -38,6 +39,49 @@ public class StatusData
     public int Luck;
 
     /// <summary>
+    /// 체력
+    /// </summary>
+    public float HP;
+    #endregion
+
+    #region 계산값
+    /// <summary>
+    /// 물리 공격력
+    /// </summary>
+    public float PhysicsPower { get { return Strength + (Luck + Spell) * 0.1f * Luck * 0.1f; } }
+
+    /// <summary>
+    /// 마법 공격력
+    /// </summary>
+    public float SpellPower { get { return Spell + (Luck + Spell) * 0.1f * Luck * 0.1f; } }
+
+    /// <summary>
+    /// 이동 속도
+    /// </summary>
+    public float MoveSpeed { get { return Agility + (Spell + Luck) * 0.1f; } }
+
+    /// <summary>
+    /// 회피율
+    /// </summary>
+    public float EvasionRate { get { return Avoid * (Agility + Luck) * 0.01f; } }
+
+    /// <summary>
+    /// 방어력
+    /// </summary>
+    public float Armor { get { return Strength * 0.01f * Agility + Avoid * (Defense + Luck) * 0.1f; } }
+
+    /// <summary>
+    /// 초당 회복력
+    /// </summary>
+    public float RecoveryRPS { get { return Recovery + Spell + Luck * 0.1f; } }
+
+    /// <summary>
+    /// 최대 체력(100으로 고정)
+    /// </summary>
+    public float MaxHP { get { return 100; } }
+    #endregion
+
+    /// <summary>
     /// 능력치
     /// </summary>
     public StatusData(int str, int sp, int ag, int av, int def, int rec, int lck)
@@ -49,6 +93,7 @@ public class StatusData
         Defense  = def;
         Recovery = rec;
         Luck     = lck;
+        HP       = MaxHP;
     }
 
     public StatusData(StatusData stat)
@@ -60,6 +105,7 @@ public class StatusData
         Defense  = stat.Defense;
         Recovery = stat.Recovery;
         Luck     = stat.Luck;
+        HP       = MaxHP;
     }
 
     public static StatusData operator +(StatusData stat1, StatusData stat2)

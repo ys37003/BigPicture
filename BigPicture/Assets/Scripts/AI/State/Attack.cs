@@ -27,8 +27,7 @@ public class Attack<entity_type> : State<entity_type> where entity_type : Ork
 
         if (true == _monster.EndAttack())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
-            
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);            
         }
     }
 
