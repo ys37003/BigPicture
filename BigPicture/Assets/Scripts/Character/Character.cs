@@ -22,8 +22,6 @@ public class Character : BaseGameEntity
 
     public int StatusPoint { get; set; }
 
-    public float MoveSpeed = 10;
-
     /// <summary>
     /// 구르기 속도는 이동속도(MoveSpeed) %이다.
     /// ex) RollSpeed가 0.7이면 7(MoveSpeed * 0.7)의 속도로 구른다.
@@ -31,6 +29,8 @@ public class Character : BaseGameEntity
     public float RollSpeedRate = 0.7f;
     public float CameraTurnSpeed = 30;
     public float WaitTime = 5.0f;
+
+    public eSTATE currentState { get; private set; }
 
     [SerializeField]
     private Animator animator = null;
@@ -42,8 +42,6 @@ public class Character : BaseGameEntity
     private ColliderAttack colliderAttack = null;
 
     private bool isRun = false;
-
-    public eSTATE currentState { get; private set; }
 
     private void Awake()
     {
@@ -57,6 +55,7 @@ public class Character : BaseGameEntity
         StartCoroutine("Battle");
         StartCoroutine("Attack");
         StartCoroutine("CameraRotation");
+        StartCoroutine("UpdateState");
 
         colliderAttack.Init(eTYPE.PLAYER, animator, Status);
         foreach (AnimationTrigger trigger in animator.GetBehaviours<AnimationTrigger>())
@@ -68,6 +67,7 @@ public class Character : BaseGameEntity
     public void Init(StatusData status)
     {
         Status = status;
+        AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0);
     }
 
     private IEnumerator Move()
@@ -109,9 +109,8 @@ public class Character : BaseGameEntity
                 if(!IsAttack())
                 {
                     transform.Rotate(0, turn * Time.deltaTime * turnSpeed, 0);
+                    transform.Translate(dir * Time.deltaTime * TotalStatus.MoveSpeed * move);
                 }
-
-                transform.Translate(dir * Time.deltaTime * MoveSpeed * move);
             }
 
             // 회피(C)
@@ -208,7 +207,7 @@ public class Character : BaseGameEntity
 
         while (animator.GetCurrentAnimatorStateInfo(0).IsName("Roll"))
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeed * RollSpeedRate);
+            transform.Translate(Vector3.forward * Time.deltaTime * TotalStatus.MoveSpeed * RollSpeedRate);
             yield return null;
         }
 
@@ -277,6 +276,56 @@ public class Character : BaseGameEntity
     }
 
     /// <summary>
+    /// 현재 상태 갱신
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator UpdateState()
+    {
+        while(true)
+        {
+            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+            if (info.IsTag("Idle"))
+            {
+                float m = animator.GetFloat("Move");
+                if (m < 0.7)
+                {
+                    currentState = eSTATE.IDLE;
+                }
+                else if (m < 1.4)
+                {
+                    currentState = eSTATE.WALK;
+                }
+                else
+                {
+                    currentState = eSTATE.RUN;
+                }
+            }
+            else if (info.IsTag("Attack"))
+            {
+                currentState = eSTATE.ATTACK;
+            }
+            else if(info.IsTag("Roll"))
+            {
+                currentState = eSTATE.ROLLING;
+            }
+            else if(info.IsTag("BattleIdle"))
+            {
+                currentState = eSTATE.BATTLEIDLE;
+            }
+            else if(info.IsTag("Dead"))
+            {
+                currentState = eSTATE.DEAD;
+            }
+            else
+            {
+                currentState = eSTATE.NULL;
+            }
+
+            yield return null;
+        }
+    }
+
+    /// <summary>
     /// WASD 중 하나라도 누르고 있다면 참을 반환
     /// </summary>
     /// <returns></returns>
@@ -310,9 +359,10 @@ public class Character : BaseGameEntity
     {
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
 
-        if(ct != null && ct.EType == eTYPE.MONSTER)
+        if(ct != null && ct.EntitiType == eTYPE.MONSTER)
         {
-            Debug.Log("Player 피격, 데미지 계산 필요");
+            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
+            Status.HP -= (ct.Power - TotalStatus.Armor);
         }
     }
 }

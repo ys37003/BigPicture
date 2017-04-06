@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class ColliderAttack : MonoBehaviour
 {
-    public eTYPE                EType       { get; private set; }
-    public Animator             Animator    { get; private set; }
-    public AnimatorStateInfo    StateInfo   { get; private set; }
+    public eTYPE                EntitiType  { get; private set; }
     public StatusData           StatusData  { get; private set; }
+
+    private Animator            animator;
+    private AnimatorStateInfo   stateInfo;
 
     [SerializeField]
     private Collider coll = null;
+
+    public float Power { get { return StatusData.PhysicsPower + StatusData.SpellPower; } }
 
     private void Awake()
     {
@@ -35,33 +38,32 @@ public class ColliderAttack : MonoBehaviour
 
     public void Init(eTYPE type, Animator animator, StatusData stat)
     {
-        EType      = type;
-        Animator   = animator;
-        StatusData = stat;
+        EntitiType    = type;
+        this.animator = animator;
+        StatusData    = stat;
     }
 
     public void AttackStart(AnimatorStateInfo info)
     {
-        StateInfo = info;
+        stateInfo = info;
         StopCoroutine("Attack");
         StartCoroutine("Attack");
     }
 
-    public int GetDamage()
-    {
-        return StatusData.Strength;
-    }
-
+    /// <summary>
+    /// 공격시 콜라이더를 켜줌
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Attack()
     {
         SetCollider(false);
         yield return null;
         SetCollider(true);
 
-        while (Animator.GetNextAnimatorStateInfo(0).fullPathHash == StateInfo.fullPathHash)
+        while (animator.GetNextAnimatorStateInfo(0).fullPathHash == stateInfo.fullPathHash)
             yield return null;
 
-        while (Animator.GetCurrentAnimatorStateInfo(0).fullPathHash == StateInfo.fullPathHash)
+        while (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == stateInfo.fullPathHash)
             yield return null;
 
         SetCollider(false);

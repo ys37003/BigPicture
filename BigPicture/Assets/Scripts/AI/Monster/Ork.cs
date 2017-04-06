@@ -259,7 +259,7 @@ public class Ork : Monster
     {
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
 
-        if (ct != null && ct.EType == eTYPE.PLAYER)
+        if (ct != null && ct.EntitiType == eTYPE.PLAYER)
         {
             if (true == RollingAble)
             {
