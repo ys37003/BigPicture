@@ -65,7 +65,7 @@ public class StateMachine<entity_type> where entity_type : Ork
 
         // 전역 메세지 처리
         switch (_msg.message)
-        {
+        { 
             case (int)eMESSAGE_TYPE.ATTACKABLE:
                 owner.AttackAble = true;
                 return true;

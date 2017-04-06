@@ -24,24 +24,19 @@ public class Rolling<entity_type> : State<entity_type> where entity_type : Ork
     public void Excute(entity_type _monster)
     {
         _monster.Rolling();
-
-        if (true == _monster.RollingAble)
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
-        }
     }
 
     public void Enter(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Rolling", true);
-        
+        _monster.RollingAble = false;
     }
 
     public void Exit(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Rolling", false);
         MessageDispatcher.Instance.DispatchMessage(3, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.ROLLINGABLE, null);
-        _monster.RollingAble = false;
+        
     }
 
     /// <summary>

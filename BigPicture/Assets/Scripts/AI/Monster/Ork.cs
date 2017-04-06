@@ -110,10 +110,6 @@ public class Ork : Monster
 
     public void Attack()
     {
-        //if (Animator.GetCurrentAnimatorStateInfo(0).IsName("attack3"))
-        //{
-        //    SetClock(Time.time);
-        //}
         Debug.Log(this.Type + this.ID.ToString() + "'State is Attack");
         this.transform.LookAt(enemy.transform.position);
     }
