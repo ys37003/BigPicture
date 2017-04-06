@@ -23,7 +23,7 @@ public class Ork : Monster
     public bool AttackAble
     {
         get { return attackAble; }
-        set { attackAble = value;  }
+        set { attackAble = value; }
     }
 
     public bool RollingAble
@@ -42,10 +42,10 @@ public class Ork : Monster
     void Start()
     {
         EntityInit(eTYPE.MONSTER, eTRIBE_TYPE.Ork, eJOB_TYPE.TANKER);
-        
-        Data         = DataManager.Instance().GetData(this.Tribe, this.Job);
-        Animator     = this.GetComponent<Animator>();
-        NavAgent     = this.GetComponent<NavAgent>();
+
+        Data = DataManager.Instance().GetData(this.Tribe, this.Job);
+        Animator = this.GetComponent<Animator>();
+        NavAgent = this.GetComponent<NavAgent>();
         stateMachine = new StateMachine<Ork>(this);
 
         // EyeSight Collider 초기화
@@ -53,13 +53,11 @@ public class Ork : Monster
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight / 2);
         colEyeSight.size = new Vector3(Data.EyeSight * 2, 1, Data.EyeSight);
 
-
-        colliderAttack.Init(eTYPE.MONSTER, Animator, Data.StatusData );
+        colliderAttack.Init(eTYPE.MONSTER, Animator, Data.StatusData);
         foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
         }
-
     }
 
     private void Update()
@@ -67,6 +65,7 @@ public class Ork : Monster
         stateMachine.Update();
     }
 
+    #region 상태 함수들
     public void Idle()
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Idle");
@@ -77,12 +76,12 @@ public class Ork : Monster
         Debug.Log(this.Type + this.ID.ToString() + "'State is BattleIdle");
         this.transform.LookAt(enemy.transform.position);
 
-        if(true == AttackAble)
+        if (true == AttackAble)
         {
             MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
         }
 
-        if(false == ToBattleIdle())
+        if (false == ToBattleIdle())
         {
             MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         }
@@ -118,18 +117,24 @@ public class Ork : Monster
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Rolling");
 
-        if(false == RollingAble )
+        if (false == RollingAble)
         {
             MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
         }
     }
-    ////////////////////////////////////////상태 변화 채크 함수들////////////////////////////////////////////////
+    #endregion
+    #region 상태변화 조건함수
+
+    public bool ToRun()
+    {
+        return false;
+    }
     public bool ToBattleIdle()
     {
         if (enemy == null)
             return false;
 
-        if ( attackRange > Vector3.Distance(this.transform.position, enemy.transform.position) )
+        if (attackRange > Vector3.Distance(this.transform.position, enemy.transform.position))
         {
             return true;
         }
@@ -146,28 +151,9 @@ public class Ork : Monster
         return false;
     }
 
-    /// <summary>
-    /// 상태 머신에 메세지 송출
-    /// </summary>
-
-    /// <summary>
-    /// Idle 상태에서 5초후 true반환
-    /// MonsterClock 설정은 Idle상태의 Enter함수에서
-    /// </summary>
-    //public bool IdleToWalk()
-    //{
-    //    if (this.MonsterClock + 5.0f < Clock.Instance.GetTime())
-    //        return true;
-
-    //    return false;
-    //}
-
-    /// <summary>
-    /// 이동한지 5초후 또는 목적지에 도착했을때 true반환
-    /// </summary>
     public bool ToIdle()
     {
-        if ( true == IsArrive() )
+        if (true == IsArrive())
             return true;
 
         return false;
@@ -180,9 +166,12 @@ public class Ork : Monster
 
         return false;
     }
+    #endregion
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////Get, Set함수들 //////////////////////////////////////////////////
+
+    #region Get, Set함수들
     public override bool HanleMessage(Telegram _msg)
     {
         return stateMachine.HandleMessgae(_msg);
@@ -206,7 +195,6 @@ public class Ork : Monster
     /// <param name="_clock"></param>
     public void SetClock(float _clock)
     {
-        MonsterClock = _clock;
         EroorCheckClock = _clock;
     }
 
@@ -219,15 +207,25 @@ public class Ork : Monster
     {
         enemy = null;
     }
-
+    #endregion
     //////////////////////////////////////////////////////////////////////////////////////////
 
+
+    #region Trigger
     void OnTriggerStay(Collider other)
     {
-        eTYPE colType = other.GetComponent<BaseGameEntity>().Type;
-        Debug.Log(other.name);
-        if (true == (colType == eTYPE.PLAYER || colType == eTYPE.NPC) && 
-            enemy == null )
+        eTYPE colType = eTYPE.NULL;
+        try
+        {
+            colType = other.GetComponent<BaseGameEntity>().Type;
+        }
+        catch
+        {
+            colType = other.GetComponentInParent<BaseGameEntity>().Type;
+        }
+
+        if (true == (colType == eTYPE.PLAYER || colType == eTYPE.NPC) &&
+            enemy == null)
         {
             SetEnemy(other.gameObject);
             SetTarget(enemy.transform.position);
@@ -270,6 +268,6 @@ public class Ork : Monster
                 Debug.Log("Monster 피격, 데미지 계산 필요");
             }
         }
-        //Debug.Log("Enter");
     }
+    #endregion
 }

@@ -35,9 +35,10 @@ public class Walk<entity_type> : State<entity_type> where entity_type : Ork
     public void Enter(entity_type _monster)
     {
         _monster.SetClock(Time.time);
-        MessageDispatcher.Instance.DispatchMessage(5, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", true);
+        MessageDispatcher.Instance.DispatchMessage(Random.Range(3,7), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         _monster.SetTarget(MathAssist.Instance().RandomVector3(_monster.transform.position, 30.0f));
+
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", true);
     }
 
     public void Exit(entity_type _monster)

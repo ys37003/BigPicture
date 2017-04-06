@@ -6,12 +6,12 @@ public class MessageDispatcher
 {
     private static MessageDispatcher instance;
 
-    private SortedDictionary<float, Telegram> delayMessageSD = new SortedDictionary<float, Telegram>();
-    private List<float> removeList = new List<float>();
-
+   //private SortedDictionary<float, Telegram> delayMessageSD = new SortedDictionary<float, Telegram>();
+    private List<float> delayList = new List<float>();
+    private List<Telegram> telegramList = new List<Telegram>();
     private MessageDispatcher()
     {
-
+        
     }
 
     public static MessageDispatcher Instance
@@ -43,7 +43,11 @@ public class MessageDispatcher
         else
         {
             telegram.dispatchTime = Time.time + _delay;
-            delayMessageSD.Add(telegram.dispatchTime, telegram);
+      
+            delayList.Add(telegram.dispatchTime);
+            telegramList.Add(telegram);
+            //delayMessageSD.Add(telegram.dispatchTime, telegram);
+            //delayList.Add(telegram.dispatchTime);
         }
     }
 
@@ -55,19 +59,46 @@ public class MessageDispatcher
 
     public IEnumerator DispatchDelayedMessages()
     {
-        foreach (KeyValuePair<float, Telegram> iter in delayMessageSD)
+        while (true)
         {
-            if (iter.Value.dispatchTime < Time.time && iter.Value.dispatchTime > 0)
+            for (int i = 0; i < delayList.Count; ++i)
             {
-                DisCharge(iter.Value.receiver, iter.Value);
-                removeList.Add(iter.Key);
-            }
-        }
+                if (delayList[i] < Time.time && delayList[i] > 0)
+                {
+                    Telegram telegram = telegramList[i];
 
-        foreach (float iter in removeList)
-        {
-            delayMessageSD.Remove(iter);
+                    DisCharge(telegram.receiver, telegram);
+                    telegramList.RemoveAt(i);
+                    delayList.RemoveAt(i);
+                }
+                yield return null;
+            }
+            yield return null;
         }
-        yield return null;
+        //while (true)
+        //{
+        //Debug.Log("gggg");
+        //for(int i = 0; i < delayMessageSD.Count; ++ i )
+        //{
+        //    delayMessageSD
+        //}
+        //Debug.Log(delayMessageSD.GetHashCode());
+        //foreach (KeyValuePair<float, Telegram> iter in delayMessageSD)
+        //{
+        //    delayMessageSD.
+        //    //delayMessageSD = ;
+        //    if (iter.Value.dispatchTime < Time.time && iter.Value.dispatchTime > 0)
+        //    {
+        //        DisCharge(iter.Value.receiver, iter.Value);
+        //        removeList.Add(iter.Key);
+        //    }
+        //}
+
+        //foreach (float iter in removeList)
+        //{
+        //    delayMessageSD.Remove(iter);
+        //}
+        //yield return null;
+        //}
     }
 }

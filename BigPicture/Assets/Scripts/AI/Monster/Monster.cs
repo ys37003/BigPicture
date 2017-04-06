@@ -8,17 +8,7 @@ public class Monster : BaseGameEntity
     private Animator animator;
     private NavAgent navAgent;
 
-    public float monsterClock;
     public float erorrCheckClock;
-
-    /// <summary>
-    /// State변경에 필요한 고유 시간
-    /// </summary>
-    public float MonsterClock
-    {
-        get { return monsterClock; }
-        set { monsterClock = value; }
-    }
 
     /// <summary>
     /// 몬스터가 가지고 있을 Data

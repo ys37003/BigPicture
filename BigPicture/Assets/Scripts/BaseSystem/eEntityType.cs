@@ -4,13 +4,15 @@
     PLAYER,
     NPC,
     MONSTER,
-    ITEM
+    ITEM,
+    NULL
 }
 
 public enum eTRIBE_TYPE
 {
     Ork,
-    GOBLIN
+    GOBLIN,
+    NULL
 }
 
 public enum eJOB_TYPE
@@ -18,7 +20,8 @@ public enum eJOB_TYPE
     TANKER,
     DEALER,
     SUPPROT,
-    FOWORD
+    FOWORD,
+    NULL
 }
 
 public enum eDATASHEET
@@ -33,5 +36,6 @@ public enum eDATASHEET
     RECOVERY,
     LUCK,
     RANGE,
-    EYESIGHT
+    EYESIGHT,
+    NULL
 }
