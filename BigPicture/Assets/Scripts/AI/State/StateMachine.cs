@@ -69,6 +69,9 @@ public class StateMachine<entity_type> where entity_type : Ork
             case (int)eMESSAGE_TYPE.ATTACKABLE:
                 owner.AttackAble = true;
                 return true;
+            case (int)eMESSAGE_TYPE.ROLLINGABLE:
+                owner.RollingAble = true;
+                return true;
         }
         return false;
     }

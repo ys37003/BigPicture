@@ -24,6 +24,20 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Or
     public void Excute(entity_type _monster)
     {
         _monster.BattleIdle();
+
+        if (true == _monster.AttackAble)
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
+            return;
+        }
+
+        if (false == _monster.ToBattleIdle())
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+            _monster.NavAgent.Clear();
+            _monster.EnemyClear();
+            return;
+        }
     }
 
     public void Enter(entity_type _monster)
@@ -34,8 +48,6 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Or
     public void Exit(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", false);
-        //_monster.NavAgent.Clear();
-        //_monster.EnemyClear();
     }
 
     /// <summary>
@@ -51,11 +63,6 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Or
             case (int)eMESSAGE_TYPE.TO_ATTACK:
                 _monster.GetStateMachine().ChangeState(eSTATE.ATTACK);
                 return true;
-
-            case (int)eMESSAGE_TYPE.ATTACKABLE:
-                _monster.AttackAble = true;
-                return true;
-
             case (int)eMESSAGE_TYPE.TO_IDLE:
                 _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
                 return true;

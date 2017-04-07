@@ -27,13 +27,18 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
 
         if (true == _monster.ToBattleIdle())
         {
+            Debug.Log("ToBattle");
+            _monster.NavAgent.Clear();
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
 
         if (true == _monster.IsArrive())
         {
+            Debug.Log("ToIdle");
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+            _monster.NavAgent.Clear();
+            _monster.EnemyClear();
             return;
         }
     }
@@ -47,8 +52,7 @@ public class Run<entity_type> : State<entity_type> where entity_type : Ork
     public void Exit(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", false);
-        _monster.NavAgent.Clear();
-        //_monster.EnemyClear();
+        
     }
 
     /// <summary>

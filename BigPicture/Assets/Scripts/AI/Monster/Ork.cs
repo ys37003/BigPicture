@@ -75,16 +75,6 @@ public class Ork : Monster
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is BattleIdle");
         this.transform.LookAt(enemy.transform.position);
-
-        if (true == AttackAble)
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
-        }
-
-        if (false == ToBattleIdle())
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
-        }
     }
 
     public void Walk()
@@ -116,11 +106,6 @@ public class Ork : Monster
     public void Rolling()
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Rolling");
-
-        if (false == RollingAble)
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
-        }
     }
     #endregion
     #region 상태변화 조건함수
@@ -151,9 +136,9 @@ public class Ork : Monster
         return false;
     }
 
-    public bool ToIdle()
+    public bool EndRun()
     {
-        if (true == IsArrive())
+        if (true == this.ToBattleIdle())
             return true;
 
         return false;

@@ -22,11 +22,6 @@ public class Idle<entity_type> : State<entity_type> where entity_type : Ork
     public void Excute(entity_type _monster)
     {
         _monster.Idle();
-
-        //if(_monster.IdleToWalk())
-        //{ 
-            
-        //}
     }
 
     public void Enter(entity_type _monster)
@@ -34,7 +29,7 @@ public class Idle<entity_type> : State<entity_type> where entity_type : Ork
         //_monster.SetClock( Clock.Instance.GetTime());
         _monster.EnemyClear();
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", true);
-        MessageDispatcher.Instance.DispatchMessage(Random.Range(3, 7), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_WALK, null);
+        MessageDispatcher.Instance.DispatchMessage((int)Random.Range(3, 7), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_WALK, null);
     }
 
     public void Exit(entity_type _monster)
