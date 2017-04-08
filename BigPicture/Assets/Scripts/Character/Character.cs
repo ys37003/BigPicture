@@ -23,7 +23,7 @@ public class Character : BaseGameEntity
     /// <summary>
     /// 캐릭터의 현재 상태
     /// </summary>
-    public eSTATE currentState { get; private set; }
+    public eSTATE CurrentState { get; private set; }
 
     [SerializeField]
     private Animator animator = null;
@@ -40,14 +40,14 @@ public class Character : BaseGameEntity
 
     private void Awake()
     {
-        EntityInit(eTYPE.PLAYER, eTRIBE_TYPE.NULL, eJOB_TYPE.DEALER);
+        EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.NULL, eJOB_TYPE.DEALER);
 
         // 임시
         Init(new StatusData(7, 0, 4, 3, 6, 3, 10, StatusData.MAX_HP));
 
         StartCoroutine("UpdateState");
 
-        colliderAttack.Init(eTYPE.PLAYER, animator, Status);
+        colliderAttack.Init(eENTITY_TYPE.PLAYER, animator, Status);
         foreach (AnimationTrigger trigger in animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
@@ -103,36 +103,36 @@ public class Character : BaseGameEntity
                 float m = animator.GetFloat("Move");
                 if (m < 0.7)
                 {
-                    currentState = eSTATE.IDLE;
+                    CurrentState = eSTATE.IDLE;
                 }
                 else if (m < 1.4)
                 {
-                    currentState = eSTATE.WALK;
+                    CurrentState = eSTATE.WALK;
                 }
                 else
                 {
-                    currentState = eSTATE.RUN;
+                    CurrentState = eSTATE.RUN;
                 }
             }
             else if (info.IsTag("Attack"))
             {
-                currentState = eSTATE.ATTACK;
+                CurrentState = eSTATE.ATTACK;
             }
             else if(info.IsTag("Roll"))
             {
-                currentState = eSTATE.ROLLING;
+                CurrentState = eSTATE.ROLLING;
             }
             else if(info.IsTag("BattleIdle"))
             {
-                currentState = eSTATE.BATTLEIDLE;
+                CurrentState = eSTATE.BATTLEIDLE;
             }
             else if(info.IsTag("Dead"))
             {
-                currentState = eSTATE.DEAD;
+                CurrentState = eSTATE.DEAD;
             }
             else
             {
-                currentState = eSTATE.NULL;
+                CurrentState = eSTATE.NULL;
             }
 
             yield return null;
@@ -164,7 +164,7 @@ public class Character : BaseGameEntity
     {
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
 
-        if(ct != null && ct.EntitiType == eTYPE.MONSTER)
+        if(ct != null && ct.EntitiType == eENTITY_TYPE.MONSTER)
         {
             if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
             {
