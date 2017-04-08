@@ -9,7 +9,7 @@ public class Ork : Monster
     /// 몬스터의 상태를 변화시켜줄 템플릿 스크립트
     /// </summary>
     private StateMachine<Ork> stateMachine;
-
+    private Group group;
     /// <summary>
     /// 이동할 목적지가 정해졌을때 몬서터와 목적지 사이의 초기 거리
     /// </summary>
@@ -19,7 +19,6 @@ public class Ork : Monster
 
     private bool attackAble = true;
     private bool rollingAble = true;
-
     public bool AttackAble
     {
         get { return attackAble; }
@@ -38,20 +37,23 @@ public class Ork : Monster
     private ColliderAttack colliderAttack = null;
 
     [SerializeField]
+    eJOB_TYPE job_Type;
+    [SerializeField]
     private float attackRange = 1.0f;
     void Start()
     {
-        EntityInit(eTYPE.MONSTER, eTRIBE_TYPE.Ork, eJOB_TYPE.TANKER);
+        EntityInit(eTYPE.MONSTER, eTRIBE_TYPE.Ork, job_Type);
 
         Data = DataManager.Instance().GetData(this.Tribe, this.Job);
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
         stateMachine = new StateMachine<Ork>(this);
+        group = this.GetComponentInParent<Group>();
 
         // EyeSight Collider 초기화
         colEyeSight = this.transform.FindChild("EyeSightCol").GetComponent<BoxCollider>();
-        colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight / 2);
-        colEyeSight.size = new Vector3(Data.EyeSight * 2, 1, Data.EyeSight);
+        colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
+        colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);
 
         colliderAttack.Init(eTYPE.MONSTER, Animator, Data.StatusData);
         foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
@@ -81,19 +83,25 @@ public class Ork : Monster
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Walk");
 
-        // 1초마다 목적지와의 거리를 검사후 줄지 않았을떄 목적지 재설정
+        // 1초마다 목적지와의 거리를 검사후 줄지 않았을떄 Idle로
         if (this.erorrCheckClock + 0.5f < Time.time)
         {
             if (distenceToTarget - 0.5f <= Vector3.Distance(this.transform.position, this.NavAgent.target))
             {
-                NavAgent.target = MathAssist.Instance().RandomVector3(this.transform.position, 30.0f);
+                NavAgent.target = MathAssist.Instance().RandomVector3(this.GetGroup().GetGroupCenter(), 5.0f);
             }
-            this.erorrCheckClock = Time.time;
         }
     }
 
     public void Run()
     {
+        //float velocity = this.GetComponent<Rigidbody>().velocity.magnitude;
+        //float targetVelocity = enemy.GetComponent<Rigidbody>().velocity.magnitude;
+        //float time = Vector3.Distance(this.transform.position, enemy.transform.position) / velocity ;
+        //Vector3 newTarget = enemy.transform.position + (enemy.transform.forward * targetVelocity * time);
+       
+        //this.SetTarget(newTarget);
+        //Debug.DrawLine(this.transform.position, this.NavAgent.target, Color.red);
         Debug.Log(this.Type + this.ID.ToString() + "'State is Run");
     }
 
@@ -163,6 +171,7 @@ public class Ork : Monster
     }
 
     public StateMachine<Ork> GetStateMachine() { return stateMachine; }
+    public Group GetGroup() { return group; }
 
     /// <summary>
     /// 목적지 설정

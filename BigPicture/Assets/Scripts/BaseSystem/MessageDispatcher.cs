@@ -57,6 +57,18 @@ public class MessageDispatcher
         receiver.HanleMessage(_telegram);
     }
 
+    public void DeleteMessage(int _id, int _message)
+    {
+        for (int i = 0; i < telegramList.Count; ++i)
+        {
+            if(_id == telegramList[i].sender && _message == telegramList[i].message)
+            {
+                telegramList.RemoveAt(i);
+                delayList.RemoveAt(i);
+            }
+        }
+    }
+
     public IEnumerator DispatchDelayedMessages()
     {
         while (true)

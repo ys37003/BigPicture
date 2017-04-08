@@ -25,13 +25,21 @@ public class Walk<entity_type> : State<entity_type> where entity_type : Ork
     {
         _monster.Walk();
         Debug.DrawLine(_monster.transform.position, _monster.NavAgent.target, Color.red);
+
+        //if( true == _monster.IsArrive())
+        //    _monster.SetTarget(MathAssist.Instance().RandomVector3(_monster.GetGroup().GetGroupCenter(), 5.0f));
+        if (true == _monster.IsArrive())
+        {
+            //MessageDispatcher.Instance.DeleteMessage(_monster.ID, (int)eMESSAGE_TYPE.TO_IDLE);
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+        }
     }
 
     public void Enter(entity_type _monster)
     {
         _monster.SetClock(Time.time);
-        _monster.SetTarget(MathAssist.Instance().RandomVector3(_monster.transform.position, 30.0f));
-        MessageDispatcher.Instance.DispatchMessage((int)Random.Range(3,7), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+        _monster.SetTarget(MathAssist.Instance().RandomVector3(_monster.GetGroup().GetGroupCenter(), 5.0f));
+        //MessageDispatcher.Instance.DispatchMessage((int)Random.Range(7,10), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", true);
     }
 

@@ -19,7 +19,7 @@ public enum eJOB_TYPE
 {
     TANKER,
     DEALER,
-    SUPPROT,
+    SUPPORT,
     FOWORD,
     NULL
 }
