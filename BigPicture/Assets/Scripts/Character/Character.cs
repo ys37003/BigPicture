@@ -43,7 +43,7 @@ public class Character : BaseGameEntity
         EntityInit(eTYPE.PLAYER, eTRIBE_TYPE.NULL, eJOB_TYPE.DEALER);
 
         // 임시
-        Init(new StatusData(1, 1, 1, 1, 1, 1, 1));
+        Init(new StatusData(7, 0, 4, 3, 6, 3, 10, StatusData.MAX_HP));
 
         StartCoroutine("UpdateState");
 
@@ -57,7 +57,7 @@ public class Character : BaseGameEntity
     public void Init(StatusData status)
     {
         Status = status;
-        AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0);
+        AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     public void Move(Vector3 dir, float move)
@@ -78,6 +78,15 @@ public class Character : BaseGameEntity
     public void Battle(bool battle)
     {
         colliderAttack.SetActive(battle);
+
+        if (battle)
+        {
+            StopCoroutine("ReoveryRatePerSecond");
+        }
+        else
+        {
+            StartCoroutine("ReoveryRatePerSecond");
+        }
     }
 
     /// <summary>
@@ -124,6 +133,27 @@ public class Character : BaseGameEntity
             else
             {
                 currentState = eSTATE.NULL;
+            }
+
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// 초당 HP 회복
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ReoveryRatePerSecond()
+    {
+        float sTime = Time.time;
+        int second = 1;
+
+        while(true)
+        {
+            if(sTime + second <= Time.time)
+            {
+                Status.HP += TotalStatus.RecoveryRPS;
+                sTime = Time.time;
             }
 
             yield return null;

@@ -27,16 +27,16 @@ public class MonsterData
     /// </summary>
     public readonly int EyeSight;
 
-    public MonsterData(eTRIBE_TYPE tribe, eJOB_TYPE job, int str, int sp, int ag, int av, int def, int rec, int lck , int rg , int es)
+    public MonsterData(eTRIBE_TYPE tribe, eJOB_TYPE job, int str, int sp, int ag, int av, int def, int rec, int lck, float hp, int rg, int es)
     {
         Tribe      = tribe;
         Job        = job;
         Range      = rg;
         EyeSight   = es;
-        StatusData = new StatusData(str, sp, ag, av, def, rec, lck);
+        StatusData = new StatusData(str, sp, ag, av, def, rec, lck, hp);
     }
 
-    public MonsterData(eTRIBE_TYPE tribe, eJOB_TYPE job, int rg,int es, StatusData stat)
+    public MonsterData(eTRIBE_TYPE tribe, eJOB_TYPE job, int rg, int es, StatusData stat)
     {
         Tribe      = tribe;
         Job        = job;
