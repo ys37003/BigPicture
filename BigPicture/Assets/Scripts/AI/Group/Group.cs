@@ -39,4 +39,15 @@ public class Group : BaseGameEntity {
             MessageDispatcher.Instance.DispatchMessage(_delay , _sender , _receiver, _message , _extreInfo);
         }
     }
+
+    public void SendMessageGroup(float _delay, int _sender, int _job , int _message, object _extreInfo)
+    {
+        for (int i = 0; i < member.Count; ++i)
+        {
+            BaseGameEntity _receiver = member[i].GetComponent<BaseGameEntity>();
+
+            if(_job == (int)_receiver.Job)
+                MessageDispatcher.Instance.DispatchMessage(_delay, _sender, _receiver.ID, _message, _extreInfo);
+        }
+    }
 }

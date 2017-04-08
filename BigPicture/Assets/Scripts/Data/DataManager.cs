@@ -63,6 +63,7 @@ public class DataManager
                     int.Parse(xmlTable[(int)eDATASHEET.DEFENSE].Item(j).InnerText),
                     int.Parse(xmlTable[(int)eDATASHEET.RECOVERY].Item(j).InnerText),
                     int.Parse(xmlTable[(int)eDATASHEET.LUCK].Item(j).InnerText),
+                    StatusData.MAX_HP,
                     int.Parse(xmlTable[(int)eDATASHEET.RANGE].Item(j).InnerText),
                     int.Parse(xmlTable[(int)eDATASHEET.EYESIGHT].Item(j).InnerText)
                     );

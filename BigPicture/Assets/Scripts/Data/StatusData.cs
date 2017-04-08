@@ -38,10 +38,18 @@ public class StatusData
     /// </summary>
     public int Luck;
 
-    /// <summary>
-    /// 체력
-    /// </summary>
-    public float HP;
+    private float Hp;
+    public  float HP
+    {
+        get { return Hp; }
+        set
+        {
+            Hp = value;
+
+                 if (Hp > 100) Hp = 100;
+            else if (Hp < 0)   Hp = 0;
+        }
+    }
     #endregion
 
     #region 계산값
@@ -78,13 +86,13 @@ public class StatusData
     /// <summary>
     /// 최대 체력(100으로 고정)
     /// </summary>
-    public float MaxHP { get { return 100; } }
+    static public readonly float MAX_HP = 100;
     #endregion
 
     /// <summary>
     /// 능력치
     /// </summary>
-    public StatusData(int str, int sp, int ag, int av, int def, int rec, int lck)
+    public StatusData(int str, int sp, int ag, int av, int def, int rec, int lck, float hp)
     {
         Strength = str;
         Spell    = sp;
@@ -93,7 +101,7 @@ public class StatusData
         Defense  = def;
         Recovery = rec;
         Luck     = lck;
-        HP       = MaxHP;
+        Hp       = hp;
     }
 
     public StatusData(StatusData stat)
@@ -105,7 +113,7 @@ public class StatusData
         Defense  = stat.Defense;
         Recovery = stat.Recovery;
         Luck     = stat.Luck;
-        HP       = MaxHP;
+        Hp       = stat.Hp;
     }
 
     public static StatusData operator +(StatusData stat1, StatusData stat2)
@@ -116,6 +124,7 @@ public class StatusData
                               stat1.Avoid    + stat2.Avoid,
                               stat1.Defense  + stat2.Defense,
                               stat1.Recovery + stat2.Recovery,
-                              stat1.Luck     + stat2.Luck);
+                              stat1.Luck     + stat2.Luck,
+                              stat1.Hp       + stat2.Hp);
     }
 }

@@ -2,12 +2,12 @@
 
 public class BaseGameEntity : MonoBehaviour
 {
-    private eTYPE       entityType;
-    private eTRIBE_TYPE entityTribe;
-    private eJOB_TYPE   entityJob;
-    private int         entityID;
+    private eENTITY_TYPE entityType;
+    private eTRIBE_TYPE  entityTribe;
+    private eJOB_TYPE    entityJob;
+    private int          entityID;
 
-    public eTYPE Type
+    public eENTITY_TYPE Type
     {
                 get { return entityType; }
         private set { entityType = value; }
@@ -31,7 +31,7 @@ public class BaseGameEntity : MonoBehaviour
         private set { entityID = value; }
     }
 
-    protected void EntityInit(eTYPE _type, eTRIBE_TYPE _tribe, eJOB_TYPE _job)
+    protected void EntityInit(eENTITY_TYPE _type, eTRIBE_TYPE _tribe, eJOB_TYPE _job)
     {
         Type  = _type;
         Tribe = _tribe;

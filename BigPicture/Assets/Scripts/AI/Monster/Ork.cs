@@ -42,7 +42,7 @@ public class Ork : Monster
     private float attackRange = 1.0f;
     void Start()
     {
-        EntityInit(eTYPE.MONSTER, eTRIBE_TYPE.Ork, job_Type);
+        EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.Ork, eJOB_TYPE.TANKER);
 
         Data = DataManager.Instance().GetData(this.Tribe, this.Job);
         Animator = this.GetComponent<Animator>();
@@ -55,7 +55,7 @@ public class Ork : Monster
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);
 
-        colliderAttack.Init(eTYPE.MONSTER, Animator, Data.StatusData);
+        colliderAttack.Init(eENTITY_TYPE.MONSTER, Animator, Data.StatusData);
         foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
@@ -208,7 +208,7 @@ public class Ork : Monster
     #region Trigger
     void OnTriggerStay(Collider other)
     {
-        eTYPE colType = eTYPE.NULL;
+        eENTITY_TYPE colType = eENTITY_TYPE.NULL;
         try
         {
             colType = other.GetComponent<BaseGameEntity>().Type;
@@ -218,7 +218,7 @@ public class Ork : Monster
             colType = other.GetComponentInParent<BaseGameEntity>().Type;
         }
 
-        if (true == (colType == eTYPE.PLAYER || colType == eTYPE.NPC) &&
+        if (true == (colType == eENTITY_TYPE.PLAYER || colType == eENTITY_TYPE.NPC) &&
             enemy == null)
         {
             SetEnemy(other.gameObject);
@@ -251,7 +251,7 @@ public class Ork : Monster
     {
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
 
-        if (ct != null && ct.EntitiType == eTYPE.PLAYER)
+        if (ct != null && ct.EntitiType == eENTITY_TYPE.PLAYER)
         {
             if (true == RollingAble)
             {
