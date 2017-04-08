@@ -227,7 +227,7 @@ public class CharacterController : MonoBehaviour
             // 마우스 오른쪽 클릭 후 드래그로 화면 회전
             if (Input.GetMouseButton(1))
             {
-                followedCamera.RotateAround(followedCamera.position, Vector3.down, Input.GetAxis("Mouse Y") * cameraTurnSpeed);
+                followedCamera.RotateAround(followedCamera.position, Vector3.up, Input.GetAxis("Mouse X") * cameraTurnSpeed);
             }
 
             yield return null;

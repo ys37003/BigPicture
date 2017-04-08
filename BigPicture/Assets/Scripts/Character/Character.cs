@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Character : BaseGameEntity
@@ -23,11 +21,8 @@ public class Character : BaseGameEntity
     public int StatusPoint { get; set; }
 
     /// <summary>
-    /// 구르기 속도는 이동속도(MoveSpeed) %이다.
-    /// ex) RollSpeed가 0.7이면 7(MoveSpeed * 0.7)의 속도로 구른다.
+    /// 캐릭터의 현재 상태
     /// </summary>
-    public float RollSpeedRate = 0.7f;
-
     public eSTATE currentState { get; private set; }
 
     [SerializeField]
@@ -35,6 +30,13 @@ public class Character : BaseGameEntity
 
     [SerializeField]
     private ColliderAttack colliderAttack = null;
+
+    /// <summary>
+    /// 구르기 속도는 이동속도(MoveSpeed) %이다.
+    /// ex) RollSpeed가 0.7이면 7(MoveSpeed * 0.7)의 속도로 구른다.
+    /// </summary>
+    [SerializeField]
+    private float rollSpeedRate = 0.7f;
 
     private void Awake()
     {
@@ -70,7 +72,7 @@ public class Character : BaseGameEntity
     public void Roll(Vector3 eulerAngles)
     {
         transform.eulerAngles = eulerAngles;
-        transform.Translate(Vector3.forward * Time.deltaTime * TotalStatus.MoveSpeed * RollSpeedRate);
+        transform.Translate(Vector3.forward * Time.deltaTime * TotalStatus.MoveSpeed * rollSpeedRate);
     }
 
     public void Battle(bool battle)
@@ -134,6 +136,11 @@ public class Character : BaseGameEntity
 
         if(ct != null && ct.EntitiType == eTYPE.MONSTER)
         {
+            if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
+            {
+                Debug.Log(string.Format("{0}의 공격 회피", other.name));
+            }
+
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
             Status.HP -= (ct.Power - TotalStatus.Armor);
         }
