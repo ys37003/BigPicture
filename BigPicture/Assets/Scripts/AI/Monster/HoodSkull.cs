@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class Ork : Monster
+public class HoodSkull : Monster
 {
     /// <summary>
     /// 몬스터의 상태를 변화시켜줄 템플릿 스크립트
     /// </summary>
-    private StateMachine<Ork> stateMachine;
+    private StateMachine<HoodSkull> stateMachine;
     private Group group;
     /// <summary>
     /// 이동할 목적지가 정해졌을때 몬서터와 목적지 사이의 초기 거리
@@ -40,14 +39,16 @@ public class Ork : Monster
     eJOB_TYPE job_Type;
     [SerializeField]
     private float attackRange = 1.0f;
+
+    public DGSetDestination SetDestination;
+    public DGToWalk ToWalk;
     void Start()
     {
-        EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.Ork, eJOB_TYPE.TANKER);
+        EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type);
 
         Data = DataManager.Instance().GetData(this.Tribe, this.Job);
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
-        stateMachine = new StateMachine<Ork>(this);
         group = this.GetComponentInParent<Group>();
 
         // EyeSight Collider 초기화
@@ -60,8 +61,36 @@ public class Ork : Monster
         {
             trigger.ColliderAttack = colliderAttack;
         }
+
+        this.GetGroup().AddMember(this);
+        SetDelegate();
+
+
+        stateMachine = new StateMachine<HoodSkull>(this);
     }
 
+    private void SetDelegate()
+    {
+        switch (job_Type)
+        {
+            case eJOB_TYPE.DEALER:
+                SetDestination = Delegates.Instance.SetDestination_Nomal;
+                ToWalk = Delegates.Instance.ToWalk_Nomal;
+                break;
+            case eJOB_TYPE.FOWORD:
+                SetDestination = Delegates.Instance.SetDestination_Foword;
+                ToWalk = Delegates.Instance.ToWalk_Foword;
+                break;
+            case eJOB_TYPE.SUPPORT:
+                SetDestination = Delegates.Instance.SetDestination_Nomal;
+                ToWalk = Delegates.Instance.ToWalk_Nomal;
+                break;
+            case eJOB_TYPE.TANKER:
+                SetDestination = Delegates.Instance.SetDestination_Nomal;
+                ToWalk = Delegates.Instance.ToWalk_Nomal;
+                break;
+        }
+    }
     private void Update()
     {
         stateMachine.Update();
@@ -83,14 +112,22 @@ public class Ork : Monster
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Walk");
 
-        // 1초마다 목적지와의 거리를 검사후 줄지 않았을떄 Idle로
-        if (this.erorrCheckClock + 0.5f < Time.time)
-        {
-            if (distenceToTarget - 0.5f <= Vector3.Distance(this.transform.position, this.NavAgent.target))
-            {
-                NavAgent.target = MathAssist.Instance().RandomVector3(this.GetGroup().GetGroupCenter(), 5.0f);
-            }
-        }
+        //if(this.erorrCheckClock + 1.0f < Time.time)
+        //{
+        //    this.erorrCheckClock = Time.time;
+        //    distenceToTarget = Vector3.Distance(this.transform.position, this.NavAgent.target);
+        //}
+
+
+        //// 1초마다 목적지와의 거리를 검사후 줄지 않았을떄 Idle로
+        //if (this.erorrCheckClock + 0.5f < Time.time)
+        //{
+        //    if (distenceToTarget <= Vector3.Distance(this.transform.position, this.NavAgent.target))
+        //    {
+        //        NavAgent.target = MathAssist.Instance().RandomVector3(this.GetGroup().GetGroupCenter(), 5.0f);
+        //    }
+            
+        //}
     }
 
     public void Run()
@@ -170,7 +207,7 @@ public class Ork : Monster
         return stateMachine.HandleMessgae(_msg);
     }
 
-    public StateMachine<Ork> GetStateMachine() { return stateMachine; }
+    public StateMachine<HoodSkull> GetStateMachine() { return stateMachine; }
     public Group GetGroup() { return group; }
 
     /// <summary>

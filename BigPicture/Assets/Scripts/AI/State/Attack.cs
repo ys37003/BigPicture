@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack<entity_type> : State<entity_type> where entity_type : Ork
+public class Attack<entity_type> : State<entity_type> where entity_type : HoodSkull
 {
     private static Attack<entity_type> instance;
 

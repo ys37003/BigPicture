@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Run<entity_type> : State<entity_type> where entity_type : Ork
+public class Run<entity_type> : State<entity_type> where entity_type : HoodSkull
 {
     private static Run<entity_type> instance;
 

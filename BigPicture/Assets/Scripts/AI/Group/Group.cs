@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Group : BaseGameEntity {
-    public List<GameObject> member = new List<GameObject>();
+    public List<BaseGameEntity> member = new List<BaseGameEntity>();
     public GameObject test;
     [SerializeField]
     private float groupDistence;
@@ -11,13 +11,39 @@ public class Group : BaseGameEntity {
     Vector3 center;
     // Use this for initialization
     void Start() {
-        for (int i = 0; i < this.transform.childCount; ++i)
-            member.Add(this.transform.GetChild(i).gameObject);
+       
     }
 
     // Update is called once per frame
     void Update() {
-        test.transform.position = GetGroupCenter();
+        //test.transform.position = GetGroupCenter();
+    }
+    public void AddMember(BaseGameEntity _member)
+    {
+        Debug.Log(_member.Job);
+        member.Add(_member);
+    }
+    public List<BaseGameEntity> JobToEntitys(eJOB_TYPE _job)
+    {
+        List<BaseGameEntity> entitys = new List<BaseGameEntity>();
+
+        for (int i = 0; i < member.Count; ++i)
+        {
+            if (_job == member[i].Job)
+                entitys.Add(member[i]);
+        }
+        return entitys;
+    }
+    public BaseGameEntity JobToEntity(eJOB_TYPE _job)
+    {
+        for (int i = 0; i < member.Count; ++i)
+        {
+            if (_job == member[i].Job)
+                return member[i];
+        }
+        Debug.Log("JobToEntity is Fail");
+
+        return null;
     }
 
     public Vector3 GetGroupCenter()
@@ -35,7 +61,7 @@ public class Group : BaseGameEntity {
     {
         for (int i = 0; i < member.Count; ++i)
         {
-            int _receiver = member[i].GetComponent<BaseGameEntity>().ID;
+            int _receiver = member[i].ID;
             MessageDispatcher.Instance.DispatchMessage(_delay , _sender , _receiver, _message , _extreInfo);
         }
     }
@@ -44,10 +70,10 @@ public class Group : BaseGameEntity {
     {
         for (int i = 0; i < member.Count; ++i)
         {
-            BaseGameEntity _receiver = member[i].GetComponent<BaseGameEntity>();
+            BaseGameEntity receiver = member[i];
 
-            if(_job == (int)_receiver.Job)
-                MessageDispatcher.Instance.DispatchMessage(_delay, _sender, _receiver.ID, _message, _extreInfo);
+            if(_job == (int)receiver.Job)
+                MessageDispatcher.Instance.DispatchMessage(_delay, _sender, receiver.ID, _message, _extreInfo);
         }
     }
 }

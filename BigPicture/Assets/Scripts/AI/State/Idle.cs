@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Idle<entity_type> : State<entity_type> where entity_type : Ork
+public class Idle<entity_type> : State<entity_type> where entity_type : HoodSkull
 {
     private static Idle<entity_type> instance;
 
@@ -29,6 +29,7 @@ public class Idle<entity_type> : State<entity_type> where entity_type : Ork
         //_monster.SetClock( Clock.Instance.GetTime());
         _monster.EnemyClear();
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", true);
+        //_monster.ToWalk(_monster);
         MessageDispatcher.Instance.DispatchMessage((int)Random.Range(7, 10), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_WALK, null);
     }
 

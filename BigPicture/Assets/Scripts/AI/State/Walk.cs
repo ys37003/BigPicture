@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Walk<entity_type> : State<entity_type> where entity_type : Ork
+public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkull
 {
     private static Walk<entity_type> instance;
 
@@ -37,8 +37,11 @@ public class Walk<entity_type> : State<entity_type> where entity_type : Ork
 
     public void Enter(entity_type _monster)
     {
+        BaseGameEntity foword = _monster.GetGroup().JobToEntity(eJOB_TYPE.FOWORD);
         _monster.SetClock(Time.time);
-        _monster.SetTarget(MathAssist.Instance().RandomVector3(_monster.GetGroup().GetGroupCenter(), 5.0f));
+        //_monster.SetTarget(_monster.SetDestination(foword.transform.position));
+
+        _monster.SetTarget( MathAssist.Instance().RandomVector3(_monster.GetGroup().GetGroupCenter(), 5.0f));
         //MessageDispatcher.Instance.DispatchMessage((int)Random.Range(7,10), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", true);
     }

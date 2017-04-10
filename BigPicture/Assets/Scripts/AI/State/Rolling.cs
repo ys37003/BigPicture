@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rolling<entity_type> : State<entity_type> where entity_type : Ork
+public class Rolling<entity_type> : State<entity_type> where entity_type : HoodSkull
 { 
     private static Rolling<entity_type> instance;
 

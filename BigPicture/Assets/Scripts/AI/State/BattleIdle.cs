@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleIdle<entity_type> : State<entity_type> where entity_type : Ork
+public class BattleIdle<entity_type> : State<entity_type> where entity_type : HoodSkull
 {
     private static BattleIdle<entity_type> instance;
 

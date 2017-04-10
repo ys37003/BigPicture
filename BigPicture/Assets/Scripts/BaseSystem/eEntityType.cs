@@ -10,7 +10,7 @@
 
 public enum eTRIBE_TYPE
 {
-    Ork,
+    HOODSKULL,
     GOBLIN,
     NULL
 }
