@@ -56,6 +56,11 @@ public class Idle<entity_type> : State<entity_type> where entity_type : HoodSkul
                 _monster.GetStateMachine().ChangeState(eSTATE.RUN);
                 _monster.SetTarget((Vector3)_msg.extraInfo);
                 return true;
+
+            case (int)eMESSAGE_TYPE.FLLOWME:
+                _monster.GetStateMachine().ChangeState(eSTATE.WALK);
+                _monster.SetTarget(MathAssist.Instance().RandomVector3((Vector3)_msg.extraInfo,5.0f));
+                return true;
         }
 
         return false;

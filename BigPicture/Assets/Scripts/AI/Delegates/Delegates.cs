@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public delegate Vector3 DGSetDestination(Vector3 _position);
+public delegate Vector3 DGSetDestination(BaseGameEntity _entity, Group group, Vector3 _position);
 public delegate void DGToWalk(BaseGameEntity _entity);
 public class Delegates
 {
@@ -25,22 +25,19 @@ public class Delegates
         private set { }
     }
 
-    public Vector3 SetDestination_Nomal(Vector3 _position)
+    public Vector3 SetDestination_Nomal(BaseGameEntity _entity, Group group, Vector3 _position)
     {
-        return MathAssist.Instance().RandomVector3(_position, 5.0f);
+        return MathAssist.Instance().RandomVector3(_position, 2.0f);
     }
 
-    public Vector3 SetDestination_Foword(Vector3 _position)
+    public Vector3 SetDestination_Foword(BaseGameEntity _entity, Group group, Vector3 _position)
     {
-        return MathAssist.Instance().RandomVector3(_position, 20.0f);
-    }
-
-    public void ToWalk_Nomal(BaseGameEntity _entity)
-    {
-        MessageDispatcher.Instance.DispatchMessage(Random.Range(4, 6), _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_WALK, null);
-    }
-    public void ToWalk_Foword(BaseGameEntity _entity)
-    {
-        MessageDispatcher.Instance.DispatchMessage(Random.Range(3, 4), _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_WALK, null);
+        if( 0 == (int)Random.Range(0,3))
+        {
+            Vector3 position = MathAssist.Instance().RandomVector3(_position, 20.0f);
+            group.DispatchMessageGroup(1, _entity.ID, (int)eMESSAGE_TYPE.FLLOWME, position);
+            return position;
+        }
+        return MathAssist.Instance().RandomVector3(_position, 2.0f);
     }
 }

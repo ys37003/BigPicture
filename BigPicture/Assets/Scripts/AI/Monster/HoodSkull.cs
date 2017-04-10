@@ -75,19 +75,15 @@ public class HoodSkull : Monster
         {
             case eJOB_TYPE.DEALER:
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
-                ToWalk = Delegates.Instance.ToWalk_Nomal;
                 break;
             case eJOB_TYPE.FOWORD:
                 SetDestination = Delegates.Instance.SetDestination_Foword;
-                ToWalk = Delegates.Instance.ToWalk_Foword;
                 break;
             case eJOB_TYPE.SUPPORT:
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
-                ToWalk = Delegates.Instance.ToWalk_Nomal;
                 break;
             case eJOB_TYPE.TANKER:
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
-                ToWalk = Delegates.Instance.ToWalk_Nomal;
                 break;
         }
     }

@@ -57,16 +57,20 @@ public class Group : BaseGameEntity {
         return dummy;
     }
 
-    public void SendMessageGroup(float _delay , int _sender, int _message , object _extreInfo)
+    public void DispatchMessageGroup(float _delay , int _sender, int _message , object _extreInfo)
     {
         for (int i = 0; i < member.Count; ++i)
         {
-            int _receiver = member[i].ID;
-            MessageDispatcher.Instance.DispatchMessage(_delay , _sender , _receiver, _message , _extreInfo);
+            int receiver = member[i].ID;
+
+            if (_sender == receiver)
+                continue;
+
+            MessageDispatcher.Instance.DispatchMessage(_delay , _sender , receiver, _message , _extreInfo);
         }
     }
 
-    public void SendMessageGroup(float _delay, int _sender, int _job , int _message, object _extreInfo)
+    public void DispatchMessageGroup(float _delay, int _sender, int _job , int _message, object _extreInfo)
     {
         for (int i = 0; i < member.Count; ++i)
         {
