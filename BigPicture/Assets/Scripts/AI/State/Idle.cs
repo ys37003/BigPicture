@@ -53,8 +53,12 @@ public class Idle<entity_type> : State<entity_type> where entity_type : HoodSkul
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                _monster.GetStateMachine().ChangeState(eSTATE.RUN);
-                _monster.SetTarget((Vector3)_msg.extraInfo);
+                //_monster.GetStateMachine().ChangeState(eSTATE.RUN);
+                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
+
+                GameObject enemy = (GameObject)_msg.extraInfo;
+                _monster.SetEnemy(enemy);
+                //_monster.SetTarget(enemy.transform.position );
                 return true;
 
             case (int)eMESSAGE_TYPE.FLLOWME:

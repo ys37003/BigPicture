@@ -32,7 +32,7 @@ public class Delegates
 
     public Vector3 SetDestination_Foword(BaseGameEntity _entity, Group group, Vector3 _position)
     {
-        if( 0 == (int)Random.Range(0,3))
+        if( 0 == (int)Random.Range(0,2))
         {
             Vector3 position = MathAssist.Instance().RandomVector3(_position, 20.0f);
             group.DispatchMessageGroup(1, _entity.ID, (int)eMESSAGE_TYPE.FLLOWME, position);

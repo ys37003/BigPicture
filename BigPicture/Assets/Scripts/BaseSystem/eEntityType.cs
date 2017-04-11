@@ -20,7 +20,7 @@ public enum eJOB_TYPE
     TANKER,
     DEALER,
     SUPPORT,
-    FOWORD,
+    FORWARD,
     NULL
 }
 

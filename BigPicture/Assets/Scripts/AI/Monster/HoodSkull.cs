@@ -76,7 +76,7 @@ public class HoodSkull : Monster
             case eJOB_TYPE.DEALER:
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
                 break;
-            case eJOB_TYPE.FOWORD:
+            case eJOB_TYPE.FORWARD:
                 SetDestination = Delegates.Instance.SetDestination_Foword;
                 break;
             case eJOB_TYPE.SUPPORT:
@@ -214,6 +214,7 @@ public class HoodSkull : Monster
     {
         NavAgent.target = _target;
         distenceToTarget = Vector3.Distance(this.transform.position, _target);
+        StartCoroutine(NavAgent.MoveToTarget());
     }
 
     /// <summary>
@@ -254,10 +255,10 @@ public class HoodSkull : Monster
         if (true == (colType == eENTITY_TYPE.PLAYER || colType == eENTITY_TYPE.NPC) &&
             enemy == null)
         {
-            SetEnemy(other.gameObject);
-            SetTarget(enemy.transform.position);
-            Vector3 colPos = other.transform.position;
-            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, colPos);
+            Debug.Log("Find Enemy");
+            this.GetGroup().DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject );
+            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject );
+            this.GetGroup().SetFomation();
         }
         //if ("Player" == other.tag && enemy == null ) 
         //{

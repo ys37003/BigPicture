@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Group : BaseGameEntity {
     public List<BaseGameEntity> member = new List<BaseGameEntity>();
-    public GameObject test;
-    [SerializeField]
-    private float groupDistence;
-
-    Vector3 center;
+    List<BaseGameEntity> dealerList = new List<BaseGameEntity>();
+    BaseGameEntity forward;
+    List<BaseGameEntity> supportList = new List<BaseGameEntity>();
     // Use this for initialization
     void Start() {
        
@@ -22,7 +20,25 @@ public class Group : BaseGameEntity {
     {
         Debug.Log(_member.Job);
         member.Add(_member);
+
+        switch(_member.Job)
+        {
+            case eJOB_TYPE.DEALER:
+                dealerList.Add(_member);
+                break;
+            case eJOB_TYPE.FORWARD:
+                forward = _member;
+                break;
+            case eJOB_TYPE.SUPPORT:
+                supportList.Add(_member);
+                break;
+
+            default:
+                Debug.Log("AddMember is Fail");
+                break;
+        }
     }
+
     public List<BaseGameEntity> JobToEntitys(eJOB_TYPE _job)
     {
         List<BaseGameEntity> entitys = new List<BaseGameEntity>();
@@ -46,15 +62,21 @@ public class Group : BaseGameEntity {
         return null;
     }
 
-    public Vector3 GetGroupCenter()
+    public void SetFomation()
     {
-        for (int i = 0; i < member.Count; ++i)
-        {
-            center += member[i].transform.position;
-        }
-        Vector3 dummy = center / member.Count;
-        center = Vector3.zero;
-        return dummy;
+        Vector3 fomation = forward.transform.position + (-forward.transform.forward * 3);
+        fomation += forward.transform.right * -1;
+
+        MessageDispatcher.Instance.DispatchMessage(0.5f, forward.ID, dealerList[0].ID, (int)eMESSAGE_TYPE.SETFOMATION, fomation);
+
+        fomation = forward.transform.position + (-forward.transform.forward * 3);
+        fomation += forward.transform.right * 1;
+
+        MessageDispatcher.Instance.DispatchMessage(0.5f, forward.ID, dealerList[1].ID, (int)eMESSAGE_TYPE.SETFOMATION, fomation);
+
+        fomation = forward.transform.position + (-forward.transform.forward * 6);
+        MessageDispatcher.Instance.DispatchMessage(0.5f, forward.ID, supportList[0].ID, (int)eMESSAGE_TYPE.SETFOMATION, fomation);
+
     }
 
     public void DispatchMessageGroup(float _delay , int _sender, int _message , object _extreInfo)

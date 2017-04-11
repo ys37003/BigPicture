@@ -17,8 +17,8 @@ public class NavAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.zero != destination)
-            m_agent.SetDestination(destination);
+        //if(Vector3.zero != destination)
+        //    m_agent.SetDestination(destination);
     }
 
     public Vector3 target
@@ -31,5 +31,24 @@ public class NavAgent : MonoBehaviour
     {
         destination = this.gameObject.transform.position;
         m_agent.SetDestination(destination);
+    }
+
+    public bool IsArrive()
+    {
+        if (0.5f > Vector3.Distance(this.transform.position, this.target))
+            return true;
+
+        return false;
+    }
+
+    public IEnumerator MoveToTarget()
+    {
+        while (false == this.IsArrive())
+        {
+            if (Vector3.zero != destination)
+                m_agent.SetDestination(destination);
+
+            yield return null;
+        }
     }
 }

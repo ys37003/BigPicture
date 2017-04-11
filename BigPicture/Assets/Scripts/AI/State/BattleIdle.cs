@@ -25,19 +25,19 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Ho
     {
         _monster.BattleIdle();
 
-        if (true == _monster.AttackAble)
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
-            return;
-        }
+        //if (true == _monster.AttackAble)
+        //{
+        //    MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
+        //    return;
+        //}
 
-        if (false == _monster.ToBattleIdle())
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
-            _monster.NavAgent.Clear();
-            _monster.EnemyClear();
-            return;
-        }
+        //if (false == _monster.ToBattleIdle())
+        //{
+        //    MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+        //    _monster.NavAgent.Clear();
+        //    _monster.EnemyClear();
+        //    return;
+        //}
     }
 
     public void Enter(entity_type _monster)
@@ -68,6 +68,12 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Ho
                 return true;
             case (int)eMESSAGE_TYPE.TO_ROLLING:
                 _monster.GetStateMachine().ChangeState(eSTATE.ROLLING);
+                return true;
+
+            case (int)eMESSAGE_TYPE.SETFOMATION:
+                Vector3 fomation = (Vector3)_msg.extraInfo;
+                _monster.SetTarget(fomation);
+                _monster.NavAgent.StartCoroutine(_monster.NavAgent.MoveToTarget());
                 return true;
         }
 
