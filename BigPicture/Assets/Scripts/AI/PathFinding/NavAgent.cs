@@ -48,6 +48,7 @@ public class NavAgent : MonoBehaviour
             if (Vector3.zero != destination)
                 m_agent.SetDestination(destination);
 
+            Debug.DrawLine(transform.position, this.target, Color.red);
             yield return null;
         }
     }

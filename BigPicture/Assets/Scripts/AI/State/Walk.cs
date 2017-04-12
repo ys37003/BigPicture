@@ -24,7 +24,7 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
     public void Excute(entity_type _monster)
     {
         _monster.Walk();
-        Debug.DrawLine(_monster.transform.position, _monster.NavAgent.target, Color.red);
+       
 
         //if( true == _monster.IsArrive())
         //    _monster.SetTarget(MathAssist.Instance().RandomVector3(_monster.GetGroup().GetGroupCenter(), 5.0f));
@@ -71,15 +71,19 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
                 //_monster.GetStateMachine().ChangeState(eSTATE.RUN);
-                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
-
+                //_monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
                 GameObject enemy = (GameObject)_msg.extraInfo;
                 _monster.SetEnemy(enemy);
+                _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
                 //_monster.SetTarget(enemy.transform.position);
                 return true;
 
             case (int)eMESSAGE_TYPE.FLLOWME:
                 _monster.SetTarget(MathAssist.Instance().RandomVector3((Vector3)_msg.extraInfo, 5.0f));
+                return true;
+
+            case (int)eMESSAGE_TYPE.SETFOMATION:
+                _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
                 return true;
         }
         return false;

@@ -7,5 +7,6 @@
     ROLLING,
     BATTLEIDLE,
     DEAD,
+    SETFOMATION,
     NULL
 }

@@ -7,6 +7,8 @@ public class Group : BaseGameEntity {
     List<BaseGameEntity> dealerList = new List<BaseGameEntity>();
     BaseGameEntity forward;
     List<BaseGameEntity> supportList = new List<BaseGameEntity>();
+
+    public Transform center;
     // Use this for initialization
     void Start() {
        
@@ -14,6 +16,10 @@ public class Group : BaseGameEntity {
 
     // Update is called once per frame
     void Update() {
+        for (int i = 0; i < member.Count; ++i)
+            center.position += member[i].transform.position;
+
+        center.position /= member.Count;
         //test.transform.position = GetGroupCenter();
     }
     public void AddMember(BaseGameEntity _member)
@@ -39,6 +45,18 @@ public class Group : BaseGameEntity {
         }
     }
 
+    public Transform GetCenter(Vector3 _target)
+    {
+        for (int i = 0; i < member.Count; ++i)
+            center.position += member[i].transform.position;
+
+        center.position /= member.Count;
+
+        center.LookAt(_target);
+
+        return center;
+    }
+
     public List<BaseGameEntity> JobToEntitys(eJOB_TYPE _job)
     {
         List<BaseGameEntity> entitys = new List<BaseGameEntity>();
@@ -62,21 +80,25 @@ public class Group : BaseGameEntity {
         return null;
     }
 
-    public void SetFomation()
+    public void SetFomation(Vector3 _enemyPos)
     {
-        Vector3 fomation = forward.transform.position + (-forward.transform.forward * 3);
+
+        Debug.Log("SetFomation");
+        Vector3 fomation = forward.transform.position + (-forward.transform.forward * 3 );
         fomation += forward.transform.right * -1;
 
         MessageDispatcher.Instance.DispatchMessage(0.5f, forward.ID, dealerList[0].ID, (int)eMESSAGE_TYPE.SETFOMATION, fomation);
+        fomation = Vector3.zero;
 
         fomation = forward.transform.position + (-forward.transform.forward * 3);
         fomation += forward.transform.right * 1;
 
         MessageDispatcher.Instance.DispatchMessage(0.5f, forward.ID, dealerList[1].ID, (int)eMESSAGE_TYPE.SETFOMATION, fomation);
+        fomation = Vector3.zero;
 
         fomation = forward.transform.position + (-forward.transform.forward * 6);
         MessageDispatcher.Instance.DispatchMessage(0.5f, forward.ID, supportList[0].ID, (int)eMESSAGE_TYPE.SETFOMATION, fomation);
-
+        fomation = Vector3.zero;
     }
 
     public void DispatchMessageGroup(float _delay , int _sender, int _message , object _extreInfo)
@@ -84,9 +106,6 @@ public class Group : BaseGameEntity {
         for (int i = 0; i < member.Count; ++i)
         {
             int receiver = member[i].ID;
-
-            if (_sender == receiver)
-                continue;
 
             MessageDispatcher.Instance.DispatchMessage(_delay , _sender , receiver, _message , _extreInfo);
         }

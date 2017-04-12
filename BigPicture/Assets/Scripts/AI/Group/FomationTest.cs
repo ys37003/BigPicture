@@ -14,8 +14,7 @@ public class FomationTest : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Cube.transform.position = (Forward.transform.position +
-                                  (-Forward.transform.forward * 3)) * 3;
+                                  (-Forward.transform.forward * 3));
 
-        Cube.transform.position += -Forward.transform.right * 1;
     }
 }

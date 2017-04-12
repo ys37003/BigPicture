@@ -41,7 +41,7 @@ public class HoodSkull : Monster
     private float attackRange = 1.0f;
 
     public DGSetDestination SetDestination;
-    public DGToWalk ToWalk;
+    public DGSetFomation SetFomation;
     void Start()
     {
         EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type);
@@ -75,24 +75,30 @@ public class HoodSkull : Monster
         {
             case eJOB_TYPE.DEALER:
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
+                SetFomation = Delegates.Instance.SetFomation_Dealer;
                 break;
             case eJOB_TYPE.FORWARD:
                 SetDestination = Delegates.Instance.SetDestination_Foword;
+                SetFomation = Delegates.Instance.SetFomation_Foword;
                 break;
             case eJOB_TYPE.SUPPORT:
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
+                SetFomation = Delegates.Instance.SetFomation_Support;
                 break;
             case eJOB_TYPE.TANKER:
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
+                //SetFomation = Delegates.Instance.SetFomation_Dealer;
                 break;
         }
     }
     private void Update()
     {
         stateMachine.Update();
+
     }
 
     #region 상태 함수들
+
     public void Idle()
     {
         Debug.Log(this.Type + this.ID.ToString() + "'State is Idle");
@@ -256,9 +262,9 @@ public class HoodSkull : Monster
             enemy == null)
         {
             Debug.Log("Find Enemy");
+            this.transform.LookAt(other.transform.position);
             this.GetGroup().DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject );
-            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject );
-            this.GetGroup().SetFomation();
+            //this.GetGroup().SetFomation(other.transform.position);
         }
         //if ("Player" == other.tag && enemy == null ) 
         //{

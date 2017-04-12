@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
 public delegate Vector3 DGSetDestination(BaseGameEntity _entity, Group group, Vector3 _position);
-public delegate void DGToWalk(BaseGameEntity _entity);
+public delegate Vector3 DGSetFomation(BaseGameEntity _entity, Transform _transform );
+
 public class Delegates
 {
     private static Delegates instance;
-
+    int dealerFomationNum = 1;
     private Delegates()
     {
 
@@ -39,5 +40,22 @@ public class Delegates
             return position;
         }
         return MathAssist.Instance().RandomVector3(_position, 2.0f);
+    }
+
+    public Vector3 SetFomation_Foword(BaseGameEntity _entity , Transform _transform)
+    {
+        return _entity.transform.position + (_transform.forward * 3);
+    }
+
+    public Vector3 SetFomation_Dealer(BaseGameEntity _entity, Transform _transform)
+    {
+        dealerFomationNum *= -1;
+
+        return _entity.transform.position + (_transform.right * 3 * dealerFomationNum );
+    }
+
+    public Vector3 SetFomation_Support(BaseGameEntity _entity, Transform _transform)
+    {
+        return _entity.transform.position + (_transform.forward * -3);
     }
 }

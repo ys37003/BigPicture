@@ -51,6 +51,7 @@ public class StateMachine<entity_type> where entity_type : HoodSkull
             case eSTATE.ATTACK:     currentState = Attack<entity_type>.Instance();      break;
             case eSTATE.ROLLING:    currentState = Rolling<entity_type>.Instance();     break;
             case eSTATE.BATTLEIDLE: currentState = BattleIdle<entity_type>.Instance();  break;
+            case eSTATE.SETFOMATION: currentState = SetFomation<entity_type>.Instance(); break;
             case eSTATE.DEAD:       break;
         }
     }
