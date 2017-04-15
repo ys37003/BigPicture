@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: bd0ebe8b3f38f9242a838a31f4680916
+timeCreated: 1492261503
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Bauhaus ITC
+  fontNames:
+  - Bauhaus ITC
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
