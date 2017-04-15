@@ -18,18 +18,13 @@ public class Character : BaseGameEntity
     /// </summary>
     public StatusData TotalStatus { get { return Status + AddStatus; } }
 
-    public int StatusPoint { get; set; }
-
     /// <summary>
     /// 캐릭터의 현재 상태
     /// </summary>
     public eSTATE CurrentState { get; private set; }
 
-    [SerializeField]
-    private Animator animator = null;
-
-    [SerializeField]
-    private ColliderAttack colliderAttack = null;
+    [SerializeField] private Animator       animator        = null;
+    [SerializeField] private ColliderAttack colliderAttack  = null;
 
     /// <summary>
     /// 구르기 속도는 이동속도(MoveSpeed) %이다.
@@ -40,6 +35,7 @@ public class Character : BaseGameEntity
 
     private void Awake()
     {
+        UIBase.Create<StatusUI>();
         EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.NULL, eJOB_TYPE.DEALER);
 
         // 임시

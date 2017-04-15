@@ -1,22 +1,15 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Character))]
 public class CharacterController : MonoBehaviour
 {
-    [SerializeField]
-    private Character character = null;
-
-    [SerializeField]
-    private Animator animator = null;
-
-    [SerializeField]
-    private Transform followedCamera = null;
-
-    [SerializeField]
-    private float waitTime = 5.0f, cameraTurnSpeed = 30;
+    [SerializeField] private Character  character       = null;
+    [SerializeField] private Animator   animator        = null;
+    [SerializeField] private Transform  followedCamera  = null;
+    [SerializeField] private float      waitTime        = 5.0f;
+    [SerializeField] private float      cameraTurnSpeed = 30;
 
     public bool IsMove
     {
@@ -37,6 +30,7 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
+        UIBase.Create<StatusUI>();
         StartCoroutine("Move");
         StartCoroutine("Run");
         StartCoroutine("Battle");
