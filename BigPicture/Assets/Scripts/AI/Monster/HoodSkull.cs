@@ -30,7 +30,7 @@ public class HoodSkull : Monster
         set { rollingAble = value; }
     }
 
-    private BoxCollider colEyeSight;
+    public BoxCollider colEyeSight;
 
     [SerializeField]
     private ColliderAttack colliderAttack = null;
@@ -52,7 +52,7 @@ public class HoodSkull : Monster
         group = this.GetComponentInParent<Group>();
 
         // EyeSight Collider 초기화
-        colEyeSight = this.transform.FindChild("EyeSightCol").GetComponent<BoxCollider>();
+        //colEyeSight = this.transform.FindChild("EyeSightCol").GetComponent<BoxCollider>();
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);
 
@@ -175,9 +175,9 @@ public class HoodSkull : Monster
 
     public bool EndAttack()
     {
-        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("attack3"))
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
-            Debug.Log("Attack3");
+            Debug.Log("Attack2");
             return true;
         }
         return false;
@@ -293,14 +293,15 @@ public class HoodSkull : Monster
 
         if (ct != null && ct.EntitiType == eENTITY_TYPE.PLAYER)
         {
-            if (true == RollingAble)
-            {
-                MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_ROLLING, null);
-            }
-            else
-            {
-                Debug.Log("Monster 피격, 데미지 계산 필요");
-            }
+            Debug.Log("Monster 피격, 데미지 계산 필요");
+            //if (true == RollingAble)
+            //{
+            //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_ROLLING, null);
+            //}
+            //else
+            //{
+            //    Debug.Log("Monster 피격, 데미지 계산 필요");
+            //}
         }
     }
     #endregion

@@ -31,14 +31,14 @@ public class SetFomation<entity_type> : State<entity_type> where entity_type : H
 
     public void Enter(entity_type _monster)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", true);
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "BattleWalk", true);
         _monster.SetTarget (_monster.SetFomation( _monster, _monster.GetGroup().GetCenter(_monster.enemy.transform.position ) ) );
         _monster.NavAgent.StartCoroutine(_monster.NavAgent.MoveToTarget());
     }
 
     public void Exit(entity_type _monster)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", false);
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "BattleWalk", false);
     }
 
     /// <summary>

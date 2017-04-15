@@ -31,7 +31,7 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Ho
         //    return;
         //}
 
-        //if (false == _monster.ToBattleIdle())
+        //if (false == _moanster.ToBattleIdle())
         //{
         //    MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         //    _monster.NavAgent.Clear();
@@ -42,12 +42,12 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Ho
 
     public void Enter(entity_type _monster)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", true);
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "BattleIdle", true);
     }
 
     public void Exit(entity_type _monster)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", false);
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "BattleIdle", false);
     }
 
     /// <summary>
