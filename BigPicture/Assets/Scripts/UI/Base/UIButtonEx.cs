@@ -55,15 +55,11 @@ public class UIButtonEx : MonoBehaviour
     {
         button = GetComponent<UIButton>();
         label = GetComponentInChildren<UILabel>();
-        icon = transform.FindChild("Icon").GetComponent<UISprite>();
-    }
 
-    /// <summary>
-    /// 버튼 복제
-    /// </summary>
-    [ExecuteInEditMode]
-    public void Copy()
-    {
-        Instantiate(gameObject);
+        Transform tfIcon = transform.FindChild("Icon");
+        if (tfIcon != null)
+        {
+            icon = tfIcon.GetComponent<UISprite>();
+        }
     }
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class StatusUI : UIBase
 {
     [SerializeField] private List<StatusSlider> sliderList = new List<StatusSlider>();
-    [SerializeField] private UILabel labelName, labelClass, labelSkillPoint;
+    [SerializeField] private UILabel labelSkillPoint;
     [SerializeField] private UILabel labelPhysicsPower, labelSpellPower, labelMoveSpeed, labelEvasionRate, labelArmor, labelRecoveryRPS;
 
     private ICharacter character;
@@ -64,16 +62,14 @@ public class StatusUI : UIBase
 
     private void updateUI()
     {
-        labelName.text = "이름 : 없음";
-        labelClass.text = "클래스 : 없음";
-        labelSkillPoint.text = string.Format("스킬포인트 : {0}", character.SkillPoint);
+        labelSkillPoint.text = string.Format("{0}", character.SkillPoint);
 
         labelPhysicsPower.text = string.Format("물리공격력 : {0}", character.Status.PhysicsPower);
         labelSpellPower.text   = string.Format("마법공격력 : {0}", character.Status.SpellPower);
         labelMoveSpeed.text    = string.Format("이동속도 : {0}", character.Status.MoveSpeed);
         labelEvasionRate.text  = string.Format("회피율 : {0}", character.Status.EvasionRate);
         labelArmor.text        = string.Format("방어력 : {0}", character.Status.Armor);
-        labelRecoveryRPS.text  = string.Format("초당 체력 회복력 : {0}", character.Status.RecoveryRPS);
+        labelRecoveryRPS.text  = string.Format("초당 회복력 : {0}", character.Status.RecoveryRPS);
     }
 
     private int getSkillPoint()

@@ -23,11 +23,6 @@ public class UIButtonExEditor : Editor
             uiButtonEx.InitButtonEx();
         }
 
-        if (GUILayout.Button("복제"))
-        {
-            uiButtonEx.Copy();
-        }
-
         serializedObject.Update();
     }
 }
