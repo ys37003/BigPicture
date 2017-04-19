@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Character : BaseGameEntity
+public class Character : BaseGameEntity, ICharacter
 {
     /// <summary>
     /// 기본 능력치
     /// </summary>
-    public StatusData Status { get; private set; }
+    public StatusData Status { get; set; }
 
     /// <summary>
     /// 추가 능력치(버프, 디버프)
@@ -17,6 +17,15 @@ public class Character : BaseGameEntity
     /// 전체 능력치
     /// </summary>
     public StatusData TotalStatus { get { return Status + AddStatus; } }
+
+    public int SkillPoint { get; set; }
+
+    private eDAMAGE_TYPE damageType = eDAMAGE_TYPE.PHYSICS;
+    public  eDAMAGE_TYPE DamageType
+    {
+                get { return damageType; }
+        private set { damageType = value; }
+    }
 
     /// <summary>
     /// 캐릭터의 현재 상태
@@ -35,11 +44,10 @@ public class Character : BaseGameEntity
 
     private void Awake()
     {
-        UIBase.Create<StatusUI>();
         EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.NULL, eJOB_TYPE.DEALER);
 
         // 임시
-        Init(new StatusData(7, 0, 4, 3, 6, 3, 10, StatusData.MAX_HP));
+        Init(new StatusData(1, 0, 1, 1, 1, 1, 1, StatusData.MAX_HP));
 
         StartCoroutine("UpdateState");
 
@@ -50,9 +58,16 @@ public class Character : BaseGameEntity
         }
     }
 
+    private void Start()
+    {
+        TeamManager.Instance.AddCharacter(this);
+        //UIBase.Create<StatusUI>();
+    }
+
     public void Init(StatusData status)
     {
         Status = status;
+        SkillPoint = 10;
         AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
     }
 

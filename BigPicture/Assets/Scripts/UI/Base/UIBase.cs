@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIBase : MonoBehaviour
+public abstract class UIBase : MonoBehaviour
 {
     public static readonly string Path = "UI/Prefabs/";
 
@@ -63,8 +63,18 @@ public class UIBase : MonoBehaviour
         widgetList.AddRange(GetComponentsInChildren<UIWidget>());
         panelList.AddRange(GetComponentsInChildren<UIPanel>());
 
-        UIManager.Instance.AddUI(this);
+        overrideAwake();
     }
+
+    private void Start()
+    {
+        UIManager.Instance.AddUI(this);
+
+        overrideStart();
+    }
+
+    protected abstract void overrideAwake();
+    protected abstract void overrideStart();
 
     /// <summary>
     /// 서브패널은 무조건 depth가 1부터 시작
@@ -82,12 +92,12 @@ public class UIBase : MonoBehaviour
         return panelList.Count + depth;
     }
 
-    public void Show(bool active)
+    public virtual void Show(bool active)
     {
         gameObject.SetActive(active);
     }
 
-    public void Destroy()
+    public virtual void Destroy()
     {
         UIManager.Instance.RemoveUI(this);
 

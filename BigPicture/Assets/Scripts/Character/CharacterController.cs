@@ -30,7 +30,6 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        UIBase.Create<StatusUI>();
         StartCoroutine("Move");
         StartCoroutine("Run");
         StartCoroutine("Battle");

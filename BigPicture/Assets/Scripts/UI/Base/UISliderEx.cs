@@ -4,7 +4,7 @@
 //----------------------------------------------
 
 using UnityEngine;
-using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Extended progress bar that has backwards compatibility logic and adds interaction support.
@@ -81,8 +81,8 @@ public class UISliderEx : UIProgressBar
     }
 
     /// <summary>
-         /// Register an event listener.
-         /// </summary>
+    /// Register an event listener.
+    /// </summary>
 
     protected override void OnStart()
     {
@@ -108,7 +108,6 @@ public class UISliderEx : UIProgressBar
         }
     }
 
-
     /// <summary>
     /// Update the value of the scroll bar.
     /// </summary>
@@ -122,10 +121,10 @@ public class UISliderEx : UIProgressBar
         {
             UIBasicSprite sprite = mFG as UIBasicSprite;
 
-            if (value < breakMin)
-                value = breakMin;
-            if (value > breakMax)
-                value = breakMax;
+            if (mValue < breakMin)
+                mValue = breakMin;
+            if (mValue > breakMax)
+                mValue = breakMax;
 
             if (isHorizontal)
             {

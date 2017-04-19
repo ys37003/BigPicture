@@ -1,5 +1,16 @@
 ﻿using System.Xml.Serialization;
 
+public enum eSTAT
+{
+    STRENGTH,
+    SPELL,
+    AGILITY,
+    AVOID,
+    DEFENSE,
+    RECOVERY,
+    LUCK,
+}
+
 public class StatusData
 {
     #region 능력치

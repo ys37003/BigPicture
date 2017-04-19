@@ -10,9 +10,9 @@ public enum UIType
 
 public class UIManager : Singleton<UIManager>
 {
-    private Dictionary<UIType, List<UIBase>>    uiListDic       = new Dictionary<UIType, List<UIBase>>();
-    private Dictionary<UIType, Stack<UIPanel>>  panelStackDic   = new Dictionary<UIType, Stack<UIPanel>>();
-    private Dictionary<UIType, int>             panelDepthDic   = new Dictionary<UIType, int>();
+    private Dictionary<UIType, List<UIBase>>    uiListDic     = new Dictionary<UIType, List<UIBase>>();
+    private Dictionary<UIType, Stack<UIPanel>>  panelStackDic = new Dictionary<UIType, Stack<UIPanel>>();
+    private Dictionary<UIType, int>             panelDepthDic = new Dictionary<UIType, int>();
 
     [SerializeField]
     private Transform ui2DRoot = null, ui3DRoot = null;
