@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusUI : UIBase
+public class StatusUI : UIBase<StatusUI>
 {
     [SerializeField] private List<StatusSlider> sliderList = new List<StatusSlider>();
     [SerializeField] private UILabel labelSkillPoint;
@@ -11,7 +12,7 @@ public class StatusUI : UIBase
 
     private ICharacter character;
 
-    protected override void overrideAwake()
+    protected override void OverrideAwake()
     {
         foreach (StatusSlider slider in sliderList)
         {
@@ -45,13 +46,13 @@ public class StatusUI : UIBase
         {
             switch (slider.stat)
             {
-                case eSTAT.STRENGTH: slider.SetData(character.Status.Strength);  break;
-                case eSTAT.SPELL:    slider.SetData(character.Status.Spell);     break;
-                case eSTAT.AGILITY:  slider.SetData(character.Status.Agility);   break;
-                case eSTAT.AVOID:    slider.SetData(character.Status.Avoid);     break;
-                case eSTAT.DEFENSE:  slider.SetData(character.Status.Defense);   break;
-                case eSTAT.RECOVERY: slider.SetData(character.Status.Recovery);  break;
-                case eSTAT.LUCK:     slider.SetData(character.Status.Luck);      break;
+                case eSTAT.STRENGTH: slider.SetData(character.Status.Strength); break;
+                case eSTAT.SPELL: slider.SetData(character.Status.Spell); break;
+                case eSTAT.AGILITY: slider.SetData(character.Status.Agility); break;
+                case eSTAT.AVOID: slider.SetData(character.Status.Avoid); break;
+                case eSTAT.DEFENSE: slider.SetData(character.Status.Defense); break;
+                case eSTAT.RECOVERY: slider.SetData(character.Status.Recovery); break;
+                case eSTAT.LUCK: slider.SetData(character.Status.Luck); break;
             }
         }
     }
@@ -61,12 +62,12 @@ public class StatusUI : UIBase
         switch (stat)
         {
             case eSTAT.STRENGTH: character.Status.Strength += value; break;
-            case eSTAT.SPELL:    character.Status.Spell += value;    break;
-            case eSTAT.AGILITY:  character.Status.Agility += value;  break;
-            case eSTAT.AVOID:    character.Status.Avoid += value;    break;
-            case eSTAT.DEFENSE:  character.Status.Defense += value;  break;
+            case eSTAT.SPELL: character.Status.Spell += value; break;
+            case eSTAT.AGILITY: character.Status.Agility += value; break;
+            case eSTAT.AVOID: character.Status.Avoid += value; break;
+            case eSTAT.DEFENSE: character.Status.Defense += value; break;
             case eSTAT.RECOVERY: character.Status.Recovery += value; break;
-            case eSTAT.LUCK:     character.Status.Luck += value;     break;
+            case eSTAT.LUCK: character.Status.Luck += value; break;
         }
 
         character.SkillPoint -= value;

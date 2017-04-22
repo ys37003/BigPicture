@@ -22,7 +22,7 @@ public class TeamManager : Singleton<TeamManager>
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void LoadCharacter()
