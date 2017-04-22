@@ -21,10 +21,23 @@ public class NavAgent : MonoBehaviour
         //    m_agent.SetDestination(destination);
     }
 
-    public Vector3 target
+    public void SetSpeed(float _speed)
     {
-        get { return destination; }
-        set { destination = value; }
+        m_agent.speed = _speed;
+    }
+    public Vector3 GetDestination()
+    {
+        return destination;
+    }
+
+    public void SetDestination(Vector3 _destiantion)
+    {
+        destination = _destiantion;
+    }
+
+    public float GetDistance()
+    {
+        return Vector3.Distance(this.transform.position, this.GetDestination());
     }
 
     public void Clear()
@@ -35,7 +48,7 @@ public class NavAgent : MonoBehaviour
 
     public bool IsArrive()
     {
-        if (0.5f > Vector3.Distance(this.transform.position, this.target))
+        if (0.5f > Vector3.Distance(this.transform.position, this.GetDestination()))
             return true;
 
         return false;
@@ -48,7 +61,7 @@ public class NavAgent : MonoBehaviour
             if (Vector3.zero != destination)
                 m_agent.SetDestination(destination);
 
-            Debug.DrawLine(transform.position, this.target, Color.red);
+            Debug.DrawLine(transform.position, this.GetDestination(), Color.red);
             yield return null;
         }
     }

@@ -138,7 +138,7 @@ public class Character : BaseGameEntity, ICharacter
             }
             else if(info.IsTag("Dead"))
             {
-                CurrentState = eSTATE.DEAD;
+                CurrentState = eSTATE.DIE;
             }
             else
             {

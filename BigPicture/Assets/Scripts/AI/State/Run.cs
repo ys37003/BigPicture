@@ -25,34 +25,33 @@ public class Run<entity_type> : State<entity_type> where entity_type : HoodSkull
     {
         _monster.Run();
 
-        if (true == _monster.ToBattleIdle())
+        if(true == _monster.IsArrive())
         {
-            Debug.Log("ToBattle");
-            _monster.NavAgent.Clear();
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
 
-        if (true == _monster.IsArrive())
+        if(_monster.GetAttackRange() > _monster.TargetDistance())
         {
-            Debug.Log("ToIdle");
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
-            _monster.NavAgent.Clear();
-            _monster.EnemyClear();
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
+
     }
 
     public void Enter(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", true);
-        _monster.SetTarget(_monster.enemy.transform.position);
+        _monster.SetTarget(_monster.GetEnemyPosition());
+        _monster.NavAgent.SetSpeed(3.5f);
     }
 
     public void Exit(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", false);
-        
+        _monster.NavAgent.Clear();
+        _monster.NavAgent.SetSpeed(2.0f);
+
     }
 
     /// <summary>

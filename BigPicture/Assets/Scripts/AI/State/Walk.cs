@@ -38,10 +38,7 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
     public void Enter(entity_type _monster)
     {
         BaseGameEntity foword = _monster.GetGroup().JobToEntity(eJOB_TYPE.FORWARD);
-        _monster.SetClock(Time.time);
         _monster.SetTarget(_monster.SetDestination(_monster, _monster.GetGroup(),foword.transform.position));
-        
-        _monster.NavAgent.StartCoroutine(_monster.NavAgent.MoveToTarget());
         //_monster.SetTarget( MathAssist.Instance().RandomVector3(_monster.GetGroup().GetGroupCenter(), 5.0f));
         //MessageDispatcher.Instance.DispatchMessage((int)Random.Range(7,10), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", true);
@@ -49,8 +46,8 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
 
     public void Exit(entity_type _monster)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", false);
         _monster.NavAgent.Clear();
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", false);
         
         //_monster.NavAgent.StopCoroutine(_monster.NavAgent.MoveToTarget());
     }
@@ -78,11 +75,11 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
                 //_monster.SetTarget(enemy.transform.position);
                 return true;
 
-            case (int)eMESSAGE_TYPE.FLLOWME:
+            case (int)eMESSAGE_TYPE.FLLOW_ME:
                 _monster.SetTarget(MathAssist.Instance().RandomVector3((Vector3)_msg.extraInfo, 5.0f));
                 return true;
 
-            case (int)eMESSAGE_TYPE.SETFOMATION:
+            case (int)eMESSAGE_TYPE.SET_FOMATION:
                 _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
                 return true;
         }

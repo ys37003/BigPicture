@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rolling<entity_type> : State<entity_type> where entity_type : HoodSkull
-{ 
-    private static Rolling<entity_type> instance;
+public class Hit<entity_type> : State<entity_type> where entity_type : HoodSkull
+{
 
-    private Rolling()
+    private static Hit<entity_type> instance;
+
+    private Hit()
     {
 
     }
 
-    public static Rolling<entity_type> Instance()
+    public static Hit<entity_type> Instance()
     {
         if (instance == null)
         {
-            instance = new Rolling<entity_type>();
+            instance = new Hit<entity_type>();
         }
 
         return instance;
@@ -23,30 +24,30 @@ public class Rolling<entity_type> : State<entity_type> where entity_type : HoodS
 
     public void Excute(entity_type _monster)
     {
-        _monster.Rolling();
-
-        if (true == _monster.RollingAble)
+        if (true == _monster.EndHit())
         {
-            _monster.RollingAble = false;
-        }
-        else
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+        }
     }
 
     public void Enter(entity_type _monster)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Rolling", true);
-        //_monster.RollingAble = false;
+        if (true == _monster.Die())
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
+            return;
+        }
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Hit", true);
+
     }
 
     public void Exit(entity_type _monster)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Rolling", false);
-        MessageDispatcher.Instance.DispatchMessage(3, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.ROLLINGABLE, null);
+        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Hit", false);
     }
 
     /// <summary>
-    /// Idle상태에서 받은 메세지 처리
+    /// Walk 상태에서 받은 메세지 처리
     /// </summary>
     /// <param name="_monster"></param>
     /// <param name="_msg"></param>
@@ -58,8 +59,11 @@ public class Rolling<entity_type> : State<entity_type> where entity_type : HoodS
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
                 _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
                 return true;
+            case (int)eMESSAGE_TYPE.TO_DIE:
+                _monster.GetStateMachine().ChangeState(eSTATE.DIE);
+                //AnimatorManager.Instance().SetAnimation(owner.Animator, "Die", true );
+                return true;
         }
-
         return false;
     }
 }

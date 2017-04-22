@@ -25,15 +25,14 @@ public class SetFomation<entity_type> : State<entity_type> where entity_type : H
     {
         if(true == _monster.NavAgent.IsArrive())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEWALK, null);
         }
     }
 
     public void Enter(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "BattleWalk", true);
-        _monster.SetTarget (_monster.SetFomation( _monster, _monster.GetGroup().GetCenter(_monster.enemy.transform.position ) ) );
-        _monster.NavAgent.StartCoroutine(_monster.NavAgent.MoveToTarget());
+        _monster.SetTarget (_monster.SetFomation( _monster, _monster.GetGroup().GetCenter(_monster.GetEnemyPosition()) ) );
     }
 
     public void Exit(entity_type _monster)
@@ -51,8 +50,8 @@ public class SetFomation<entity_type> : State<entity_type> where entity_type : H
     {
         switch (_msg.message)
         {
-            case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
+            case (int)eMESSAGE_TYPE.TO_BATTLEWALK:
+                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEWALK);
                 return true;
         }
 

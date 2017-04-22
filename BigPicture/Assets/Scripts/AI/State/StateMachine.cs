@@ -19,6 +19,10 @@ public class StateMachine<entity_type> where entity_type : HoodSkull
         ChangeState(eSTATE.IDLE);
     }
 
+    public eSTATE GetCurrentState()
+    {
+        return eCurrentState;
+    }
     // Update is called once per frame
     public void Update()
     {
@@ -45,14 +49,15 @@ public class StateMachine<entity_type> where entity_type : HoodSkull
     {
         switch (_stateType)
         {
-            case eSTATE.IDLE:       currentState = Idle<entity_type>.Instance();        break;
-            case eSTATE.WALK:       currentState = Walk<entity_type>.Instance();        break;
-            case eSTATE.RUN:        currentState = Run<entity_type>.Instance();         break;
-            case eSTATE.ATTACK:     currentState = Attack<entity_type>.Instance();      break;
-            case eSTATE.ROLLING:    currentState = Rolling<entity_type>.Instance();     break;
-            case eSTATE.BATTLEIDLE: currentState = BattleIdle<entity_type>.Instance();  break;
+            case eSTATE.IDLE:       currentState = Idle<entity_type>.Instance();         break;
+            case eSTATE.WALK:       currentState = Walk<entity_type>.Instance();         break;
+            case eSTATE.RUN:        currentState = Run<entity_type>.Instance();          break;
+            case eSTATE.ATTACK:     currentState = Attack<entity_type>.Instance();       break;
+            case eSTATE.BATTLEIDLE: currentState = BattleIdle<entity_type>.Instance();   break;
+            case eSTATE.BATTLEWALK: currentState = BattleWalk<entity_type>.Instance();   break;
             case eSTATE.SETFOMATION: currentState = SetFomation<entity_type>.Instance(); break;
-            case eSTATE.DEAD:       break;
+            case eSTATE.HIT        : currentState = Hit<entity_type>.Instance();         break;
+            case eSTATE.DIE        : currentState = Die<entity_type>.Instance();         break;
         }
     }
 
@@ -70,8 +75,9 @@ public class StateMachine<entity_type> where entity_type : HoodSkull
             case (int)eMESSAGE_TYPE.ATTACKABLE:
                 owner.AttackAble = true;
                 return true;
-            case (int)eMESSAGE_TYPE.ROLLINGABLE:
-                owner.RollingAble = true;
+
+            case (int)eMESSAGE_TYPE.TO_HIT:
+                this.ChangeState(eSTATE.HIT);
                 return true;
         }
         return false;

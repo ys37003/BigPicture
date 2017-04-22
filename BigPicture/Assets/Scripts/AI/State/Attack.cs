@@ -24,7 +24,6 @@ public class Attack<entity_type> : State<entity_type> where entity_type : HoodSk
     public void Excute(entity_type _monster)
     {
         _monster.Attack();
-
         if (true == _monster.EndAttack())
         {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);            

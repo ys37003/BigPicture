@@ -6,7 +6,9 @@
     ATTACK,
     ROLLING,
     BATTLEIDLE,
-    DEAD,
+    BATTLEWALK,
+    DIE,
     SETFOMATION,
+    HIT,
     NULL
 }
