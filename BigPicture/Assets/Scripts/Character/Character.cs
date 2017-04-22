@@ -61,7 +61,6 @@ public class Character : BaseGameEntity, ICharacter
     private void Start()
     {
         TeamManager.Instance.AddCharacter(this);
-        //UIBase.Create<StatusUI>();
     }
 
     public void Init(StatusData status)

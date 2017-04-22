@@ -32,6 +32,11 @@ public class UIManager : Singleton<UIManager>
         panelDepthDic.Add(UIType.Camera3D, 0);
     }
 
+    private void Start()
+    {
+        StartCoroutine("UIOpen");
+    }
+
     public void AddUI(UIBase ui)
     {
         uiListDic[ui.Type].Add(ui);
@@ -84,5 +89,18 @@ public class UIManager : Singleton<UIManager>
             return panelStackDic[type].Peek().transform;
 
         return null;
+    }
+
+    IEnumerator UIOpen()
+    {
+        while(true)
+        {
+            if(Input.GetKeyDown(KeyCode.F1))
+            {
+                UIBase.Create<StatusUI>();
+            }
+
+            yield return null;
+        }
     }
 }

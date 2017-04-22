@@ -7,24 +7,35 @@ public class StatusUI : UIBase
     [SerializeField] private UILabel labelSkillPoint;
     [SerializeField] private UILabel labelPhysicsPower, labelSpellPower, labelMoveSpeed, labelEvasionRate, labelArmor, labelRecoveryRPS;
     [SerializeField] private UIButtonEx btnClose;
+    [SerializeField] private List<UIToggleEx> toggleList = new List<UIToggleEx>();
 
     private ICharacter character;
 
     protected override void overrideAwake()
     {
-        foreach(StatusSlider slider in sliderList)
+        foreach (StatusSlider slider in sliderList)
         {
             slider.onUpdateStat += onUpdateStat;
             slider.GetSkillPoint += getSkillPoint;
         }
 
         EventDelegate.Add(btnClose.onClick, Destroy);
-    }
 
-    protected override void overrideStart()
-    {
-        SetData(TeamManager.Instance.GetCharacter(0));
-        updateUI();
+        for (int i = 0; i < toggleList.Count; ++i)
+        {
+            if (i < TeamManager.Instance.GetTeamSize())
+            {
+                int temp = i;
+                EventDelegate.Add(toggleList[i].onChange, () =>
+                {
+                    SetData(TeamManager.Instance.GetCharacter(temp));
+                });
+            }
+            else
+            {
+                toggleList[i].SetActive(false);
+            }
+        }
     }
 
     private void SetData(ICharacter character)
@@ -34,13 +45,13 @@ public class StatusUI : UIBase
         {
             switch (slider.stat)
             {
-                case eSTAT.STRENGTH: slider.SetData(character.Status.Strength); break;
-                case eSTAT.SPELL: slider.SetData(character.Status.Spell); break;
-                case eSTAT.AGILITY: slider.SetData(character.Status.Agility); break;
-                case eSTAT.AVOID: slider.SetData(character.Status.Avoid); break;
-                case eSTAT.DEFENSE: slider.SetData(character.Status.Defense); break;
-                case eSTAT.RECOVERY: slider.SetData(character.Status.Recovery); break;
-                case eSTAT.LUCK: slider.SetData(character.Status.Luck); break;
+                case eSTAT.STRENGTH: slider.SetData(character.Status.Strength);  break;
+                case eSTAT.SPELL:    slider.SetData(character.Status.Spell);     break;
+                case eSTAT.AGILITY:  slider.SetData(character.Status.Agility);   break;
+                case eSTAT.AVOID:    slider.SetData(character.Status.Avoid);     break;
+                case eSTAT.DEFENSE:  slider.SetData(character.Status.Defense);   break;
+                case eSTAT.RECOVERY: slider.SetData(character.Status.Recovery);  break;
+                case eSTAT.LUCK:     slider.SetData(character.Status.Luck);      break;
             }
         }
     }
@@ -68,11 +79,11 @@ public class StatusUI : UIBase
         labelSkillPoint.text = string.Format("{0}", character.SkillPoint);
 
         labelPhysicsPower.text = string.Format("물리공격력 : {0}", character.Status.PhysicsPower);
-        labelSpellPower.text   = string.Format("마법공격력 : {0}", character.Status.SpellPower);
-        labelMoveSpeed.text    = string.Format("이동속도 : {0}", character.Status.MoveSpeed);
-        labelEvasionRate.text  = string.Format("회피율 : {0}", character.Status.EvasionRate);
-        labelArmor.text        = string.Format("방어력 : {0}", character.Status.Armor);
-        labelRecoveryRPS.text  = string.Format("초당 회복력 : {0}", character.Status.RecoveryRPS);
+        labelSpellPower.text = string.Format("마법공격력 : {0}", character.Status.SpellPower);
+        labelMoveSpeed.text = string.Format("이동속도 : {0}", character.Status.MoveSpeed);
+        labelEvasionRate.text = string.Format("회피율 : {0}", character.Status.EvasionRate);
+        labelArmor.text = string.Format("방어력 : {0}", character.Status.Armor);
+        labelRecoveryRPS.text = string.Format("초당 회복력 : {0}", character.Status.RecoveryRPS);
     }
 
     private int getSkillPoint()

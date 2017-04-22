@@ -30,6 +30,11 @@ public class TeamManager : Singleton<TeamManager>
         // 차후 구현
     }
 
+    public int GetTeamSize()
+    {
+        return characterList.Count;
+    }
+
     public void AddCharacter(ICharacter character)
     {
         if (character.Type != eENTITY_TYPE.PLAYER && character.Type != eENTITY_TYPE.NPC)

@@ -12,15 +12,6 @@ public class UIButtonEx : MonoBehaviour
     [SerializeField] private UISprite    icon;
 
     /// <summary>
-    /// 버튼 이벤트 추가
-    /// </summary>
-    public List<EventDelegate> onClick
-    {
-        get { return button.onClick; }
-        set { button.onClick = value; }
-    }
-
-    /// <summary>
     /// 버튼 엑티브 온오프
     /// </summary>
     /// <param name="active"></param>
@@ -45,6 +36,15 @@ public class UIButtonEx : MonoBehaviour
     {
         get { return label.text; }
         set { label.text = value; }
+    }
+
+    /// <summary>
+    /// 버튼 이벤트 추가
+    /// </summary>
+    public List<EventDelegate> onClick
+    {
+        get { return button.onClick; }
+        set { button.onClick = value; }
     }
 
     /// <summary>

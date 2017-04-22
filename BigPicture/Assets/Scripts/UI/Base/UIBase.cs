@@ -85,8 +85,13 @@ public abstract class UIBase : MonoBehaviour
         overrideStart();
     }
 
-    protected abstract void overrideAwake();
-    protected abstract void overrideStart();
+    protected virtual void overrideAwake()
+    {
+    }
+
+    protected virtual void overrideStart()
+    {
+    }
 
     /// <summary>
     /// 서브패널은 무조건 depth가 1부터 시작
@@ -121,7 +126,7 @@ public abstract class UIBase : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }
