@@ -6,8 +6,8 @@ public abstract class UIBase : MonoBehaviour
 {
     public static readonly string Path = "UI/Prefabs/";
 
-    private List<UIWidget>  widgetList  = new List<UIWidget>();
-    private List<UIPanel>   panelList   = new List<UIPanel>();
+    private List<UIWidget> widgetList = new List<UIWidget>();
+    private List<UIPanel>  panelList  = new List<UIPanel>();
 
     [SerializeField]
     private UIType type;
@@ -56,6 +56,18 @@ public abstract class UIBase : MonoBehaviour
         go.transform.localScale = Vector3.one;
 
         return ui;
+    }
+
+    /// <summary>
+    /// 월드에 UI가 있다면 UI를 제거
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public static void Destroy<T>() where T : UIBase
+    {
+        T ui = FindObjectOfType<T>();
+
+        if (ui != null)
+            ui.Destroy();
     }
 
     private void Awake()

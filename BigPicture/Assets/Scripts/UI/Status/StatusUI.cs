@@ -6,26 +6,9 @@ public class StatusUI : UIBase
     [SerializeField] private List<StatusSlider> sliderList = new List<StatusSlider>();
     [SerializeField] private UILabel labelSkillPoint;
     [SerializeField] private UILabel labelPhysicsPower, labelSpellPower, labelMoveSpeed, labelEvasionRate, labelArmor, labelRecoveryRPS;
+    [SerializeField] private UIButtonEx btnClose;
 
     private ICharacter character;
-
-    public void SetData(ICharacter character)
-    {
-        this.character = character;
-        foreach (StatusSlider slider in sliderList)
-        {
-            switch (slider.stat)
-            {
-                case eSTAT.STRENGTH: slider.SetData(character.Status.Strength); break;
-                case eSTAT.SPELL:    slider.SetData(character.Status.Spell);    break;
-                case eSTAT.AGILITY:  slider.SetData(character.Status.Agility);  break;
-                case eSTAT.AVOID:    slider.SetData(character.Status.Avoid);    break;
-                case eSTAT.DEFENSE:  slider.SetData(character.Status.Defense);  break;
-                case eSTAT.RECOVERY: slider.SetData(character.Status.Recovery); break;
-                case eSTAT.LUCK:     slider.SetData(character.Status.Luck);     break;
-            }
-        }
-    }
 
     protected override void overrideAwake()
     {
@@ -34,12 +17,32 @@ public class StatusUI : UIBase
             slider.onUpdateStat += onUpdateStat;
             slider.GetSkillPoint += getSkillPoint;
         }
+
+        EventDelegate.Add(btnClose.onClick, Destroy);
     }
 
     protected override void overrideStart()
     {
         SetData(TeamManager.Instance.GetCharacter(0));
         updateUI();
+    }
+
+    private void SetData(ICharacter character)
+    {
+        this.character = character;
+        foreach (StatusSlider slider in sliderList)
+        {
+            switch (slider.stat)
+            {
+                case eSTAT.STRENGTH: slider.SetData(character.Status.Strength); break;
+                case eSTAT.SPELL: slider.SetData(character.Status.Spell); break;
+                case eSTAT.AGILITY: slider.SetData(character.Status.Agility); break;
+                case eSTAT.AVOID: slider.SetData(character.Status.Avoid); break;
+                case eSTAT.DEFENSE: slider.SetData(character.Status.Defense); break;
+                case eSTAT.RECOVERY: slider.SetData(character.Status.Recovery); break;
+                case eSTAT.LUCK: slider.SetData(character.Status.Luck); break;
+            }
+        }
     }
 
     private void onUpdateStat(eSTAT stat, int value)
