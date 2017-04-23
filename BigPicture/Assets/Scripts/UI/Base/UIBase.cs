@@ -2,121 +2,102 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UIBase : MonoBehaviour
+public abstract class UIBase<T> : MonoBehaviour where T : class
 {
-    public static readonly string Path = "UI/Prefabs/";
+    private static T instance;
 
-    private List<UIWidget> widgetList = new List<UIWidget>();
-    private List<UIPanel>  panelList  = new List<UIPanel>();
+    private UIDepth depth = new UIDepth();
 
     [SerializeField]
-    private UIType type;
+    private UIType type = UIType.Camera2D;
     public  UIType Type
     {
         get { return type; }
     }
 
-    private int depth;
-    /// <summary>
-    /// 기준 depth * 100으로 서로 다른 UI간에 겹침현상 제거
-    /// </summary>
-    public int UIDepth
+    private static bool isShow = true;
+    public  static bool IsShow
     {
-        get { return depth; }
-        set
-        {
-            depth = value;
-
-            foreach (UIWidget widget in widgetList)
-            {
-                widget.depth += depth * 100;
-            }
-        }
+        get { return instance != null && isShow; }
     }
 
-    public bool IsSubPanel { get { return panelList.Count > 0; } }
-
-    public int SubPanelCount { get { return panelList.Count; } }
- 
     /// <summary>
     /// 월드에 UI가 없다면 UI를 생성
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public static T Create<T>() where T : UIBase
+    public static T CreateUI()
     {
-        T ui = FindObjectOfType<T>();
+        if (instance == null)
+        {
+            instance = FindObjectOfType(typeof(T)) as T;
+        }
 
-        if (ui != null)
-            return ui;
+        if (instance == null)
+        {
+            GameObject go = Resources.Load<GameObject>(string.Concat("UI/Prefabs/", typeof(T)));
+            instance = go.GetComponent<T>();
 
-        GameObject go = Resources.Load<GameObject>(string.Concat(Path, typeof(T)));
-        ui = go.GetComponent<T>();
+            UIBase<T> ui = instance as UIBase<T>;
+            go = Instantiate(go, UIManager.Instance.GetUIRoot(ui.type), false);
+            go.transform.localScale = Vector3.one;
 
-        go = Instantiate(go, UIManager.Instance.GetUIRoot(ui.type), false);
-        go.transform.localScale = Vector3.one;
+            instance = go.GetComponent<T>();
+        }
 
-        return ui;
+        return instance;
     }
 
     /// <summary>
     /// 월드에 UI가 있다면 UI를 제거
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public static void Destroy<T>() where T : UIBase
+    public static void DestroyUI()
     {
-        T ui = FindObjectOfType<T>();
+        if (instance != null)
+        {
+            (instance as UIBase<T>).Destroy();
+        }
+    }
 
-        if (ui != null)
-            ui.Destroy();
+    public static void ShowUI(bool active)
+    {
+        if (instance != null)
+        {
+            (instance as UIBase<T>).Show(active);
+            isShow = active;
+        }
     }
 
     private void Awake()
     {
-        widgetList.AddRange(GetComponentsInChildren<UIWidget>());
-        panelList.AddRange(GetComponentsInChildren<UIPanel>());
+        depth.AddWidget(GetComponentsInChildren<UIWidget>());
+        depth.AddPanel(GetComponentsInChildren<UIPanel>());
+        UIManager.Instance.AddUI(type, depth);
 
-        overrideAwake();
+        OverrideAwake();
     }
 
     private void Start()
     {
-        UIManager.Instance.AddUI(this);
-
-        overrideStart();
+        OverrideStart();
     }
 
-    protected virtual void overrideAwake()
+    protected virtual void OverrideAwake()
     {
     }
 
-    protected virtual void overrideStart()
+    protected virtual void OverrideStart()
     {
     }
 
-    /// <summary>
-    /// 서브패널은 무조건 depth가 1부터 시작
-    /// 서브패널 depth를 초기화하고 최종 depth를 반환
-    /// </summary>
-    /// <param name="depth"></param>
-    /// <returns></returns>
-    public int InitSubPanelDepth(int depth)
-    {
-        foreach (UIPanel panel in panelList)
-        {
-            panel.depth += depth;
-        }
-
-        return panelList.Count + depth;
-    }
-
-    public virtual void Show(bool active)
+    protected virtual void Show(bool active)
     {
         gameObject.SetActive(active);
     }
 
-    public virtual void Destroy()
+    protected virtual void Destroy()
     {
-        UIManager.Instance.RemoveUI(this);
+        UIManager.Instance.RemoveUI(type, depth);
 
         Transform root = transform.parent;
         if (root.GetComponent<UIPanel>() && root.childCount == 1)
@@ -128,5 +109,7 @@ public abstract class UIBase : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        instance = null;
     }
 }

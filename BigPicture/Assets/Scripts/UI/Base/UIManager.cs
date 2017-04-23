@@ -10,7 +10,7 @@ public enum UIType
 
 public class UIManager : Singleton<UIManager>
 {
-    private Dictionary<UIType, List<UIBase>>    uiListDic     = new Dictionary<UIType, List<UIBase>>();
+    private Dictionary<UIType, List<UIDepth>>   uiDepthDic    = new Dictionary<UIType, List<UIDepth>>();
     private Dictionary<UIType, Stack<UIPanel>>  panelStackDic = new Dictionary<UIType, Stack<UIPanel>>();
     private Dictionary<UIType, int>             panelDepthDic = new Dictionary<UIType, int>();
 
@@ -19,8 +19,8 @@ public class UIManager : Singleton<UIManager>
 
     private void Awake()
     {
-        uiListDic.Add(UIType.Camera2D, new List<UIBase>());
-        uiListDic.Add(UIType.Camera3D, new List<UIBase>());
+        uiDepthDic.Add(UIType.Camera2D, new List<UIDepth>());
+        uiDepthDic.Add(UIType.Camera3D, new List<UIDepth>());
 
         panelStackDic.Add(UIType.Camera2D, new Stack<UIPanel>());
         panelStackDic.Add(UIType.Camera3D, new Stack<UIPanel>());
@@ -32,49 +32,44 @@ public class UIManager : Singleton<UIManager>
         panelDepthDic.Add(UIType.Camera3D, 0);
     }
 
-    private void Start()
+    public void AddUI(UIType type, UIDepth uiDepth)
     {
-        StartCoroutine("UIOpen");
-    }
-
-    public void AddUI(UIBase ui)
-    {
-        uiListDic[ui.Type].Add(ui);
+        uiDepthDic[type].Add(uiDepth);
 
         /*
             추가된 UI에 서브패널이 있다면 나중에 생성된 UI가 위로 올라오도록 해주기 위해서
             새 패널을 생성하고 나중에 생성되는 UI는 새 패널 아래에 둔다.
         */
-        if (ui.IsSubPanel)
+        if (uiDepth.IsPanel)
         {
-            int depth = ui.InitSubPanelDepth(panelDepthDic[ui.Type]) + 1;
-            panelDepthDic[ui.Type] = depth;
+            int depth = uiDepth.InitPanelDepth(panelDepthDic[type]) + 1;
+            panelDepthDic[type] = depth;
 
             GameObject go = new GameObject(string.Format("SubPanel{0}", depth));
             Transform tf = go.transform;
 
-            switch (ui.Type)
+            switch (type)
             {
                 case UIType.Camera2D: tf.parent = ui2DRoot; break;
                 case UIType.Camera3D: tf.parent = ui3DRoot; break;
                 default: break;
             }
 
-            tf.localPosition = Vector3.zero;
+            tf.localPosition    = Vector3.zero;
             tf.localEulerAngles = Vector3.zero;
-            tf.localScale = Vector3.one;
+            tf.localScale       = Vector3.one;
 
             UIPanel panel = go.AddComponent<UIPanel>();
             panel.depth = depth;
 
-            panelStackDic[ui.Type].Push(panel);
+            panelStackDic[type].Push(panel);
         }
     }
 
-    public void RemoveUI(UIBase ui)
+    public void RemoveUI(UIType type, UIDepth depth)
     {
-        uiListDic[ui.Type].Remove(ui);
-        panelDepthDic[ui.Type] -= ui.SubPanelCount;
+        uiDepthDic[type].Remove(depth);
+        panelDepthDic[type] -= depth.PanelCount;
     }
 
     public void PopPanel(UIType type)
@@ -89,18 +84,5 @@ public class UIManager : Singleton<UIManager>
             return panelStackDic[type].Peek().transform;
 
         return null;
-    }
-
-    IEnumerator UIOpen()
-    {
-        while(true)
-        {
-            if(Input.GetKeyDown(KeyCode.F1))
-            {
-                UIBase.Create<StatusUI>();
-            }
-
-            yield return null;
-        }
     }
 }
