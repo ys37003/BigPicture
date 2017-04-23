@@ -50,7 +50,7 @@ public class HoodSkull : Monster
         {
             trigger.ColliderAttack = colliderAttack;
         }
-        this.GetGroup().AddMember(this);
+        this.GetGroup().Add(this);
         SetDelegate();
 
 
@@ -78,10 +78,6 @@ public class HoodSkull : Monster
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
                 attackRange = 5.0f;
-                break;
-            case eJOB_TYPE.TANKER:
-                SetDestination = Delegates.Instance.SetDestination_Nomal;
-                //SetFomation = Delegates.Instance.SetFomation_Dealer;
                 break;
         }
     }
@@ -157,9 +153,9 @@ public class HoodSkull : Monster
     #endregion
     public void Clear()
     {
+        group.ReMove(this);
         this.gameObject.SetActive(false);
         //Destroy(this);
-        //group.ReMoveMember(this);
     }
 
     public void Dies()

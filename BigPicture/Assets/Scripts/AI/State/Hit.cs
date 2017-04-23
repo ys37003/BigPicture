@@ -61,7 +61,6 @@ public class Hit<entity_type> : State<entity_type> where entity_type : HoodSkull
                 return true;
             case (int)eMESSAGE_TYPE.TO_DIE:
                 _monster.GetStateMachine().ChangeState(eSTATE.DIE);
-                //AnimatorManager.Instance().SetAnimation(owner.Animator, "Die", true );
                 return true;
         }
         return false;

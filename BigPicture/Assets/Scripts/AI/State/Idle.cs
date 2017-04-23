@@ -26,10 +26,8 @@ public class Idle<entity_type> : State<entity_type> where entity_type : HoodSkul
 
     public void Enter(entity_type _monster)
     {
-        //_monster.SetClock( Clock.Instance.GetTime());
         _monster.EnemyClear();
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Idle", true);
-        //_monster.ToWalk(_monster);
         MessageDispatcher.Instance.DispatchMessage((int)Random.Range(7, 10), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_WALK, null);
     }
 
@@ -53,12 +51,9 @@ public class Idle<entity_type> : State<entity_type> where entity_type : HoodSkul
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                //_monster.GetStateMachine().ChangeState(eSTATE.RUN);
-                //_monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
                 GameObject enemy = (GameObject)_msg.extraInfo;
                 _monster.SetEnemy(enemy);
                 _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
-                //_monster.SetTarget(enemy.transform.position );
                 return true;
 
             case (int)eMESSAGE_TYPE.FLLOW_ME:

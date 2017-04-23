@@ -27,7 +27,6 @@ public class Die<entity_type> : State<entity_type> where entity_type : HoodSkull
         if (true == _monster.EndDie())
         {
             AnimatorManager.Instance().SetAnimation(_monster.Animator, "Die", false);
-            //_monster.Clear();
         }
     }
 

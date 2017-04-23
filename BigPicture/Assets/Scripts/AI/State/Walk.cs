@@ -25,12 +25,8 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
     {
         _monster.Walk();
        
-
-        //if( true == _monster.IsArrive())
-        //    _monster.SetTarget(MathAssist.Instance().RandomVector3(_monster.GetGroup().GetGroupCenter(), 5.0f));
         if (true == _monster.IsArrive())
         {
-            //MessageDispatcher.Instance.DeleteMessage(_monster.ID, (int)eMESSAGE_TYPE.TO_IDLE);
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         }
     }
@@ -39,8 +35,6 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
     {
         BaseGameEntity foword = _monster.GetGroup().JobToEntity(eJOB_TYPE.FORWARD);
         _monster.SetTarget(_monster.SetDestination(_monster, _monster.GetGroup(),foword.transform.position));
-        //_monster.SetTarget( MathAssist.Instance().RandomVector3(_monster.GetGroup().GetGroupCenter(), 5.0f));
-        //MessageDispatcher.Instance.DispatchMessage((int)Random.Range(7,10), _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", true);
     }
 
@@ -48,8 +42,6 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
     {
         _monster.NavAgent.Clear();
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", false);
-        
-        //_monster.NavAgent.StopCoroutine(_monster.NavAgent.MoveToTarget());
     }
 
     /// <summary>
@@ -67,12 +59,9 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                //_monster.GetStateMachine().ChangeState(eSTATE.RUN);
-                //_monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
                 GameObject enemy = (GameObject)_msg.extraInfo;
                 _monster.SetEnemy(enemy);
                 _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
-                //_monster.SetTarget(enemy.transform.position);
                 return true;
 
             case (int)eMESSAGE_TYPE.FLLOW_ME:
