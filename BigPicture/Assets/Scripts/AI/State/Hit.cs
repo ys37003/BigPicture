@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hit<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class Hit<entity_type> : State<entity_type> where entity_type : AI
 {
 
     private static Hit<entity_type> instance;
@@ -32,7 +32,7 @@ public class Hit<entity_type> : State<entity_type> where entity_type : HoodSkull
 
     public void Enter(entity_type _monster)
     {
-        if (true == _monster.Die())
+        if (true == _monster.DieCheck())
         {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
             return;
@@ -57,10 +57,10 @@ public class Hit<entity_type> : State<entity_type> where entity_type : HoodSkull
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
+                _monster.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
             case (int)eMESSAGE_TYPE.TO_DIE:
-                _monster.GetStateMachine().ChangeState(eSTATE.DIE);
+                _monster.StateMachine.ChangeState(eSTATE.DIE);
                 return true;
         }
         return false;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Idle<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class Idle<entity_type> : State<entity_type> where entity_type : AI
 {
     private static Idle<entity_type> instance;
 
@@ -47,22 +47,22 @@ public class Idle<entity_type> : State<entity_type> where entity_type : HoodSkul
         switch(_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_WALK:
-                _monster.GetStateMachine().ChangeState(eSTATE.WALK);
+                _monster.StateMachine.ChangeState(eSTATE.WALK);
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
                 GameObject enemy = (GameObject)_msg.extraInfo;
                 _monster.SetEnemy(enemy);
-                _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
+                _monster.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
 
             case (int)eMESSAGE_TYPE.FLLOW_ME:
-                _monster.GetStateMachine().ChangeState(eSTATE.WALK);
+                _monster.StateMachine.ChangeState(eSTATE.WALK);
                 _monster.SetTarget(MathAssist.Instance().RandomVector3((Vector3)_msg.extraInfo,5.0f));
                 return true;
 
             case (int)eMESSAGE_TYPE.SET_FOMATION:
-                _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
+                _monster.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
         }
 

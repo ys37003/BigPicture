@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Run<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class Run<entity_type> : State<entity_type> where entity_type : AI
 {
     private static Run<entity_type> instance;
 
@@ -31,7 +31,7 @@ public class Run<entity_type> : State<entity_type> where entity_type : HoodSkull
             return;
         }
 
-        if(_monster.GetAttackRange() > _monster.TargetDistance())
+        if(_monster.AttackRange > _monster.TargetDistance())
         {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
@@ -66,11 +66,11 @@ public class Run<entity_type> : State<entity_type> where entity_type : HoodSkull
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_IDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
+                _monster.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
+                _monster.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
 

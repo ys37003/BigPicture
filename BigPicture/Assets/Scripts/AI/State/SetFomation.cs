@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetFomation<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class SetFomation<entity_type> : State<entity_type> where entity_type : AI
 {
     private static SetFomation<entity_type> instance;
 
@@ -32,7 +32,7 @@ public class SetFomation<entity_type> : State<entity_type> where entity_type : H
     public void Enter(entity_type _monster)
     {
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "BattleWalk", true);
-        _monster.SetTarget (_monster.SetFomation( _monster, _monster.GetGroup().GetCenter(_monster.GetEnemyPosition()) ) );
+        _monster.SetTarget (_monster.SetFomation( _monster, _monster.Group.GetCenter(_monster.GetEnemyPosition()) ) );
     }
 
     public void Exit(entity_type _monster)
@@ -51,7 +51,7 @@ public class SetFomation<entity_type> : State<entity_type> where entity_type : H
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_BATTLEWALK:
-                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEWALK);
+                _monster.StateMachine.ChangeState(eSTATE.BATTLEWALK);
                 return true;
         }
 

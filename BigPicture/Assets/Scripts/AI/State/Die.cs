@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Die<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class Die<entity_type> : State<entity_type> where entity_type : AI
 {
     private static Die<entity_type> instance;
 
@@ -23,7 +23,7 @@ public class Die<entity_type> : State<entity_type> where entity_type : HoodSkull
 
     public void Excute(entity_type _monster)
     {
-        _monster.Dies();
+        _monster.Die();
         if (true == _monster.EndDie())
         {
             AnimatorManager.Instance().SetAnimation(_monster.Animator, "Die", false);

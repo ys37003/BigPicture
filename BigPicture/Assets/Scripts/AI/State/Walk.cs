@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class Walk<entity_type> : State<entity_type> where entity_type : AI
 {
     private static Walk<entity_type> instance;
 
@@ -33,8 +33,8 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
 
     public void Enter(entity_type _monster)
     {
-        BaseGameEntity foword = _monster.GetGroup().JobToEntity(eJOB_TYPE.FORWARD);
-        _monster.SetTarget(_monster.SetDestination(_monster, _monster.GetGroup(),foword.transform.position));
+        BaseGameEntity foword = _monster.Group.JobToEntity(eJOB_TYPE.FORWARD);
+        _monster.SetTarget(_monster.SetDestination(_monster, _monster.Group,foword.transform.position));
         AnimatorManager.Instance().SetAnimation(_monster.Animator, "Walk", true);
     }
 
@@ -55,13 +55,13 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_IDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
+                _monster.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
                 GameObject enemy = (GameObject)_msg.extraInfo;
                 _monster.SetEnemy(enemy);
-                _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
+                _monster.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
 
             case (int)eMESSAGE_TYPE.FLLOW_ME:
@@ -69,7 +69,7 @@ public class Walk<entity_type> : State<entity_type> where entity_type : HoodSkul
                 return true;
 
             case (int)eMESSAGE_TYPE.SET_FOMATION:
-                _monster.GetStateMachine().ChangeState(eSTATE.SETFOMATION);
+                _monster.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
         }
         return false;

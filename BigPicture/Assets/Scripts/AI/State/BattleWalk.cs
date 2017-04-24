@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleWalk<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class BattleWalk<entity_type> : State<entity_type> where entity_type : AI
 {
 
     private static BattleWalk<entity_type> instance;
@@ -54,7 +54,7 @@ public class BattleWalk<entity_type> : State<entity_type> where entity_type : Ho
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_RUN:
-                _monster.GetStateMachine().ChangeState(eSTATE.RUN);
+                _monster.StateMachine.ChangeState(eSTATE.RUN);
                 return true;
         }
 

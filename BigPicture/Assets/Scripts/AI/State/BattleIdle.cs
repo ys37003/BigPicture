@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleIdle<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class BattleIdle<entity_type> : State<entity_type> where entity_type : AI
 {
     private static BattleIdle<entity_type> instance;
 
@@ -31,7 +31,7 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Ho
             return;
         }
 
-        if(_monster.GetAttackRange() < _monster.TargetDistance() )
+        if(_monster.AttackRange < _monster.TargetDistance() )
         {
             MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
             return;
@@ -72,10 +72,10 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Ho
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_ATTACK:
-                _monster.GetStateMachine().ChangeState(eSTATE.ATTACK);
+                _monster.StateMachine.ChangeState(eSTATE.ATTACK);
                 return true;
             case (int)eMESSAGE_TYPE.TO_IDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
+                _monster.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
             case (int)eMESSAGE_TYPE.SET_FOMATION:
@@ -84,7 +84,7 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : Ho
                 return true;
 
             case (int)eMESSAGE_TYPE.TO_RUN:
-                _monster.GetStateMachine().ChangeState(eSTATE.RUN);
+                _monster.StateMachine.ChangeState(eSTATE.RUN);
                 return true;
         }
 

@@ -1,0 +1,981 @@
+fileFormatVersion: 2
+guid: 0c8c8f430ade9d54c871b8a69c32bc20
+timeCreated: 1492962402
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bone001
+    100002: Bone002
+    100004: Bone003
+    100006: Bone004
+    100008: Bone005
+    100010: Bone006
+    100012: Bone007
+    100014: Bone008
+    100016: Bone009
+    100018: Bone010
+    100020: Bone011
+    100022: Bone012
+    100024: Bone013
+    100026: Box001
+    100028: //RootNode
+    100030: Particle View 001
+    100032: Particle View 001 1
+    100034: Particle View 001 2
+    100036: Plane001
+    400000: Bone001
+    400002: Bone002
+    400004: Bone003
+    400006: Bone004
+    400008: Bone005
+    400010: Bone006
+    400012: Bone007
+    400014: Bone008
+    400016: Bone009
+    400018: Bone010
+    400020: Bone011
+    400022: Bone012
+    400024: Bone013
+    400026: Box001
+    400028: //RootNode
+    400030: Particle View 001
+    400032: Particle View 001 1
+    400034: Particle View 001 2
+    400036: Plane001
+    2300000: Box001
+    3300000: Box001
+    4300000: Plane001
+    4300002: Box001
+    7400000: BattleWalk
+    7400002: Attack1
+    7400004: Attack2
+    7400006: Idle
+    7400008: Agro
+    7400010: Run
+    7400012: BattleIdle
+    7400014: Hit
+    7400016: Die
+    7400018: Walk
+    9500000: //RootNode
+    13700000: Plane001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftUpperLeg' not found\n"
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: BattleWalk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack1
+      takeName: Take 001
+      firstFrame: 41
+      lastFrame: 68
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack2
+      takeName: Take 001
+      firstFrame: 69
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 96
+      lastFrame: 143
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Agro
+      takeName: Take 001
+      firstFrame: 144
+      lastFrame: 184
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      firstFrame: 185
+      lastFrame: 205
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: BattleIdle
+      takeName: Take 001
+      firstFrame: 210
+      lastFrame: 245
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hit
+      takeName: Take 001
+      firstFrame: 246
+      lastFrame: 256
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Die
+      takeName: Take 001
+      firstFrame: 257
+      lastFrame: 300
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 301
+      lastFrame: 355
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human:
+    - boneName: Bone001
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone007
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone008
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone002
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone003
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone009
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone004
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone010
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone005
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone011
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone006
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Box001
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: "hoody(\uC218\uC815\uBCF8) 1(Clone)"
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone001
+      parentName: "hoody(\uC218\uC815\uBCF8) 1(Clone)"
+      position: {x: 0.32264584, y: 0.27380186, z: 0.00000001196826}
+      rotation: {x: -0.008299062, y: -0.007556676, z: -0.68434864, w: 0.7290686}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone002
+      parentName: Bone001
+      position: {x: -0.25753516, y: -0.000000076293944, z: 0.0000000031858507}
+      rotation: {x: 0.0002883806, y: 0.04361841, z: -0.0065292753, w: 0.9990269}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone003
+      parentName: Bone002
+      position: {x: -0.15652765, y: -0.000000019073486, z: -0.000000038146972}
+      rotation: {x: 0.015191774, y: 0.00000024757213, z: 0.000004524135, w: 0.9998846}
+      scale: {x: 1, y: 0.99999994, z: 1.0000002}
+    - name: Bone004
+      parentName: Bone002
+      position: {x: -0.05700756, y: 0.1935556, z: -0.0049875355}
+      rotation: {x: 0.10371579, y: 0.06756499, z: 0.9333733, w: -0.33688644}
+      scale: {x: 0.9999997, y: 1, z: 1.0000005}
+    - name: Bone005
+      parentName: Bone004
+      position: {x: -0.12779316, y: -0.000000038146972, z: -0.0000000042670787}
+      rotation: {x: 0.000000025585244, y: -0.000000013534471, z: -0.12788291, w: 0.9917893}
+      scale: {x: 0.9999998, y: 0.9999998, z: 1}
+    - name: Bone006
+      parentName: Bone005
+      position: {x: -0.12120605, y: 0, z: 1.2079227e-15}
+      rotation: {x: 0.014755612, y: -0.009099067, z: -0.06752164, w: 0.99756724}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box001
+      parentName: Bone006
+      position: {x: -0.47479162, y: 0.12362312, z: 0.33714324}
+      rotation: {x: -0.24144706, y: 0.23395692, z: -0.73385847, w: 0.5902705}
+      scale: {x: 1.0000011, y: 1.0000005, z: 1.000001}
+    - name: Bone009
+      parentName: Bone002
+      position: {x: -0.05700727, y: -0.19266751, z: -0.0049875355}
+      rotation: {x: 0.34030232, y: 0.91527736, z: -0.04744933, w: 0.21026231}
+      scale: {x: 0.99999976, y: 1, z: 1.0000002}
+    - name: Bone010
+      parentName: Bone009
+      position: {x: -0.12779316, y: -0.000000038146972, z: -0.0000000042670787}
+      rotation: {x: 0.000000025585244, y: -0.000000013534471, z: -0.12788291, w: 0.9917893}
+      scale: {x: 0.9999998, y: 0.9999998, z: 1}
+    - name: Bone011
+      parentName: Bone010
+      position: {x: -0.12120605, y: 0, z: 1.2079227e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone007
+      parentName: Bone001
+      position: {x: 0.018737525, y: 0.106604725, z: -0.008178291}
+      rotation: {x: -0.2788544, y: 0.07722919, z: 0.9558878, w: 0.05054199}
+      scale: {x: 0.9999998, y: 0.8602117, z: 1.0000001}
+    - name: Bone008
+      parentName: Bone007
+      position: {x: -0.21049422, y: -0.0000000333786, z: -0.000000038146972}
+      rotation: {x: 0.008276105, y: -0.25868672, z: -0.000000113631785, w: 0.9659259}
+      scale: {x: 1.0007246, y: 0.90029436, z: 1.110744}
+    - name: Bone012
+      parentName: Bone001
+      position: {x: -0.0049150847, y: -0.11445915, z: -0.021463985}
+      rotation: {x: 0.049883816, y: 0.9702549, z: 0.021720257, w: -0.2358927}
+      scale: {x: 1.0000004, y: 0.8602118, z: 1.0000001}
+    - name: Bone013
+      parentName: Bone012
+      position: {x: -0.21049425, y: 0, z: 0}
+      rotation: {x: 0.005553322, y: -0.17355917, z: 0.00000031324862, w: 0.9848078}
+      scale: {x: 1.1000116, y: 0.9091435, z: 0.99995685}
+    - name: Particle View 001
+      parentName: "hoody(\uC218\uC815\uBCF8) 1(Clone)"
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Particle View 001 1
+      parentName: "hoody(\uC218\uC815\uBCF8) 1(Clone)"
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Particle View 001 2
+      parentName: "hoody(\uC218\uC815\uBCF8) 1(Clone)"
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Plane001
+      parentName: "hoody(\uC218\uC815\uBCF8) 1(Clone)"
+      position: {x: -0.31292948, y: 0.41701278, z: 0.000000018228206}
+      rotation: {x: 0.00000008146034, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

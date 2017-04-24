@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class Attack<entity_type> : State<entity_type> where entity_type : AI
 {
     private static Attack<entity_type> instance;
 
@@ -54,7 +54,7 @@ public class Attack<entity_type> : State<entity_type> where entity_type : HoodSk
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
+                _monster.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
 
