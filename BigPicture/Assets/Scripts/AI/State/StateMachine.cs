@@ -58,6 +58,7 @@ public class StateMachine<entity_type> where entity_type : AI
             case eSTATE.SETFOMATION: currentState = SetFomation<entity_type>.Instance(); break;
             case eSTATE.HIT        : currentState = Hit<entity_type>.Instance();         break;
             case eSTATE.DIE        : currentState = Die<entity_type>.Instance();         break;
+            case eSTATE.SPREAD     : currentState = Spread<entity_type>.Instance();      break;
         }
     }
 

@@ -10,5 +10,6 @@
     DIE,
     SETFOMATION,
     HIT,
+    SPREAD,
     NULL
 }

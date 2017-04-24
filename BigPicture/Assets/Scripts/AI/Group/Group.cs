@@ -6,6 +6,15 @@ public class Group : BaseGameEntity {
     public List<BaseGameEntity> member = new List<BaseGameEntity>();
     private Transform center;
     private int groupID;
+    [SerializeField]
+    eGROUP_STATUS eGroupState;
+
+    public eGROUP_STATUS EGroupState
+    {
+        get { return eGroupState; }
+        set { eGroupState = value; }
+    }
+
     // Use this for initialization
     void Start() {
         groupID = GroupManager.Instance.Lenght();
