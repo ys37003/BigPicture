@@ -132,8 +132,9 @@ public class AI : BaseGameEntity
             return false;
     }
 
-    public void Idle()
+    public virtual void Idle()
     {
+        Debug.Log("Idle");
     }
 
     public void BattleIdle()
@@ -141,9 +142,9 @@ public class AI : BaseGameEntity
         this.transform.LookAt(GetEnemyPosition());
     }
 
-    public void Walk()
+    public virtual void Walk()
     {
-
+        Debug.Log("Walk");
     }
 
     public void Hit()

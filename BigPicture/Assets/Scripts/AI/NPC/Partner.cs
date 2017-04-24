@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Partner : AI {
-
-    private StateMachine<Partner> stateMachine;
-    private Group group;
-    public GameObject enemy;
-
-    [SerializeField]
-    eJOB_TYPE job_Type;
-
+public class Partner : AI
+{
     [SerializeField]
     private BoxCollider colEyeSight;
 
@@ -18,15 +11,17 @@ public class Partner : AI {
     private ColliderAttack colliderAttack = null;
 
     [SerializeField]
-    private float attackRange = 1.0f;
+    private BaseGameEntity player;
+
     void Start()
     {
         EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type);
 
-        Data = DataManager.Instance().GetData(this.Tribe, this.Job);
+        //Data = DataManager.Instance().GetData(this.Tribe, this.Job);
+        Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
-        group = this.GetComponentInParent<Group>();
+        Group = this.GetComponentInParent<Group>();
         AttackAble = true;
 
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
@@ -37,16 +32,53 @@ public class Partner : AI {
         {
             trigger.ColliderAttack = colliderAttack;
         }
-        //this.GetGroup().Add(this);
-        //SetDelegate();
+        this.Group.Add(this);
+        SetDelegate();
 
-
-        //stateMachine = new StateMachine<HoodSkull>(this);
+        StateMachine = new StateMachine<AI>(this);
     }
 
+    private void SetDelegate()
+    {
+        switch (job_Type)
+        {
+            case eJOB_TYPE.DEALER:
+                SetDestination = Delegates.Instance.SetDestination_Partner;
+                AttackRange = 1.0f;
+                break;
+            case eJOB_TYPE.FORWARD:
+                AttackRange = 5.0f;
+                break;
+            case eJOB_TYPE.SUPPORT:
+                AttackRange = 5.0f;
+                break;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        StateMachine.Update();
+    }
 
+    public override void Idle()
+    {
+        Vector3 playerPos = player.transform.position;
+        if( true == this.IsFar(playerPos))
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.FLLOW_ME, playerPos);
+        }
+    }
+
+    public override void Walk()
+    {
+    }
+
+    bool IsFar(Vector3 _position)
+    {
+        if (5 < Vector3.Distance(this.transform.position, _position))
+        {
+            return true;
+        }
+        return false;
     }
 }

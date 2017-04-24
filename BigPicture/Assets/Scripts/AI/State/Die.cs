@@ -21,39 +21,39 @@ public class Die<entity_type> : State<entity_type> where entity_type : AI
         return instance;
     }
 
-    public void Excute(entity_type _monster)
+    public void Excute(entity_type _entity)
     {
-        _monster.Die();
-        if (true == _monster.EndDie())
+        _entity.Die();
+        if (true == _entity.EndDie())
         {
-            AnimatorManager.Instance().SetAnimation(_monster.Animator, "Die", false);
+            AnimatorManager.Instance().SetAnimation(_entity.Animator, "Die", false);
         }
     }
 
-    public void Enter(entity_type _monster)
+    public void Enter(entity_type _entity)
     {
         Debug.Log("Enter Die");
-        MessageDispatcher.Instance.DispatchMessage(3, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.REMOVE_AND_DROP, null);
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Die", true);
+        MessageDispatcher.Instance.DispatchMessage(3, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.REMOVE_AND_DROP, null);
+        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Die", true);
     }
 
-    public void Exit(entity_type _monster)
+    public void Exit(entity_type _entity)
     {
     }
 
     /// <summary>
     /// Walk 상태에서 받은 메세지 처리
     /// </summary>
-    /// <param name="_monster"></param>
+    /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
     /// 
-    public bool OnMessage(entity_type _monster, Telegram _msg)
+    public bool OnMessage(entity_type _entity, Telegram _msg)
     {
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.REMOVE_AND_DROP:
-                _monster.Clear();
+                _entity.Clear();
                 return true;
         }
 

@@ -22,45 +22,45 @@ public class Hit<entity_type> : State<entity_type> where entity_type : AI
         return instance;
     }
 
-    public void Excute(entity_type _monster)
+    public void Excute(entity_type _entity)
     {
-        if (true == _monster.EndHit())
+        if (true == _entity.EndHit())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
         }
     }
 
-    public void Enter(entity_type _monster)
+    public void Enter(entity_type _entity)
     {
-        if (true == _monster.DieCheck())
+        if (true == _entity.DieCheck())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
             return;
         }
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Hit", true);
+        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Hit", true);
 
     }
 
-    public void Exit(entity_type _monster)
+    public void Exit(entity_type _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Hit", false);
+        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Hit", false);
     }
 
     /// <summary>
     /// Walk 상태에서 받은 메세지 처리
     /// </summary>
-    /// <param name="_monster"></param>
+    /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    public bool OnMessage(entity_type _monster, Telegram _msg)
+    public bool OnMessage(entity_type _entity, Telegram _msg)
     {
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _monster.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
+                _entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
             case (int)eMESSAGE_TYPE.TO_DIE:
-                _monster.StateMachine.ChangeState(eSTATE.DIE);
+                _entity.StateMachine.ChangeState(eSTATE.DIE);
                 return true;
         }
         return false;

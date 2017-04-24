@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Group : BaseGameEntity {
     public List<BaseGameEntity> member = new List<BaseGameEntity>();
-    public Transform center;
+    private Transform center;
     private int groupID;
     // Use this for initialization
     void Start() {
@@ -12,7 +12,7 @@ public class Group : BaseGameEntity {
         GroupManager.Instance.Add(this);
     }
 
-   public int ID()
+   public int GroupID()
     {
         return groupID;
     }
@@ -68,6 +68,18 @@ public class Group : BaseGameEntity {
                 return member[i];
         }
         Debug.Log("JobToEntity is Fail");
+
+        return null;
+    }
+
+    public BaseGameEntity TypeToEntity(eENTITY_TYPE _job)
+    {
+        for (int i = 0; i < member.Count; ++i)
+        {
+            if (_job == member[i].Type)
+                return member[i];
+        }
+        Debug.Log("TypeToEntity is Fail");
 
         return null;
     }

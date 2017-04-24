@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class HoodSkull : AI
 {
-    public GameObject enemy;
-
     [SerializeField]
     private BoxCollider colEyeSight;
 
@@ -31,11 +29,11 @@ public class HoodSkull : AI
         {
             trigger.ColliderAttack = colliderAttack;
         }
-        this.Group.Add(this);
+        Group.Add(this);
         SetDelegate();
 
 
-        base.StateMachine = new StateMachine<AI>(this);
+        StateMachine = new StateMachine<AI>(this);
     }
 
     private void SetDelegate()
@@ -64,7 +62,7 @@ public class HoodSkull : AI
     }
     private void Update()
     {
-        base.StateMachine.Update();
+       StateMachine.Update();
     }
     #region Trigger
     void OnTriggerStay(Collider other)
@@ -75,7 +73,7 @@ public class HoodSkull : AI
             colType = other.GetComponent<BaseGameEntity>().Type;
 
         if (true == (colType == eENTITY_TYPE.PLAYER || colType == eENTITY_TYPE.NPC) &&
-            enemy == null)
+            Enemy == null)
         {
             Debug.Log("Find Enemy");
             this.transform.LookAt(other.transform.position);
