@@ -2,44 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack<entity_type> : State<entity_type> where entity_type : AI
+public class Attack : State
 {
-    private static Attack<entity_type> instance;
-
+    private static Attack instance;
+    AI entity;
     private Attack()
     {
 
     }
 
-    public static Attack<entity_type> Instance()
+    public static Attack Instance()
     {
         if (instance == null)
         {
-            instance = new Attack<entity_type>();
+            instance = new Attack();
         }
 
         return instance;
     }
 
-    public void Excute(entity_type _entity)
+    public void Excute(object _entity)
     {
-        _entity.Attack();
-        if (true == _entity.EndAttack())
+        entity = (AI)_entity;
+        entity.Attack();
+        if (true == entity.EndAttack())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);            
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);            
         }
     }
 
-    public void Enter(entity_type _entity)
+    public void Enter(object _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Attack", true);
-        _entity.AttackAble = false;
+        entity = (AI)_entity;
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);
+        entity.AttackAble = false;
     }
 
-    public void Exit(entity_type _entity)
+    public void Exit(object _entity)
     {
-        MessageDispatcher.Instance.DispatchMessage(3, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Attack", false);
+        entity = (AI)_entity;
+        MessageDispatcher.Instance.DispatchMessage(3, entity.ID, entity.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", false);
     }
 
     /// <summary>
@@ -49,12 +52,13 @@ public class Attack<entity_type> : State<entity_type> where entity_type : AI
     /// <param name="_msg"></param>
     /// <returns></returns>
     /// 
-    public bool OnMessage(entity_type _entity, Telegram _msg)
+    public bool OnMessage(object _entity, Telegram _msg)
     {
+        entity = (AI)_entity;
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
+                entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
 

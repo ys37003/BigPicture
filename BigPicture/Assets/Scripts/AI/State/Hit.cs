@@ -2,48 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hit<entity_type> : State<entity_type> where entity_type : AI
+public class Hit : State
 {
 
-    private static Hit<entity_type> instance;
-
+    private static Hit instance;
+    AI entity;
     private Hit()
     {
 
     }
 
-    public static Hit<entity_type> Instance()
+    public static Hit Instance()
     {
         if (instance == null)
         {
-            instance = new Hit<entity_type>();
+            instance = new Hit();
         }
 
         return instance;
     }
 
-    public void Excute(entity_type _entity)
+    public void Excute(object _entity)
     {
-        if (true == _entity.EndHit())
+        entity = (AI)_entity;
+        if (true == entity.EndHit())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
         }
     }
 
-    public void Enter(entity_type _entity)
+    public void Enter(object _entity)
     {
-        if (true == _entity.DieCheck())
+
+        entity = (AI)_entity;
+        if (true == entity.DieCheck())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
             return;
         }
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Hit", true);
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Hit", true);
 
     }
 
-    public void Exit(entity_type _entity)
+    public void Exit(object _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Hit", false);
+        entity = (AI)_entity;
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Hit", false);
     }
 
     /// <summary>
@@ -52,15 +56,16 @@ public class Hit<entity_type> : State<entity_type> where entity_type : AI
     /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    public bool OnMessage(entity_type _entity, Telegram _msg)
+    public bool OnMessage(object _entity, Telegram _msg)
     {
+        entity = (AI)_entity;
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
+                entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
             case (int)eMESSAGE_TYPE.TO_DIE:
-                _entity.StateMachine.ChangeState(eSTATE.DIE);
+                entity.StateMachine.ChangeState(eSTATE.DIE);
                 return true;
         }
         return false;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Group : BaseGameEntity {
     public List<BaseGameEntity> member = new List<BaseGameEntity>();
+    [SerializeField]
     private Transform center;
     private int groupID;
     [SerializeField]

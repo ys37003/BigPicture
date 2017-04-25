@@ -33,7 +33,7 @@ public class HoodSkull : AI
         SetDelegate();
 
 
-        StateMachine = new StateMachine<AI>(this);
+        StateMachine = new StateMachine(this);
     }
 
     private void SetDelegate()

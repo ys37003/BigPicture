@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI : BaseGameEntity
 {
-    private StateMachine<AI> stateMachine;
+    private StateMachine stateMachine;
     private Group group;
     private GameObject enemy;
     private MonsterData data;
@@ -62,7 +62,7 @@ public class AI : BaseGameEntity
         set { navAgent = value; }
     }
 
-    public StateMachine<AI> StateMachine
+    public StateMachine StateMachine
     {
         get { return stateMachine; }
         set { stateMachine = value; }

@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class StateMachine<entity_type> where entity_type : AI
+
+public class StateMachine
 {
-    private State<entity_type>  currentState;
+    private State currentState;
     private eSTATE              ePreviousState = eSTATE.NULL;
     private eSTATE              eCurrentState  = eSTATE.NULL;
-    private entity_type         owner;
+    private object              owner;
 
     public eSTATE CurrentState { get { return eCurrentState; } }
 
-    public StateMachine(entity_type _owner)
+    public StateMachine(object _owner)
     {
         owner = _owner;
-        currentState = Idle<entity_type>.Instance();
+        currentState = Idle.Instance();
         ChangeState(eSTATE.IDLE);
     }
 
@@ -49,16 +47,16 @@ public class StateMachine<entity_type> where entity_type : AI
     {
         switch (_stateType)
         {
-            case eSTATE.IDLE:       currentState = Idle<entity_type>.Instance();         break;
-            case eSTATE.WALK:       currentState = Walk<entity_type>.Instance();         break;
-            case eSTATE.RUN:        currentState = Run<entity_type>.Instance();          break;
-            case eSTATE.ATTACK:     currentState = Attack<entity_type>.Instance();       break;
-            case eSTATE.BATTLEIDLE: currentState = BattleIdle<entity_type>.Instance();   break;
-            case eSTATE.BATTLEWALK: currentState = BattleWalk<entity_type>.Instance();   break;
-            case eSTATE.SETFOMATION: currentState = SetFomation<entity_type>.Instance(); break;
-            case eSTATE.HIT        : currentState = Hit<entity_type>.Instance();         break;
-            case eSTATE.DIE        : currentState = Die<entity_type>.Instance();         break;
-            case eSTATE.SPREAD     : currentState = Spread<entity_type>.Instance();      break;
+            case eSTATE.IDLE:       currentState = Idle.Instance();         break;
+            case eSTATE.WALK:       currentState = Walk.Instance();         break;
+            case eSTATE.RUN:        currentState = Run.Instance();          break;
+            case eSTATE.ATTACK:     currentState = Attack.Instance();       break;
+            case eSTATE.BATTLEIDLE: currentState = BattleIdle.Instance();   break;
+            case eSTATE.BATTLEWALK: currentState = BattleWalk.Instance();   break;
+            case eSTATE.SETFOMATION: currentState = SetFomation.Instance(); break;
+            case eSTATE.HIT        : currentState = Hit.Instance();         break;
+            case eSTATE.DIE        : currentState = Die.Instance();         break;
+            case eSTATE.SPREAD     : currentState = Spread.Instance();      break;
         }
     }
 
@@ -71,10 +69,12 @@ public class StateMachine<entity_type> where entity_type : AI
         }
 
         // 전역 메세지 처리
+
+        AI dummy = (AI)owner;
         switch (_msg.message)
         { 
             case (int)eMESSAGE_TYPE.ATTACKABLE:
-                owner.AttackAble = true;
+                dummy.AttackAble = true;
                 return true;
 
             case (int)eMESSAGE_TYPE.TO_HIT:

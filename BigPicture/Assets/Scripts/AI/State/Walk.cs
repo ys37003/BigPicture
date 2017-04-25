@@ -2,46 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Walk<entity_type> : State<entity_type> where entity_type : AI
+public class Walk : State 
 {
-    private static Walk<entity_type> instance;
-
+    private static Walk instance;
+    AI entity;
     private Walk()
     {
 
     }
 
-    public static Walk<entity_type> Instance()
+    public static Walk Instance()
     {
         if (instance == null)
         {
-            instance = new Walk<entity_type>();
+            instance = new Walk();
         }
 
         return instance;
     }
 
-    public void Excute(entity_type _entity)
+    public void Excute(object _entity)
     {
-        _entity.Walk();
+        entity = (AI)_entity;
+        entity.Walk();
        
-        if (true == _entity.IsArrive())
+        if (true == entity.IsArrive())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
         }
     }
 
-    public void Enter(entity_type _entity)
+    public void Enter(object _entity)
     {
-        BaseGameEntity foword = _entity.Group.JobToEntity(eJOB_TYPE.FORWARD);
-        _entity.SetTarget(_entity.SetDestination(_entity, _entity.Group));
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Walk", true);
+        entity = (AI)_entity;
+        entity.SetTarget(entity.SetDestination(entity, entity.Group));
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Walk", true);
     }
 
-    public void Exit(entity_type _entity)
+    public void Exit(object _entity)
     {
-        _entity.NavAgent.Clear();
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Walk", false);
+        entity = (AI)_entity;
+        entity.NavAgent.Clear();
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Walk", false);
     }
 
     /// <summary>
@@ -50,26 +52,27 @@ public class Walk<entity_type> : State<entity_type> where entity_type : AI
     /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    public bool OnMessage(entity_type _entity, Telegram _msg)
+    public bool OnMessage(object _entity, Telegram _msg)
     {
+        entity = (AI)_entity;
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_IDLE:
-                _entity.StateMachine.ChangeState(eSTATE.IDLE);
+                entity.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
                 GameObject enemy = (GameObject)_msg.extraInfo;
-                _entity.SetEnemy(enemy);
-                _entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
+                entity.SetEnemy(enemy);
+                entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
 
             case (int)eMESSAGE_TYPE.FLLOW_ME:
-                _entity.SetTarget(MathAssist.Instance().RandomVector3((Vector3)_msg.extraInfo, 5.0f));
+                entity.SetTarget(MathAssist.Instance().RandomVector3((Vector3)_msg.extraInfo, 5.0f));
                 return true;
 
             case (int)eMESSAGE_TYPE.SET_FOMATION:
-                _entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
+                entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
         }
         return false;

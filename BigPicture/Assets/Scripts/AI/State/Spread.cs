@@ -2,36 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spread<entity_type> : State<entity_type> where entity_type : AI
+public class Spread : State
 {
-    private static Spread<entity_type> instance;
-
+    private static Spread instance;
+    Partner entity;
     private Spread()
     {
 
     }
 
-    public static Spread<entity_type> Instance()
+    public static Spread Instance()
     {
         if (instance == null)
         {
-            instance = new Spread<entity_type>();
+            instance = new Spread();
         }
 
         return instance;
     }
 
-    public void Excute(entity_type _entity)
+    public void Excute(object _entity)
     {
 
     }
 
-    public void Enter(entity_type _entity)
+    public void Enter(object _entity)
     {
 
     }
 
-    public void Exit(entity_type _entity)
+    public void Exit(object _entity)
     {
 
     }
@@ -42,7 +42,7 @@ public class Spread<entity_type> : State<entity_type> where entity_type : AI
     /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    public bool OnMessage(entity_type _entity, Telegram _msg)
+    public bool OnMessage(object _entity, Telegram _msg)
     {
         switch (_msg.message)
         {

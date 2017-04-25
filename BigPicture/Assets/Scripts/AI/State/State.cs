@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface State<entity_type>
+public interface State
 {
-    void Excute(entity_type _entity_type);
-    void Enter(entity_type _entity_type);
-    void Exit(entity_type _entity_type);
-    bool OnMessage(entity_type _entity_type, Telegram _msg);
+    void Excute(object _entity_type);
+    void Enter(object _entity_type);
+    void Exit(object _entity_type);
+    bool OnMessage(object _entity_type, Telegram _msg);
 }

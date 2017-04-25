@@ -35,7 +35,7 @@ public class Partner : AI
         this.Group.Add(this);
         SetDelegate();
 
-        StateMachine = new StateMachine<AI>(this);
+        StateMachine = new StateMachine(this);
     }
 
     private void SetDelegate()

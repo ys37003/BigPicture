@@ -2,45 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleWalk<entity_type> : State<entity_type> where entity_type : AI
+public class BattleWalk : State
 {
 
-    private static BattleWalk<entity_type> instance;
-
+    private static BattleWalk instance;
+    AI entity;
     private BattleWalk()
     {
 
     }
 
-    public static BattleWalk<entity_type> Instance()
+    public static BattleWalk Instance()
     {
         if (instance == null)
         {
-            instance = new BattleWalk<entity_type>();
+            instance = new BattleWalk();
         }
 
         return instance;
     }
 
-    public void Excute(entity_type _entity)
+    public void Excute(object _entity)
     {
-        _entity.BattleWalk();
+        entity = (AI)_entity;
+        entity.BattleWalk();
 
-        if(true == _entity.Approach(_entity.TargetDistance()))
+        if(true == entity.Approach(entity.TargetDistance()))
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
         }
     }
 
-    public void Enter(entity_type _entity)
+    public void Enter(object _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "BattleWalk", true);
-        _entity.SetTarget(_entity.GetEnemyPosition());
+        entity = (AI)_entity;
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
+        entity.SetTarget(entity.GetEnemyPosition());
     }
 
-    public void Exit(entity_type _entity)
+    public void Exit(object _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "BattleWalk", false);
+        entity = (AI)_entity;
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", false);
     }
 
     /// <summary>
@@ -49,12 +52,13 @@ public class BattleWalk<entity_type> : State<entity_type> where entity_type : AI
     /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    public bool OnMessage(entity_type _entity, Telegram _msg)
+    public bool OnMessage(object _entity, Telegram _msg)
     {
+        entity = (AI)_entity;
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_RUN:
-                _entity.StateMachine.ChangeState(eSTATE.RUN);
+                entity.StateMachine.ChangeState(eSTATE.RUN);
                 return true;
         }
 

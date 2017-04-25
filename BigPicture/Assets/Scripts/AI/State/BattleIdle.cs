@@ -2,43 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleIdle<entity_type> : State<entity_type> where entity_type : AI
+public class BattleIdle : State
 {
-    private static BattleIdle<entity_type> instance;
-
+    private static BattleIdle instance;
+    AI entity;
     private BattleIdle()
     {
 
     }
 
-    public static BattleIdle<entity_type> Instance()
+    public static BattleIdle Instance()
     {
         if (instance == null)
         {
-            instance = new BattleIdle<entity_type>();
+            instance = new BattleIdle();
         }
 
         return instance;
     }
 
-    public void Excute(entity_type _entity)
+    public void Excute(object _entity)
     {
-        _entity.BattleIdle();
+        entity = (AI)_entity;
+        entity.BattleIdle();
 
-        if(false == _entity.EnemyCheck())
+        if(false == entity.EnemyCheck())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
             return;
         }
 
-        if(_entity.AttackRange < _entity.TargetDistance() )
+        if(entity.AttackRange < entity.TargetDistance() )
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
             return;
         }
-        if (true == _entity.AttackAble)
+        if (true == entity.AttackAble)
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
             return;
         }
 
@@ -51,14 +52,16 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : AI
         //}
     }
 
-    public void Enter(entity_type _entity)
+    public void Enter(object _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "BattleIdle", true);
+        entity = (AI)_entity;
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleIdle", true);
     }
 
-    public void Exit(entity_type _entity)
+    public void Exit(object _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "BattleIdle", false);
+        entity = (AI)_entity;
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleIdle", false);
     }
 
     /// <summary>
@@ -67,24 +70,25 @@ public class BattleIdle<entity_type> : State<entity_type> where entity_type : AI
     /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    public bool OnMessage(entity_type _entity, Telegram _msg)
+    public bool OnMessage(object _entity, Telegram _msg)
     {
+        entity = (AI)_entity;
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_ATTACK:
-                _entity.StateMachine.ChangeState(eSTATE.ATTACK);
+                entity.StateMachine.ChangeState(eSTATE.ATTACK);
                 return true;
             case (int)eMESSAGE_TYPE.TO_IDLE:
-                _entity.StateMachine.ChangeState(eSTATE.IDLE);
+                entity.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
             case (int)eMESSAGE_TYPE.SET_FOMATION:
                 Vector3 fomation = (Vector3)_msg.extraInfo;
-                _entity.SetTarget(fomation);
+                entity.SetTarget(fomation);
                 return true;
 
             case (int)eMESSAGE_TYPE.TO_RUN:
-                _entity.StateMachine.ChangeState(eSTATE.RUN);
+                entity.StateMachine.ChangeState(eSTATE.RUN);
                 return true;
         }
 

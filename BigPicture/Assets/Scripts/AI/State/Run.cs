@@ -2,55 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Run<entity_type> : State<entity_type> where entity_type : AI
+public class Run : State
 {
-    private static Run<entity_type> instance;
-
+    private static Run instance;
+    AI entity;
     private Run()
     {
 
     }
 
-    public static Run<entity_type> Instance()
+    public static Run Instance()
     {
         if (instance == null)
         {
-            instance = new Run<entity_type>();
+            instance = new Run();
         }
 
         return instance;
     }
 
-    public void Excute(entity_type _entity)
+    public void Excute(object _entity)
     {
-        _entity.Run();
+        entity = (AI)_entity;
+        entity.Run();
 
-        if(true == _entity.IsArrive())
+        if(true == entity.IsArrive())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
 
-        if(_entity.AttackRange > _entity.TargetDistance())
+        if(entity.AttackRange > entity.TargetDistance())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
 
     }
 
-    public void Enter(entity_type _entity)
+    public void Enter(object _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Run", true);
-        _entity.SetTarget(_entity.GetEnemyPosition());
-        _entity.NavAgent.SetSpeed(3.5f);
+        entity = (AI)_entity;
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", true);
+        entity.SetTarget(entity.GetEnemyPosition());
+        entity.NavAgent.SetSpeed(3.5f);
     }
 
-    public void Exit(entity_type _entity)
+    public void Exit(object _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Run", false);
-        _entity.NavAgent.Clear();
-        _entity.NavAgent.SetSpeed(2.0f);
+        entity = (AI)_entity;
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", false);
+        entity.NavAgent.Clear();
+        entity.NavAgent.SetSpeed(2.0f);
 
     }
 
@@ -61,16 +64,17 @@ public class Run<entity_type> : State<entity_type> where entity_type : AI
     /// <param name="_msg"></param>
     /// <returns></returns>
     /// 
-    public bool OnMessage(entity_type _entity, Telegram _msg)
+    public bool OnMessage(object _entity, Telegram _msg)
     {
+        entity = (AI)_entity;
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_IDLE:
-                _entity.StateMachine.ChangeState(eSTATE.IDLE);
+                entity.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
+                entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
 
