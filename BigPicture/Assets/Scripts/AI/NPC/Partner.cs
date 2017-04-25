@@ -13,10 +13,11 @@ public class Partner : AI
     [SerializeField]
     private BaseGameEntity player;
 
+    private CommandController commandController;
     void Start()
     {
         EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type);
-
+        
         //Data = DataManager.Instance().GetData(this.Tribe, this.Job);
         Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
         Animator = this.GetComponent<Animator>();
@@ -27,7 +28,7 @@ public class Partner : AI
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);
 
-        colliderAttack.Init(eENTITY_TYPE.MONSTER, Animator, Data.StatusData);
+        colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData);
         foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
@@ -36,6 +37,7 @@ public class Partner : AI
         SetDelegate();
 
         StateMachine = new StateMachine(this);
+        commandController = new CommandController(this);
     }
 
     private void SetDelegate()
@@ -44,6 +46,8 @@ public class Partner : AI
         {
             case eJOB_TYPE.DEALER:
                 SetDestination = Delegates.Instance.SetDestination_Partner;
+                SetFomation = Delegates.Instance.SetFomation_Dealer;
+                Approach = Delegates.Instance.Approach_Dealer;
                 AttackRange = 1.0f;
                 break;
             case eJOB_TYPE.FORWARD:
@@ -58,6 +62,15 @@ public class Partner : AI
     void Update()
     {
         StateMachine.Update();
+    }
+
+    public override void HanleMessage(Telegram _msg)
+    {
+        if (true == StateMachine.HandleMessgae(_msg))
+            return;
+
+        if (true == commandController.HandleMessgae(_msg))
+            return;
     }
 
     public override void Idle()
@@ -80,5 +93,20 @@ public class Partner : AI
             return true;
         }
         return false;
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        eTRIBE_TYPE colType = eTRIBE_TYPE.NULL;
+
+        if ("Human" == other.tag || "Monster" == other.tag)
+            colType = other.GetComponent<BaseGameEntity>().Tribe;
+
+        if (colType != eTRIBE_TYPE.NULL && colType != this.Tribe && Enemy == null)
+        {
+            Debug.Log("Find Enemy");
+            this.transform.LookAt(other.transform.position);
+            this.Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject);
+        }
     }
 }

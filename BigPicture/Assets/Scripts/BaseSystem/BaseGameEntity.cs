@@ -42,8 +42,7 @@ public class BaseGameEntity : MonoBehaviour
         EntityManager.Instance.AddEntity(EntityManager.Instance.GetCount(), this);
     }
 
-    public virtual bool HanleMessage(Telegram _msg)
+    public virtual void HanleMessage(Telegram _msg)
     {
-        return false;
     }
 }

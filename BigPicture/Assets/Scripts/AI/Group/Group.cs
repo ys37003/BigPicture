@@ -7,15 +7,6 @@ public class Group : BaseGameEntity {
     [SerializeField]
     private Transform center;
     private int groupID;
-    [SerializeField]
-    eGROUP_STATUS eGroupState;
-
-    public eGROUP_STATUS EGroupState
-    {
-        get { return eGroupState; }
-        set { eGroupState = value; }
-    }
-
     // Use this for initialization
     void Start() {
         groupID = GroupManager.Instance.Lenght();
@@ -137,5 +128,10 @@ public class Group : BaseGameEntity {
             if(_job == (int)receiver.Job)
                 MessageDispatcher.Instance.DispatchMessage(_delay, _sender, receiver.ID, _message, _extreInfo);
         }
+    }
+
+    public void Command_ComeOn()
+    {
+        DispatchMessageGroup(0, 0, (int)eCommandType.COME_ON, null);
     }
 }

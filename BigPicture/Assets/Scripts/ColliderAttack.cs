@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ColliderAttack : MonoBehaviour
 {
-    public eENTITY_TYPE         EntitiType  { get; private set; }
+    public eTRIBE_TYPE         TribeType  { get; private set; }
     public StatusData           StatusData  { get; private set; }
 
     private Animator            animator;
@@ -35,9 +35,9 @@ public class ColliderAttack : MonoBehaviour
         gameObject.SetActive(active);
     }
 
-    public void Init(eENTITY_TYPE type, Animator animator, StatusData stat)
+    public void Init(eTRIBE_TYPE type, Animator animator, StatusData stat)
     {
-        EntitiType    = type;
+        TribeType = type;
         this.animator = animator;
         StatusData    = stat;
     }

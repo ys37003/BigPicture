@@ -51,14 +51,14 @@ public class Character : BaseGameEntity, ICharacter
 
     private void Awake()
     {
-        EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.NULL, eJOB_TYPE.DEALER);
+        EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.HUMAN, eJOB_TYPE.DEALER);
 
         // 임시
         Init(new StatusData(1, 0, 1, 1, 1, 1, 1, StatusData.MAX_HP));
 
         StartCoroutine("UpdateState");
 
-        colliderAttack.Init(eENTITY_TYPE.PLAYER, animator, Status);
+        colliderAttack.Init(eTRIBE_TYPE.HUMAN, animator, Status);
         foreach (AnimationTrigger trigger in animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
@@ -184,7 +184,7 @@ public class Character : BaseGameEntity, ICharacter
     {
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
 
-        if(ct != null && ct.EntitiType == eENTITY_TYPE.MONSTER)
+        if(ct != null && ct.TribeType != this.Tribe)
         {
             if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
             {

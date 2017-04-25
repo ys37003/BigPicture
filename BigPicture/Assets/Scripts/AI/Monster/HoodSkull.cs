@@ -24,7 +24,7 @@ public class HoodSkull : AI
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);
 
-        colliderAttack.Init(eENTITY_TYPE.MONSTER, Animator, Data.StatusData);
+        colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData);
         foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
@@ -67,13 +67,12 @@ public class HoodSkull : AI
     #region Trigger
     void OnTriggerStay(Collider other)
     {
-        eENTITY_TYPE colType = eENTITY_TYPE.NULL;
+        eTRIBE_TYPE colType = eTRIBE_TYPE.NULL;
 
-        if( "Player" == other.tag || "NPC" == other.tag)
-            colType = other.GetComponent<BaseGameEntity>().Type;
-
-        if (true == (colType == eENTITY_TYPE.PLAYER || colType == eENTITY_TYPE.NPC) &&
-            Enemy == null)
+        if ("Human" == other.tag || "Monster" == other.tag)
+            colType = other.GetComponent<BaseGameEntity>().Tribe;
+        
+        if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && Enemy == null)
         {
             Debug.Log("Find Enemy");
             this.transform.LookAt(other.transform.position);

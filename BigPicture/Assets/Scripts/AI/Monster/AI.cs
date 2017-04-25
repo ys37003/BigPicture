@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AI : BaseGameEntity
 {
     private StateMachine stateMachine;
     private Group group;
-    private GameObject enemy;
     private MonsterData data;
     public StatusData addStatus;
     private Animator animator;
     private NavAgent navAgent;
+
+    [SerializeField]
+    private GameObject enemy;
+
     private bool attackAble;
 
     [SerializeField]
@@ -98,7 +99,6 @@ public class AI : BaseGameEntity
 
     public bool EndAttack()
     {
-       
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
             if (0.5f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
@@ -140,6 +140,12 @@ public class AI : BaseGameEntity
     public void BattleIdle()
     {
         this.transform.LookAt(GetEnemyPosition());
+
+        if( false == enemy.activeSelf )
+        {
+            this.EnemyClear();
+            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+        }
     }
 
     public virtual void Walk()
@@ -179,9 +185,9 @@ public class AI : BaseGameEntity
     {
         return StateMachine.GetCurrentState();
     }
-    public override bool HanleMessage(Telegram _msg)
+    public override void HanleMessage(Telegram _msg)
     {
-        return StateMachine.HandleMessgae(_msg);
+        StateMachine.HandleMessgae(_msg);
     }
     /// <summary>
     /// 목적지 설정

@@ -7,7 +7,7 @@ public class HitCollider : MonoBehaviour {
     [SerializeField]
     private BaseGameEntity entity;
     [SerializeField]
-    private AI monster;
+    private AI ai;
 	// Use this for initialization
 	void Start () {
 		
@@ -20,15 +20,16 @@ public class HitCollider : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (eSTATE.HIT == monster.GetCurrentState() || eSTATE.DIE == monster.GetCurrentState())
+        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState())
             return;
 
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
         
-        if (ct != null && ct.EntitiType == eENTITY_TYPE.PLAYER)
+        if (ct != null && ct.TribeType != entity.Tribe)
         {
             Debug.Log("I'm Hit");
-            monster.Data.StatusData.HP -= 25.0f;
+            ai.Data.StatusData.HP -= 25.0f;
+            ai.SetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, null);
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
             //this.Data.StatusData.HP -= (ct.Power - this.GetTotalStatus().Armor);
