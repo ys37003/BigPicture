@@ -19,6 +19,8 @@ public class UIManager : Singleton<UIManager>
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         uiDepthDic.Add(UIType.Camera2D, new List<UIDepth>());
         uiDepthDic.Add(UIType.Camera3D, new List<UIDepth>());
 
