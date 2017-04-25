@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class Group : BaseGameEntity {
     public List<BaseGameEntity> member = new List<BaseGameEntity>();
-    public Transform center;
+    private Transform center;
+    private int groupID;
     // Use this for initialization
     void Start() {
-       
+        groupID = GroupManager.Instance.Lenght();
+        GroupManager.Instance.Add(this);
     }
 
-    // Update is called once per frame
-    void Update() {
+   public int GroupID()
+    {
+        return groupID;
     }
-    public void AddMember(BaseGameEntity _member)
+
+    public void Add(BaseGameEntity _member)
     {
         Debug.Log(_member.Job);
         member.Add(_member);
     }
 
-    public void ReMoveMember(BaseGameEntity _member)
+    public void ReMove(BaseGameEntity _member)
     {
         member.Remove(_member);
     }
@@ -34,6 +38,15 @@ public class Group : BaseGameEntity {
         center.LookAt(_target);
 
         return center;
+    }
+
+    public Vector3 GetCenter()
+    {
+        for (int i = 0; i < member.Count; ++i)
+            center.position += member[i].transform.position;
+
+        center.position /= member.Count;
+        return center.position;
     }
 
     public List<BaseGameEntity> JobToEntitys(eJOB_TYPE _job)
@@ -55,6 +68,18 @@ public class Group : BaseGameEntity {
                 return member[i];
         }
         Debug.Log("JobToEntity is Fail");
+
+        return null;
+    }
+
+    public BaseGameEntity TypeToEntity(eENTITY_TYPE _job)
+    {
+        for (int i = 0; i < member.Count; ++i)
+        {
+            if (_job == member[i].Type)
+                return member[i];
+        }
+        Debug.Log("TypeToEntity is Fail");
 
         return null;
     }

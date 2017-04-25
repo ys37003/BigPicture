@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleWalk<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class BattleWalk<entity_type> : State<entity_type> where entity_type : AI
 {
 
     private static BattleWalk<entity_type> instance;
@@ -22,39 +22,39 @@ public class BattleWalk<entity_type> : State<entity_type> where entity_type : Ho
         return instance;
     }
 
-    public void Excute(entity_type _monster)
+    public void Excute(entity_type _entity)
     {
-        _monster.BattleWalk();
+        _entity.BattleWalk();
 
-        if(true == _monster.Approach(_monster.TargetDistance()))
+        if(true == _entity.Approach(_entity.TargetDistance()))
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
         }
     }
 
-    public void Enter(entity_type _monster)
+    public void Enter(entity_type _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "BattleWalk", true);
-        _monster.SetTarget(_monster.GetEnemyPosition());
+        AnimatorManager.Instance().SetAnimation(_entity.Animator, "BattleWalk", true);
+        _entity.SetTarget(_entity.GetEnemyPosition());
     }
 
-    public void Exit(entity_type _monster)
+    public void Exit(entity_type _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "BattleWalk", false);
+        AnimatorManager.Instance().SetAnimation(_entity.Animator, "BattleWalk", false);
     }
 
     /// <summary>
     /// Idle상태에서 받은 메세지 처리
     /// </summary>
-    /// <param name="_monster"></param>
+    /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    public bool OnMessage(entity_type _monster, Telegram _msg)
+    public bool OnMessage(entity_type _entity, Telegram _msg)
     {
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_RUN:
-                _monster.GetStateMachine().ChangeState(eSTATE.RUN);
+                _entity.StateMachine.ChangeState(eSTATE.RUN);
                 return true;
         }
 

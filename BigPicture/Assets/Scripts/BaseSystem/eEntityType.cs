@@ -12,6 +12,7 @@ public enum eTRIBE_TYPE
 {
     HOODSKULL,
     GOBLIN,
+    HUMAN,
     NULL
 }
 

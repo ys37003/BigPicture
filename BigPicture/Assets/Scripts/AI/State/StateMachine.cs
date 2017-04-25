@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine<entity_type> where entity_type : HoodSkull
+public class StateMachine<entity_type> where entity_type : AI
 {
     private State<entity_type>  currentState;
     private eSTATE              ePreviousState = eSTATE.NULL;

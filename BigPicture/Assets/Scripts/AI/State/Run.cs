@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Run<entity_type> : State<entity_type> where entity_type : HoodSkull
+public class Run<entity_type> : State<entity_type> where entity_type : AI
 {
     private static Run<entity_type> instance;
 
@@ -21,56 +21,56 @@ public class Run<entity_type> : State<entity_type> where entity_type : HoodSkull
         return instance;
     }
 
-    public void Excute(entity_type _monster)
+    public void Excute(entity_type _entity)
     {
-        _monster.Run();
+        _entity.Run();
 
-        if(true == _monster.IsArrive())
+        if(true == _entity.IsArrive())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
 
-        if(_monster.GetAttackRange() > _monster.TargetDistance())
+        if(_entity.AttackRange > _entity.TargetDistance())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, _monster.ID, _monster.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
 
     }
 
-    public void Enter(entity_type _monster)
+    public void Enter(entity_type _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", true);
-        _monster.SetTarget(_monster.GetEnemyPosition());
-        _monster.NavAgent.SetSpeed(3.5f);
+        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Run", true);
+        _entity.SetTarget(_entity.GetEnemyPosition());
+        _entity.NavAgent.SetSpeed(3.5f);
     }
 
-    public void Exit(entity_type _monster)
+    public void Exit(entity_type _entity)
     {
-        AnimatorManager.Instance().SetAnimation(_monster.Animator, "Run", false);
-        _monster.NavAgent.Clear();
-        _monster.NavAgent.SetSpeed(2.0f);
+        AnimatorManager.Instance().SetAnimation(_entity.Animator, "Run", false);
+        _entity.NavAgent.Clear();
+        _entity.NavAgent.SetSpeed(2.0f);
 
     }
 
     /// <summary>
     /// Walk 상태에서 받은 메세지 처리
     /// </summary>
-    /// <param name="_monster"></param>
+    /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
     /// 
-    public bool OnMessage(entity_type _monster, Telegram _msg)
+    public bool OnMessage(entity_type _entity, Telegram _msg)
     {
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_IDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.IDLE);
+                _entity.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
-                _monster.GetStateMachine().ChangeState(eSTATE.BATTLEIDLE);
+                _entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
 

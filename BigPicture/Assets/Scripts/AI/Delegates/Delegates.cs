@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public delegate Vector3 DGSetDestination(BaseGameEntity _entity, Group group, Vector3 _position);
+public delegate Vector3 DGSetDestination(BaseGameEntity _entity, Group _group);
 public delegate Vector3 DGSetFomation(BaseGameEntity _entity, Transform _transform );
 public delegate bool DGApproach(float _distance);
 public class Delegates
@@ -26,21 +26,30 @@ public class Delegates
         private set { }
     }
 
-    public Vector3 SetDestination_Nomal(BaseGameEntity _entity, Group group, Vector3 _position)
+    public Vector3 SetDestination_Nomal(BaseGameEntity _entity, Group _group)
     {
-        return MathAssist.Instance().RandomVector3(_position, 2.0f);
+        BaseGameEntity foword = _group.JobToEntity(eJOB_TYPE.FORWARD);
+        return MathAssist.Instance().RandomVector3(foword.transform.position, 2.0f);
     }
 
-    public Vector3 SetDestination_Foword(BaseGameEntity _entity, Group group, Vector3 _position)
+    public Vector3 SetDestination_Foword(BaseGameEntity _entity, Group _group)
     {
-        if( 0 == (int)Random.Range(0,2))
+        BaseGameEntity foword = _group.JobToEntity(eJOB_TYPE.FORWARD);
+        if ( 0 == (int)Random.Range(0,2))
         {
-            Vector3 position = MathAssist.Instance().RandomVector3(_position, 20.0f);
-            group.DispatchMessageGroup(1, _entity.ID, (int)eMESSAGE_TYPE.FLLOW_ME, position);
+            Vector3 position = MathAssist.Instance().RandomVector3(foword.transform.position, 20.0f);
+            _group.DispatchMessageGroup(1.5f, _entity.ID, (int)eMESSAGE_TYPE.FLLOW_ME, position);
             return position;
         }
-        return MathAssist.Instance().RandomVector3(_position, 2.0f);
+        return MathAssist.Instance().RandomVector3(foword.transform.position , 2.0f);
     }
+
+    public Vector3 SetDestination_Partner(BaseGameEntity _entity, Group _group)
+    {
+        BaseGameEntity player = _group.TypeToEntity(eENTITY_TYPE.PLAYER);
+        return MathAssist.Instance().RandomVector3(player.transform.position, 5.0f);
+    }
+
 
     public Vector3 SetFomation_Foword(BaseGameEntity _entity , Transform _transform)
     {

@@ -7,7 +7,7 @@ public class HitCollider : MonoBehaviour {
     [SerializeField]
     private BaseGameEntity entity;
     [SerializeField]
-    private Monster monster;
+    private AI monster;
 	// Use this for initialization
 	void Start () {
 		

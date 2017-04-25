@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Character : BaseGameEntity, ICharacter
 {
+    private Group group;
     /// <summary>
     /// 기본 능력치
     /// </summary>
@@ -31,6 +32,12 @@ public class Character : BaseGameEntity, ICharacter
     /// 캐릭터의 현재 상태
     /// </summary>
     public eSTATE CurrentState { get; private set; }
+
+    public Group Group
+    {
+        get { return group; }
+        set { group = value; }
+    }
 
     [SerializeField] private Animator       animator        = null;
     [SerializeField] private ColliderAttack colliderAttack  = null;
@@ -61,6 +68,9 @@ public class Character : BaseGameEntity, ICharacter
     private void Start()
     {
         TeamManager.Instance.AddCharacter(this);
+        Group = this.GetComponentInParent<Group>();
+
+        Group.Add(this);
     }
 
     public void Init(StatusData status)
