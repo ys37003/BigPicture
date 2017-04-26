@@ -2,18 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Group : BaseGameEntity {
+public class Group : BaseGameEntity
+{
     public List<BaseGameEntity> member = new List<BaseGameEntity>();
     [SerializeField]
     private Transform center;
     private int groupID;
+    private Group enemyGroup;
+
+    public Group EnemyGroup
+    {
+        get { return enemyGroup; }
+        set { enemyGroup = value; }
+    }
+
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         groupID = GroupManager.Instance.Lenght();
         GroupManager.Instance.Add(this);
     }
 
-   public int GroupID()
+    public int GroupID()
     {
         return groupID;
     }
@@ -92,7 +102,8 @@ public class Group : BaseGameEntity {
         List<BaseGameEntity> supportList = this.JobToEntitys(eJOB_TYPE.SUPPORT);
 
         Debug.Log("SetFomation");
-        Vector3 fomation = forward.transform.position + (-forward.transform.forward * 3 );
+        ///// 수정 필요
+        Vector3 fomation = forward.transform.position + (-forward.transform.forward * 3);
         fomation += forward.transform.right * -1;
 
         MessageDispatcher.Instance.DispatchMessage(0.5f, forward.ID, dealerList[0].ID, (int)eMESSAGE_TYPE.SET_FOMATION, fomation);
@@ -109,29 +120,65 @@ public class Group : BaseGameEntity {
         fomation = Vector3.zero;
     }
 
-    public void DispatchMessageGroup(float _delay , int _sender, int _message , object _extreInfo)
+    public void DispatchMessageGroup(float _delay, int _sender, int _message, object _extreInfo)
     {
         for (int i = 0; i < member.Count; ++i)
         {
             int receiver = member[i].ID;
 
-            MessageDispatcher.Instance.DispatchMessage(_delay , _sender , receiver, _message , _extreInfo);
+            MessageDispatcher.Instance.DispatchMessage(_delay, _sender, receiver, _message, _extreInfo);
         }
     }
 
-    public void DispatchMessageGroup(float _delay, int _sender, int _job , int _message, object _extreInfo)
+    public void DispatchMessageGroup(float _delay, int _sender, int _job, int _message, object _extreInfo)
     {
         for (int i = 0; i < member.Count; ++i)
         {
             BaseGameEntity receiver = member[i];
 
-            if(_job == (int)receiver.Job)
+            if (_job == (int)receiver.Job)
                 MessageDispatcher.Instance.DispatchMessage(_delay, _sender, receiver.ID, _message, _extreInfo);
         }
     }
 
     public void Command_ComeOn()
     {
-        DispatchMessageGroup(0, 0, (int)eCommandType.COME_ON, null);
+        DispatchMessageGroup(0, 0, (int)eMESSAGE_TYPE.COMMAND_COME_ON, null);
+    }
+    public void Command_Focusing()
+    {
+        Character character = this.TypeToEntity(eENTITY_TYPE.PLAYER).gameObject.GetComponent<Character>();
+        DispatchMessageGroup(0, 0, (int)eMESSAGE_TYPE.COMMAND_FOCUSING, character.Emeny );
+    }
+
+    public bool BattleCheck()
+    {
+        if (true == enemyGroup.BattleAble())
+            return true;
+        else
+            return false;
+
+    }
+
+    public GameObject FindEnemy()
+    {
+        for(int i = 0; i < enemyGroup.member.Count; ++i )
+        {
+            if (true == enemyGroup.member[i].gameObject.activeSelf)
+                return enemyGroup.member[i].gameObject;
+        }
+        Debug.Log("Enemy is Empty");
+        return null;
+    }
+
+    public bool BattleAble()
+    {
+        for (int i = 0; i < member.Count; ++i)
+        {
+            if (true == member[i].gameObject.activeSelf)
+                return true;
+        }
+
+        return false;
     }
 }

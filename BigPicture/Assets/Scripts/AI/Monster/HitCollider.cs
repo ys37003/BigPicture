@@ -29,7 +29,14 @@ public class HitCollider : MonoBehaviour {
         {
             Debug.Log("I'm Hit");
             ai.Data.StatusData.HP -= 25.0f;
-            ai.SetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
+
+            if (false == ai.EnemyCheck())
+            {
+                ai.Group.EnemyGroup = other.GetComponentInParent<AI>().Group;
+                ai.SetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
+                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ai.Enemy);
+            }
+
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, null);
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
             //this.Data.StatusData.HP -= (ct.Power - this.GetTotalStatus().Armor);

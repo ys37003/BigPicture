@@ -11,5 +11,6 @@
     SETFOMATION,
     HIT,
     SPREAD,
+    COME_ON,
     NULL
 }

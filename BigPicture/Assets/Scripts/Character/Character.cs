@@ -4,6 +4,7 @@ using UnityEngine;
 public class Character : BaseGameEntity, ICharacter
 {
     private Group group;
+    private GameObject emeny;
     /// <summary>
     /// 기본 능력치
     /// </summary>
@@ -37,6 +38,12 @@ public class Character : BaseGameEntity, ICharacter
     {
         get { return group; }
         set { group = value; }
+    }
+
+    public GameObject Emeny
+    {
+        get { return emeny; }
+        set { emeny = value; }
     }
 
     [SerializeField] private Animator       animator        = null;
@@ -186,6 +193,8 @@ public class Character : BaseGameEntity, ICharacter
 
         if(ct != null && ct.TribeType != this.Tribe)
         {
+
+            Emeny = ct.GetComponentInParent<BaseGameEntity>().gameObject;
             if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
             {
                 Debug.Log(string.Format("{0}의 공격 회피", other.name));

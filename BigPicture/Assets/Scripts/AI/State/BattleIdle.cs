@@ -26,13 +26,15 @@ public class BattleIdle : State
         entity = (AI)_entity;
         entity.BattleIdle();
 
-        if(false == entity.EnemyCheck())
+
+        if (false == entity.Group.BattleCheck())
         {
+            entity.Group.EnemyGroup = null;
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
             return;
         }
 
-        if(entity.AttackRange < entity.TargetDistance() )
+        if (entity.AttackRange < entity.TargetDistance() )
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
             return;
@@ -82,10 +84,10 @@ public class BattleIdle : State
                 entity.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
-            case (int)eMESSAGE_TYPE.SET_FOMATION:
-                Vector3 fomation = (Vector3)_msg.extraInfo;
-                entity.SetTarget(fomation);
-                return true;
+            //case (int)eMESSAGE_TYPE.SET_FOMATION:
+            //    Vector3 fomation = (Vector3)_msg.extraInfo;
+            //    entity.SetTarget(fomation);
+            //    return true;
 
             case (int)eMESSAGE_TYPE.TO_RUN:
                 entity.StateMachine.ChangeState(eSTATE.RUN);

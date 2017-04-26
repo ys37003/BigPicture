@@ -25,16 +25,27 @@ public class ComeOn : State {
     public void Excute(object _entity)
     {
         entity = (Partner)_entity;
+
+        if (true == entity.IsArrive())
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+        }
     }
 
     public void Enter(object _entity)
     {
         entity = (Partner)_entity;
+        entity.SetTarget(entity.SetDestination(entity, entity.Group));
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Walk", true);
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Command", true);
     }
 
     public void Exit(object _entity)
     {
         entity = (Partner)_entity;
+        entity.NavAgent.Clear();
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Walk", false);
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "Command", false);
     }
 
     /// <summary>
@@ -48,6 +59,9 @@ public class ComeOn : State {
         entity = (Partner)_entity;
         switch (_msg.message)
         {
+            case (int)eMESSAGE_TYPE.TO_IDLE:
+                entity.StateMachine.ChangeState(eSTATE.IDLE);
+                return true;
         }
         return false;
     }

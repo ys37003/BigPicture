@@ -95,18 +95,18 @@ public class Partner : AI
         return false;
     }
 
-    void OnTriggerStay(Collider other)
-    {
-        eTRIBE_TYPE colType = eTRIBE_TYPE.NULL;
+    //void OnTriggerStay(Collider other)
+    //{
+    //    eTRIBE_TYPE colType = eTRIBE_TYPE.NULL;
 
-        if ("Human" == other.tag || "Monster" == other.tag)
-            colType = other.GetComponent<BaseGameEntity>().Tribe;
+    //    if ("Human" == other.tag || "Monster" == other.tag)
+    //        colType = other.GetComponent<BaseGameEntity>().Tribe;
 
-        if (colType != eTRIBE_TYPE.NULL && colType != this.Tribe && Enemy == null)
-        {
-            Debug.Log("Find Enemy");
-            this.transform.LookAt(other.transform.position);
-            this.Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject);
-        }
-    }
+    //    if (colType != eTRIBE_TYPE.NULL && colType != this.Tribe && Enemy == null)
+    //    {
+    //        Debug.Log("Find Enemy");
+    //        this.transform.LookAt(other.transform.position);
+    //        this.Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject);
+    //    }
+    //}
 }

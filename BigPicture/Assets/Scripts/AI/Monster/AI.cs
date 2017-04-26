@@ -141,10 +141,10 @@ public class AI : BaseGameEntity
     {
         this.transform.LookAt(GetEnemyPosition());
 
-        if( false == enemy.activeSelf )
+        if( false == this.EnemyCheck())
         {
             this.EnemyClear();
-            MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
+            this.Enemy = this.Group.FindEnemy();
         }
     }
 
@@ -156,6 +156,7 @@ public class AI : BaseGameEntity
     public void Hit()
     {
     }
+
     public void Run()
     {
         if (10.0f > Vector3.Distance(this.transform.position, this.GetEnemyPosition()))
@@ -195,6 +196,11 @@ public class AI : BaseGameEntity
     /// <param name="_target"></param>
     public void SetTarget(Vector3 _destination)
     {
+        if( _destination == Vector3.zero)
+        {
+            Debug.Log("Destination is NULL");
+            return;
+        }
         NavAgent.SetDestination(_destination);
         StartCoroutine(NavAgent.MoveToTarget());
     }
@@ -216,7 +222,7 @@ public class AI : BaseGameEntity
 
     public bool EnemyCheck()
     {
-        if (null == Enemy)
+        if (null == Enemy || false == Enemy.activeSelf)
             return false;
         else
             return true;
@@ -224,7 +230,7 @@ public class AI : BaseGameEntity
 
     public Vector3 GetEnemyPosition()
     {
-        if (null == Enemy)
+        if (null == Enemy || false == Enemy.activeSelf )
         {
             Debug.Log("Enemy is NULL");
             return Vector3.zero;

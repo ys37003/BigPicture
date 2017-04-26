@@ -76,6 +76,7 @@ public class HoodSkull : AI
         {
             Debug.Log("Find Enemy");
             this.transform.LookAt(other.transform.position);
+            this.Group.EnemyGroup = other.GetComponent<AI>().Group;
             this.Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject );
         }
     }

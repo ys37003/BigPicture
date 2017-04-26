@@ -14,8 +14,12 @@ public class CommandController
     {
         switch (_msg.message)
         {
-            case (int)eCommandType.COME_ON:
-                Debug.Log("ggggggggggggggggggggggggggg");
+            case (int)eMESSAGE_TYPE.COMMAND_COME_ON:
+                owner.StateMachine.ChangeState(eSTATE.COME_ON);
+                return true;
+            case (int)eMESSAGE_TYPE.COMMAND_FOCUSING:
+                GameObject emeny = (GameObject)_msg.extraInfo;
+                owner.SetEnemy(emeny);
                 return true;
         }
         return false;

@@ -5,6 +5,7 @@
     NPC,
     MONSTER,
     ITEM,
+    GROUP,
     NULL
 }
 
