@@ -53,6 +53,18 @@ public class InputManager : Singleton<InputManager>
                 StatusUI.CreateUI();
             }
         }, null));
+
+        AddKey(new InputKey(KeyCode.Escape, InputType.KeyDown), new InputValue(() =>
+        {
+            if (OptionUI.IsShow)
+            {
+                OptionUI.DestroyUI();
+            }
+            else
+            {
+                OptionUI.CreateUI();
+            }
+        }, null));
     }
 
     private void Start()

@@ -36,6 +36,13 @@ public class UIManager : Singleton<UIManager>
 
     public void AddUI(UIType type, UIDepth uiDepth)
     {
+        int count = uiDepthDic[type].Count;
+        if (count > 0)
+        {
+            // 마지막에 생성된 UI의 depth보다 1크게 기준 depth를 부여한다.
+            uiDepth.Depth = uiDepthDic[type][count - 1].Depth + 1;
+        }
+
         uiDepthDic[type].Add(uiDepth);
 
         /*
