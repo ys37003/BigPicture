@@ -3,16 +3,23 @@ using UnityEngine;
 
 public class ColliderAttack : MonoBehaviour
 {
-    public eTRIBE_TYPE         TribeType  { get; private set; }
-    public StatusData           StatusData  { get; private set; }
+    public eTRIBE_TYPE          TribeType    { get; private set; }
+    public StatusData           StatusData   { get; private set; }
 
     private Animator            animator;
     private AnimatorStateInfo   stateInfo;
 
+    public float Power { get { return StatusData.PhysicsPower + StatusData.SpellPower; } }
+
+    private GameObject target;
+    public  GameObject Target
+    {
+                get { return target; }
+        private set { target = value; }
+    }
+
     [SerializeField]
     private Collider coll = null;
-
-    public float Power { get { return StatusData.PhysicsPower + StatusData.SpellPower; } }
 
     private void Awake()
     {
@@ -37,7 +44,7 @@ public class ColliderAttack : MonoBehaviour
 
     public void Init(eTRIBE_TYPE type, Animator animator, StatusData stat)
     {
-        TribeType = type;
+        TribeType     = type;
         this.animator = animator;
         StatusData    = stat;
     }
@@ -66,5 +73,13 @@ public class ColliderAttack : MonoBehaviour
             yield return null;
 
         SetCollider(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Monster")
+        {
+            Target = other.gameObject;
+        }
     }
 }

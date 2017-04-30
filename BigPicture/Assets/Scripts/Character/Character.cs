@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Character : BaseGameEntity, ICharacter
 {
-    private Group group;
-    private GameObject emeny;
     /// <summary>
     /// 기본 능력치
     /// </summary>
@@ -34,17 +32,17 @@ public class Character : BaseGameEntity, ICharacter
     /// </summary>
     public eSTATE CurrentState { get; private set; }
 
-    public Group Group
+    private Group group;
+    public  Group Group
     {
-        get { return group; }
-        set { group = value; }
+                get { return group; }
+        private set { group = value; }
     }
 
-    public GameObject Emeny
-    {
-        get { return emeny; }
-        set { emeny = value; }
-    }
+    /// <summary>
+    /// 공격한 몬스터를 가져온다. 없을 수도 있음
+    /// </summary>
+    public GameObject Target { get { return colliderAttack == null ? colliderAttack.Target : null; } }
 
     [SerializeField] private Animator       animator        = null;
     [SerializeField] private ColliderAttack colliderAttack  = null;
@@ -75,9 +73,16 @@ public class Character : BaseGameEntity, ICharacter
     private void Start()
     {
         TeamManager.Instance.AddCharacter(this);
-        Group = this.GetComponentInParent<Group>();
 
-        Group.Add(this);
+        Group = GetComponentInParent<Group>();
+        if (Group != null)
+        {
+            Group.Add(this);
+        }
+        else
+        {
+            Debug.Log("그룹이 없습니다.");
+        }
     }
 
     public void Init(StatusData status)
@@ -191,10 +196,8 @@ public class Character : BaseGameEntity, ICharacter
     {
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
 
-        if(ct != null && ct.TribeType != this.Tribe)
+        if(ct != null && ct.TribeType != Tribe)
         {
-
-            Emeny = ct.GetComponentInParent<BaseGameEntity>().gameObject;
             if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
             {
                 Debug.Log(string.Format("{0}의 공격 회피", other.name));
