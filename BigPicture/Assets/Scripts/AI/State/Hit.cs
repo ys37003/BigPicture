@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Hit : State
 {
-
     private static Hit instance;
     AI entity;
     private Hit()

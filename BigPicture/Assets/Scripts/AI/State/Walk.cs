@@ -62,9 +62,9 @@ public class Walk : State
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                GameObject enemy = (GameObject)_msg.extraInfo;
-                entity.Group.EnemyGroup = enemy.GetComponent<AI>().Group;
-                entity.SetEnemy(enemy);
+                Group enemyGroup = (Group)_msg.extraInfo;
+                entity.Group.EnemyGroup = enemyGroup;
+                entity.Enemy = enemyGroup.NearestEntity(entity.transform.position);
                 entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
 

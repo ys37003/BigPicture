@@ -29,6 +29,7 @@ public class HoodSkull : AI
         {
             trigger.ColliderAttack = colliderAttack;
         }
+        this.GroupID = this.Group.member.Count;
         Group.Add(this);
         SetDelegate();
 
@@ -44,7 +45,7 @@ public class HoodSkull : AI
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
                 SetFomation = Delegates.Instance.SetFomation_Dealer;
                 Approach = Delegates.Instance.Approach_Dealer;
-                AttackRange = 1.0f;
+                AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:
                 SetDestination = Delegates.Instance.SetDestination_Foword;
@@ -77,7 +78,7 @@ public class HoodSkull : AI
             Debug.Log("Find Enemy");
             this.transform.LookAt(other.transform.position);
             this.Group.EnemyGroup = other.GetComponent<AI>().Group;
-            this.Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.gameObject );
+            this.Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, this.Group.EnemyGroup );
         }
     }
 

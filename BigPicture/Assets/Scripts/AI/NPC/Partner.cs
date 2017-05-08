@@ -33,6 +33,7 @@ public class Partner : AI
         {
             trigger.ColliderAttack = colliderAttack;
         }
+        this.GroupID = this.Group.member.Count;
         this.Group.Add(this);
         SetDelegate();
 
@@ -46,9 +47,9 @@ public class Partner : AI
         {
             case eJOB_TYPE.DEALER:
                 SetDestination = Delegates.Instance.SetDestination_Partner;
-                SetFomation = Delegates.Instance.SetFomation_Dealer;
+                SetFomation = Delegates.Instance.SetFomation_Partner;
                 Approach = Delegates.Instance.Approach_Dealer;
-                AttackRange = 1.0f;
+                AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:
                 AttackRange = 5.0f;

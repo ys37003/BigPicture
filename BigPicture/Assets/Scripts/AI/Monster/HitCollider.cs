@@ -34,7 +34,7 @@ public class HitCollider : MonoBehaviour {
             {
                 ai.Group.EnemyGroup = other.GetComponentInParent<AI>().Group;
                 ai.SetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
-                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ai.Enemy);
+                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ai.Group.EnemyGroup );
             }
 
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, null);

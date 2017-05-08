@@ -63,6 +63,11 @@ public class Delegates
         return _entity.transform.position + (_transform.right * 3 * dealerFomationNum );
     }
 
+    public Vector3 SetFomation_Partner(BaseGameEntity _entity, Transform _transform)
+    {
+        return Vector3.zero;
+    }
+
     public Vector3 SetFomation_Support(BaseGameEntity _entity, Transform _transform)
     {
         return _entity.transform.position + (_transform.forward * -3);

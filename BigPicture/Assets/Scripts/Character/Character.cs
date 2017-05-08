@@ -198,6 +198,11 @@ public class Character : BaseGameEntity, ICharacter
 
         if(ct != null && ct.TribeType != Tribe)
         {
+            
+            if (null == this.Group.EnemyGroup)
+            {
+                Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<AI>().Group);
+            }
             if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
             {
                 Debug.Log(string.Format("{0}의 공격 회피", other.name));

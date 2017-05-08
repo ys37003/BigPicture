@@ -35,7 +35,7 @@ public class Die : State
     {
         entity = (AI)_entity;
         Debug.Log("Enter Die");
-        MessageDispatcher.Instance.DispatchMessage(3, entity.ID, entity.ID, (int)eMESSAGE_TYPE.REMOVE_AND_DROP, null);
+        MessageDispatcher.Instance.DispatchMessage(2, entity.ID, entity.ID, (int)eMESSAGE_TYPE.REMOVE_AND_DROP, null);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Die", true);
     }
 

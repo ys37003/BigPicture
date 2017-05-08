@@ -26,18 +26,16 @@ public class Run : State
         entity = (AI)_entity;
         entity.Run();
 
-        if(true == entity.IsArrive())
+        if(entity.AttackRange > entity.TargetDistance() || true == entity.IsArrive() )
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
-
-        if(entity.AttackRange > entity.TargetDistance())
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
-            return;
-        }
-
+        //if(true == entity.IsArrive())
+        //{
+        //    MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+        //    return;
+        //}
     }
 
     public void Enter(object _entity)
@@ -45,7 +43,7 @@ public class Run : State
         entity = (AI)_entity;
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", true);
         entity.SetTarget(entity.GetEnemyPosition());
-        entity.NavAgent.SetSpeed(3.5f);
+        entity.NavAgent.SetSpeed(6.0f);
     }
 
     public void Exit(object _entity)

@@ -7,7 +7,6 @@ public class Group : BaseGameEntity
     public List<BaseGameEntity> member = new List<BaseGameEntity>();
     [SerializeField]
     private Transform center;
-    private int groupID;
     private Group enemyGroup;
 
     public Group EnemyGroup
@@ -19,15 +18,8 @@ public class Group : BaseGameEntity
     // Use this for initialization
     void Start()
     {
-        groupID = GroupManager.Instance.Lenght();
         GroupManager.Instance.Add(this);
     }
-
-    public int GroupID()
-    {
-        return groupID;
-    }
-
     public void Add(BaseGameEntity _member)
     {
         Debug.Log(_member.Job);
@@ -95,6 +87,11 @@ public class Group : BaseGameEntity
         return null;
     }
 
+    public BaseGameEntity IndexToEntity(int _index)
+    {
+        return member[_index];
+    }
+
     public void SetFomation(Vector3 _enemyPos)
     {
         BaseGameEntity forward = this.JobToEntity(eJOB_TYPE.FORWARD);
@@ -160,14 +157,15 @@ public class Group : BaseGameEntity
 
     }
 
-    public GameObject FindEnemy()
+    public GameObject RandomEntity()
     {
-        for(int i = 0; i < enemyGroup.member.Count; ++i )
+        while(true == EnemyGroup.BattleAble())
         {
-            if (true == enemyGroup.member[i].gameObject.activeSelf)
-                return enemyGroup.member[i].gameObject;
+            int random = Random.Range(0, member.Count);
+
+            if (true == member[random].gameObject.activeSelf)
+                return member[random].gameObject;
         }
-        Debug.Log("Enemy is Empty");
         return null;
     }
 
@@ -180,5 +178,19 @@ public class Group : BaseGameEntity
         }
 
         return false;
+    }
+
+    public GameObject NearestEntity(Vector3 _entityPos)
+    {
+        GameObject dummy = member[0].gameObject;
+
+        for (int i = 0; i < member.Count; ++i)
+        {
+            if(Vector3.Distance(dummy.transform.position , _entityPos) > Vector3.Distance(member[i].transform.position, _entityPos))
+            {
+                dummy = member[i].gameObject;
+            }
+        }
+        return dummy;
     }
 }

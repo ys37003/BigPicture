@@ -4,6 +4,7 @@ public class AI : BaseGameEntity
 {
     private StateMachine stateMachine;
     private Group group;
+    private int groupID;
     private MonsterData data;
     public StatusData addStatus;
     private Animator animator;
@@ -88,6 +89,12 @@ public class AI : BaseGameEntity
         set { group = value; }
     }
 
+    public int GroupID
+    {
+        get { return groupID; }
+        set { groupID = value; }
+    }
+
     public bool EndHit()
     {
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
@@ -144,7 +151,7 @@ public class AI : BaseGameEntity
         if( false == this.EnemyCheck())
         {
             this.EnemyClear();
-            this.Enemy = this.Group.FindEnemy();
+            this.Enemy = this.Group.EnemyGroup.NearestEntity(this.transform.position);
         }
     }
 
