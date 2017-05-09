@@ -148,15 +148,6 @@ public class Group : BaseGameEntity
         DispatchMessageGroup(0, 0, (int)eMESSAGE_TYPE.COMMAND_FOCUSING, character.Target );
     }
 
-    public bool BattleCheck()
-    {
-        if (true == enemyGroup.BattleAble())
-            return true;
-        else
-            return false;
-
-    }
-
     public GameObject RandomEntity()
     {
         while(true == EnemyGroup.BattleAble())
@@ -182,6 +173,9 @@ public class Group : BaseGameEntity
 
     public GameObject NearestEntity(Vector3 _entityPos)
     {
+        if (false == this.BattleAble())
+            return null;
+
         GameObject dummy = member[0].gameObject;
 
         for (int i = 0; i < member.Count; ++i)

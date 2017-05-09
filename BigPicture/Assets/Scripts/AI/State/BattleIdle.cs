@@ -26,8 +26,7 @@ public class BattleIdle : State
         entity = (AI)_entity;
         entity.BattleIdle();
 
-
-        if (false == entity.Group.BattleCheck())
+        if (null == entity.Enemy )
         {
             entity.Group.EnemyGroup = null;
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
@@ -44,14 +43,6 @@ public class BattleIdle : State
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
             return;
         }
-
-        //if (false == _moanster.ToBattleIdle())
-        //{
-        //    MessageDispatcher.Instance.DispatchMessage(0, _entity.ID, _entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
-        //    _entity.NavAgent.Clear();
-        //    _entity.EnemyClear();
-        //    return;
-        //}
     }
 
     public void Enter(object _entity)

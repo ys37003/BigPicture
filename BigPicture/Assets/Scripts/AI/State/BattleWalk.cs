@@ -26,7 +26,8 @@ public class BattleWalk : State
     {
         entity = (AI)_entity;
         entity.BattleWalk();
-        entity.SetTarget(entity.Group.EnemyGroup.NearestEntity(entity.transform.position).transform.position);
+        entity.Enemy = entity.Group.EnemyGroup.NearestEntity(entity.transform.position);
+        entity.SetTarget(entity.Enemy.transform.position);
         if (true == entity.Approach(entity.TargetDistance()))
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);

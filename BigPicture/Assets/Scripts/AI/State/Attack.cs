@@ -25,6 +25,7 @@ public class Attack : State
     {
         entity = (AI)_entity;
         entity.Attack();
+        AnimatorManager.Instance().SetAnimation(entity.Animator, "AttackCheck", false);
         if (true == entity.EndAttack())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);            

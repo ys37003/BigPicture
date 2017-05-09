@@ -20,7 +20,6 @@ public class AI : BaseGameEntity
     [SerializeField]
     private float attackRange = 1.0f;
 
-
     public DGSetDestination SetDestination;
     public DGSetFomation SetFomation;
     public DGApproach Approach;
@@ -150,8 +149,13 @@ public class AI : BaseGameEntity
 
         if( false == this.EnemyCheck())
         {
-            this.EnemyClear();
-            this.Enemy = this.Group.EnemyGroup.NearestEntity(this.transform.position);
+            if (null == this.Group.EnemyGroup)
+                this.EnemyClear();
+            else
+            {
+                this.EnemyClear();
+                this.Enemy = this.Group.EnemyGroup.NearestEntity(this.transform.position);
+            }
         }
     }
 
@@ -237,7 +241,7 @@ public class AI : BaseGameEntity
 
     public Vector3 GetEnemyPosition()
     {
-        if (null == Enemy || false == Enemy.activeSelf )
+        if (false == this.EnemyCheck())
         {
             Debug.Log("Enemy is NULL");
             return Vector3.zero;

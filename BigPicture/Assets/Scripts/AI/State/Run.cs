@@ -25,12 +25,13 @@ public class Run : State
     {
         entity = (AI)_entity;
         entity.Run();
-
-        if(entity.AttackRange > entity.TargetDistance() || true == entity.IsArrive() )
+        if (entity.AttackRange > entity.TargetDistance() || true == entity.IsArrive() )
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
+        entity.Enemy = entity.Group.EnemyGroup.NearestEntity(entity.transform.position);
+        entity.SetTarget(entity.Enemy.transform.position);
         //if(true == entity.IsArrive())
         //{
         //    MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
@@ -52,7 +53,6 @@ public class Run : State
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", false);
         entity.NavAgent.Clear();
         entity.NavAgent.SetSpeed(2.0f);
-
     }
 
     /// <summary>
