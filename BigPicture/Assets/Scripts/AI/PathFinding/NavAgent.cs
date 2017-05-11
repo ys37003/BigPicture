@@ -48,6 +48,9 @@ public class NavAgent : MonoBehaviour
 
     public bool IsArrive()
     {
+        if (this.GetDestination() == Vector3.zero)
+            return true;
+
         if (0.5f > Vector3.Distance(this.transform.position, this.GetDestination()))
             return true;
 

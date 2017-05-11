@@ -25,10 +25,10 @@ public class HoodSkull : AI
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);
 
         colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData);
-        foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
-        {
-            trigger.ColliderAttack = colliderAttack;
-        }
+        //foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
+        //{
+        //    trigger.ColliderAttack = colliderAttack;
+        //}
         this.GroupID = this.Group.member.Count;
         Group.Add(this);
         SetDelegate();
@@ -45,22 +45,36 @@ public class HoodSkull : AI
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
                 SetFomation = Delegates.Instance.SetFomation_Dealer;
                 Approach = Delegates.Instance.Approach_Dealer;
+
+                AttackHandler = null;
+                foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
+                {
+                    trigger.ColliderAttack = colliderAttack;
+                }
+
                 AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:
                 SetDestination = Delegates.Instance.SetDestination_Foword;
                 SetFomation = Delegates.Instance.SetFomation_Foword;
                 Approach = Delegates.Instance.Approach_Foword;
+
+                AttackHandler = new SpellAttack();
+                AttackHandler.Init(this.transform.FindChild("Spell").gameObject);
+
                 AttackRange = 5.0f;
                 break;
             case eJOB_TYPE.SUPPORT:
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
+                AttackHandler = new SpellAttack();
+                AttackHandler.Init(this.transform.FindChild("Spell").gameObject);
                 AttackRange = 5.0f;
                 break;
         }
     }
+
     private void Update()
     {
        StateMachine.Update();

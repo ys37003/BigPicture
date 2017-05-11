@@ -7,4 +7,8 @@ public class AttackHandler {
     {
 
     }
+    public virtual void Init(GameObject _go)
+    {
+
+    }
 }

@@ -25,7 +25,6 @@ public class Attack : State
     {
         entity = (AI)_entity;
         entity.Attack();
-        AnimatorManager.Instance().SetAnimation(entity.Animator, "AttackCheck", false);
         if (true == entity.EndAttack())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);            
@@ -35,6 +34,13 @@ public class Attack : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+
+        if (null != entity.AttackHandler)
+        {
+            entity.AttackHandler.Attack(entity.GetEnemyPosition());
+            CorutineManager.Instance.StartCorutine(entity.AttackHandler.AttackDelay());
+        }
+
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);
         entity.AttackAble = false;
     }

@@ -11,7 +11,13 @@ public class Group : BaseGameEntity
 
     public Group EnemyGroup
     {
-        get { return enemyGroup; }
+        get
+        {
+            if (null == enemyGroup)
+                return null;
+
+            return enemyGroup;
+        }
         set { enemyGroup = value; }
     }
 

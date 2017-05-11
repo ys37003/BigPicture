@@ -3,6 +3,7 @@
 public class AI : BaseGameEntity
 {
     private StateMachine stateMachine;
+    private SpellAttack attackHandler;
     private Group group;
     private int groupID;
     private MonsterData data;
@@ -94,6 +95,12 @@ public class AI : BaseGameEntity
         set { groupID = value; }
     }
 
+    public SpellAttack AttackHandler
+    {
+        get { return attackHandler; }
+        set { attackHandler = value; }
+    }
+
     public bool EndHit()
     {
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
@@ -124,7 +131,7 @@ public class AI : BaseGameEntity
 
     public bool IsArrive()
     {
-        if (0.5f > this.NavAgent.GetDistance())
+        if (0.5f > this.NavAgent.GetDistance() || Vector3.zero ==  this.NavAgent.GetDestination())
             return true;
 
         return false;
@@ -176,6 +183,7 @@ public class AI : BaseGameEntity
 
     public void Attack()
     {
+        
     }
 
     public void BattleWalk()

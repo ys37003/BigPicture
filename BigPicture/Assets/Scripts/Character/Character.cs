@@ -194,6 +194,7 @@ public class Character : BaseGameEntity, ICharacter
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
 
         if(ct != null && ct.TribeType != Tribe)

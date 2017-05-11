@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 75f71ec59a9196342aa6ddc80bb7c027
-timeCreated: 1493916846
+guid: 89daf303a3b04bd4a91eaefb8bf27477
+timeCreated: 1494418710
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -47,15 +47,16 @@ ModelImporter:
     3300000: Box001
     4300000: Plane001
     4300002: Box001
-    7400000: Idle
-    7400002: Agro
-    7400004: Run
-    7400006: BattleIdle
-    7400008: Hit
-    7400010: Die
-    7400012: Walk
-    7400014: Attack2
-    7400016: BattleWalk
+    7400000: BattleWalk
+    7400002: Attack1
+    7400004: Attack2
+    7400006: Idle
+    7400008: Agro
+    7400010: Run
+    7400012: BattleIdle
+    7400014: Hit
+    7400016: Die
+    7400018: Walk
     9500000: //RootNode
     13700000: Plane001
   materials:
@@ -82,406 +83,76 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: BattleWalk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack1
       takeName: Take 001
       firstFrame: 41
-      lastFrame: 88
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Bone001
-        weight: 1
-      - path: Bone001/Bone002
-        weight: 1
-      - path: Bone001/Bone002/Bone003
-        weight: 1
-      - path: Bone001/Bone002/Bone004
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
-        weight: 1
-      - path: Bone001/Bone002/Bone009
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010/Bone011
-        weight: 1
-      - path: Bone001/Bone007
-        weight: 1
-      - path: Bone001/Bone007/Bone008
-        weight: 1
-      - path: Bone001/Bone012
-        weight: 1
-      - path: Bone001/Bone012/Bone013
-        weight: 1
-      - path: Particle View 001
-        weight: 1
-      - path: Particle View 001 1
-        weight: 1
-      - path: Particle View 001 2
-        weight: 1
-      - path: Plane001
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Agro
-      takeName: Take 001
-      firstFrame: 89
-      lastFrame: 150
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Bone001
-        weight: 1
-      - path: Bone001/Bone002
-        weight: 1
-      - path: Bone001/Bone002/Bone003
-        weight: 1
-      - path: Bone001/Bone002/Bone004
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
-        weight: 1
-      - path: Bone001/Bone002/Bone009
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010/Bone011
-        weight: 1
-      - path: Bone001/Bone007
-        weight: 1
-      - path: Bone001/Bone007/Bone008
-        weight: 1
-      - path: Bone001/Bone012
-        weight: 1
-      - path: Bone001/Bone012/Bone013
-        weight: 1
-      - path: Particle View 001
-        weight: 1
-      - path: Particle View 001 1
-        weight: 1
-      - path: Particle View 001 2
-        weight: 1
-      - path: Plane001
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Run
-      takeName: Take 001
-      firstFrame: 130
-      lastFrame: 150
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Bone001
-        weight: 1
-      - path: Bone001/Bone002
-        weight: 1
-      - path: Bone001/Bone002/Bone003
-        weight: 1
-      - path: Bone001/Bone002/Bone004
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
-        weight: 1
-      - path: Bone001/Bone002/Bone009
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010/Bone011
-        weight: 1
-      - path: Bone001/Bone007
-        weight: 1
-      - path: Bone001/Bone007/Bone008
-        weight: 1
-      - path: Bone001/Bone012
-        weight: 1
-      - path: Bone001/Bone012/Bone013
-        weight: 1
-      - path: Particle View 001
-        weight: 1
-      - path: Particle View 001 1
-        weight: 1
-      - path: Particle View 001 2
-        weight: 1
-      - path: Plane001
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: BattleIdle
-      takeName: Take 001
-      firstFrame: 151
-      lastFrame: 186
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Bone001
-        weight: 1
-      - path: Bone001/Bone002
-        weight: 1
-      - path: Bone001/Bone002/Bone003
-        weight: 1
-      - path: Bone001/Bone002/Bone004
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
-        weight: 1
-      - path: Bone001/Bone002/Bone009
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010/Bone011
-        weight: 1
-      - path: Bone001/Bone007
-        weight: 1
-      - path: Bone001/Bone007/Bone008
-        weight: 1
-      - path: Bone001/Bone012
-        weight: 1
-      - path: Bone001/Bone012/Bone013
-        weight: 1
-      - path: Particle View 001
-        weight: 1
-      - path: Particle View 001 1
-        weight: 1
-      - path: Particle View 001 2
-        weight: 1
-      - path: Plane001
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Hit
-      takeName: Take 001
-      firstFrame: 187
-      lastFrame: 197
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Bone001
-        weight: 1
-      - path: Bone001/Bone002
-        weight: 1
-      - path: Bone001/Bone002/Bone003
-        weight: 1
-      - path: Bone001/Bone002/Bone004
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
-        weight: 1
-      - path: Bone001/Bone002/Bone009
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010/Bone011
-        weight: 1
-      - path: Bone001/Bone007
-        weight: 1
-      - path: Bone001/Bone007/Bone008
-        weight: 1
-      - path: Bone001/Bone012
-        weight: 1
-      - path: Bone001/Bone012/Bone013
-        weight: 1
-      - path: Particle View 001
-        weight: 1
-      - path: Particle View 001 1
-        weight: 1
-      - path: Particle View 001 2
-        weight: 1
-      - path: Plane001
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Die
-      takeName: Take 001
-      firstFrame: 198
-      lastFrame: 241
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Bone001
-        weight: 1
-      - path: Bone001/Bone002
-        weight: 1
-      - path: Bone001/Bone002/Bone003
-        weight: 1
-      - path: Bone001/Bone002/Bone004
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006
-        weight: 1
-      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
-        weight: 1
-      - path: Bone001/Bone002/Bone009
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010
-        weight: 1
-      - path: Bone001/Bone002/Bone009/Bone010/Bone011
-        weight: 1
-      - path: Bone001/Bone007
-        weight: 1
-      - path: Bone001/Bone007/Bone008
-        weight: 1
-      - path: Bone001/Bone012
-        weight: 1
-      - path: Bone001/Bone012/Bone013
-        weight: 1
-      - path: Particle View 001
-        weight: 1
-      - path: Particle View 001 1
-        weight: 1
-      - path: Particle View 001 2
-        weight: 1
-      - path: Plane001
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Walk
-      takeName: Take 001
-      firstFrame: 242
-      lastFrame: 296
+      lastFrame: 68
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -546,8 +217,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Attack2
       takeName: Take 001
-      firstFrame: 297
-      lastFrame: 366
+      firstFrame: 69
+      lastFrame: 95
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -610,10 +281,76 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BattleWalk
+      name: Idle
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 40
+      firstFrame: 96
+      lastFrame: 143
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Agro
+      takeName: Take 001
+      firstFrame: 144
+      lastFrame: 184
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -621,6 +358,336 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      firstFrame: 185
+      lastFrame: 205
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: BattleIdle
+      takeName: Take 001
+      firstFrame: 210
+      lastFrame: 245
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hit
+      takeName: Take 001
+      firstFrame: 246
+      lastFrame: 256
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Die
+      takeName: Take 001
+      firstFrame: 257
+      lastFrame: 300
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone004
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone004/Bone005/Bone006/Box001
+        weight: 1
+      - path: Bone001/Bone002/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone001/Bone007
+        weight: 1
+      - path: Bone001/Bone007/Bone008
+        weight: 1
+      - path: Bone001/Bone012
+        weight: 1
+      - path: Bone001/Bone012/Bone013
+        weight: 1
+      - path: Particle View 001
+        weight: 1
+      - path: Particle View 001 1
+        weight: 1
+      - path: Particle View 001 2
+        weight: 1
+      - path: Plane001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 301
+      lastFrame: 355
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
