@@ -151,7 +151,7 @@ public class Group : BaseGameEntity
     public void Command_Focusing()
     {
         Character character = this.TypeToEntity(eENTITY_TYPE.PLAYER).gameObject.GetComponent<Character>();
-        DispatchMessageGroup(0, 0, (int)eMESSAGE_TYPE.COMMAND_FOCUSING, character.Target );
+        DispatchMessageGroup(0, 0, (int)eMESSAGE_TYPE.FIND_ENEMY, character.Group.EnemyGroup );
     }
 
     public GameObject RandomEntity()
@@ -188,9 +188,27 @@ public class Group : BaseGameEntity
         {
             if(Vector3.Distance(dummy.transform.position , _entityPos) > Vector3.Distance(member[i].transform.position, _entityPos))
             {
+                //if (2 <= this.EnemyCount(member[i]))
+                //    continue;
+
                 dummy = member[i].gameObject;
             }
         }
         return dummy;
+    }
+
+    public int EnemyCount(BaseGameEntity _entity)
+    {
+        int count = 0;
+
+        for (int i = 0; i < EnemyGroup.member.Count; ++i)
+        {
+            if (EnemyGroup.member[i].GetComponent<AI>().Enemy == _entity)
+            {
+                ++count;
+            }
+        }
+
+        return count;
     }
 }

@@ -12,7 +12,7 @@ public class AI : BaseGameEntity
     private NavAgent navAgent;
 
     [SerializeField]
-    private GameObject enemy;
+    private  GameObject enemy;
 
     private bool attackAble;
 
@@ -114,7 +114,7 @@ public class AI : BaseGameEntity
     {
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
-            if (0.5f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+            if (1.0f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
                 return true;
         }
         return false;

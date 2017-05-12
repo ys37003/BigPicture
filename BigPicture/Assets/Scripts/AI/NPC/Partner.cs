@@ -16,13 +16,13 @@ public class Partner : AI
     private CommandController commandController;
     void Start()
     {
-        EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type);
         
         //Data = DataManager.Instance().GetData(this.Tribe, this.Job);
         Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
         Group = this.GetComponentInParent<Group>();
+        EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type , Group );
         AttackAble = true;
 
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);

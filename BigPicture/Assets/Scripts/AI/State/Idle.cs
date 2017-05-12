@@ -60,7 +60,7 @@ public class Idle : State
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
                 Group enemyGroup = (Group)_msg.extraInfo;
-                entity.Group.EnemyGroup = enemyGroup;
+                entity.Group.EnemyGroup = (Group)_msg.extraInfo;
                 entity.Enemy = enemyGroup.NearestEntity(entity.transform.position);
                 entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
@@ -72,6 +72,10 @@ public class Idle : State
 
             case (int)eMESSAGE_TYPE.SET_FOMATION:
                 entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
+                return true;
+
+            case (int)eMESSAGE_TYPE.I_SEE_YOU:
+                entity.Group.EnemyGroup = (Group)_msg.extraInfo;
                 return true;
         }
         return false;

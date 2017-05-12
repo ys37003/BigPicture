@@ -56,7 +56,17 @@ public class Character : BaseGameEntity, ICharacter
 
     private void Awake()
     {
-        EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.HUMAN, eJOB_TYPE.DEALER);
+        Group = GetComponentInParent<Group>();
+        if (Group != null)
+        {
+            Group.Add(this);
+        }
+        else
+        {
+            Debug.Log("그룹이 없습니다.");
+        }
+
+        EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.HUMAN, eJOB_TYPE.DEALER , Group);
 
         // 임시
         Init(new StatusData(1, 0, 1, 1, 1, 1, 1, StatusData.MAX_HP));
@@ -74,15 +84,6 @@ public class Character : BaseGameEntity, ICharacter
     {
         TeamManager.Instance.AddCharacter(this);
 
-        Group = GetComponentInParent<Group>();
-        if (Group != null)
-        {
-            Group.Add(this);
-        }
-        else
-        {
-            Debug.Log("그룹이 없습니다.");
-        }
     }
 
     public void Init(StatusData status)

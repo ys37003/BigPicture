@@ -12,12 +12,14 @@ public class HoodSkull : AI
 
     void Start()
     {
-        EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type);
 
         Data = DataManager.Instance().GetData(this.Tribe, this.Job);
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
         Group = this.GetComponentInParent<Group>();
+
+        EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type , Group);
+
         AttackAble = true;
         // EyeSight Collider 초기화
         //colEyeSight = this.transform.FindChild("EyeSightCol").GetComponent<BoxCollider>();
@@ -91,7 +93,8 @@ public class HoodSkull : AI
         {
             Debug.Log("Find Enemy");
             this.transform.LookAt(other.transform.position);
-            this.Group.EnemyGroup = other.GetComponent<AI>().Group;
+            this.Group.EnemyGroup = other.GetComponent<BaseGameEntity>().EntityGroup;
+            this.Group.EnemyGroup.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.I_SEE_YOU, this.Group);
             this.Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, this.Group.EnemyGroup );
         }
     }
