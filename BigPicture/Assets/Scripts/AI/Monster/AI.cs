@@ -190,6 +190,11 @@ public class AI : BaseGameEntity
     {
     }
 
+    public void Escape()
+    {
+        this.transform.LookAt(GetEnemyPosition());
+
+    }
     public void Hit()
     {
     }
@@ -261,7 +266,6 @@ public class AI : BaseGameEntity
     {
         if (0 == enemyList.Count)
         {
-            Debug.Log("hahahahahahaaaaaaaaa");
             return false;
         }
 
@@ -275,6 +279,7 @@ public class AI : BaseGameEntity
     {
         if (false == this.EnemyCheck())
         {
+            Debug.Log("sdkfjefljk");
             //this.EnemyClear();
             return Vector3.zero;
         }
@@ -292,5 +297,16 @@ public class AI : BaseGameEntity
             return 0.0f;
         }
         return Vector3.Distance(this.transform.position, this.GetEnemyPosition());
+    }
+
+    public Vector3 Escape(GameObject _entity)
+    {
+        Vector3 destination = _entity.transform.position - this.transform.position;
+
+        destination -= this.transform.position;
+        destination *= 3.0f;
+        //destination *= 10;
+
+        return destination;
     }
 }

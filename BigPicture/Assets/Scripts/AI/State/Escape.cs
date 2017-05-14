@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetFomation : State
-{
-    private static SetFomation instance;
+public class Escape : State {
+
+    private static Escape instance;
     AI entity;
-    private SetFomation()
+    private Escape()
     {
 
     }
 
-    public static SetFomation Instance()
+    public static Escape Instance()
     {
         if (instance == null)
         {
-            instance = new SetFomation();
+            instance = new Escape();
         }
 
         return instance;
@@ -24,22 +24,33 @@ public class SetFomation : State
     public void Excute(object _entity)
     {
         entity = (AI)_entity;
+        entity.Escape();
+        if (true == entity.AttackAble)
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
+            return;
+        }
+
         if (true == entity.NavAgent.IsArrive())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEWALK, null);
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+            return;
         }
     }
 
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        Vector3 destination = entity.Escape(entity.Group.NearestEnemy(entity.transform.position));
+        entity.SetTarget(destination);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
-        entity.SetTarget(entity.SetFomation(entity, entity.Group.GetCenter(entity.GetEnemyPosition()) ) );
     }
 
     public void Exit(object _entity)
     {
         entity = (AI)_entity;
+        entity.NavAgent.Clear();
+        Debug.Log("Fucking");
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", false);
     }
 
@@ -54,9 +65,11 @@ public class SetFomation : State
         entity = (AI)_entity;
         switch (_msg.message)
         {
-            case (int)eMESSAGE_TYPE.TO_BATTLEWALK:
-                entity.SetTarget(entity.EnemyList[0].transform.position);
-                entity.StateMachine.ChangeState(eSTATE.BATTLEWALK);
+            case (int)eMESSAGE_TYPE.TO_ATTACK:
+                entity.StateMachine.ChangeState(eSTATE.ATTACK);
+                return true;
+            case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
+                entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
 

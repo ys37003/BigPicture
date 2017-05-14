@@ -34,7 +34,8 @@ public class Attack : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-
+        Debug.Log("ggggg");
+        entity.transform.LookAt(entity.GetEnemyPosition());
         if (null != entity.AttackHandler)
         {
             entity.AttackHandler.Attack(entity.GetEnemyPosition());

@@ -26,8 +26,8 @@ public class BattleWalk : State
     {
         entity = (AI)_entity;
         entity.BattleWalk();
-        entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
-        entity.SetTarget(entity.EnemyList[0].transform.position);
+        //entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
+        //entity.SetTarget(entity.EnemyList[0].transform.position);
         if (true == entity.Approach(entity.TargetDistance()))
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
@@ -37,7 +37,7 @@ public class BattleWalk : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-        entity.SetTarget(entity.EnemyList[0].transform.position);
+        //entity.SetTarget(entity.EnemyList[0].transform.position);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
     }
 

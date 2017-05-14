@@ -15,6 +15,7 @@ public class SpellAttack {
         spell = _go;
         color = spell.GetComponent<MeshRenderer>().material.color;
         collider = spell.GetComponent<BoxCollider>();
+        collider.enabled = false;
     }
 
 
@@ -23,9 +24,9 @@ public class SpellAttack {
         _pos.y += .1f;
         spell.transform.position = _pos;
         spell.GetComponent<MeshRenderer>().enabled = true;
-        collider.enabled = false;
         color.a = 0.0f;
         spell.GetComponent<MeshRenderer>().material.color = color;
+        spell.isStatic = true;
         //spell.GetComponent<Material>().color = color;
         time = Time.time;
     }
@@ -43,8 +44,24 @@ public class SpellAttack {
                 {
                     collider.enabled = true;
                     spell.GetComponent<MeshRenderer>().enabled = false;
+                    CorutineManager.Instance.StartCorutine(ColliderDelay());
                     break;
                 }
+            }
+            yield return null;
+        }
+    }
+
+    IEnumerator ColliderDelay()
+    {
+        time = Time.time;
+        while(true)
+        {
+            if (time + 0.1f < Time.time)
+            {
+                spell.isStatic = false;
+                collider.enabled = false;
+                break;
             }
             yield return null;
         }

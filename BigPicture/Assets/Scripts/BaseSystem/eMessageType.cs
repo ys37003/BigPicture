@@ -6,6 +6,7 @@
     TO_ATTACK,
     TO_DIE,
     TO_HIT,
+    TO_ESCAPE,
     TO_BATTLEIDLE,
     TO_BATTLEWALK,
     FIND_ENEMY,

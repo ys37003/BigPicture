@@ -12,5 +12,6 @@
     HIT,
     SPREAD,
     COME_ON,
+    ESCAPE,
     NULL
 }

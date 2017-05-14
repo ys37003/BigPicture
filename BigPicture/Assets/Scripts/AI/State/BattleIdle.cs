@@ -45,6 +45,14 @@ public class BattleIdle : State
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
             return;
         }
+
+        if(entity.AttackRange - 1.0f > 
+            Vector3.Distance(entity.transform.position, 
+            entity.Group.NearestEnemy(entity.transform.position).transform.position))
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ESCAPE, null);
+            return;
+        }
     }
 
     public void Enter(object _entity)
@@ -84,6 +92,9 @@ public class BattleIdle : State
 
             case (int)eMESSAGE_TYPE.TO_RUN:
                 entity.StateMachine.ChangeState(eSTATE.RUN);
+                return true;
+            case (int)eMESSAGE_TYPE.TO_ESCAPE:
+                entity.StateMachine.ChangeState(eSTATE.ESCAPE);
                 return true;
         }
 
