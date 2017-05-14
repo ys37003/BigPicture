@@ -26,7 +26,6 @@ public class BattleIdle : State
         entity = (AI)_entity;
 
         entity.BattleIdle();
-        Debug.Log("Battle Able : " + entity.Group.BattleAble());
         if (null == entity.Group.EnemyGroup || false == entity.Group.EnemyGroup.BattleAble())
         {
             entity.Group.EnemyGroup = null;

@@ -279,7 +279,6 @@ public class AI : BaseGameEntity
     {
         if (false == this.EnemyCheck())
         {
-            Debug.Log("sdkfjefljk");
             //this.EnemyClear();
             return Vector3.zero;
         }
