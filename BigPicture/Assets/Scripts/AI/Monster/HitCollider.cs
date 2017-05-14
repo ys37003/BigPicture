@@ -27,7 +27,6 @@ public class HitCollider : MonoBehaviour {
         
         if (ct != null && ct.TribeType != entity.Tribe)
         {
-            Debug.Log("I'm Hit");
             ai.Data.StatusData.HP -= 25.0f;
 
             if (false == ai.EnemyCheck())

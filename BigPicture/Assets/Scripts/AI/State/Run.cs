@@ -30,7 +30,7 @@ public class Run : State
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
-        entity.Enemy = entity.Group.EnemyGroup.NearestEntity(entity.transform.position);
+        entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
         entity.SetTarget(entity.GetEnemyPosition());
         //if(true == entity.IsArrive())
         //{

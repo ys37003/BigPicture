@@ -24,9 +24,10 @@ public class BattleIdle : State
     public void Excute(object _entity)
     {
         entity = (AI)_entity;
-        entity.BattleIdle();
 
-        if (null == entity.Enemy )
+        entity.BattleIdle();
+        Debug.Log("Battle Able : " + entity.Group.BattleAble());
+        if (null == entity.Group.EnemyGroup || false == entity.Group.EnemyGroup.BattleAble())
         {
             entity.Group.EnemyGroup = null;
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
@@ -38,6 +39,7 @@ public class BattleIdle : State
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
             return;
         }
+
         if (true == entity.AttackAble)
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);

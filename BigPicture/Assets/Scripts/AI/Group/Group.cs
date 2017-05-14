@@ -28,7 +28,6 @@ public class Group : BaseGameEntity
     }
     public void Add(BaseGameEntity _member)
     {
-        Debug.Log(_member.Job);
         member.Add(_member);
     }
 
@@ -173,25 +172,24 @@ public class Group : BaseGameEntity
             if (true == member[i].gameObject.activeSelf)
                 return true;
         }
-
         return false;
     }
 
-    public GameObject NearestEntity(Vector3 _entityPos)
+    public GameObject NearestEnemy(Vector3 _entityPos)
     {
-        if (false == this.BattleAble())
+        if ( null == this.EnemyGroup || false == this.EnemyGroup.BattleAble())
             return null;
 
-        GameObject dummy = member[0].gameObject;
+        GameObject dummy = EnemyGroup.member[0].gameObject;
 
-        for (int i = 0; i < member.Count; ++i)
+        for (int i = 0; i < EnemyGroup.member.Count; ++i)
         {
-            if(Vector3.Distance(dummy.transform.position , _entityPos) > Vector3.Distance(member[i].transform.position, _entityPos))
+            if(Vector3.Distance(dummy.transform.position , _entityPos) > Vector3.Distance(EnemyGroup.member[i].transform.position, _entityPos))
             {
-                //if (2 <= this.EnemyCount(member[i]))
-                //    continue;
-
-                dummy = member[i].gameObject;
+                if (2 > this.EnemyCount(EnemyGroup.member[i]))
+                {
+                    dummy = EnemyGroup.member[i].gameObject;
+                }
             }
         }
         return dummy;
@@ -201,14 +199,21 @@ public class Group : BaseGameEntity
     {
         int count = 0;
 
-        for (int i = 0; i < EnemyGroup.member.Count; ++i)
+        for (int i = 0; i < member.Count; ++i)
         {
-            if (EnemyGroup.member[i].GetComponent<AI>().Enemy == _entity)
+            try
             {
-                ++count;
+                if ( true == member[i].GetComponent<AI>().EnemyList.Contains(_entity.gameObject))
+                {
+                    ++count;
+                }
+            }
+            catch
+            {
+                // 나중에 Character 클래스에 enemyList를 만들어야 하나... 없어도 되는 변수 같기도하다
+                Debug.Log("Player EnmeyList don't exist");
             }
         }
-
         return count;
     }
 }

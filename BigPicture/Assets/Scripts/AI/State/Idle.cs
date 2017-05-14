@@ -59,9 +59,8 @@ public class Idle : State
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                Group enemyGroup = (Group)_msg.extraInfo;
                 entity.Group.EnemyGroup = (Group)_msg.extraInfo;
-                entity.Enemy = enemyGroup.NearestEntity(entity.transform.position);
+                entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
                 entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AI : BaseGameEntity
 {
@@ -12,7 +13,7 @@ public class AI : BaseGameEntity
     private NavAgent navAgent;
 
     [SerializeField]
-    private  GameObject enemy;
+    private List<GameObject> enemyList = new List<GameObject>();
 
     private bool attackAble;
 
@@ -76,10 +77,10 @@ public class AI : BaseGameEntity
         set { attackRange = value; }
     }
 
-    public GameObject Enemy
+    public List<GameObject> EnemyList
     {
-        get { return enemy; }
-        set { enemy = value; }
+        get { return enemyList; }
+        set { enemyList = value; }
     }
 
     public Group Group
@@ -124,7 +125,7 @@ public class AI : BaseGameEntity
     {
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Die"))
         {
-                return true;
+            return true;
         }
         return false;
     }
@@ -147,28 +148,46 @@ public class AI : BaseGameEntity
 
     public virtual void Idle()
     {
-        Debug.Log("Idle");
     }
 
     public void BattleIdle()
     {
         this.transform.LookAt(GetEnemyPosition());
 
-        if( false == this.EnemyCheck())
+        RemoveEnemy();
+
+        if (null == this.Group.EnemyGroup)
         {
-            if (null == this.Group.EnemyGroup)
-                this.EnemyClear();
-            else
+            this.EnemyClear();
+        }
+        else
+        {
+            if (0 == EnemyList.Count)
             {
-                this.EnemyClear();
-                this.Enemy = this.Group.EnemyGroup.NearestEntity(this.transform.position);
+                GameObject dummy = this.Group.NearestEnemy(this.transform.position);
+                if (null != dummy)
+                    this.EnemyList.Add(dummy);
             }
         }
+
     }
 
+    void RemoveEnemy()
+    {
+        //if (null == EnemyList[0] || false == EnemyList[0].activeSelf && 0 < EnemyList.Count)
+        //{
+        //    EnemyList.RemoveAt(0);
+        //    RemoveEnemy();
+        //}
+        for(int i = 0; i < enemyList.Count;  ++i )
+        {
+            if (false == enemyList[i].activeSelf)
+                enemyList.RemoveAt(i);
+        }
+
+    }
     public virtual void Walk()
     {
-        Debug.Log("Walk");
     }
 
     public void Hit()
@@ -198,7 +217,6 @@ public class AI : BaseGameEntity
 
     public void Die()
     {
-        Debug.Log(this.Type + this.ID.ToString() + "'State is Die");
     }
 
     public eSTATE GetCurrentState()
@@ -218,7 +236,6 @@ public class AI : BaseGameEntity
         if( _destination == Vector3.zero)
         {
             Debug.Log("Destination is NULL");
-            return;
         }
         NavAgent.SetDestination(_destination);
         StartCoroutine(NavAgent.MoveToTarget());
@@ -226,7 +243,8 @@ public class AI : BaseGameEntity
 
     public void SetEnemy(GameObject _enemy)
     {
-        Enemy = _enemy;
+        if(false == EnemyList.Contains(_enemy))
+            EnemyList.Add(_enemy);
     }
 
     public StatusData GetStatus()
@@ -241,7 +259,13 @@ public class AI : BaseGameEntity
 
     public bool EnemyCheck()
     {
-        if (null == Enemy || false == Enemy.activeSelf)
+        if (0 == enemyList.Count)
+        {
+            Debug.Log("hahahahahahaaaaaaaaa");
+            return false;
+        }
+
+        if ( null == EnemyList[0] || false == EnemyList[0].activeSelf)
             return false;
         else
             return true;
@@ -251,18 +275,22 @@ public class AI : BaseGameEntity
     {
         if (false == this.EnemyCheck())
         {
-            Debug.Log("Enemy is NULL");
+            //this.EnemyClear();
             return Vector3.zero;
         }
-        return Enemy.transform.position;
+        return EnemyList[0].transform.position;
     }
     public void EnemyClear()
     {
-        Enemy = null;
+        EnemyList.Clear();
     }
 
     public float TargetDistance()
     {
+        if( Vector3.zero == this.GetEnemyPosition() )
+        {
+            return 0.0f;
+        }
         return Vector3.Distance(this.transform.position, this.GetEnemyPosition());
     }
 }

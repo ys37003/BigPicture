@@ -89,9 +89,8 @@ public class HoodSkull : AI
         if ("Human" == other.tag || "Monster" == other.tag)
             colType = other.GetComponent<BaseGameEntity>().Tribe;
         
-        if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && Enemy == null)
+        if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && 0 == EnemyList.Count)
         {
-            Debug.Log("Find Enemy");
             this.transform.LookAt(other.transform.position);
             this.Group.EnemyGroup = other.GetComponent<BaseGameEntity>().EntityGroup;
             this.Group.EnemyGroup.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.I_SEE_YOU, this.Group);

@@ -195,7 +195,6 @@ public class Character : BaseGameEntity, ICharacter
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
 
         if(ct != null && ct.TribeType != Tribe)
@@ -207,7 +206,7 @@ public class Character : BaseGameEntity, ICharacter
             }
             if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
             {
-                Debug.Log(string.Format("{0}의 공격 회피", other.name));
+                //Debug.Log(string.Format("{0}의 공격 회피", other.name));
             }
 
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
