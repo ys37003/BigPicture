@@ -8,6 +8,7 @@ public class BaseGameEntity : MonoBehaviour
     private Group        entityGroup;
     private int          entityID;
 
+#region 속성 GetSet함수
     public eENTITY_TYPE Type
     {
                 get { return entityType; }
@@ -37,7 +38,7 @@ public class BaseGameEntity : MonoBehaviour
         get { return entityGroup; }
         private set { entityGroup = value; }
     }
-
+#endregion
     protected void EntityInit(eENTITY_TYPE _type, eTRIBE_TYPE _tribe, eJOB_TYPE _job , Group _group)
     {
         EntityGroup = _group;

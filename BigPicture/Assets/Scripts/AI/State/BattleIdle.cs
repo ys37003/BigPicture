@@ -26,6 +26,7 @@ public class BattleIdle : State
         entity = (AI)_entity;
 
         entity.BattleIdle();
+
         if (null == entity.Group.EnemyGroup || false == entity.Group.EnemyGroup.BattleAble())
         {
             entity.Group.EnemyGroup = null;
@@ -39,12 +40,6 @@ public class BattleIdle : State
             return;
         }
 
-        if (true == entity.AttackAble)
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
-            return;
-        }
-
         if(entity.AttackRange - 1.0f > 
             Vector3.Distance(entity.transform.position, 
             entity.Group.NearestEnemy(entity.transform.position).transform.position))
@@ -52,6 +47,12 @@ public class BattleIdle : State
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ESCAPE, null);
             return;
         }
+        if (true == entity.AttackAble)
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
+            return;
+        }
+
     }
 
     public void Enter(object _entity)

@@ -50,7 +50,6 @@ public class Escape : State {
     {
         entity = (AI)_entity;
         entity.NavAgent.Clear();
-        Debug.Log("Fucking");
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", false);
     }
 

@@ -38,7 +38,7 @@ public class Attack : State
         if (null != entity.AttackHandler)
         {
             entity.AttackHandler.Attack(entity.GetEnemyPosition());
-            CorutineManager.Instance.StartCorutine(entity.AttackHandler.AttackDelay());
+            CoroutineManager.Instance.StartCorutine(entity.AttackHandler.AttackDelay());
         }
 
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);

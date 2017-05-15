@@ -56,7 +56,6 @@ public class StateMachine
             case eSTATE.SETFOMATION: currentState = SetFomation.Instance(); break;
             case eSTATE.HIT        : currentState = Hit.Instance();         break;
             case eSTATE.DIE        : currentState = Die.Instance();         break;
-            case eSTATE.SPREAD     : currentState = Spread.Instance();      break;
             case eSTATE.COME_ON    : currentState = ComeOn.Instance();      break;
             case eSTATE.ESCAPE     : currentState = Escape.Instance();      break;   
         }

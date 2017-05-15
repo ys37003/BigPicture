@@ -27,6 +27,7 @@ public class MessageDispatcher
         }
         private set { }
     }
+
     public void DispatchMessage(float _delay, int _sender, int _receiver, int _msg, object _extraInfo)
     {
         Telegram telegram = new Telegram();
@@ -87,30 +88,5 @@ public class MessageDispatcher
             }
             yield return null;
         }
-        //while (true)
-        //{
-        //Debug.Log("gggg");
-        //for(int i = 0; i < delayMessageSD.Count; ++ i )
-        //{
-        //    delayMessageSD
-        //}
-        //Debug.Log(delayMessageSD.GetHashCode());
-        //foreach (KeyValuePair<float, Telegram> iter in delayMessageSD)
-        //{
-        //    delayMessageSD.
-        //    //delayMessageSD = ;
-        //    if (iter.Value.dispatchTime < Time.time && iter.Value.dispatchTime > 0)
-        //    {
-        //        DisCharge(iter.Value.receiver, iter.Value);
-        //        removeList.Add(iter.Key);
-        //    }
-        //}
-
-        //foreach (float iter in removeList)
-        //{
-        //    delayMessageSD.Remove(iter);
-        //}
-        //yield return null;
-        //}
     }
 }

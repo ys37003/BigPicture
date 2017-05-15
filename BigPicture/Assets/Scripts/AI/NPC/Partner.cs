@@ -83,10 +83,6 @@ public class Partner : AI
         }
     }
 
-    public override void Walk()
-    {
-    }
-
     bool IsFar(Vector3 _position)
     {
         if (5 < Vector3.Distance(this.transform.position, _position))

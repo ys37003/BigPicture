@@ -35,6 +35,7 @@ public class Walk : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        entity.DestinationCheck = Time.time;
         entity.SetTarget(entity.SetDestination(entity, entity.Group));
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Walk", true);
     }

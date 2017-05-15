@@ -12,6 +12,10 @@ public class AI : BaseGameEntity
     private Animator animator;
     private NavAgent navAgent;
 
+
+    private float destinationCheck;
+    private float oldDistance;
+
     [SerializeField]
     private List<GameObject> enemyList = new List<GameObject>();
 
@@ -102,6 +106,12 @@ public class AI : BaseGameEntity
         set { attackHandler = value; }
     }
 
+    public float DestinationCheck
+    {
+        get { return destinationCheck; }
+        set { destinationCheck = value; }
+    }
+
     public bool EndHit()
     {
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
@@ -188,6 +198,18 @@ public class AI : BaseGameEntity
     }
     public virtual void Walk()
     {
+        if(this.DestinationCheck + 1.0f < Time.time)
+        {
+            this.DestinationCheck = Time.time;
+            oldDistance = Vector3.Distance(this.transform.position, this.NavAgent.destination);
+            return;
+        }
+
+        if(0.05f > Mathf.Abs( oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination ) ))
+        {
+            Debug.Log("gkgkgk");
+            this.NavAgent.Clear();
+        }
     }
 
     public void Escape()
@@ -228,10 +250,12 @@ public class AI : BaseGameEntity
     {
         return StateMachine.GetCurrentState();
     }
+
     public override void HanleMessage(Telegram _msg)
     {
         StateMachine.HandleMessgae(_msg);
     }
+
     /// <summary>
     /// 목적지 설정
     /// </summary>
