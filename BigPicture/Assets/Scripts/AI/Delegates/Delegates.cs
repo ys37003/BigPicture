@@ -51,7 +51,7 @@ public class Delegates
 
         if ( 0 == (int)Random.Range(0,2))
         {
-            destination = MathAssist.Instance().RandomVector3(foword.transform.position, 20.0f);
+            destination = MathAssist.Instance().RandomVector3(foword.transform.position, 10.0f);
             NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
 
             _group.DispatchMessageGroup(1.5f, _entity.ID, (int)eMESSAGE_TYPE.FLLOW_ME, destination);

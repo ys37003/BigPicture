@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AI : BaseGameEntity
 {
@@ -205,7 +206,7 @@ public class AI : BaseGameEntity
             return;
         }
 
-        if(0.05f > Mathf.Abs( oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination ) ))
+        if(0.01f > Mathf.Abs( oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination ) ))
         {
             Debug.Log("gkgkgk");
             this.NavAgent.Clear();
@@ -215,6 +216,20 @@ public class AI : BaseGameEntity
     public void Escape()
     {
         this.transform.LookAt(GetEnemyPosition());
+
+        if (this.DestinationCheck + 1.0f < Time.time)
+        {
+            this.DestinationCheck = Time.time;
+            oldDistance = Vector3.Distance(this.transform.position, this.NavAgent.destination);
+            return;
+        }
+
+        if (0.01f > Mathf.Abs(oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination)))
+        {
+            Debug.Log("gkgkgk2222222222222222222");
+            //Vector3 destination = this.Escape(this.Group.NearestEnemy(this.transform.position));
+            //this.SetTarget(destination);
+        }
 
     }
     public void Hit()
@@ -322,14 +337,17 @@ public class AI : BaseGameEntity
         return Vector3.Distance(this.transform.position, this.GetEnemyPosition());
     }
 
-    public Vector3 Escape(GameObject _entity)
+    public Vector3 EscapePosition(GameObject _entity)
     {
-        Vector3 destination = _entity.transform.position - this.transform.position;
+        Vector3 destination;
+        NavMeshHit hit;
+        
+        destination = _entity.transform.position - this.transform.position;
 
         destination -= this.transform.position;
-        destination *= 3.0f;
+        NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
         //destination *= 10;
 
-        return destination;
+        return hit.position;
     }
 }
