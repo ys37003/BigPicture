@@ -18,6 +18,12 @@ public class HitCollider : MonoBehaviour {
 		
 	}
 
+    public void Init(BaseGameEntity _entity , AI _ai)
+    {
+        entity = _entity;
+        ai = _ai;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState())

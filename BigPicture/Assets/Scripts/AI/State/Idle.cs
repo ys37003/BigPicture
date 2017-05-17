@@ -58,12 +58,6 @@ public class Idle : State
                 entity.StateMachine.ChangeState(eSTATE.WALK);
                 return true;
 
-            case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                entity.Group.EnemyGroup = (Group)_msg.extraInfo;
-                entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
-                entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
-                return true;
-
             case (int)eMESSAGE_TYPE.FLLOW_ME:
                 entity.StateMachine.ChangeState(eSTATE.WALK);
                 entity.SetTarget(MathAssist.Instance().RandomVector3((Vector3)_msg.extraInfo,5.0f));
@@ -73,9 +67,7 @@ public class Idle : State
                 entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
 
-            case (int)eMESSAGE_TYPE.I_SEE_YOU:
-                entity.Group.EnemyGroup = (Group)_msg.extraInfo;
-                return true;
+            
         }
         return false;
     }

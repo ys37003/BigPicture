@@ -7,6 +7,7 @@ public class ReCruitManager : Singleton<ReCruitManager> {
 
     private List<int> answer = new List<int>();
     private List<QuestionStruct> questionList = new List<QuestionStruct>();
+    private SparePartner sparePartner;
     // Use this for initialization
     private ePARTNER_NAME partnerName;
     public Image backGroundImage;
@@ -16,7 +17,6 @@ public class ReCruitManager : Singleton<ReCruitManager> {
     private bool isRun = false;
     private int questionIndex = -1;
     void Start () {
-        StartRequist(null);
 
     }
 	
@@ -34,17 +34,17 @@ public class ReCruitManager : Singleton<ReCruitManager> {
         questionIndex = 0;
     }
 
-    public void StartRequist(BaseGameEntity _entity )
+    public void StartRequist(SparePartner _sparePartner )
     {
         UIAction(true);
-        //partnerName = _name;
+        sparePartner = _sparePartner;
+        partnerName = _sparePartner.name;
         questionList = DataManager.Instance().GetRecruitData(partnerName);
         question.text = questionList[questionIndex].question;
         yes.GetComponentInChildren<Text>().text = questionList[questionIndex].yes;
         no.GetComponentInChildren<Text>().text = questionList[questionIndex].no;
     }
 
-    
     public void Answer(int _num)
     {
         answer.Add(_num);
@@ -55,6 +55,7 @@ public class ReCruitManager : Singleton<ReCruitManager> {
             UIAction(false);
             if (CompareAnswer(answer))
             {
+                sparePartner.SetComponent();
                 Debug.Log("Clear");
             }
             else
@@ -68,7 +69,7 @@ public class ReCruitManager : Singleton<ReCruitManager> {
         }
     }
 
-    bool CompareAnswer(List<int> _answer)
+    public bool CompareAnswer(List<int> _answer)
     {
         for(int i = 0; i < _answer.Count; ++i )
         {
