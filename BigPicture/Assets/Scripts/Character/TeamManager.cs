@@ -12,7 +12,7 @@ public interface ICharacter
 {
     eENTITY_TYPE Type { get; }
     eDAMAGE_TYPE DamageType { get; }
-    StatusData Status { get; set; }
+    StatusData Status { get; }
     int SkillPoint { get; set; }
 }
 
