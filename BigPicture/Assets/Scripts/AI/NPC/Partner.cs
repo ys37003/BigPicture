@@ -28,7 +28,6 @@ public class Partner : AI, ICharacter
 
     void Start()
     {
-        
         //Data = DataManager.Instance().GetData(this.Tribe, this.Job);
         Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
         Animator = this.GetComponent<Animator>();
@@ -47,6 +46,7 @@ public class Partner : AI, ICharacter
         }
         this.GroupID = this.Group.member.Count;
         this.Group.Add(this);
+        TeamManager.Instance.AddCharacter(this);
         SetDelegate();
 
         StateMachine = new StateMachine(this);
