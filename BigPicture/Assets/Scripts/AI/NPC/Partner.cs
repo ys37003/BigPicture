@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Partner : AI
+public class Partner : AI, ICharacter
 {
     [SerializeField]
     private BoxCollider colEyeSight;
@@ -14,6 +14,18 @@ public class Partner : AI
     private BaseGameEntity player;
 
     private CommandController commandController;
+
+    public StatusData Status { get { return Data.StatusData; } }
+
+    public int SkillPoint { get; set; }
+
+    private eDAMAGE_TYPE damageType = eDAMAGE_TYPE.PHYSICS;
+    public  eDAMAGE_TYPE DamageType
+    {
+                get { return damageType; }
+        private set { damageType = value; }
+    }
+
     void Start()
     {
         
