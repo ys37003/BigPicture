@@ -26,6 +26,13 @@ public class Partner : AI, ICharacter
         private set { damageType = value; }
     }
 
+    public void Init(BoxCollider _colEyeSight , ColliderAttack _colliderAttack  , BaseGameEntity _player , eJOB_TYPE _job)
+    {
+        colEyeSight = _colEyeSight;
+        colliderAttack = _colliderAttack;
+        player = _player;
+        job_Type = _job;
+    }
     void Start()
     {
         //Data = DataManager.Instance().GetData(this.Tribe, this.Job);

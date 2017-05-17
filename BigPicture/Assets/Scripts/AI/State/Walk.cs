@@ -62,12 +62,6 @@ public class Walk : State
                 entity.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
-            case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                entity.Group.EnemyGroup = (Group)_msg.extraInfo;
-                entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
-                entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
-                return true;
-
             case (int)eMESSAGE_TYPE.FLLOW_ME:
                 entity.SetTarget(MathAssist.Instance().RandomVector3((Vector3)_msg.extraInfo, 5.0f));
                 return true;
