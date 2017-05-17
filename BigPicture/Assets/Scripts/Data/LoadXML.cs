@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LoadXML  {
 
-	public XmlNodeList[] LoadXml(string _address)
+	public XmlNodeList[] LoadXml_MonsterData(string _address)
     {
         TextAsset xml = (TextAsset)Resources.Load(_address);
 
@@ -30,6 +30,26 @@ public class LoadXML  {
                                    spellTable , agilityTable , avoidTable,
                                    defenseTable, recoveryTable, luckTable,
                                    rangeTable, eyeSightTable };
+
+        return xmlTable;
+    }
+
+    public XmlNodeList[] LoadXml_ReCruitData(string _address)
+    {
+        TextAsset xml = (TextAsset)Resources.Load(_address);
+
+        XmlDocument xmldoc = new XmlDocument();
+        Debug.Log(xml);
+        xmldoc.LoadXml(xml.text);
+
+        XmlNodeList nameTable = xmldoc.GetElementsByTagName("Name");
+        XmlNodeList questionTable = xmldoc.GetElementsByTagName("Question");
+        XmlNodeList yesTable = xmldoc.GetElementsByTagName("Yes");
+        XmlNodeList noTable = xmldoc.GetElementsByTagName("No");
+        XmlNodeList answerTable = xmldoc.GetElementsByTagName("Answer");
+
+        XmlNodeList[] xmlTable = { nameTable, questionTable, yesTable,
+                                   noTable , answerTable };
 
         return xmlTable;
     }

@@ -13,7 +13,7 @@ public class HoodSkull : AI
     void Start()
     {
 
-        Data = DataManager.Instance().GetData(this.Tribe, this.Job);
+        Data = DataManager.Instance().GetMonsterData(this.Tribe, this.Job);
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
         Group = this.GetComponentInParent<Group>();

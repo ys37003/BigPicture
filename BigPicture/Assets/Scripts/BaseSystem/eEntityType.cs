@@ -26,7 +26,7 @@ public enum eJOB_TYPE
     NULL
 }
 
-public enum eDATASHEET
+public enum eMONSTER_DATASHEET
 {
     TRIBE,
     JOB,
@@ -40,4 +40,21 @@ public enum eDATASHEET
     RANGE,
     EYESIGHT,
     NULL
+}
+
+public enum eRECRUIT_DATASHEET
+{
+   NAME,
+   QUESTION,
+   YES,
+   NO,
+   ANSWER
+}
+
+public enum ePARTNER_NAME
+{
+    DONUT,
+    AMARIRIS,
+    EAST,
+    CHOCKCHOCK
 }

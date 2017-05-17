@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<record>
+		<Name>0</Name>
+		<Question>How Are You</Question>
+		<Yes>I'm Player</Yes>
+		<No>Get out</No>
+		<Answer>1</Answer>
+	</record>
+	<record>
+		<Name>0</Name>
+		<Question>I Love You</Question>
+		<Yes>Me Too</Yes>
+		<No>Get out</No>
+		<Answer>0</Answer>
+	</record>
+	<record>
+		<Name>1</Name>
+		<Question>How Are You</Question>
+		<Yes>I'm Player</Yes>
+		<No>Get out</No>
+		<Answer>1</Answer>
+	</record>
+	<record>
+		<Name>1</Name>
+		<Question>I Love You</Question>
+		<Yes>Me Too</Yes>
+		<No>Get out</No>
+		<Answer>0</Answer>
+	</record>
+	<record>
+		<Name>2</Name>
+		<Question>How Are You</Question>
+		<Yes>I'm Player</Yes>
+		<No>Get out</No>
+		<Answer>1</Answer>
+	</record>
+	<record>
+		<Name>2</Name>
+		<Question>I Love You</Question>
+		<Yes>Me Too</Yes>
+		<No>Get out</No>
+		<Answer>0</Answer>
+	</record>
+	<record>
+		<Name>3</Name>
+		<Question>How Are You</Question>
+		<Yes>I'm Player</Yes>
+		<No>Get out</No>
+		<Answer>1</Answer>
+	</record>
+	<record>
+		<Name>3</Name>
+		<Question>I Love You</Question>
+		<Yes>Me Too</Yes>
+		<No>Get out</No>
+		<Answer>0</Answer>
+	</record>
+</data-set>

@@ -6,7 +6,7 @@ public class WorldManager : MonoBehaviour {
 
     private void Awake()
     {
-        DataManager.Instance().monsterDataLoad();
+        DataManager.Instance().DataLoad();
         StartCoroutine(MessageDispatcher.Instance.DispatchDelayedMessages());
     }
 
