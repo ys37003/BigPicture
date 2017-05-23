@@ -79,7 +79,8 @@ public class HoodSkull : AI
 
     private void Update()
     {
-       StateMachine.Update();
+        colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
+        StateMachine.Update();
     }
     #region Trigger
     void OnTriggerStay(Collider other)

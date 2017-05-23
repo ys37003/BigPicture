@@ -81,6 +81,7 @@ public class Partner : AI, ICharacter
     // Update is called once per frame
     void Update()
     {
+        colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
         StateMachine.Update();
     }
 

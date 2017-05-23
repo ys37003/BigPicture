@@ -2,6 +2,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+public struct SEnemy
+{
+    public GameObject enemy;
+    public float damage;
+}
+
 public class AI : BaseGameEntity
 {
     private StateMachine stateMachine;
@@ -18,7 +24,7 @@ public class AI : BaseGameEntity
     private float oldDistance;
 
     [SerializeField]
-    private List<GameObject> enemyList = new List<GameObject>();
+    private List<SEnemy> enemyList = new List<SEnemy>();
 
     private bool attackAble;
 
@@ -82,7 +88,7 @@ public class AI : BaseGameEntity
         set { attackRange = value; }
     }
 
-    public List<GameObject> EnemyList
+    public List<SEnemy> EnemyList
     {
         get { return enemyList; }
         set { enemyList = value; }
@@ -177,7 +183,12 @@ public class AI : BaseGameEntity
             {
                 GameObject dummy = this.Group.NearestEnemy(this.transform.position);
                 if (null != dummy)
-                    this.EnemyList.Add(dummy);
+                {
+                    SEnemy enemy = new SEnemy();
+                    enemy.enemy = dummy;
+                    enemy.damage = 0;
+                    this.EnemyList.Add(enemy);
+                }
             }
         }
 
@@ -192,7 +203,7 @@ public class AI : BaseGameEntity
         //}
         for(int i = 0; i < enemyList.Count;  ++i )
         {
-            if (false == enemyList[i].activeSelf)
+            if (false == enemyList[i].enemy.activeSelf)
                 enemyList.RemoveAt(i);
         }
 
@@ -287,8 +298,15 @@ public class AI : BaseGameEntity
 
     public void SetEnemy(GameObject _enemy)
     {
-        if(false == EnemyList.Contains(_enemy))
-            EnemyList.Add(_enemy);
+        for(int i = 0; i < enemyList.Count; ++ i)
+        {
+            if (_enemy == EnemyList[i].enemy)
+                return;
+        }
+        SEnemy enemy = new SEnemy();
+        enemy.enemy = _enemy;
+        enemy.damage = 0;
+        EnemyList.Add(enemy);
     }
 
     public StatusData GetStatus()
@@ -308,7 +326,7 @@ public class AI : BaseGameEntity
             return false;
         }
 
-        if ( null == EnemyList[0] || false == EnemyList[0].activeSelf)
+        if ( null == EnemyList[0].enemy || false == EnemyList[0].enemy.activeSelf)
             return false;
         else
             return true;
@@ -321,7 +339,7 @@ public class AI : BaseGameEntity
             //this.EnemyClear();
             return Vector3.zero;
         }
-        return EnemyList[0].transform.position;
+        return EnemyList[0].enemy.transform.position;
     }
     public void EnemyClear()
     {
@@ -340,14 +358,33 @@ public class AI : BaseGameEntity
     public Vector3 EscapePosition(GameObject _entity)
     {
         Vector3 destination;
-        NavMeshHit hit;
+        //NavMeshHit hit;
         
         destination = _entity.transform.position - this.transform.position;
 
-        destination -= this.transform.position;
-        NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
+        destination = this.transform.position - destination;
+        //NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
         //destination *= 10;
 
-        return hit.position;
+        return destination;
+    }
+
+    public Vector3 EscapePosition(Vector3 _entityPos)
+    {
+        Vector3 destination;
+       //NavMeshHit hit;
+
+        destination = _entityPos - this.transform.position;
+
+        destination = this.transform.position - destination;
+        //NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
+        //destination *= 10;
+
+        return destination;
+    }
+
+    public void DamageReceiver(float _damage)
+    {
+
     }
 }

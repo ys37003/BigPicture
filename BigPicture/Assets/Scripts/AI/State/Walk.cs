@@ -69,6 +69,15 @@ public class Walk : State
             case (int)eMESSAGE_TYPE.SET_FOMATION:
                 entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 return true;
+
+            case (int)eMESSAGE_TYPE.FIND_ENEMY:
+                entity.Group.EnemyGroup = (Group)_msg.extraInfo;
+                if (null != entity.Group.EnemyGroup)
+                {
+                    entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
+                    entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
+                }
+                return true;
         }
         return false;
     }

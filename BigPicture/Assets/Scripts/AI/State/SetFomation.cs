@@ -55,7 +55,7 @@ public class SetFomation : State
         switch (_msg.message)
         {
             case (int)eMESSAGE_TYPE.TO_BATTLEWALK:
-                entity.SetTarget(entity.EnemyList[0].transform.position);
+                entity.SetTarget(entity.EnemyList[0].enemy.transform.position);
                 entity.StateMachine.ChangeState(eSTATE.BATTLEWALK);
                 return true;
         }

@@ -94,6 +94,16 @@ public class BattleIdle : State
                 entity.StateMachine.ChangeState(eSTATE.RUN);
                 return true;
             case (int)eMESSAGE_TYPE.TO_ESCAPE:
+                entity.DestinationCheck = Time.time;
+                Vector3 destination = entity.EscapePosition(entity.Group.NearestEnemy(entity.transform.position));
+                entity.SetTarget(destination);
+                entity.StateMachine.ChangeState(eSTATE.ESCAPE);
+                return true;
+            case (int)eMESSAGE_TYPE.AVOID_ATTACK:
+                entity.DestinationCheck = Time.time;
+                Vector3 attackPos = (Vector3)_msg.extraInfo;
+                destination = entity.EscapePosition(attackPos);
+                entity.SetTarget(destination);
                 entity.StateMachine.ChangeState(eSTATE.ESCAPE);
                 return true;
         }
