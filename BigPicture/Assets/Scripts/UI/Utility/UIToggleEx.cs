@@ -68,7 +68,7 @@ public class UIToggleEx : MonoBehaviour
         toggle = GetComponent<UIToggle>();
         label = GetComponentInChildren<UILabel>();
 
-        Transform tfIcon = transform.FindChild("Icon");
+        Transform tfIcon = transform.Find("Icon");
         if (tfIcon != null)
         {
             icon = tfIcon.GetComponent<UISprite>();

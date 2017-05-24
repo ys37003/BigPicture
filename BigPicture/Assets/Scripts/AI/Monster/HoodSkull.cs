@@ -62,7 +62,7 @@ public class HoodSkull : AI
                 Approach = Delegates.Instance.Approach_Foword;
 
                 AttackHandler = new SpellAttack();
-                AttackHandler.Init(this.transform.FindChild("Spell").gameObject);
+                AttackHandler.Init(this.transform.Find("Spell").gameObject);
 
                 AttackRange = 5.0f;
                 break;
@@ -71,7 +71,7 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
                 AttackHandler = new SpellAttack();
-                AttackHandler.Init(this.transform.FindChild("Spell").gameObject);
+                AttackHandler.Init(this.transform.Find("Spell").gameObject);
                 AttackRange = 5.0f;
                 break;
         }

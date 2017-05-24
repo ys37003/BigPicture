@@ -56,7 +56,7 @@ public class UIButtonEx : MonoBehaviour
         button = GetComponent<UIButton>();
         label = GetComponentInChildren<UILabel>();
 
-        Transform tfIcon = transform.FindChild("Icon");
+        Transform tfIcon = transform.Find("Icon");
         if (tfIcon != null)
         {
             icon = tfIcon.GetComponent<UISprite>();

@@ -264,8 +264,8 @@ public class UISliderEx : UIProgressBar
     [ExecuteInEditMode]
     public void InitSliderEx()
     {
-        mFG   = transform.FindChild("Forground").GetComponent<UIWidget>();
-        mBG   = transform.FindChild("Background").GetComponent<UIWidget>();
-        thumb = transform.FindChild("Thumb");
+        mFG   = transform.Find("Forground").GetComponent<UIWidget>();
+        mBG   = transform.Find("Background").GetComponent<UIWidget>();
+        thumb = transform.Find("Thumb");
     }
 }
