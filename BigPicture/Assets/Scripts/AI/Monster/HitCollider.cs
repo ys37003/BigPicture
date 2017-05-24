@@ -42,6 +42,7 @@ public class HitCollider : MonoBehaviour {
 
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, null);
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
+            Debug.Log(ai.ID + "가 받은 Damage : " + (ct.Power - ai.Data.StatusData.Armor));
             ai.Data.StatusData.HP -= ct.Power - ai.Data.StatusData.Armor;
 
             if (ai.GetStatus().EvasionRate <= Random.Range(0, 100))

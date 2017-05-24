@@ -25,6 +25,11 @@ public class NavAgent : MonoBehaviour
     {
         m_agent.speed = _speed;
     }
+
+    public float GetSpeed()
+    {
+        return m_agent.speed;
+    }
     public Vector3 GetDestination()
     {
         return destination;

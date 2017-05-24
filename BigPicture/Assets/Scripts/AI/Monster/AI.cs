@@ -374,4 +374,14 @@ public class AI : BaseGameEntity
     {
 
     }
+
+    public void SetSpeed()
+    {
+        this.NavAgent.SetSpeed(this.data.StatusData.MoveSpeed );
+    }
+
+    public void AddSpeed(float _speed)
+    {
+        this.NavAgent.SetSpeed(this.navAgent.GetSpeed() + _speed );
+    }
 }

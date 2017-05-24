@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class CEnemy
 {
+    // 적
     public GameObject enemy;
+    // 적이 입힌 데미지
     public float damage;
+    // 적과의 거리
+    public float distance;
 }
 
 
@@ -44,12 +48,13 @@ public class EnemyHandle
         return enemyList[_index];
     }
 
+    // Sort 공식 : 받은 데미지 - (거리/2)
     public void Sort()
     {
         enemyList.Sort(delegate (CEnemy A, CEnemy B)
         {
-            if (A.damage > B.damage) return 1;
-            else if (A.damage < B.damage) return -1;
+            if (A.damage - (  A.distance/2 )  > B.damage - ( A.distance/2)) return 1;
+            else if (A.damage - ( A.distance/2) < B.damage - (A.distance/2)) return -1;
             return 0;
         });
     }

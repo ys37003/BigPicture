@@ -58,6 +58,7 @@ public class BattleIdle : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        entity.EnemyHandle.Sort();
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleIdle", true);
     }
 

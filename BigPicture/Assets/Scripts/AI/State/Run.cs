@@ -44,7 +44,7 @@ public class Run : State
         entity = (AI)_entity;
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", true);
         entity.SetTarget(entity.GetEnemyPosition());
-        entity.NavAgent.SetSpeed(6.0f);
+        entity.AddSpeed(4.0f);
     }
 
     public void Exit(object _entity)
@@ -52,7 +52,7 @@ public class Run : State
         entity = (AI)_entity;
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", false);
         entity.NavAgent.Clear();
-        entity.NavAgent.SetSpeed(2.0f);
+        entity.AddSpeed(-4.0f);
     }
 
     /// <summary>
