@@ -2,18 +2,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public struct SEnemy
-{
-    public GameObject enemy;
-    public float damage;
-}
 
 public class AI : BaseGameEntity
 {
     private StateMachine stateMachine;
     private SpellAttack attackHandler;
     private Group group;
-    private int groupID;
     private MonsterData data;
     public StatusData addStatus;
     private Animator animator;
@@ -23,8 +17,6 @@ public class AI : BaseGameEntity
     private float destinationCheck;
     private float oldDistance;
 
-    [SerializeField]
-    private List<SEnemy> enemyList = new List<SEnemy>();
 
     private bool attackAble;
 
@@ -37,6 +29,9 @@ public class AI : BaseGameEntity
     public DGSetFomation SetFomation;
     public DGApproach Approach;
 
+    EnemyHandle enemyHandle;
+
+#region Get,Set
     public bool AttackAble
     {
         get { return attackAble; }
@@ -88,11 +83,7 @@ public class AI : BaseGameEntity
         set { attackRange = value; }
     }
 
-    public List<SEnemy> EnemyList
-    {
-        get { return enemyList; }
-        set { enemyList = value; }
-    }
+    
 
     public Group Group
     {
@@ -101,11 +92,6 @@ public class AI : BaseGameEntity
         set { group = value; }
     }
 
-    public int GroupID
-    {
-        get { return groupID; }
-        set { groupID = value; }
-    }
 
     public SpellAttack AttackHandler
     {
@@ -118,6 +104,21 @@ public class AI : BaseGameEntity
         get { return destinationCheck; }
         set { destinationCheck = value; }
     }
+
+    public EnemyHandle EnemyHandle
+    {
+        get
+        {
+            return enemyHandle;
+        }
+
+        set
+        {
+            enemyHandle = value;
+        }
+    }
+
+    #endregion
 
     public bool EndHit()
     {
@@ -171,7 +172,7 @@ public class AI : BaseGameEntity
     {
         this.transform.LookAt(GetEnemyPosition());
 
-        RemoveEnemy();
+        EnemyHandle.RemoveEnemy();
 
         if (null == this.Group.EnemyGroup)
         {
@@ -179,35 +180,21 @@ public class AI : BaseGameEntity
         }
         else
         {
-            if (0 == EnemyList.Count)
+            if (0 == EnemyHandle.Count())
             {
                 GameObject dummy = this.Group.NearestEnemy(this.transform.position);
                 if (null != dummy)
                 {
-                    SEnemy enemy = new SEnemy();
+                    CEnemy enemy = new CEnemy();
                     enemy.enemy = dummy;
                     enemy.damage = 0;
-                    this.EnemyList.Add(enemy);
+                    EnemyHandle.Add(enemy);
                 }
             }
         }
 
     }
 
-    void RemoveEnemy()
-    {
-        //if (null == EnemyList[0] || false == EnemyList[0].activeSelf && 0 < EnemyList.Count)
-        //{
-        //    EnemyList.RemoveAt(0);
-        //    RemoveEnemy();
-        //}
-        for(int i = 0; i < enemyList.Count;  ++i )
-        {
-            if (false == enemyList[i].enemy.activeSelf)
-                enemyList.RemoveAt(i);
-        }
-
-    }
     public virtual void Walk()
     {
         if(this.DestinationCheck + 1.0f < Time.time)
@@ -235,12 +222,12 @@ public class AI : BaseGameEntity
             return;
         }
 
-        if (0.01f > Mathf.Abs(oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination)))
-        {
-            Debug.Log("gkgkgk2222222222222222222");
-            //Vector3 destination = this.Escape(this.Group.NearestEnemy(this.transform.position));
-            //this.SetTarget(destination);
-        }
+        //if (0.01f > Mathf.Abs(oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination)))
+        //{
+        //    Debug.Log("gkgkgk2222222222222222222");
+        //    //Vector3 destination = this.Escape(this.Group.NearestEnemy(this.transform.position));
+        //    //this.SetTarget(destination);
+        //}
 
     }
     public void Hit()
@@ -298,15 +285,15 @@ public class AI : BaseGameEntity
 
     public void SetEnemy(GameObject _enemy)
     {
-        for(int i = 0; i < enemyList.Count; ++ i)
+        for(int i = 0; i < EnemyHandle.Count(); ++ i)
         {
-            if (_enemy == EnemyList[i].enemy)
+            if (_enemy == EnemyHandle.GetEnemy(i).enemy)
                 return;
         }
-        SEnemy enemy = new SEnemy();
+        CEnemy enemy = new CEnemy();
         enemy.enemy = _enemy;
         enemy.damage = 0;
-        EnemyList.Add(enemy);
+        EnemyHandle.Add(enemy);
     }
 
     public StatusData GetStatus()
@@ -321,12 +308,12 @@ public class AI : BaseGameEntity
 
     public bool EnemyCheck()
     {
-        if (0 == enemyList.Count)
+        if (0 == EnemyHandle.Count())
         {
             return false;
         }
 
-        if ( null == EnemyList[0].enemy || false == EnemyList[0].enemy.activeSelf)
+        if ( false == EnemyHandle.EnemyExistCheck())
             return false;
         else
             return true;
@@ -339,11 +326,11 @@ public class AI : BaseGameEntity
             //this.EnemyClear();
             return Vector3.zero;
         }
-        return EnemyList[0].enemy.transform.position;
+        return EnemyHandle.GetEnemy(0).enemy.transform.position;
     }
     public void EnemyClear()
     {
-        EnemyList.Clear();
+        EnemyHandle.Clear();
     }
 
     public float TargetDistance()

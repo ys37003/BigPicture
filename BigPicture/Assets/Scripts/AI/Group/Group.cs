@@ -203,9 +203,9 @@ public class Group : BaseGameEntity
         {
             try
             {
-                for (int j = 0; j < member[i].GetComponent<AI>().EnemyList.Count; ++j)
+                for (int j = 0; j < member[i].GetComponent<AI>().EnemyHandle.Count(); ++j)
                 {
-                    if (_entity.gameObject == member[i].GetComponent<AI>().EnemyList[j].enemy)
+                    if (_entity.gameObject == member[i].GetComponent<AI>().EnemyHandle.GetEnemy(j).enemy)
                     {
                         ++count;
                     }

@@ -31,11 +31,11 @@ public class HoodSkull : AI
         //{
         //    trigger.ColliderAttack = colliderAttack;
         //}
-        this.GroupID = this.Group.member.Count;
         Group.Add(this);
         SetDelegate();
 
 
+        EnemyHandle = new EnemyHandle();
         StateMachine = new StateMachine(this);
     }
 
@@ -90,7 +90,7 @@ public class HoodSkull : AI
         if ("Human" == other.tag || "Monster" == other.tag)
             colType = other.GetComponent<BaseGameEntity>().Tribe;
         
-        if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && 0 == EnemyList.Count)
+        if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && 0 == EnemyHandle.Count())
         {
             this.transform.LookAt(other.transform.position);
             this.Group.EnemyGroup = other.GetComponent<BaseGameEntity>().EntityGroup;
