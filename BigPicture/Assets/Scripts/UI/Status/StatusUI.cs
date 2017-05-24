@@ -16,7 +16,7 @@ public class StatusUI : UIBase<StatusUI>
     {
         foreach (StatusSlider slider in sliderList)
         {
-            slider.onUpdateStat += onUpdateStat;
+            slider.onUpdateStat  += onUpdateStat;
             slider.GetSkillPoint += getSkillPoint;
         }
 
@@ -55,6 +55,8 @@ public class StatusUI : UIBase<StatusUI>
                 case eSTAT.LUCK:     slider.SetData(character.Status.Luck);     break;
             }
         }
+
+        updateUI();
     }
 
     private void onUpdateStat(eSTAT stat, int value)
