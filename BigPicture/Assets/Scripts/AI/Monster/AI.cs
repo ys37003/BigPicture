@@ -9,14 +9,12 @@ public class AI : BaseGameEntity
     private SpellAttack attackHandler;
     private Group group;
     private MonsterData data;
-    public StatusData addStatus;
+    public  StatusData addStatus;
     private Animator animator;
     private NavAgent navAgent;
 
-
     private float destinationCheck;
     private float oldDistance;
-
 
     private bool attackAble;
 
@@ -82,16 +80,13 @@ public class AI : BaseGameEntity
         get { return attackRange; }
         set { attackRange = value; }
     }
-
-    
-
+   
     public Group Group
     {
         get { return group; }
 
         set { group = value; }
     }
-
 
     public SpellAttack AttackHandler
     {
