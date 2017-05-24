@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class UIToggleEx : MonoBehaviour
 {
-    [SerializeField] private UIToggle   toggle;
-    [SerializeField] private UILabel    label;
-    [SerializeField] private UISprite   icon;
+    [SerializeField] private UIToggle toggle;
+    [SerializeField] private UILabel  label;
+    [SerializeField] private UISprite icon;
+
+    public bool IsCurrent { get { return toggle == UIToggle.current; } }
+
+    /// <summary>
+    /// 탭 넘버
+    /// </summary>
+    public int Number { get; set; }
 
     /// <summary>
     /// 토글 엑티브 온오프

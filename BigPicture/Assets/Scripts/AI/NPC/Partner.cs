@@ -42,6 +42,7 @@ public class Partner : AI, ICharacter
         Group = this.GetComponentInParent<Group>();
         EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type , Group );
         AttackAble = true;
+        SkillPoint = 5;
 
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);

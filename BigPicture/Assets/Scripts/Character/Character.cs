@@ -78,12 +78,8 @@ public class Character : BaseGameEntity, ICharacter
         {
             trigger.ColliderAttack = colliderAttack;
         }
-    }
 
-    private void Start()
-    {
         TeamManager.Instance.AddCharacter(this);
-
     }
 
     public void Init(StatusData status)

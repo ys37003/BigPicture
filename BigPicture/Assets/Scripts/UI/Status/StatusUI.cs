@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ public class StatusUI : UIBase<StatusUI>
     {
         foreach (StatusSlider slider in sliderList)
         {
-            slider.onUpdateStat += onUpdateStat;
+            slider.onUpdateStat  += onUpdateStat;
             slider.GetSkillPoint += getSkillPoint;
         }
 
@@ -24,12 +24,14 @@ public class StatusUI : UIBase<StatusUI>
 
         for (int i = 0; i < toggleList.Count; ++i)
         {
+            int count = i;
+
+            toggleList[i].Number = count;
             if (i < TeamManager.Instance.GetTeamSize())
             {
-                int temp = i;
                 EventDelegate.Add(toggleList[i].onChange, () =>
                 {
-                    SetData(TeamManager.Instance.GetCharacter(temp));
+                    SetData(TeamManager.Instance.GetCharacter(toggleList[count].Number));
                 });
             }
             else
@@ -37,6 +39,17 @@ public class StatusUI : UIBase<StatusUI>
                 toggleList[i].SetActive(false);
             }
         }
+    }
+
+    protected override void OverrideStart()
+    {
+        StartCoroutine("Init");
+    }
+
+    private IEnumerator Init()
+    {
+        yield return null;
+        SetData(TeamManager.Instance.GetCharacter(0));
     }
 
     private void SetData(ICharacter character)
@@ -55,6 +68,8 @@ public class StatusUI : UIBase<StatusUI>
                 case eSTAT.LUCK:     slider.SetData(character.Status.Luck);     break;
             }
         }
+
+        updateUI();
     }
 
     private void onUpdateStat(eSTAT stat, int value)
