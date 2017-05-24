@@ -51,11 +51,11 @@ public class Partner : AI, ICharacter
         {
             trigger.ColliderAttack = colliderAttack;
         }
-        this.GroupID = this.Group.member.Count;
         this.Group.Add(this);
         TeamManager.Instance.AddCharacter(this);
         SetDelegate();
 
+        EnemyHandle = new EnemyHandle();
         StateMachine = new StateMachine(this);
         commandController = new CommandController(this);
     }
@@ -81,6 +81,7 @@ public class Partner : AI, ICharacter
     // Update is called once per frame
     void Update()
     {
+        colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
         StateMachine.Update();
     }
 

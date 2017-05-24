@@ -84,14 +84,6 @@ public class StateMachine
             case (int)eMESSAGE_TYPE.I_SEE_YOU:
                 dummy.Group.EnemyGroup = (Group)_msg.extraInfo;
                 return true;
-            case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                dummy.Group.EnemyGroup = (Group)_msg.extraInfo;
-                if (null != dummy.Group.EnemyGroup)
-                {
-                    dummy.SetEnemy(dummy.Group.NearestEnemy(dummy.transform.position));
-                    dummy.StateMachine.ChangeState(eSTATE.SETFOMATION);
-                }
-                return true;
         }
         return false;
     }

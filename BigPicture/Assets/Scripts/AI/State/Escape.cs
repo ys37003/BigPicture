@@ -41,9 +41,6 @@ public class Escape : State {
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-        entity.DestinationCheck = Time.time;
-        Vector3 destination = entity.EscapePosition(entity.Group.NearestEnemy(entity.transform.position));
-        entity.SetTarget(destination);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
     }
 

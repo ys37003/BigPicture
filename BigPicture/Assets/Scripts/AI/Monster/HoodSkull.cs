@@ -31,11 +31,11 @@ public class HoodSkull : AI
         //{
         //    trigger.ColliderAttack = colliderAttack;
         //}
-        this.GroupID = this.Group.member.Count;
         Group.Add(this);
         SetDelegate();
 
 
+        EnemyHandle = new EnemyHandle();
         StateMachine = new StateMachine(this);
     }
 
@@ -62,7 +62,7 @@ public class HoodSkull : AI
                 Approach = Delegates.Instance.Approach_Foword;
 
                 AttackHandler = new SpellAttack();
-                AttackHandler.Init(this.transform.FindChild("Spell").gameObject);
+                AttackHandler.Init(this.transform.Find("Spell").gameObject);
 
                 AttackRange = 5.0f;
                 break;
@@ -71,7 +71,7 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
                 AttackHandler = new SpellAttack();
-                AttackHandler.Init(this.transform.FindChild("Spell").gameObject);
+                AttackHandler.Init(this.transform.Find("Spell").gameObject);
                 AttackRange = 5.0f;
                 break;
         }
@@ -79,7 +79,8 @@ public class HoodSkull : AI
 
     private void Update()
     {
-       StateMachine.Update();
+        colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
+        StateMachine.Update();
     }
     #region Trigger
     void OnTriggerStay(Collider other)
@@ -89,7 +90,7 @@ public class HoodSkull : AI
         if ("Human" == other.tag || "Monster" == other.tag)
             colType = other.GetComponent<BaseGameEntity>().Tribe;
         
-        if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && 0 == EnemyList.Count)
+        if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && 0 == EnemyHandle.Count())
         {
             this.transform.LookAt(other.transform.position);
             this.Group.EnemyGroup = other.GetComponent<BaseGameEntity>().EntityGroup;

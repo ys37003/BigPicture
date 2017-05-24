@@ -33,8 +33,6 @@ public class HitCollider : MonoBehaviour {
         
         if (ct != null && ct.TribeType != entity.Tribe)
         {
-            ai.Data.StatusData.HP -= 25.0f;
-
             if (false == ai.EnemyCheck())
             {
                 ai.Group.EnemyGroup = other.GetComponentInParent<AI>().Group;
@@ -44,13 +42,12 @@ public class HitCollider : MonoBehaviour {
 
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, null);
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            //this.Data.StatusData.HP -= (ct.Power - this.GetTotalStatus().Armor);
-            //monster.Data.StatusData.HP -= ct.Power;
+            ai.Data.StatusData.HP -= ct.Power - ai.Data.StatusData.Armor;
 
-            //if (this.GetStatus().EvasionRate <= Random.Range(0, 100))
-            //{
-            //    Debug.Log(other.name + "의 공격 회피");
-            //}
+            if (ai.GetStatus().EvasionRate <= Random.Range(0, 100))
+            {
+                Debug.Log(other.name + "의 공격 회피");
+            }
             //else
             //{
             //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_HIT, null);
@@ -61,8 +58,8 @@ public class HitCollider : MonoBehaviour {
             //    if (true == this.Die())
             //        MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
 
-                //    Debug.Log("Hit");
-                //}
+            //    Debug.Log("Hit");
+            //}
         }
 
     }

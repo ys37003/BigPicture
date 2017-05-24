@@ -203,9 +203,12 @@ public class Group : BaseGameEntity
         {
             try
             {
-                if ( true == member[i].GetComponent<AI>().EnemyList.Contains(_entity.gameObject))
+                for (int j = 0; j < member[i].GetComponent<AI>().EnemyHandle.Count(); ++j)
                 {
-                    ++count;
+                    if (_entity.gameObject == member[i].GetComponent<AI>().EnemyHandle.GetEnemy(j).enemy)
+                    {
+                        ++count;
+                    }
                 }
             }
             catch
