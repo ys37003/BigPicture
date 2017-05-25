@@ -42,6 +42,11 @@ public class InputManager : Singleton<InputManager>
     {
         DontDestroyOnLoad(gameObject);
 
+        AddKey(new InputKey(KeyCode.Escape, InputType.KeyDown), new InputValue(() =>
+        {
+            UIManager.Instance.LastUIClose();
+        }, null));
+
         AddKey(new InputKey(KeyCode.F1, InputType.KeyDown), new InputValue(() =>
         {
             if (StatusUI.IsShow)
@@ -54,7 +59,7 @@ public class InputManager : Singleton<InputManager>
             }
         }, null));
 
-        AddKey(new InputKey(KeyCode.Escape, InputType.KeyDown), new InputValue(() =>
+        AddKey(new InputKey(KeyCode.F2, InputType.KeyDown), new InputValue(() =>
         {
             if (OptionUI.IsShow)
             {

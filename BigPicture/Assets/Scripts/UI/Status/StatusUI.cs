@@ -46,7 +46,7 @@ public class StatusUI : UIBase<StatusUI>
         StartCoroutine("Init");
     }
 
-    protected override void Destroy()
+    protected override void OverrideDestroy()
     {
         // 종료시 스테이터스 재적용
         for (int i = 1; i < TeamManager.Instance.GetTeamSize(); ++i)
@@ -55,7 +55,7 @@ public class StatusUI : UIBase<StatusUI>
             temp.SetSpeed();
         }
 
-        base.Destroy();
+        base.OverrideDestroy();
     }
 
     private IEnumerator Init()

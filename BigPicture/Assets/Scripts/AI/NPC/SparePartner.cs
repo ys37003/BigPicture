@@ -33,7 +33,7 @@ public class SparePartner : MonoBehaviour{
 
     private void OnTriggerStay(Collider other)
     {
-        if("Human" == other.tag)
+        if(other.tag == "Human" && other.GetComponent<Character>() != null)
         {
             this.transform.LookAt(other.transform);
             if(Input.GetKeyDown(KeyCode.F))
