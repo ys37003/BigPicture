@@ -70,6 +70,18 @@ public class InputManager : Singleton<InputManager>
                 OptionUI.CreateUI();
             }
         }, null));
+
+        AddKey(new InputKey(KeyCode.F3, InputType.KeyDown), new InputValue(() =>
+        {
+            if(CharacterUI.IsShow)
+            {
+                CharacterUI.DestroyUI();
+            }
+            else
+            {
+                CharacterUI.CreateUI();
+            }
+        }, null));
     }
 
     private void Start()

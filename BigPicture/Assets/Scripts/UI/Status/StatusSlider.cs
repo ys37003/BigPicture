@@ -6,7 +6,7 @@ using UnityEngine;
 public class StatusSlider : MonoBehaviour
 {
     [SerializeField]
-    private UISliderEx slider;
+    private UISliderEx slider = null;
     private float beforeValue = 0;
 
     public eSTAT stat = eSTAT.STRENGTH;
