@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class SpellAttack {
 
+    private AI owner;
     private GameObject spell;
-    private ColliderAttack colliderAttack;
     private Collider collider;
     private Color color;
     private float time;
     // Use this for initializatio
-    public void Init(GameObject _go)
+    public void Init(GameObject _go , AI _onwer)
     {
         spell = _go;
         color = spell.GetComponent<MeshRenderer>().material.color;
         collider = spell.GetComponent<BoxCollider>();
         collider.enabled = false;
+        owner = _onwer;
     }
 
 
     public void Attack(Vector3 _pos)
     {
-        _pos.y += .1f;
+        _pos.y += 0.1f;
         spell.transform.position = _pos;
         spell.GetComponent<MeshRenderer>().enabled = true;
         color.a = 0.0f;
@@ -29,16 +30,18 @@ public class SpellAttack {
         spell.isStatic = true;
         //spell.GetComponent<Material>().color = color;
         time = Time.time;
+
     }
 
     public IEnumerator AttackDelay()
     {
         while (true)
         {
-            if (time + 1.0f < Time.time)
+            if (time + 0.5f < Time.time)
             {
-                color.a += 0.005f;
+                color.a += 0.01f;
                 spell.GetComponent<MeshRenderer>().material.color = color;
+                MessageDispatcher.Instance.DispatchMessage(0.2f, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK,owner.transform.position);
 
                 if (1.0f < color.a)
                 {

@@ -32,11 +32,6 @@ public class Run : State
         }
         entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
         entity.SetTarget(entity.GetEnemyPosition());
-        //if(true == entity.IsArrive())
-        //{
-        //    MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
-        //    return;
-        //}
     }
 
     public void Enter(object _entity)

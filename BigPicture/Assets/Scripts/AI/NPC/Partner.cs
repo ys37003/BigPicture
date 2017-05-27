@@ -56,7 +56,7 @@ public class Partner : AI, ICharacter
         TeamManager.Instance.AddCharacter(this);
         SetDelegate();
 
-        EnemyHandle = new EnemyHandle();
+        EnemyHandle = new EnemyHandle(this.gameObject);
         StateMachine = new StateMachine(this);
         commandController = new CommandController(this);
     }
@@ -69,13 +69,16 @@ public class Partner : AI, ICharacter
                 SetDestination = Delegates.Instance.SetDestination_Partner;
                 SetFomation = Delegates.Instance.SetFomation_Partner;
                 Approach = Delegates.Instance.Approach_Dealer;
+                AttackHandler = null;
                 AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:
                 AttackRange = 5.0f;
+                AttackHandler = null;
                 break;
             case eJOB_TYPE.SUPPORT:
                 AttackRange = 5.0f;
+                AttackHandler = null;
                 break;
         }
     }

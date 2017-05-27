@@ -35,7 +35,7 @@ public class HoodSkull : AI
         SetDelegate();
 
 
-        EnemyHandle = new EnemyHandle();
+        EnemyHandle = new EnemyHandle(this.gameObject);
         StateMachine = new StateMachine(this);
     }
 
@@ -62,7 +62,7 @@ public class HoodSkull : AI
                 Approach = Delegates.Instance.Approach_Foword;
 
                 AttackHandler = new SpellAttack();
-                AttackHandler.Init(this.transform.Find("Spell").gameObject);
+                AttackHandler.Init(this.transform.Find("Spell").gameObject , this);
 
                 AttackRange = 5.0f;
                 break;
@@ -71,7 +71,7 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
                 AttackHandler = new SpellAttack();
-                AttackHandler.Init(this.transform.Find("Spell").gameObject);
+                AttackHandler.Init(this.transform.Find("Spell").gameObject, this);
                 AttackRange = 5.0f;
                 break;
         }
@@ -88,7 +88,16 @@ public class HoodSkull : AI
         eTRIBE_TYPE colType = eTRIBE_TYPE.NULL;
 
         if ("Human" == other.tag || "Monster" == other.tag)
-            colType = other.GetComponent<BaseGameEntity>().Tribe;
+        {
+            try
+            {
+                colType = other.GetComponent<BaseGameEntity>().Tribe;
+            }
+            catch
+            {
+                colType = other.GetComponentInParent<BaseGameEntity>().Tribe;
+            }
+        }
         
         if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && 0 == EnemyHandle.Count())
         {

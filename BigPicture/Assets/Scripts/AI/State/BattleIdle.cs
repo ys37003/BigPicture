@@ -58,7 +58,7 @@ public class BattleIdle : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-        entity.EnemyHandle.Sort();
+   
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleIdle", true);
     }
 
@@ -92,21 +92,32 @@ public class BattleIdle : State
             //    return true;
 
             case (int)eMESSAGE_TYPE.TO_RUN:
-                entity.StateMachine.ChangeState(eSTATE.RUN);
-                return true;
+                {
+                    entity.StateMachine.ChangeState(eSTATE.RUN);
+                    return true;
+                }
             case (int)eMESSAGE_TYPE.TO_ESCAPE:
-                entity.DestinationCheck = Time.time;
-                Vector3 destination = entity.EscapePosition(entity.Group.NearestEnemy(entity.transform.position));
-                entity.SetTarget(destination);
-                entity.StateMachine.ChangeState(eSTATE.ESCAPE);
-                return true;
+                {
+                    entity.DestinationCheck = Time.time;
+                    Vector3 destination = entity.EscapePosition(entity.Group.NearestEnemy(entity.transform.position));
+                    entity.SetTarget(destination);
+                    entity.StateMachine.ChangeState(eSTATE.ESCAPE);
+                    return true;
+                }
             case (int)eMESSAGE_TYPE.AVOID_ATTACK:
-                entity.DestinationCheck = Time.time;
-                Vector3 attackPos = (Vector3)_msg.extraInfo;
-                destination = entity.EscapePosition(attackPos);
-                entity.SetTarget(destination);
-                entity.StateMachine.ChangeState(eSTATE.ESCAPE);
-                return true;
+                {
+                    Vector3 destination;
+                    entity.DestinationCheck = Time.time;
+                    Vector3 attackPos = (Vector3)_msg.extraInfo;
+                    // 1/3확률로 공격 회피
+                    if (0 == Random.Range(0, 3))
+                    {
+                        destination = entity.EscapePosition(attackPos);
+                        entity.SetTarget(destination);
+                        entity.StateMachine.ChangeState(eSTATE.ESCAPE);
+                    }
+                    return true;
+                }
         }
 
         return false;

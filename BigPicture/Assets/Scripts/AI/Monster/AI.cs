@@ -365,7 +365,6 @@ public class AI : BaseGameEntity
 
         destination = this.transform.position - destination;
         //NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
-        //destination *= 10;
 
         return destination;
     }

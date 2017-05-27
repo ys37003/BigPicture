@@ -39,7 +39,6 @@ public class Attack : State
         {
             entity.AttackHandler.Attack(entity.GetEnemyPosition());
             CoroutineManager.Instance.StartCorutine(entity.AttackHandler.AttackDelay());
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK, entity.GetEnemyPosition() );
         }
 
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);

@@ -12,18 +12,21 @@ public class CEnemy
     public float distance;
 }
 
-
 public class EnemyHandle
 {
-
     public List<CEnemy> enemyList = new List<CEnemy>();
 
+    private GameObject owner;
     public List<CEnemy> EnemyList
     {
         get { return enemyList; }
         set { enemyList = value; }
     }
 
+    public EnemyHandle(GameObject _owner)
+    {
+        owner = _owner;
+    }
     public List<CEnemy> GetEnemyList()
     {
         return EnemyList;
@@ -53,8 +56,11 @@ public class EnemyHandle
     {
         enemyList.Sort(delegate (CEnemy A, CEnemy B)
         {
-            if (A.damage - (  A.distance/2 )  > B.damage - ( A.distance/2)) return 1;
-            else if (A.damage - ( A.distance/2) < B.damage - (A.distance/2)) return -1;
+            if (0 == A.damage  && 0 == B.damage )
+                return 0;
+
+            if (A.damage + (10 - A.distance) > B.damage + (10 - B.distance)) return 1;
+            else if (A.damage + (10 - A.distance) < B.damage + (10 - B.distance)) return -1;
             return 0;
         });
     }
@@ -91,5 +97,10 @@ public class EnemyHandle
             return false;
         else
             return true;
+    }
+
+    public void DistanceUpdate()
+    {
+        //GameObject owner = 
     }
 }
