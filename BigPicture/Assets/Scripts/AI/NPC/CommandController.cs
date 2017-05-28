@@ -18,8 +18,8 @@ public class CommandController
                 owner.StateMachine.ChangeState(eSTATE.COME_ON);
                 return true;
             case (int)eMESSAGE_TYPE.COMMAND_FOCUSING:
-                GameObject emeny = (GameObject)_msg.extraInfo;
-                owner.SetEnemy(emeny);
+                Group emenyGroup = (Group)_msg.extraInfo;
+                owner.SetEnemy(emenyGroup);
                 return true;
         }
         return false;

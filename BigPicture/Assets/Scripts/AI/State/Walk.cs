@@ -74,7 +74,7 @@ public class Walk : State
                 entity.Group.EnemyGroup = (Group)_msg.extraInfo;
                 if (null != entity.Group.EnemyGroup)
                 {
-                    entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
+                    entity.SetEnemy(entity.Group.EnemyGroup);
                     entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 }
                 return true;

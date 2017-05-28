@@ -45,7 +45,7 @@ public class Partner : AI, ICharacter
         SkillPoint = 5;
 
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
-        colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);
+        colEyeSight.size = new Vector3(Data.EyeSight * 3, 10, Data.EyeSight * 2);
 
         colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData);
         foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())

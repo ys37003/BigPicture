@@ -24,7 +24,7 @@ public class HoodSkull : AI
         // EyeSight Collider 초기화
         //colEyeSight = this.transform.FindChild("EyeSightCol").GetComponent<BoxCollider>();
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
-        colEyeSight.size = new Vector3(Data.EyeSight * 3, 1, Data.EyeSight * 2);
+        colEyeSight.size = new Vector3(Data.EyeSight * 3, 10, Data.EyeSight * 2);
 
         colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData);
         //foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())

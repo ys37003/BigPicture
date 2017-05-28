@@ -56,9 +56,6 @@ public class EnemyHandle
     {
         enemyList.Sort(delegate (CEnemy A, CEnemy B)
         {
-            if (0 == A.damage  && 0 == B.damage )
-                return 0;
-
             if (A.damage + (10 - A.distance) > B.damage + (10 - B.distance)) return 1;
             else if (A.damage + (10 - A.distance) < B.damage + (10 - B.distance)) return -1;
             return 0;
@@ -82,6 +79,7 @@ public class EnemyHandle
             enemyList.Add(_enemy);
         }
     }
+
     public void RemoveEnemy()
     {
         for (int i = 0; i < enemyList.Count; ++i)

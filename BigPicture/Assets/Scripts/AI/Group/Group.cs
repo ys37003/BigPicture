@@ -149,8 +149,8 @@ public class Group : BaseGameEntity
     }
     public void Command_Focusing()
     {
-        Character character = this.TypeToEntity(eENTITY_TYPE.PLAYER).gameObject.GetComponent<Character>();
-        DispatchMessageGroup(0, 0, (int)eMESSAGE_TYPE.FIND_ENEMY, character.Group.EnemyGroup );
+        if(null != EnemyGroup)
+            DispatchMessageGroup(0, 0, (int)eMESSAGE_TYPE.FIND_ENEMY, EnemyGroup );
     }
 
     public GameObject RandomEntity()

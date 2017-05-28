@@ -42,7 +42,7 @@ public class BattleIdle : State
 
         if(entity.AttackRange - 1.0f > 
             Vector3.Distance(entity.transform.position, 
-            entity.Group.NearestEnemy(entity.transform.position).transform.position))
+            entity.GetEnemyPosition()))
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ESCAPE, null);
             return;

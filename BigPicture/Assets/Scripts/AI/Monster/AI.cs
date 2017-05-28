@@ -206,7 +206,6 @@ public class AI : BaseGameEntity
 
         if(0.01f > Mathf.Abs( oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination ) ))
         {
-            Debug.Log("gkgkgk");
             this.NavAgent.Clear();
         }
     }
@@ -219,16 +218,7 @@ public class AI : BaseGameEntity
         {
             this.DestinationCheck = Time.time;
             oldDistance = Vector3.Distance(this.transform.position, this.NavAgent.destination);
-            return;
         }
-
-        //if (0.01f > Mathf.Abs(oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination)))
-        //{
-        //    Debug.Log("gkgkgk2222222222222222222");
-        //    //Vector3 destination = this.Escape(this.Group.NearestEnemy(this.transform.position));
-        //    //this.SetTarget(destination);
-        //}
-
     }
     public void Hit()
     {
@@ -238,6 +228,12 @@ public class AI : BaseGameEntity
     {
         if (10.0f > Vector3.Distance(this.transform.position, this.GetEnemyPosition()))
             NavAgent.SetDestination(this.GetEnemyPosition());
+        
+        if (this.DestinationCheck + 1.0f < Time.time)
+        {
+            this.DestinationCheck = Time.time;
+            EnemyHandle.Sort();
+        }
     }
 
     public void Attack()
@@ -283,17 +279,26 @@ public class AI : BaseGameEntity
         StartCoroutine(NavAgent.MoveToTarget());
     }
 
-    public void SetEnemy(GameObject _enemy)
+    public void SetEnemy(Group _enemyGroup)
     {
-        for(int i = 0; i < EnemyHandle.Count(); ++ i)
+        //for(int i = 0; i < EnemyHandle.Count(); ++ i)
+        //{
+        //    if (_enemy == EnemyHandle.GetEnemy(i).enemy)
+        //        return;
+        //}
+        //CEnemy enemy = new CEnemy();
+        //enemy.enemy = _enemy;
+        //enemy.damage = 0;
+        //EnemyHandle.Add(enemy);
+        EnemyHandle.Clear();
+        
+        for(int i = 0; i < _enemyGroup.member.Count; ++ i)
         {
-            if (_enemy == EnemyHandle.GetEnemy(i).enemy)
-                return;
+            CEnemy enemy = new CEnemy();
+            enemy.enemy = _enemyGroup.member[i].gameObject;
+            enemy.damage = 0;
+            EnemyHandle.Add(enemy);
         }
-        CEnemy enemy = new CEnemy();
-        enemy.enemy = _enemy;
-        enemy.damage = 0;
-        EnemyHandle.Add(enemy);
     }
 
     public StatusData GetStatus()

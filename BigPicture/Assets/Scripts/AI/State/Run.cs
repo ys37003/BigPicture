@@ -30,13 +30,15 @@ public class Run : State
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
             return;
         }
-        entity.SetEnemy(entity.Group.NearestEnemy(entity.transform.position));
+       
         entity.SetTarget(entity.GetEnemyPosition());
     }
 
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        entity.EnemyHandle.Sort();
+        entity.DestinationCheck = Time.time;
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", true);
         entity.SetTarget(entity.GetEnemyPosition());
         entity.AddSpeed(4.0f);
