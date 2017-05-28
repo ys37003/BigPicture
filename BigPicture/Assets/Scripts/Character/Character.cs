@@ -8,16 +8,6 @@ public class Character : BaseGameEntity, ICharacter
     /// </summary>
     public StatusData Status { get; set; }
 
-    /// <summary>
-    /// 추가 능력치(버프, 디버프)
-    /// </summary>
-    public StatusData AddStatus { get; set; }
-
-    /// <summary>
-    /// 전체 능력치
-    /// </summary>
-    public StatusData TotalStatus { get { return Status + AddStatus; } }
-
     public int SkillPoint { get; set; }
 
     private eDAMAGE_TYPE damageType = eDAMAGE_TYPE.PHYSICS;
@@ -44,8 +34,8 @@ public class Character : BaseGameEntity, ICharacter
     /// </summary>
     public GameObject Target { get { return colliderAttack == null ? colliderAttack.Target : null; } }
 
-    [SerializeField] private Animator       animator        = null;
-    [SerializeField] private ColliderAttack colliderAttack  = null;
+    [SerializeField] private Animator       animator       = null;
+    [SerializeField] private ColliderAttack colliderAttack = null;
 
     /// <summary>
     /// 구르기 속도는 이동속도(MoveSpeed) %이다.
@@ -86,7 +76,6 @@ public class Character : BaseGameEntity, ICharacter
     {
         Status = status;
         SkillPoint = 10;
-        AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     public void Move(Vector3 dir, float move)
@@ -95,13 +84,13 @@ public class Character : BaseGameEntity, ICharacter
         float   turnSpeed = Mathf.Lerp(180, 360, dir.z);
 
         transform.Rotate(0, turn * Time.deltaTime * turnSpeed, 0);
-        transform.Translate(dir * Time.deltaTime * TotalStatus.MoveSpeed * move);
+        transform.Translate(dir * Time.deltaTime * Status.MoveSpeed * move);
     }
 
     public void Roll(Vector3 eulerAngles)
     {
         transform.eulerAngles = eulerAngles;
-        transform.Translate(Vector3.forward * Time.deltaTime * TotalStatus.MoveSpeed * rollSpeedRate);
+        transform.Translate(Vector3.forward * Time.deltaTime * Status.MoveSpeed * rollSpeedRate);
     }
 
     public void Battle(bool battle)
@@ -179,11 +168,11 @@ public class Character : BaseGameEntity, ICharacter
 
         while(true)
         {
-            if(sTime + second <= Time.time)
-            {
-                Status.HP += TotalStatus.RecoveryRPS;
-                sTime = Time.time;
-            }
+            //if(sTime + second <= Time.time)
+            //{
+            //    Status.HP += Status.RecoveryRPS;
+            //    sTime = Time.time;
+            //}
 
             yield return null;
         }
@@ -204,7 +193,7 @@ public class Character : BaseGameEntity, ICharacter
             }
 
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            Status.HP -= (ct.Power - TotalStatus.Armor);
+            Status.HP -= (ct.Power - Status.Armor);
         }
     }
 }

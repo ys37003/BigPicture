@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 public enum eSTAT
 {
@@ -49,18 +50,6 @@ public class StatusData
     /// </summary>
     public int Luck;
 
-    private float Hp;
-    public  float HP
-    {
-        get { return Hp; }
-        set
-        {
-            Hp = value;
-
-                 if (Hp > 100) Hp = 100;
-            else if (Hp < 0)   Hp = 0;
-        }
-    }
     #endregion
 
     #region 계산값
@@ -99,6 +88,24 @@ public class StatusData
     /// </summary>
     static public readonly float MAX_HP = 100;
     #endregion
+
+    public Action<float> onUpdateHP;
+
+    private float Hp;
+    public  float HP
+    {
+        get { return Hp; }
+        set
+        {
+            Hp = value;
+
+                 if (Hp > MAX_HP) Hp = MAX_HP;
+            else if (Hp < 0)      Hp = 0;
+
+            if (onUpdateHP != null)
+                onUpdateHP(Hp);
+        }
+    }
 
     /// <summary>
     /// 능력치

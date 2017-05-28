@@ -2,17 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UIBase<T> : MonoBehaviour where T : class
+public interface IUIBase
+{
+    UIDepth UIDepth     { get; }
+    UIType  Type        { get; }
+    bool    CanClose    { get; }
+
+    void Destroy();
+}
+
+public abstract class UIBase<T> : MonoBehaviour, IUIBase where T : class
 {
     private static T instance;
 
-    private UIDepth depth = new UIDepth();
+    private UIDepth uiDepth = new UIDepth();
+    public  UIDepth UIDepth
+    {
+        get { return uiDepth; }
+    }
 
     [SerializeField]
     private UIType type = UIType.Camera2D;
     public  UIType Type
     {
         get { return type; }
+    }
+
+    [SerializeField]
+    private bool canClose = true;
+    public  bool CanClose
+    {
+        get { return canClose; }
     }
 
     private static bool isShow = true;
@@ -70,9 +90,9 @@ public abstract class UIBase<T> : MonoBehaviour where T : class
 
     private void Awake()
     {
-        depth.AddWidget(GetComponentsInChildren<UIWidget>());
-        depth.AddPanel(GetComponentsInChildren<UIPanel>());
-        UIManager.Instance.AddUI(type, depth);
+        uiDepth.AddWidget(GetComponentsInChildren<UIWidget>());
+        uiDepth.AddPanel(GetComponentsInChildren<UIPanel>());
+        UIManager.Instance.AddUI(this as IUIBase);
 
         OverrideAwake();
     }
@@ -90,14 +110,9 @@ public abstract class UIBase<T> : MonoBehaviour where T : class
     {
     }
 
-    protected virtual void Show(bool active)
+    protected virtual void OverrideDestroy()
     {
-        gameObject.SetActive(active);
-    }
-
-    protected virtual void Destroy()
-    {
-        UIManager.Instance.RemoveUI(type, depth);
+        UIManager.Instance.RemoveUI(this as IUIBase);
 
         Transform root = transform.parent;
         if (root.GetComponent<UIPanel>() && root.childCount == 1)
@@ -111,5 +126,15 @@ public abstract class UIBase<T> : MonoBehaviour where T : class
         }
 
         instance = null;
+    }
+
+    protected virtual void Show(bool active)
+    {
+        gameObject.SetActive(active);
+    }
+
+    public void Destroy()
+    {
+        OverrideDestroy();
     }
 }
