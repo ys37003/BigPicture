@@ -30,6 +30,9 @@ public class BattleIdle : State
         if (null == entity.Group.EnemyGroup || false == entity.Group.EnemyGroup.BattleAble())
         {
             entity.Group.EnemyGroup = null;
+            CoroutineManager.Instance.StopCoroutine(entity.EnemyHandle.SortEnemy());
+            entity.EnemyHandle.Clear();
+
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
             return;
         }
@@ -40,13 +43,7 @@ public class BattleIdle : State
             return;
         }
 
-        if(entity.AttackRange - 1.0f > 
-            Vector3.Distance(entity.transform.position, 
-            entity.GetEnemyPosition()))
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ESCAPE, null);
-            return;
-        }
+        
         if (true == entity.AttackAble)
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
@@ -58,7 +55,15 @@ public class BattleIdle : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-   
+        if (entity.AttackRange - 1 >
+                 Vector3.Distance(entity.transform.position,
+                 entity.GetEnemyPosition()))
+        {
+            if (0 == Random.Range(0, 5))
+                MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ESCAPE, null);
+
+            return;
+        }
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleIdle", true);
     }
 
@@ -110,7 +115,7 @@ public class BattleIdle : State
                     entity.DestinationCheck = Time.time;
                     Vector3 attackPos = (Vector3)_msg.extraInfo;
                     // 1/3확률로 공격 회피
-                    if (0 == Random.Range(0, 3))
+                    if (0 == Random.Range(0, 5))
                     {
                         destination = entity.EscapePosition(attackPos);
                         entity.SetTarget(destination);

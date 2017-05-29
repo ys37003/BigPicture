@@ -38,10 +38,11 @@ public class Group : BaseGameEntity
 
     public Transform GetCenter(Vector3 _target)
     {
+        Vector3 dummy = new Vector3();
         for (int i = 0; i < member.Count; ++i)
-            center.position += member[i].transform.position;
+            dummy  += member[i].transform.position;
 
-        center.position /= member.Count;
+        center.position = dummy / member.Count;
 
         center.LookAt(_target);
 

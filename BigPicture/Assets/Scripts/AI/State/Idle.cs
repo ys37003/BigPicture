@@ -72,6 +72,7 @@ public class Idle : State
                 if (null != entity.Group.EnemyGroup)
                 {
                     entity.SetEnemy(entity.Group.EnemyGroup);
+                    CoroutineManager.Instance.StartCorutine(entity.EnemyHandle.SortEnemy());
                     entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 }
                 return true;

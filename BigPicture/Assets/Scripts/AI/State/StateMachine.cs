@@ -79,6 +79,8 @@ public class StateMachine
                 return true;
 
             case (int)eMESSAGE_TYPE.TO_HIT:
+                AI AIowner = (AI)owner;
+                
                 this.ChangeState(eSTATE.HIT);
                 return true;
             case (int)eMESSAGE_TYPE.I_SEE_YOU:

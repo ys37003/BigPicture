@@ -41,7 +41,7 @@ public class SpellAttack {
             {
                 color.a += 0.01f;
                 spell.GetComponent<MeshRenderer>().material.color = color;
-                MessageDispatcher.Instance.DispatchMessage(0.2f, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK,owner.transform.position);
+                MessageDispatcher.Instance.DispatchMessage(0, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK,owner.transform.position);
 
                 if (1.0f < color.a)
                 {

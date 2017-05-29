@@ -119,7 +119,8 @@ public class AI : BaseGameEntity
     {
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
         {
-            return true;
+            if (1.0f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                return true;
         }
         return false;
     }
@@ -217,18 +218,14 @@ public class AI : BaseGameEntity
     }
     public void Hit()
     {
+        this.transform.LookAt(GetEnemyPosition());
     }
 
     public void Run()
     {
         if (10.0f > Vector3.Distance(this.transform.position, this.GetEnemyPosition()))
             NavAgent.SetDestination(this.GetEnemyPosition());
-        
-        if (this.DestinationCheck + 1.0f < Time.time)
-        {
-            this.DestinationCheck = Time.time;
-            EnemyHandle.Sort();
-        }
+       
     }
 
     public void Attack()
@@ -276,17 +273,6 @@ public class AI : BaseGameEntity
 
     public void SetEnemy(Group _enemyGroup)
     {
-        //for(int i = 0; i < EnemyHandle.Count(); ++ i)
-        //{
-        //    if (_enemy == EnemyHandle.GetEnemy(i).enemy)
-        //        return;
-        //}
-        //CEnemy enemy = new CEnemy();
-        //enemy.enemy = _enemy;
-        //enemy.damage = 0;
-        //EnemyHandle.Add(enemy);
-        EnemyHandle.Clear();
-        
         for(int i = 0; i < _enemyGroup.member.Count; ++ i)
         {
             CEnemy enemy = new CEnemy();
@@ -345,28 +331,34 @@ public class AI : BaseGameEntity
     public Vector3 EscapePosition(GameObject _entity)
     {
         Vector3 destination;
-        //NavMeshHit hit;
+        NavMeshHit hit;
         
         destination = _entity.transform.position - this.transform.position;
 
         destination = this.transform.position - destination;
-        //NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
-        //destination *= 10;
+        NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
 
-        return destination;
+        return hit.position;
     }
 
     public Vector3 EscapePosition(Vector3 _entityPos)
     {
         Vector3 destination;
-       //NavMeshHit hit;
+        NavMeshHit hit;
 
-        destination = _entityPos - this.transform.position;
+        if (0 == Random.Range(0, 1))
+        {
+            destination = _entityPos - this.transform.position;
 
-        destination = this.transform.position - destination;
-        //NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
-
-        return destination;
+            destination = this.transform.position - destination;
+        }
+        else
+        {
+            destination = this.transform.position - this.Group.GetCenter();
+            destination = this.transform.position - destination;
+        }
+        NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
+        return hit.position;
     }
 
     public void DamageReceiver(float _damage)

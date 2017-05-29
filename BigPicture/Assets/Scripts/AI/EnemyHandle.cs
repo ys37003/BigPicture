@@ -52,12 +52,12 @@ public class EnemyHandle
     }
 
     // Sort 공식 : 받은 데미지 - (거리/2)
-    public void Sort()
+    void Sort()
     {
         enemyList.Sort(delegate (CEnemy A, CEnemy B)
         {
-            if (A.damage + (10 - A.distance) > B.damage + (10 - B.distance)) return 1;
-            else if (A.damage + (10 - A.distance) < B.damage + (10 - B.distance)) return -1;
+            if (A.damage + (10 - A.distance) < B.damage + (10 - B.distance)) return 1;
+            else if (A.damage + (10 - A.distance) > B.damage + (10 - B.distance)) return -1;
             return 0;
         });
     }
@@ -97,8 +97,27 @@ public class EnemyHandle
             return true;
     }
 
-    public void DistanceUpdate()
+    void SetDistance()
     {
-        //GameObject owner = 
+        for(int i = 0; i < enemyList.Count; ++ i )
+        {
+            enemyList[i].distance = Vector3.Distance(owner.transform.position, enemyList[i].enemy.transform.position);
+        }
+    }
+    public IEnumerator SortEnemy()
+    {
+        float sortTime = Time.time;
+        SetDistance();
+        Sort();
+        while (true)
+        {
+            if(sortTime + 5.0f < Time.time)
+            {
+                sortTime = Time.time;
+                SetDistance();
+                Sort();
+            }
+            yield return null;
+        }
     }
 }

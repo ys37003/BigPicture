@@ -8,4 +8,9 @@ public class CoroutineManager : Singleton<CoroutineManager>
     {
         StartCoroutine(_function);
     }
+
+    public void StopCoroutine(IEnumerator _function)
+    {
+        StopCoroutine(_function);
+    }
 }

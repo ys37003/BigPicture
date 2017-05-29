@@ -37,7 +37,6 @@ public class Run : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-        entity.EnemyHandle.Sort();
         entity.DestinationCheck = Time.time;
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", true);
         entity.SetTarget(entity.GetEnemyPosition());
