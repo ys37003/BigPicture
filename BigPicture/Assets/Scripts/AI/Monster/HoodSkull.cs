@@ -10,6 +10,8 @@ public class HoodSkull : AI
     [SerializeField]
     private ColliderAttack colliderAttack = null;
 
+    [SerializeField]
+    private GameObject spell;
     void Start()
     {
 
@@ -63,7 +65,7 @@ public class HoodSkull : AI
 
                 colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, eDAMAGE_TYPE.SPELL);
                 AttackHandler = new SpellAttack();
-                AttackHandler.Init(this.transform.Find("Spell").gameObject , this);
+                AttackHandler.Init(spell, this);
 
                 AttackRange = 5.0f;
                 break;
@@ -74,7 +76,7 @@ public class HoodSkull : AI
 
                 colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, eDAMAGE_TYPE.SPELL);
                 AttackHandler = new SpellAttack();
-                AttackHandler.Init(this.transform.Find("Spell").gameObject, this);
+                AttackHandler.Init(spell, this);
                 AttackRange = 5.0f;
                 break;
         }

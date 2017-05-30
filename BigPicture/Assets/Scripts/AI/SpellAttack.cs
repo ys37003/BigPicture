@@ -27,7 +27,6 @@ public class SpellAttack {
         spell.GetComponent<MeshRenderer>().enabled = true;
         color.a = 0.0f;
         spell.GetComponent<MeshRenderer>().material.color = color;
-        spell.isStatic = true;
         //spell.GetComponent<Material>().color = color;
         time = Time.time;
 
@@ -35,13 +34,13 @@ public class SpellAttack {
 
     public IEnumerator AttackDelay()
     {
+        MessageDispatcher.Instance.DispatchMessage(0.5f, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK,owner.transform.position);
         while (true)
         {
             if (time + 0.5f < Time.time)
             {
                 color.a += 0.01f;
                 spell.GetComponent<MeshRenderer>().material.color = color;
-                MessageDispatcher.Instance.DispatchMessage(0, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK,owner.transform.position);
 
                 if (1.0f < color.a)
                 {
@@ -62,7 +61,6 @@ public class SpellAttack {
         {
             if (time + 0.1f < Time.time)
             {
-                spell.isStatic = false;
                 collider.enabled = false;
                 break;
             }

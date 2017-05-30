@@ -5,9 +5,6 @@ using UnityEngine;
 public class MessageDispatcher
 {
     private static MessageDispatcher instance;
-
-   //private SortedDictionary<float, Telegram> delayMessageSD = new SortedDictionary<float, Telegram>();
-    private List<float> delayList = new List<float>();
     private List<Telegram> telegramList = new List<Telegram>();
     private MessageDispatcher()
     {
@@ -45,7 +42,6 @@ public class MessageDispatcher
         {
             telegram.dispatchTime = Time.time + _delay;
       
-            delayList.Add(telegram.dispatchTime);
             telegramList.Add(telegram);
             //delayMessageSD.Add(telegram.dispatchTime, telegram);
             //delayList.Add(telegram.dispatchTime);
@@ -65,7 +61,7 @@ public class MessageDispatcher
             if(_id == telegramList[i].sender && _message == telegramList[i].message)
             {
                 telegramList.RemoveAt(i);
-                delayList.RemoveAt(i);
+
             }
         }
     }
@@ -74,19 +70,27 @@ public class MessageDispatcher
     {
         while (true)
         {
-            for (int i = 0; i < delayList.Count; ++i)
+            for (int i = 0; i < telegramList.Count; ++i)
             {
-                if (delayList[i] < Time.time && delayList[i] > 0)
+                if (telegramList[i].dispatchTime < Time.time && telegramList[i].dispatchTime > 0)
                 {
                     Telegram telegram = telegramList[i];
 
                     DisCharge(telegram.receiver, telegram);
                     telegramList.RemoveAt(i);
-                    delayList.RemoveAt(i);
                 }
-                yield return null;
             }
             yield return null;
         }
+    }
+
+    void Sort()
+    {
+        telegramList.Sort(delegate (Telegram A, Telegram B)
+        {
+            if (A.dispatchTime > B.dispatchTime) return 1;
+            else if (A.dispatchTime < B.dispatchTime) return -1;
+            return 0;
+        });
     }
 }
