@@ -16,8 +16,7 @@ public class AI : BaseGameEntity
     private float destinationCheck;
     private float oldDistance;
 
-    private bool attackAble;
-
+    private bool attackAble = true;
     [SerializeField]
     protected eJOB_TYPE job_Type;
     [SerializeField]
@@ -112,7 +111,6 @@ public class AI : BaseGameEntity
             enemyHandle = value;
         }
     }
-
     #endregion
 
     public bool EndHit()
@@ -230,7 +228,6 @@ public class AI : BaseGameEntity
 
     public void Attack()
     {
-        
     }
 
     public void BattleWalk()

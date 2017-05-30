@@ -34,6 +34,7 @@ public class Attack : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        entity.AttackAble = false;
         entity.transform.LookAt(entity.GetEnemyPosition());
         if (null != entity.AttackHandler)
         {
@@ -42,13 +43,12 @@ public class Attack : State
         }
 
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);
-        entity.AttackAble = false;
     }
 
     public void Exit(object _entity)
     {
         entity = (AI)_entity;
-        MessageDispatcher.Instance.DispatchMessage(3, entity.ID, entity.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
+        MessageDispatcher.Instance.DispatchMessage(Random.Range(3,5), entity.ID, entity.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", false);
     }
 

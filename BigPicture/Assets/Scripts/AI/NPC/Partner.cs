@@ -47,11 +47,7 @@ public class Partner : AI, ICharacter
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 10, Data.EyeSight * 2);
 
-        colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData);
-        foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
-        {
-            trigger.ColliderAttack = colliderAttack;
-        }
+        
         this.Group.Add(this);
         TeamManager.Instance.AddCharacter(this);
         SetDelegate();
@@ -69,7 +65,14 @@ public class Partner : AI, ICharacter
                 SetDestination = Delegates.Instance.SetDestination_Partner;
                 SetFomation = Delegates.Instance.SetFomation_Partner;
                 Approach = Delegates.Instance.Approach_Dealer;
+
+                colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData , eDAMAGE_TYPE.PHYSICS );
                 AttackHandler = null;
+                foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
+                {
+                    trigger.ColliderAttack = colliderAttack;
+                }
+
                 AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:

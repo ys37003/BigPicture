@@ -27,11 +27,13 @@ public class HitCollider : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (null == entity || null == ai)
-            return; 
-
-        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState())
             return;
 
+        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState() )
+        {
+            Debug.Log("무적");
+            return;
+        }
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
         
         if (ct != null && ct.TribeType != entity.Tribe)
@@ -46,17 +48,18 @@ public class HitCollider : MonoBehaviour {
 
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
             CEnemy cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, cEnemy.enemy.transform.position );
+
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, ct.GetDamageType() );
 
             if (0 < (ct.Power - ai.Data.StatusData.Armor))
             {
                 Debug.Log(ai.ID + "가 받은 Damage : " + (ct.Power - ai.Data.StatusData.Armor));
-                ai.Data.StatusData.HP -= ct.Power - ai.Data.StatusData.Armor;
+               // ai.Data.StatusData.HP -= ct.Power - ai.Data.StatusData.Armor;
                 cEnemy.damage += (ct.Power - ai.Data.StatusData.Armor);
             }
             else
             {
-                ai.Data.StatusData.HP -= 1.0f;
+                //ai.Data.StatusData.HP -= 1.0f;
                 cEnemy.damage += 1.0f;
             }
 

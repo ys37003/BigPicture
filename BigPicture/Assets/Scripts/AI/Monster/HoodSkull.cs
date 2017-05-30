@@ -26,7 +26,6 @@ public class HoodSkull : AI
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 10, Data.EyeSight * 2);
 
-        colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData);
         //foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
         //{
         //    trigger.ColliderAttack = colliderAttack;
@@ -48,6 +47,7 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Dealer;
                 Approach = Delegates.Instance.Approach_Dealer;
 
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, eDAMAGE_TYPE.PHYSICS);
                 AttackHandler = null;
                 foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
                 {
@@ -61,6 +61,7 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Foword;
                 Approach = Delegates.Instance.Approach_Foword;
 
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, eDAMAGE_TYPE.SPELL);
                 AttackHandler = new SpellAttack();
                 AttackHandler.Init(this.transform.Find("Spell").gameObject , this);
 
@@ -70,6 +71,8 @@ public class HoodSkull : AI
                 SetDestination = Delegates.Instance.SetDestination_Nomal;
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
+
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, eDAMAGE_TYPE.SPELL);
                 AttackHandler = new SpellAttack();
                 AttackHandler.Init(this.transform.Find("Spell").gameObject, this);
                 AttackRange = 5.0f;

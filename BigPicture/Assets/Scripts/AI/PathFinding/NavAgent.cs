@@ -11,6 +11,7 @@ public class NavAgent : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+ 
         m_agent = this.GetComponent<NavMeshAgent>();
     }
 
@@ -37,7 +38,8 @@ public class NavAgent : MonoBehaviour
 
     public void SetDestination(Vector3 _destiantion)
     {
-        destination = _destiantion;
+        if( destination == Vector3.zero)
+            destination = _destiantion;
     }
 
     public float GetDistance()
@@ -57,8 +59,10 @@ public class NavAgent : MonoBehaviour
             return true;
 
         if (0.5f > Vector3.Distance(this.transform.position, this.GetDestination()))
+        {
+            destination = Vector3.zero;
             return true;
-
+        }
         return false;
     }
 

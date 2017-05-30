@@ -8,7 +8,7 @@ public class ColliderAttack : MonoBehaviour
 
     private Animator            animator;
     private AnimatorStateInfo   stateInfo;
-
+    private eDAMAGE_TYPE damageType;
     public float Power { get { return StatusData.PhysicsPower + StatusData.SpellPower; } }
 
     private GameObject target;
@@ -37,16 +37,23 @@ public class ColliderAttack : MonoBehaviour
         coll.enabled = enabled;
     }
 
+    public eDAMAGE_TYPE GetDamageType()
+    {
+        return damageType;
+    }
+    
+
     public void SetActive(bool active)
     {
         gameObject.SetActive(active);
     }
 
-    public void Init(eTRIBE_TYPE type, Animator animator, StatusData stat)
+    public void Init(eTRIBE_TYPE type, Animator animator, StatusData stat , eDAMAGE_TYPE _damageType)
     {
         TribeType     = type;
         this.animator = animator;
         StatusData    = stat;
+        damageType = _damageType;
     }
 
     public void AttackStart(AnimatorStateInfo info)

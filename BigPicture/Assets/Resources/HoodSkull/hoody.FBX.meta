@@ -548,7 +548,7 @@ ModelImporter:
       name: Hit
       takeName: Take 001
       firstFrame: 246
-      lastFrame: 256
+      lastFrame: 250
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

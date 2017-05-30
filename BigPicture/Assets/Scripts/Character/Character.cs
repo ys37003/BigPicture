@@ -63,7 +63,7 @@ public class Character : BaseGameEntity, ICharacter
 
         StartCoroutine("UpdateState");
 
-        colliderAttack.Init(eTRIBE_TYPE.HUMAN, animator, Status);
+        colliderAttack.Init(eTRIBE_TYPE.HUMAN, animator, Status , eDAMAGE_TYPE.PHYSICS);
         foreach (AnimationTrigger trigger in animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;

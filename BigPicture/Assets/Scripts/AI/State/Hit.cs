@@ -34,10 +34,9 @@ public class Hit : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-
-        Vector3 hitPos = entity.transform.position - (entity.transform.forward/2);
-        entity.AddSpeed(-2);
-        entity.SetTarget(hitPos);
+        //Vector3 hitPos = entity.transform.position - (entity.transform.forward/2);
+        //entity.AddSpeed(-2);
+        //entity.SetTarget(hitPos);
         if (true == entity.DieCheck())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
@@ -51,7 +50,6 @@ public class Hit : State
     public void Exit(object _entity)
     {
         entity = (AI)_entity;
-        entity.AddSpeed(2);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Hit", false);
     }
 

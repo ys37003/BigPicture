@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 
 public class StateMachine
@@ -47,12 +48,12 @@ public class StateMachine
     {
         switch (_stateType)
         {
-            case eSTATE.IDLE:       currentState = Idle.Instance();         break;
-            case eSTATE.WALK:       currentState = Walk.Instance();         break;
-            case eSTATE.RUN:        currentState = Run.Instance();          break;
-            case eSTATE.ATTACK:     currentState = Attack.Instance();       break;
-            case eSTATE.BATTLEIDLE: currentState = BattleIdle.Instance();   break;
-            case eSTATE.BATTLEWALK: currentState = BattleWalk.Instance();   break;
+            case eSTATE.IDLE:        currentState = Idle.Instance();         break;
+            case eSTATE.WALK:        currentState = Walk.Instance();         break;
+            case eSTATE.RUN:         currentState = Run.Instance();          break;
+            case eSTATE.ATTACK:      currentState = Attack.Instance();       break;
+            case eSTATE.BATTLEIDLE:  currentState = BattleIdle.Instance();   break;
+            case eSTATE.BATTLEWALK:  currentState = BattleWalk.Instance();   break;
             case eSTATE.SETFOMATION: currentState = SetFomation.Instance(); break;
             case eSTATE.HIT        : currentState = Hit.Instance();         break;
             case eSTATE.DIE        : currentState = Die.Instance();         break;
@@ -77,10 +78,14 @@ public class StateMachine
             case (int)eMESSAGE_TYPE.ATTACKABLE:
                 dummy.AttackAble = true;
                 return true;
-
             case (int)eMESSAGE_TYPE.TO_HIT:
-                AI AIowner = (AI)owner;
-                
+                AI AI_Owner = (AI)owner;
+                if( eDAMAGE_TYPE.PHYSICS == (eDAMAGE_TYPE)_msg.extraInfo )
+                {
+                    Vector3 direction =  AI_Owner.transform.position - ( AI_Owner.transform.forward / 2.0f);
+                    AI_Owner.SetTarget(direction);
+                }
+                //MathAssist.Instance().AddForce_Back(AIowner.GetComponent<Rigidbody>(), 10.0f);
                 this.ChangeState(eSTATE.HIT);
                 return true;
             case (int)eMESSAGE_TYPE.I_SEE_YOU:

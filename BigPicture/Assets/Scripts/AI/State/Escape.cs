@@ -41,12 +41,14 @@ public class Escape : State {
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        entity.AddSpeed(-2);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
     }
 
     public void Exit(object _entity)
     {
         entity = (AI)_entity;
+        entity.AddSpeed(2);
         entity.NavAgent.Clear();
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", false);
     }
