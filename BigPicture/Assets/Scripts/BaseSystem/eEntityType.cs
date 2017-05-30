@@ -42,6 +42,29 @@ public enum eMONSTER_DATASHEET
     NULL
 }
 
+public enum eTALK_BASE
+{
+    NAME,
+    TALK_TYPE,
+    TALK_NUMBER,
+    REPEAT,
+}
+
+public enum eTALK_DETAIL
+{
+    TALK_NUMBER,
+    ORDER,
+    NAME,
+    DESCRIPTION,
+    CHOICE,
+}
+
+public enum eLIKEABILITY
+{
+    NAME,
+    NEED_LIKEABILITY
+}
+
 public enum eRECRUIT_DATASHEET
 {
    NAME,
@@ -53,8 +76,9 @@ public enum eRECRUIT_DATASHEET
 
 public enum ePARTNER_NAME
 {
-    DONUT,
+    DONUT = 1,
     AMARIRIS,
     EAST,
-    CHOCKCHOCK
+    CHOCKCHOCK,
+    END,
 }

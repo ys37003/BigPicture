@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Talk_Base>
+      <Name>0</Name>
+      <TalkType>0</TalkType>
+      <TalkNumber>0</TalkNumber>
+      <Repeat>0</Repeat>
+    </Talk_Base>
+  <Talk_Base>
+    <Name>0</Name>
+    <TalkType>0</TalkType>
+    <TalkNumber>0</TalkNumber>
+    <Repeat>0</Repeat>
+  </Talk_Base>
+</data-set>

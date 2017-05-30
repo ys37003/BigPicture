@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Likeability>
+      <Name>0</Name>
+      <NeedLikeability>0</NeedLikeability>
+    </Likeability>
+    <Likeability>
+      <Name>0</Name>
+      <NeedLikeability>0</NeedLikeability>
+    </Likeability>
+</data-set>
