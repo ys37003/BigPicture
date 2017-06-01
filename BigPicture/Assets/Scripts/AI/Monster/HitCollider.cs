@@ -38,15 +38,18 @@ public class HitCollider : MonoBehaviour {
         
         if (ct != null && ct.TribeType != entity.Tribe)
         {
-            if (false == ai.EnemyCheck())
+
+            try // 물리공격
             {
-                ai.Group.EnemyGroup = other.transform.parent.GetComponentInChildren<AI>().Group;
-                //ai.SetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
-                ai.SetEnemy(ai.Group.EnemyGroup);
-                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ai.Group.EnemyGroup );
+                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<AI>().Group);
+            }
+            catch // 마법공격
+            {
+                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<AI>().Group);
+
             }
 
-            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
+
             CEnemy cEnemy;
 
             cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
@@ -64,6 +67,7 @@ public class HitCollider : MonoBehaviour {
             //    return;
             //}
 
+            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
             if (0 < (ct.Power - ai.Data.StatusData.Armor))
             {
                ai.Data.StatusData.HP -= ct.Power - ai.Data.StatusData.Armor;
@@ -74,20 +78,7 @@ public class HitCollider : MonoBehaviour {
                 ai.Data.StatusData.HP -= 1.0f;
                 cEnemy.damage += 1.0f;
             }
-
-            //else
-            //{
-            //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_HIT, null);
-            //    //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            //    this.Data.StatusData.HP -= (ct.Power - this.GetTotalStatus().Armor);
-            //    //this.Data.StatusData.HP -= (ct.Power);
-            //    //this.Data.StatusData.HP -= 50.0f;
-            //    if (true == this.Die())
-            //        MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
-
-            //    Debug.Log("Hit");
-            //}
         }
-
+        
     }
 }
