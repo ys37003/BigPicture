@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
-using System.Xml.Serialization;
 using UnityEngine;
 
 public class DataManager
@@ -27,9 +25,20 @@ public class DataManager
     /// List<List<>> : 직업
     /// </summary>
     private List<List<MonsterData>> monsterDatas = new List<List<MonsterData>>();
+    public readonly string monsterData_path = "DataSheets/Monster/MonsterElement";
+
+    private Dictionary<ePARTNER_NAME, List<TalkBaseData>> talkBaseDataDic = new Dictionary<ePARTNER_NAME, List<TalkBaseData>>();
+    public readonly string talkBaseData_path = "DataSheets/TalkBase/TalkBase";
+
+    private Dictionary<int, List<TalkDetailData>> talkDetailDataDic = new Dictionary<int, List<TalkDetailData>>();
+    public readonly string talkDetailData_path = "DataSheets/TalkDetail/TalkDetail";
+
+    private Dictionary<ePARTNER_NAME, int> likeAbilityDataDic = new Dictionary<ePARTNER_NAME, int>();
+    public readonly string likeAbilityData_path = "DataSheets/Likeability/Likeability";
+
     private List<List<QuestionStruct>> reCruitDatas = new List<List<QuestionStruct>>();
-    public string monsterData_path = "DataSheets/MonsterElement";
-    public string reCruitData_path = "DataSheets/RecruitElement";
+    public readonly string reCruitData_path = "DataSheets/Recruit/RecruitElement";
+
     private XmlNodeList[] xmlTable;
     private LoadXML loadXml = new LoadXML();
 
@@ -37,6 +46,10 @@ public class DataManager
     public void DataLoad()
     {
         MonsterDataInit();
+        TalkBaseDataInit();
+        TalkDetailDataInit();
+        Likeability();
+
         ReCruitDataInit();
     }
 
@@ -55,7 +68,8 @@ public class DataManager
         {
             for (int j = i * JOB_NUM; j < (i + 1) * JOB_NUM; ++j)
             {
-                MonsterData monsterData = new MonsterData(
+                MonsterData monsterData = new MonsterData
+                (
                     (eTRIBE_TYPE)int.Parse(xmlTable[(int)eMONSTER_DATASHEET.TRIBE].Item(j).InnerText),
                     (eJOB_TYPE)int.Parse(xmlTable[(int)eMONSTER_DATASHEET.JOB].Item(j).InnerText),
                     int.Parse(xmlTable[(int)eMONSTER_DATASHEET.STRENGTH].Item(j).InnerText),
@@ -68,12 +82,77 @@ public class DataManager
                     StatusData.MAX_HP,
                     int.Parse(xmlTable[(int)eMONSTER_DATASHEET.RANGE].Item(j).InnerText),
                     int.Parse(xmlTable[(int)eMONSTER_DATASHEET.EYESIGHT].Item(j).InnerText)
-                    );
+                );
 
                 monsterDatas[i].Add(monsterData);
             }
         }
     }
+
+    void TalkBaseDataInit()
+    {
+        xmlTable = loadXml.LoadXml_TalkBaseData(talkBaseData_path);
+
+        for(ePARTNER_NAME name = ePARTNER_NAME.DONUT; name < ePARTNER_NAME.END; ++name)
+        {
+            talkBaseDataDic.Add(name, new List<TalkBaseData>());
+        }
+
+        for (int i = 0; i < xmlTable[(int)eTALK_BASE.NAME].Count; ++i)
+        {
+            TalkBaseData data = new TalkBaseData
+            (
+                (ePARTNER_NAME)int.Parse(xmlTable[(int)eTALK_BASE.NAME].Item(i).InnerText),
+                int.Parse(xmlTable[(int)eTALK_BASE.TALK_TYPE].Item(i).InnerText),
+                int.Parse(xmlTable[(int)eTALK_BASE.TALK_NUMBER].Item(i).InnerText),
+                int.Parse(xmlTable[(int)eTALK_BASE.REPEAT].Item(i).InnerText) == 1
+            );
+
+            talkBaseDataDic[data.Name].Add(data);
+        }
+    }
+
+    void TalkDetailDataInit()
+    {
+        TextAsset xml = (TextAsset)Resources.Load(talkDetailData_path);
+
+        XmlDocument xmldoc = new XmlDocument();
+        xmldoc.LoadXml(xml.text);
+
+        XmlNodeList xnList = xmldoc.GetElementsByTagName("Talk_Detail");
+
+        foreach (XmlNode xn in xnList)
+        {
+            TalkDetailData data = new TalkDetailData
+            (
+                int.Parse(xn["TalkNumber"].InnerText),
+                int.Parse(xn["Order"].InnerText),
+                (ePARTNER_NAME)int.Parse(xn["Name"].InnerText),
+                xn["Description"].InnerText,
+                xn["Choice"] != null ? xn["Choice"].InnerText : string.Empty,
+                xn["Result"] != null ? xn["Result"].InnerText : string.Empty
+            );
+
+            if (!talkDetailDataDic.ContainsKey(data.TalkNumber))
+                talkDetailDataDic.Add(data.TalkNumber, new List<TalkDetailData>());
+
+            talkDetailDataDic[data.TalkNumber].Add(data);
+        }
+    }
+
+    void Likeability()
+    {
+        xmlTable = loadXml.LoadXml_TalkBaseData(talkBaseData_path);
+
+        for (int i = 0; i < xmlTable[(int)eLIKEABILITY.NAME].Count; ++i)
+        {
+            ePARTNER_NAME name = (ePARTNER_NAME)int.Parse(xmlTable[(int)eTALK_BASE.NAME].Item(i).InnerText);
+            int like = int.Parse(xmlTable[(int)eTALK_BASE.TALK_TYPE].Item(i).InnerText);
+
+            likeAbilityDataDic.Add(name, like);
+        }
+    }
+
     void ReCruitDataInit()
     {
         xmlTable = loadXml.LoadXml_ReCruitData(reCruitData_path);
@@ -96,6 +175,7 @@ public class DataManager
             reCruitDatas[reCruitDatas.Count - 1].Add(questionStruct);
         }
     }
+
     public MonsterData GetMonsterData(eTRIBE_TYPE _entityTribe, eJOB_TYPE _entityJob)
     {
         return monsterDatas[(int)_entityTribe][(int)_entityJob];
