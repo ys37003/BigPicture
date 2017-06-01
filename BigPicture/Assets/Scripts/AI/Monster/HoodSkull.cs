@@ -12,6 +12,8 @@ public class HoodSkull : AI
 
     [SerializeField]
     private GameObject spell;
+
+    HpHandle hpHandle;
     void Start()
     {
 
@@ -34,8 +36,8 @@ public class HoodSkull : AI
         //}
         Group.Add(this);
         SetDelegate();
-
-
+        this.gameObject.AddComponent<HpHandle>();
+        hpHandle = this.transform.GetComponent<HpHandle>();
         EnemyHandle = new EnemyHandle(this.gameObject);
         StateMachine = new StateMachine(this);
     }
@@ -87,6 +89,17 @@ public class HoodSkull : AI
         colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
         StateMachine.Update();
     }
+
+    public override void StartBattle()
+    {
+        StartCoroutine(hpHandle.HpCheck());
+    }
+
+    public override void EndBattle()
+    {
+        StopCoroutine(hpHandle.HpCheck());
+    }
+
     #region Trigger
     void OnTriggerStay(Collider other)
     {

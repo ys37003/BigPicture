@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CoroutineManager : Singleton<CoroutineManager>
 {
-    public void StartCorutine(IEnumerator _function)
+    public void CStartCoroutine(IEnumerator _function)
     {
         StartCoroutine(_function);
     }
 
-    public void StopCoroutine(IEnumerator _function)
+    public void CStopCoroutine(IEnumerator _function)
     {
-        StopCoroutine(_function);
+        CStopCoroutine(_function);
     }
 }

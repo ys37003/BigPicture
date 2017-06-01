@@ -46,7 +46,7 @@ public class SpellAttack {
                 {
                     collider.enabled = true;
                     spell.GetComponent<MeshRenderer>().enabled = false;
-                    CoroutineManager.Instance.StartCorutine(ColliderDelay());
+                    CoroutineManager.Instance.CStartCoroutine(ColliderDelay());
                     break;
                 }
             }

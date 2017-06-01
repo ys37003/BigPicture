@@ -2,55 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : State
+public class Heal : State
 {
-    private static Attack instance;
+    private static Heal instance;
     AI entity;
-    private Attack()
+    private Heal()
     {
 
     }
 
-    public static Attack Instance()
+    public static Heal Instance()
     {
         if (instance == null)
         {
-            instance = new Attack();
+            instance = new Heal();
         }
-
         return instance;
     }
 
     public void Excute(object _entity)
     {
         entity = (AI)_entity;
-        entity.Attack();
         if (true == entity.EndAttack())
         {
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);            
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
         }
     }
 
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-        entity.AttackAble = false;
-        entity.transform.LookAt(entity.GetEnemyPosition());
-        if (null != entity.AttackHandler)
-        {
-            entity.AttackHandler.Attack(entity.GetEnemyPosition());
-            CoroutineManager.Instance.CStartCoroutine(entity.AttackHandler.AttackDelay());
-        }
-
+        Debug.Log("Im Heal");
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);
     }
 
     public void Exit(object _entity)
     {
         entity = (AI)_entity;
-        MessageDispatcher.Instance.DispatchMessage(Random.Range(3,5), entity.ID, entity.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", false);
     }
+
 
     /// <summary>
     /// Walk 상태에서 받은 메세지 처리
@@ -58,7 +49,6 @@ public class Attack : State
     /// <param name="_entity"></param>
     /// <param name="_msg"></param>
     /// <returns></returns>
-    /// 
     public bool OnMessage(object _entity, Telegram _msg)
     {
         entity = (AI)_entity;
@@ -68,7 +58,6 @@ public class Attack : State
                 entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
         }
-
         return false;
     }
 }

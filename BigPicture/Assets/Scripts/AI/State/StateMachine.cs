@@ -54,12 +54,13 @@ public class StateMachine
             case eSTATE.ATTACK:      currentState = Attack.Instance();       break;
             case eSTATE.BATTLEIDLE:  currentState = BattleIdle.Instance();   break;
             case eSTATE.BATTLEWALK:  currentState = BattleWalk.Instance();   break;
-            case eSTATE.SETFOMATION: currentState = SetFomation.Instance(); break;
-            case eSTATE.HIT        : currentState = Hit.Instance();         break;
-            case eSTATE.DIE        : currentState = Die.Instance();         break;
-            case eSTATE.COME_ON    : currentState = ComeOn.Instance();      break;
-            case eSTATE.ESCAPE     : currentState = Escape.Instance();      break;   
-        }
+            case eSTATE.SETFOMATION: currentState = SetFomation.Instance();  break;
+            case eSTATE.HIT        : currentState = Hit.Instance();          break;
+            case eSTATE.DIE        : currentState = Die.Instance();          break;
+            case eSTATE.COME_ON    : currentState = ComeOn.Instance();       break;
+            case eSTATE.ESCAPE     : currentState = Escape.Instance();       break;
+            case eSTATE.HEAL       : currentState = Heal.Instance();         break; 
+        }                                                                    
     }
 
     public bool HandleMessgae(Telegram _msg)

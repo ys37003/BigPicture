@@ -41,7 +41,7 @@ public class EnemyHandle
                 return enemyList[i];
             }
         }
-        Debug.Log("GetEnemy is Fail");
+        //Debug.Log("GetEnemy is Fail");
         return null;
     }
 
@@ -111,6 +111,8 @@ public class EnemyHandle
         Sort();
         while (true)
         {
+            if (0 == enemyList.Count)
+                break;
             if(sortTime + 5.0f < Time.time)
             {
                 sortTime = Time.time;
