@@ -13,5 +13,6 @@
     SPREAD,
     COME_ON,
     ESCAPE,
+    HEAL,
     NULL
 }

@@ -84,7 +84,7 @@ public class ColliderAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Monster")
+        if(other.tag == this.tag)
         {
             Target = other.gameObject;
         }

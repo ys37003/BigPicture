@@ -31,56 +31,54 @@ public class HitCollider : MonoBehaviour {
 
         if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState() )
         {
-            Debug.Log("무적");
             return;
         }
+
         ColliderAttack ct = other.GetComponent<ColliderAttack>();
         
         if (ct != null && ct.TribeType != entity.Tribe)
         {
-            if (false == ai.EnemyCheck())
+
+            try // 물리공격
             {
-                
-                ai.Group.EnemyGroup = other.transform.parent.GetComponentInChildren<AI>().Group;
-                //ai.SetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
-                ai.SetEnemy(ai.Group.EnemyGroup);
-                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ai.Group.EnemyGroup );
+                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<AI>().Group);
+            }
+            catch // 마법공격
+            {
+                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<AI>().Group);
+
             }
 
-            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            CEnemy cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
+
+            CEnemy cEnemy;
+
+            cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
+
+            if (null == cEnemy)
+                cEnemy = ai.EnemyHandle.GetEnemy(ct.transform.parent.GetComponentInChildren<BaseGameEntity>().gameObject);
+
+
 
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, ct.GetDamageType() );
 
+            //if (ai.GetStatus().EvasionRate <= Random.Range(0, 100))
+            //{
+            //    //Debug.Log(other.name + "의 공격 회피");
+            //    return;
+            //}
+
+            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
             if (0 < (ct.Power - ai.Data.StatusData.Armor))
             {
-                Debug.Log(ai.ID + "가 받은 Damage : " + (ct.Power - ai.Data.StatusData.Armor));
-               // ai.Data.StatusData.HP -= ct.Power - ai.Data.StatusData.Armor;
-                cEnemy.damage += (ct.Power - ai.Data.StatusData.Armor);
+               ai.Data.StatusData.HP -= ct.Power - ai.Data.StatusData.Armor;
+               cEnemy.damage += (ct.Power - ai.Data.StatusData.Armor);
             }
             else
             {
-                //ai.Data.StatusData.HP -= 1.0f;
+                ai.Data.StatusData.HP -= 1.0f;
                 cEnemy.damage += 1.0f;
             }
-
-            if (ai.GetStatus().EvasionRate <= Random.Range(0, 100))
-            {
-                Debug.Log(other.name + "의 공격 회피");
-            }
-            //else
-            //{
-            //    MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_HIT, null);
-            //    //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            //    this.Data.StatusData.HP -= (ct.Power - this.GetTotalStatus().Armor);
-            //    //this.Data.StatusData.HP -= (ct.Power);
-            //    //this.Data.StatusData.HP -= 50.0f;
-            //    if (true == this.Die())
-            //        MessageDispatcher.Instance.DispatchMessage(0, this.ID, this.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
-
-            //    Debug.Log("Hit");
-            //}
         }
-
+        
     }
 }

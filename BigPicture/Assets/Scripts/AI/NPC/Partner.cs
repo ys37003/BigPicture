@@ -35,8 +35,8 @@ public class Partner : AI, ICharacter
     }
     void Start()
     {
-        //Data = DataManager.Instance().GetData(this.Tribe, this.Job);
-        Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
+        Data = DataManager.Instance().GetMonsterData(eTRIBE_TYPE.HOODSKULL, this.Job);
+        //Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
         Group = this.GetComponentInParent<Group>();

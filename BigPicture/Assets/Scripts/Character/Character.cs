@@ -184,11 +184,11 @@ public class Character : BaseGameEntity, ICharacter
 
         if (ct != null && ct.TribeType != Tribe)
         {
-            try
+            try // 물리공격
             {
                 Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<AI>().Group);
             }
-            catch
+            catch // 마법공격
             {
                 Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<AI>().Group );
                 

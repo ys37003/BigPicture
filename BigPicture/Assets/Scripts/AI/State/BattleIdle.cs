@@ -30,20 +30,19 @@ public class BattleIdle : State
         if (null == entity.Group.EnemyGroup || false == entity.Group.EnemyGroup.BattleAble())
         {
             entity.Group.EnemyGroup = null;
-            CoroutineManager.Instance.StopCoroutine(entity.EnemyHandle.SortEnemy());
             entity.EnemyHandle.Clear();
-
+            entity.EndBattle();
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
             return;
         }
 
-        if (entity.AttackRange < entity.TargetDistance() )
+        if (entity.AttackRange < entity.TargetDistance())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
             return;
         }
 
-        
+
         if (true == entity.AttackAble)
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
@@ -99,16 +98,20 @@ public class BattleIdle : State
             case (int)eMESSAGE_TYPE.TO_RUN:
                 {
                     entity.StateMachine.ChangeState(eSTATE.RUN);
-                    return true;
+
                 }
+                return true;
+
             case (int)eMESSAGE_TYPE.TO_ESCAPE:
                 {
                     entity.DestinationCheck = Time.time;
                     Vector3 destination = entity.EscapePosition(entity.Group.NearestEnemy(entity.transform.position));
                     entity.SetTarget(destination);
                     entity.StateMachine.ChangeState(eSTATE.ESCAPE);
-                    return true;
+
                 }
+                return true;
+
             case (int)eMESSAGE_TYPE.AVOID_ATTACK:
                 {
                     Vector3 destination;
@@ -121,8 +124,20 @@ public class BattleIdle : State
                         entity.SetTarget(destination);
                         entity.StateMachine.ChangeState(eSTATE.ESCAPE);
                     }
-                    return true;
+
                 }
+                return true;
+
+            case (int)eMESSAGE_TYPE.PLESE_HEAL:
+                {
+                    BaseGameEntity hurtEntity = EntityManager.Instance.IDToEntity(_msg.sender);
+                    AI hurtAI = hurtEntity.gameObject.GetComponent<AI>();
+                    Debug.Log("Before : " + hurtAI.Data.StatusData.HP);
+                    hurtAI.Data.StatusData.HP += 50;
+                    Debug.Log("After : " + hurtAI.Data.StatusData.HP);
+                    entity.StateMachine.ChangeState(eSTATE.HEAL);
+                }
+                return true;
         }
 
         return false;

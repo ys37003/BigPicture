@@ -75,9 +75,10 @@ public class Walk : State
                 if (null != entity.Group.EnemyGroup)
                 {
                     entity.SetEnemy(entity.Group.EnemyGroup);
-                    CoroutineManager.Instance.StartCorutine(entity.EnemyHandle.SortEnemy());
+                    CoroutineManager.Instance.CStartCoroutine(entity.EnemyHandle.SortEnemy());
                     entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 }
+                entity.StartBattle();
                 return true;
         }
         return false;

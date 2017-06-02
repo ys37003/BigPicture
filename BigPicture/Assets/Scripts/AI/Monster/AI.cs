@@ -8,7 +8,9 @@ public class AI : BaseGameEntity
     private StateMachine stateMachine;
     private SpellAttack attackHandler;
     private Group group;
+
     private MonsterData data;
+
     public  StatusData addStatus;
     private Animator animator;
     private NavAgent navAgent;
@@ -262,7 +264,7 @@ public class AI : BaseGameEntity
     {
         if( _destination == Vector3.zero)
         {
-            Debug.Log("Destination is NULL");
+            //Debug.Log("Destination is NULL");
         }
         NavAgent.SetDestination(_destination);
         StartCoroutine(NavAgent.MoveToTarget());
@@ -371,5 +373,15 @@ public class AI : BaseGameEntity
     public void AddSpeed(float _speed)
     {
         this.NavAgent.SetSpeed(this.navAgent.GetSpeed() + _speed );
+    }
+
+    public virtual void StartBattle()
+    {
+
+    }
+
+    public virtual void EndBattle()
+    {
+
     }
 }
