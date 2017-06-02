@@ -57,7 +57,7 @@ public class CharacterController : MonoBehaviour
 
             animator.SetFloat("Move", move);
 
-            if (!IsMove)
+            if (IsMove == false)
             {
                 // 카메라의 정면을 기준으로 캐릭터 방향 설정
                 forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
