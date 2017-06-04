@@ -58,8 +58,14 @@ public abstract class UIBase<T> : MonoBehaviour, IUIBase where T : class
             instance = go.GetComponent<T>();
 
             UIBase<T> ui = instance as UIBase<T>;
-            go = Instantiate(go, UIManager.Instance.GetUIRoot(ui.type), false);
+            UIPanel panel = UIManager.Instance.GetUIRoot(ui.type).GetComponent<UIPanel>();
+
+            go = Instantiate(go, panel.transform, false);
             go.transform.localScale = Vector3.one;
+
+            UIWidget widget = go.GetComponent<UIWidget>();
+            widget.width    = (int)panel.width;
+            widget.height   = (int)panel.height;
 
             instance = go.GetComponent<T>();
         }

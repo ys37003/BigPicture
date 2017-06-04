@@ -142,7 +142,7 @@ public class DataManager
 
     void Likeability()
     {
-        xmlTable = loadXml.LoadXml_TalkBaseData(talkBaseData_path);
+        xmlTable = loadXml.LoadXml_LikeAbilityData(likeAbilityData_path);
 
         for (int i = 0; i < xmlTable[(int)eLIKEABILITY.NAME].Count; ++i)
         {
@@ -179,6 +179,22 @@ public class DataManager
     public MonsterData GetMonsterData(eTRIBE_TYPE _entityTribe, eJOB_TYPE _entityJob)
     {
         return monsterDatas[(int)_entityTribe][(int)_entityJob];
+    }
+
+    public List<TalkBaseData> GetTalkBaseDataList(ePARTNER_NAME name)
+    {
+        if (!talkBaseDataDic.ContainsKey(name))
+            return null;
+
+        return talkBaseDataDic[name];
+    }
+
+    public List<TalkDetailData> GetTalkDetailDataList(int talkNumber)
+    {
+        if (!talkDetailDataDic.ContainsKey(talkNumber))
+            return null;
+
+        return talkDetailDataDic[talkNumber];
     }
 
     public List<QuestionStruct> GetRecruitData(ePARTNER_NAME _name)

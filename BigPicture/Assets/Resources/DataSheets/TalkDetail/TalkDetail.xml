@@ -17,8 +17,8 @@
 		<Order>2</Order>
 		<Name>1</Name>
 		<Description>나 좀 도와줄래?</Description>
-		<Choice>좋아\음.. 싫어</Choice>
-		<Result>O3,L1,Q1\O4</Result>
+		<Choice>좋아#음.. 싫어</Choice>
+		<Result>O3,L1,Q1#O4</Result>
 	</Talk_Detail>
 	<Talk_Detail>
 		<TalkNumber>0</TalkNumber>
@@ -38,7 +38,7 @@
 		<Order>0</Order>
 		<Name>1</Name>
 		<Description>나도 파티에 참가하고 싶어</Description>
-		<Choice>좋아\생각해보고</Choice>
+		<Choice>좋아#생각해보고</Choice>
 		<Result>RE,L1</Result>
 	</Talk_Detail>
 </data-set>
