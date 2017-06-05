@@ -7,7 +7,7 @@ public class Character : BaseGameEntity, ICharacter
     /// 기본 능력치
     /// </summary>
     public StatusData Status { get; set; }
-
+    public StatusData AddStatus { get; set; }
     public int SkillPoint { get; set; }
 
     private eDAMAGE_TYPE damageType = eDAMAGE_TYPE.PHYSICS;
@@ -63,7 +63,7 @@ public class Character : BaseGameEntity, ICharacter
 
         StartCoroutine("UpdateState");
 
-        colliderAttack.Init(eTRIBE_TYPE.HUMAN, animator, Status , eDAMAGE_TYPE.PHYSICS);
+        colliderAttack.Init(eTRIBE_TYPE.HUMAN, animator, Status , AddStatus , eDAMAGE_TYPE.PHYSICS);
         foreach (AnimationTrigger trigger in animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
@@ -75,6 +75,7 @@ public class Character : BaseGameEntity, ICharacter
     public void Init(StatusData status)
     {
         Status = status;
+        AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0,0);
         SkillPoint = 10;
     }
 

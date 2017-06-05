@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicsAttack : AttackHandler {
+public class PhysicsAttack : AttackElement {
 
 	// Use this for initialization
 	void Start () {
@@ -13,8 +13,18 @@ public class PhysicsAttack : AttackHandler {
 	void Update () {
 		
 	}
-    public override void Attack()
+    public override void Attack(GameObject _ob)
     {
         Debug.Log("PhysicsAttack");
+    }
+
+    void Debuff()
+    {
+
+    }
+
+    void DamageAndDebuff()
+    {
+
     }
 }

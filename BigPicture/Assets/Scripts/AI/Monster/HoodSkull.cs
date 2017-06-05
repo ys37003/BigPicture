@@ -18,6 +18,8 @@ public class HoodSkull : AI
     {
 
         Data = DataManager.Instance().GetMonsterData(this.Tribe, this.Job);
+        AddStatus = new StatusData(0,0,0,0,0,0,0,0);
+
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
         Group = this.GetComponentInParent<Group>();
@@ -51,23 +53,23 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Dealer;
                 Approach = Delegates.Instance.Approach_Dealer;
 
-                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, eDAMAGE_TYPE.PHYSICS);
-                AttackHandler = null;
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS);
+                AttackElement = new PhysicsAttack();
                 foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
                 {
                     trigger.ColliderAttack = colliderAttack;
                 }
 
-                AttackRange = 1.5f;
+                AttackRange = 2.0f;
                 break;
             case eJOB_TYPE.FORWARD:
                 SetDestination = Delegates.Instance.SetDestination_Foword;
                 SetFomation = Delegates.Instance.SetFomation_Foword;
                 Approach = Delegates.Instance.Approach_Foword;
 
-                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, eDAMAGE_TYPE.SPELL);
-                AttackHandler = new SpellAttack();
-                AttackHandler.Init(spell, this);
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.SPELL);
+                AttackElement = new SpellAttack();
+                AttackElement.Init(spell, this);
 
                 AttackRange = 5.0f;
                 break;
@@ -76,9 +78,9 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
 
-                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, eDAMAGE_TYPE.SPELL);
-                AttackHandler = new SpellAttack();
-                AttackHandler.Init(spell, this);
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.SPELL);
+                AttackElement = new SpellAttack();
+                AttackElement.Init(spell, this);
                 AttackRange = 5.0f;
                 break;
         }

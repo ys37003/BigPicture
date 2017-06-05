@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class AI : BaseGameEntity
 {
     private StateMachine stateMachine;
-    private SpellAttack attackHandler;
+    private AttackElement attackElement;
     private Group group;
 
     private MonsterData data;
@@ -89,10 +89,10 @@ public class AI : BaseGameEntity
         set { group = value; }
     }
 
-    public SpellAttack AttackHandler
+    public AttackElement AttackElement
     {
-        get { return attackHandler; }
-        set { attackHandler = value; }
+        get { return attackElement; }
+        set { attackElement = value; }
     }
 
     public float DestinationCheck
@@ -129,7 +129,7 @@ public class AI : BaseGameEntity
     {
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
-            if (1.0f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+            if (0.8f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
                 return true;
         }
         return false;

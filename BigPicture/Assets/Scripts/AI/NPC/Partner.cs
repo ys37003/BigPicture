@@ -36,6 +36,7 @@ public class Partner : AI, ICharacter
     void Start()
     {
         Data = DataManager.Instance().GetMonsterData(eTRIBE_TYPE.HOODSKULL, this.Job);
+        AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
         //Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
@@ -66,22 +67,22 @@ public class Partner : AI, ICharacter
                 SetFomation = Delegates.Instance.SetFomation_Partner;
                 Approach = Delegates.Instance.Approach_Dealer;
 
-                colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData , eDAMAGE_TYPE.PHYSICS );
-                AttackHandler = null;
+                colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData , AddStatus, eDAMAGE_TYPE.PHYSICS );
+                AttackElement = new PhysicsAttack();
                 foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
                 {
                     trigger.ColliderAttack = colliderAttack;
                 }
 
-                AttackRange = 1.5f;
+                AttackRange = 2.0f;
                 break;
             case eJOB_TYPE.FORWARD:
                 AttackRange = 5.0f;
-                AttackHandler = null;
+                AttackElement = null;
                 break;
             case eJOB_TYPE.SUPPORT:
                 AttackRange = 5.0f;
-                AttackHandler = null;
+                AttackElement = null;
                 break;
         }
     }

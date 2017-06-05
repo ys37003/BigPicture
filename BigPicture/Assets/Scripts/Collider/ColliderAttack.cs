@@ -5,11 +5,11 @@ public class ColliderAttack : MonoBehaviour
 {
     public eTRIBE_TYPE          TribeType    { get; private set; }
     public StatusData           StatusData   { get; private set; }
-
+    public StatusData           AddStatusData { get; private set; }
     private Animator            animator;
     private AnimatorStateInfo   stateInfo;
     private eDAMAGE_TYPE damageType;
-    public float Power { get { return StatusData.PhysicsPower + StatusData.SpellPower; } }
+    public float Power { get { return (StatusData.PhysicsPower + AddStatusData.PhysicsPower ) + (StatusData.SpellPower + AddStatusData.SpellPower ); } }
 
     private GameObject target;
     public  GameObject Target
@@ -48,11 +48,12 @@ public class ColliderAttack : MonoBehaviour
         gameObject.SetActive(active);
     }
 
-    public void Init(eTRIBE_TYPE type, Animator animator, StatusData stat , eDAMAGE_TYPE _damageType)
+    public void Init(eTRIBE_TYPE type, Animator animator, StatusData stat , StatusData addStat , eDAMAGE_TYPE _damageType)
     {
         TribeType     = type;
         this.animator = animator;
         StatusData    = stat;
+        AddStatusData = addStat;
         damageType = _damageType;
     }
 

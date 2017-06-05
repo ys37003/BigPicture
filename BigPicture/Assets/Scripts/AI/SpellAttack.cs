@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellAttack {
+public class SpellAttack : AttackElement{
 
     private AI owner;
     private GameObject spell;
@@ -10,7 +10,7 @@ public class SpellAttack {
     private Color color;
     private float time;
     // Use this for initializatio
-    public void Init(GameObject _go , AI _onwer)
+    public override void Init(GameObject _go , AI _onwer)
     {
         spell = _go;
         color = spell.GetComponent<MeshRenderer>().material.color;
@@ -19,20 +19,18 @@ public class SpellAttack {
         owner = _onwer;
     }
 
-
-    public void Attack(Vector3 _pos)
+    public override void Attack(Vector3 _pos)
     {
         _pos.y += 0.1f;
         spell.transform.position = _pos;
         spell.GetComponent<MeshRenderer>().enabled = true;
         color.a = 0.0f;
         spell.GetComponent<MeshRenderer>().material.color = color;
-        //spell.GetComponent<Material>().color = color;
         time = Time.time;
-
+        CoroutineManager.Instance.CStartCoroutine(AttackDelay());
     }
 
-    public IEnumerator AttackDelay()
+    IEnumerator AttackDelay()
     {
         MessageDispatcher.Instance.DispatchMessage(0.5f, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK,owner.transform.position);
         while (true)

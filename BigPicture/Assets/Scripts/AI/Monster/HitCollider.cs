@@ -29,13 +29,21 @@ public class HitCollider : MonoBehaviour {
         if (null == entity || null == ai)
             return;
 
-        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState() )
+
+        ColliderAttack ct = other.GetComponent<ColliderAttack>();
+        if (null == ct)
         {
             return;
         }
 
-        ColliderAttack ct = other.GetComponent<ColliderAttack>();
-        
+        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState() || eSTATE.ATTACK != ct.GetComponentInParent<AI>().GetCurrentState())
+        {
+            return;
+        }
+
+
+        Debug.Log("Im' Hit");
+
         if (ct != null && ct.TribeType != entity.Tribe)
         {
 

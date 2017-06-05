@@ -5,27 +5,55 @@ using UnityEngine;
 public class EffectPool : Singleton<EffectPool> {
 
     [SerializeField]
-    List<GameObject> effectPool = new List<GameObject>();
-	// Use this for initialization
-	void Start () {
-		for(int i = 0; i <this.transform.childCount; ++ i )
+    List<GameObject> effect1_Pool = new List<GameObject>();
+    [SerializeField]
+    List<GameObject> effect2_Pool = new List<GameObject>();
+    // Use this for initialization
+    void Start () {
+
+        Transform effect = this.transform.Find("Effect1");
+		for(int i = 0; i < effect.childCount; ++ i )
         {
-            this.transform.GetChild(i).gameObject.SetActive(false);
-            effectPool.Add(this.transform.GetChild(i).gameObject);
+            effect.GetChild(i).gameObject.SetActive(false);
+            effect1_Pool.Add(effect.GetChild(i).gameObject);
 
         }
-	}
+
+        effect = this.transform.Find("Effect2");
+        for (int i = 0; i < effect.childCount; ++i)
+        {
+            effect.GetChild(i).gameObject.SetActive(false);
+            effect2_Pool.Add(effect.GetChild(i).gameObject);
+        }
+    }
 	
 	public GameObject Pop()
     {
-        GameObject dummy = effectPool[0];
+        GameObject dummy;
 
-        effectPool.RemoveAt(0);
+        if(0 == Random.Range(0,2))
+        {
+            dummy = effect1_Pool[0];
+            effect1_Pool.RemoveAt(0);
+        }
+        else
+        {
+            dummy = effect2_Pool[0];
+            effect2_Pool.RemoveAt(0);
+        }
+
         return dummy;
     }
 
     public void Push(GameObject _go)
     {
-        effectPool.Add(_go);
+        if ("Effect1" == _go.transform.parent.name)
+        {
+            effect1_Pool.Add(_go);
+        }
+        else if ("Effect2" == _go.transform.parent.name)
+        {
+            effect2_Pool.Add(_go);
+        }
     }
 }

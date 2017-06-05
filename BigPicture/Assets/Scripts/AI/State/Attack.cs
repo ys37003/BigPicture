@@ -36,10 +36,9 @@ public class Attack : State
         entity = (AI)_entity;
         entity.AttackAble = false;
         entity.transform.LookAt(entity.GetEnemyPosition());
-        if (null != entity.AttackHandler)
+        if (null != entity.AttackElement)
         {
-            entity.AttackHandler.Attack(entity.GetEnemyPosition());
-            CoroutineManager.Instance.CStartCoroutine(entity.AttackHandler.AttackDelay());
+            entity.AttackElement.Attack(entity.GetEnemyPosition());
         }
 
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);

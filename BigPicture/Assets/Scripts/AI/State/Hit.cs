@@ -25,10 +25,10 @@ public class Hit : State
     {
         entity = (AI)_entity;
         entity.Hit();
-        if (true == entity.EndHit())
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
-        }
+        //if (true == entity.EndHit())
+        //{
+            
+        //}
     }
 
     public void Enter(object _entity)
@@ -42,9 +42,8 @@ public class Hit : State
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
             return;
         }
-
+        MessageDispatcher.Instance.DispatchMessage(1.0f, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Hit", true);
-
     }
 
     public void Exit(object _entity)

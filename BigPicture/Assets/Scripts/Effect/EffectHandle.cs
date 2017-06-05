@@ -5,10 +5,12 @@ using UnityEngine;
 public class EffectHandle : MonoBehaviour {
 
     bool effectAble = true;
+    AI owner;
 	// Use this for initialization
 	void Start () {
-		
-	}
+        owner = this.transform.GetComponentInParent<AI>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -19,7 +21,7 @@ public class EffectHandle : MonoBehaviour {
     {
         if(this.tag != other.tag)
         {
-            if (true == effectAble)
+            if (true == effectAble && eSTATE.ATTACK == owner.GetCurrentState())
             {
                 GameObject effect = EffectPool.Instance.Pop();
                 StartCoroutine(effect.GetComponent<SelfDestruct>().LifeTime());
