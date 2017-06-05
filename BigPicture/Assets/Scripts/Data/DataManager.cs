@@ -46,9 +46,9 @@ public class DataManager
     public void DataLoad()
     {
         MonsterDataInit();
-        //TalkBaseDataInit();
-        //TalkDetailDataInit();
-        //Likeability();
+        TalkBaseDataInit();
+        TalkDetailDataInit();
+        Likeability();
 
         ReCruitDataInit();
     }

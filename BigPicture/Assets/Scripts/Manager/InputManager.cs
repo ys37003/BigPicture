@@ -82,6 +82,18 @@ public class InputManager : Singleton<InputManager>
                 CharacterUI.CreateUI();
             }
         }, null));
+
+        AddKey(new InputKey(KeyCode.F4, InputType.KeyDown), new InputValue(() =>
+        {
+            if(TalkUI.IsShow)
+            {
+                TalkUI.DestroyUI();
+            }
+            else
+            {
+                TalkUI.CreateUI(null, null, DataManager.Instance().GetTalkBaseDataList(ePARTNER_NAME.DONUT)[0]);
+            }
+        }, null));
     }
 
     private void Start()
