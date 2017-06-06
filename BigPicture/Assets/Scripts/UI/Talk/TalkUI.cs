@@ -71,7 +71,7 @@ public class TalkUI : UIBase<TalkUI>
             {
                 lastBar.onFinishTyper = () =>
                 {
-                    talkBars[0].SetData(new TalkChoice(data.Name, data.ChoiceList, data.ResultList));
+                    talkBars[0].SetData(new TalkChoice(ePARTNER_NAME.Pearl, data.ChoiceList, data.ResultList));
                     lastBar = talkBars[0];
                     lastBar.onClickNext = onTalkResult;
                 };

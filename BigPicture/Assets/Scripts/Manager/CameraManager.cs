@@ -25,8 +25,6 @@ public class CameraManager : Singleton<CameraManager>
         {
             return a.depth.CompareTo(b.depth);
         });
-
-        Debug.Log("d");
     }
 
     public Camera GetCamera(eCAMERA camera)
