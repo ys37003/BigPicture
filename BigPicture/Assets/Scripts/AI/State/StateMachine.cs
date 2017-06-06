@@ -83,7 +83,7 @@ public class StateMachine
                 AI AI_Owner = (AI)owner;
                 if( eDAMAGE_TYPE.PHYSICS == (eDAMAGE_TYPE)_msg.extraInfo )
                 {
-                    Vector3 direction =  AI_Owner.transform.position - ( AI_Owner.transform.forward / 2.0f);
+                    Vector3 direction =  AI_Owner.transform.position - ( AI_Owner.transform.forward / 1.5f);
                     AI_Owner.SetTarget(direction);
                 }
                 //MathAssist.Instance().AddForce_Back(AIowner.GetComponent<Rigidbody>(), 10.0f);

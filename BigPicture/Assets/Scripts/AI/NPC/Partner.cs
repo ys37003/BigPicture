@@ -29,8 +29,9 @@ public class Partner : AI, ICharacter
         private set { damageType = value; }
     }
 
-    public void Init(BoxCollider _colEyeSight , ColliderAttack _colliderAttack  , BaseGameEntity _player , eJOB_TYPE _job)
+    public void Init(BoxCollider _colEyeSight , ColliderAttack _colliderAttack  , BaseGameEntity _player , eJOB_TYPE _job , Transform _hud_ui_pivot)
     {
+        hud_ui_pivot = _hud_ui_pivot;
         colEyeSight = _colEyeSight;
         colliderAttack = _colliderAttack;
         player = _player;
@@ -39,7 +40,6 @@ public class Partner : AI, ICharacter
 
     void Start()
     {
-        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Status);
         Data = DataManager.Instance().GetMonsterData(eTRIBE_TYPE.HOODSKULL, this.Job);
         AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
         //Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
@@ -47,6 +47,7 @@ public class Partner : AI, ICharacter
         NavAgent = this.GetComponent<NavAgent>();
         EntityGroup = this.GetComponentInParent<Group>();
         EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type , EntityGroup);
+        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Status);
         AttackAble = true;
         SkillPoint = 5;
 

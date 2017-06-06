@@ -22,7 +22,6 @@ public class HoodSkull : AI
 
     void Start()
     {
-        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Status);
         Data = DataManager.Instance().GetMonsterData(this.Tribe, this.Job);
         AddStatus = new StatusData(0,0,0,0,0,0,0,0);
 
@@ -31,6 +30,7 @@ public class HoodSkull : AI
         EntityGroup = this.GetComponentInParent<Group>();
 
         EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type , EntityGroup );
+        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Status);
 
         AttackAble = true;
         // EyeSight Collider 초기화
