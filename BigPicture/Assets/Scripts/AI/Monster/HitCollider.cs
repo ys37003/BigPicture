@@ -36,27 +36,23 @@ public class HitCollider : MonoBehaviour {
             return;
         }
 
-        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState() || eSTATE.ATTACK != ct.GetComponentInParent<AI>().GetCurrentState())
+        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState())// || eSTATE.ATTACK != ct.GetComponentInParent<AI>().GetCurrentState())
         {
             return;
         }
-
-
-        Debug.Log("Im' Hit");
 
         if (ct != null && ct.TribeType != entity.Tribe)
         {
 
             try // 물리공격
             {
-                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<AI>().Group);
+                ai.EntityGroup.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<BattleEntity>().EntityGroup);
             }
             catch // 마법공격
             {
-                ai.Group.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<AI>().Group);
+                ai.EntityGroup.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<BattleEntity>().EntityGroup);
 
             }
-
 
             CEnemy cEnemy;
 
@@ -64,7 +60,6 @@ public class HitCollider : MonoBehaviour {
 
             if (null == cEnemy)
                 cEnemy = ai.EnemyHandle.GetEnemy(ct.transform.parent.GetComponentInChildren<BaseGameEntity>().gameObject);
-
 
 
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, ct.GetDamageType() );
@@ -76,10 +71,10 @@ public class HitCollider : MonoBehaviour {
             //}
 
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            if (0 < (ct.Power - ai.Data.StatusData.Armor))
+            if (0 < (ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor)))
             {
-               ai.Data.StatusData.HP -= ct.Power - ai.Data.StatusData.Armor;
-               cEnemy.damage += (ct.Power - ai.Data.StatusData.Armor);
+               ai.Data.StatusData.HP -= ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor);
+               cEnemy.damage += (ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor));
             }
             else
             {
@@ -87,6 +82,5 @@ public class HitCollider : MonoBehaviour {
                 cEnemy.damage += 1.0f;
             }
         }
-        
     }
 }

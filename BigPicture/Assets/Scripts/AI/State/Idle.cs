@@ -68,10 +68,10 @@ public class Idle : State
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                entity.Group.EnemyGroup = (Group)_msg.extraInfo;
-                if (null != entity.Group.EnemyGroup)
+                entity.EntityGroup.EnemyGroup = (Group)_msg.extraInfo;
+                if (null != entity.EntityGroup.EnemyGroup)
                 {
-                    entity.SetEnemy(entity.Group.EnemyGroup);
+                    entity.SetEnemy(entity.EntityGroup.EnemyGroup);
                     CoroutineManager.Instance.CStartCoroutine(entity.EnemyHandle.SortEnemy());
                     entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 }

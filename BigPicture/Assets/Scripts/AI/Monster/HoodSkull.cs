@@ -22,9 +22,9 @@ public class HoodSkull : AI
 
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
-        Group = this.GetComponentInParent<Group>();
+        EntityGroup = this.GetComponentInParent<Group>();
 
-        EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type , Group);
+        EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type , EntityGroup );
 
         AttackAble = true;
         // EyeSight Collider 초기화
@@ -36,7 +36,7 @@ public class HoodSkull : AI
         //{
         //    trigger.ColliderAttack = colliderAttack;
         //}
-        Group.Add(this);
+        EntityGroup.Add(this);
         SetDelegate();
         this.gameObject.AddComponent<HpHandle>();
         hpHandle = this.transform.GetComponent<HpHandle>();
@@ -55,6 +55,7 @@ public class HoodSkull : AI
 
                 colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS);
                 AttackElement = new PhysicsAttack();
+                AttackElement.Init(this);
                 foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
                 {
                     trigger.ColliderAttack = colliderAttack;
@@ -69,7 +70,7 @@ public class HoodSkull : AI
 
                 colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.SPELL);
                 AttackElement = new SpellAttack();
-                AttackElement.Init(spell, this);
+                AttackElement.Init(this, spell);
 
                 AttackRange = 5.0f;
                 break;
@@ -80,7 +81,7 @@ public class HoodSkull : AI
 
                 colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.SPELL);
                 AttackElement = new SpellAttack();
-                AttackElement.Init(spell, this);
+                AttackElement.Init(this, spell);
                 AttackRange = 5.0f;
                 break;
         }
@@ -122,9 +123,9 @@ public class HoodSkull : AI
         if ( colType != eTRIBE_TYPE.NULL && colType != this.Tribe && 0 == EnemyHandle.Count())
         {
             this.transform.LookAt(other.transform.position);
-            this.Group.EnemyGroup = other.GetComponent<BaseGameEntity>().EntityGroup;
-            this.Group.EnemyGroup.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.I_SEE_YOU, this.Group);
-            this.Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, this.Group.EnemyGroup );
+            this.EntityGroup.EnemyGroup = other.GetComponent<BattleEntity>().EntityGroup;
+            this.EntityGroup.EnemyGroup.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.I_SEE_YOU, this.EntityGroup);
+            this.EntityGroup.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, this.EntityGroup.EnemyGroup );
         }
     }
 

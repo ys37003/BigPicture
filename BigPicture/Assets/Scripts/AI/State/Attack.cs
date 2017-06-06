@@ -38,7 +38,7 @@ public class Attack : State
         entity.transform.LookAt(entity.GetEnemyPosition());
         if (null != entity.AttackElement)
         {
-            entity.AttackElement.Attack(entity.GetEnemyPosition());
+            entity.AttackElement.Attack(entity.EnemyHandle.GetEnemy(0).enemy);
         }
 
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);

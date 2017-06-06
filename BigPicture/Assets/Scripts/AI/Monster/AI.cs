@@ -3,15 +3,14 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class AI : BaseGameEntity
+public class AI : BattleEntity
 {
     private StateMachine stateMachine;
     private AttackElement attackElement;
-    private Group group;
 
     private MonsterData data;
+    
 
-    public  StatusData addStatus;
     private Animator animator;
     private NavAgent navAgent;
 
@@ -46,12 +45,6 @@ public class AI : BaseGameEntity
         set { data = value; }
     }
 
-    public StatusData AddStatus
-    {
-        get { return addStatus; }
-        set { addStatus = value; }
-    }
-
     /// <summary>
     /// 몬스터의 에니메이터
     /// </summary>
@@ -81,14 +74,6 @@ public class AI : BaseGameEntity
         get { return attackRange; }
         set { attackRange = value; }
     }
-   
-    public Group Group
-    {
-        get { return group; }
-
-        set { group = value; }
-    }
-
     public AttackElement AttackElement
     {
         get { return attackElement; }
@@ -170,7 +155,7 @@ public class AI : BaseGameEntity
 
         EnemyHandle.RemoveEnemy();
 
-        if (null == this.Group.EnemyGroup)
+        if (null == this.EntityGroup.EnemyGroup)
         {
             this.EnemyClear();
         }
@@ -178,7 +163,7 @@ public class AI : BaseGameEntity
         {
             if (0 == EnemyHandle.Count())
             {
-                GameObject dummy = this.Group.NearestEnemy(this.transform.position);
+                GameObject dummy = this.EntityGroup.NearestEnemy(this.transform.position);
                 if (null != dummy)
                 {
                     CEnemy enemy = new CEnemy();
@@ -238,7 +223,7 @@ public class AI : BaseGameEntity
     }
     public void Clear()
     {
-        Group.ReMove(this);
+        EntityGroup.ReMove(this);
         this.gameObject.SetActive(false);
     }
 
@@ -353,7 +338,7 @@ public class AI : BaseGameEntity
         }
         else
         {
-            destination = this.transform.position - this.Group.GetCenter();
+            destination = this.transform.position - this.EntityGroup.GetCenter();
             destination = this.transform.position - destination;
         }
         NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);

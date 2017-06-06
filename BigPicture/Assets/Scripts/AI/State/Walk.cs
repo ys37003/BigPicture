@@ -36,7 +36,7 @@ public class Walk : State
     {
         entity = (AI)_entity;
         entity.DestinationCheck = Time.time;
-        entity.SetTarget(entity.SetDestination(entity, entity.Group));
+        entity.SetTarget(entity.SetDestination(entity, entity.EntityGroup));
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Walk", true);
     }
 
@@ -71,10 +71,10 @@ public class Walk : State
                 return true;
 
             case (int)eMESSAGE_TYPE.FIND_ENEMY:
-                entity.Group.EnemyGroup = (Group)_msg.extraInfo;
-                if (null != entity.Group.EnemyGroup)
+                entity.EntityGroup.EnemyGroup = (Group)_msg.extraInfo;
+                if (null != entity.EntityGroup.EnemyGroup)
                 {
-                    entity.SetEnemy(entity.Group.EnemyGroup);
+                    entity.SetEnemy(entity.EntityGroup.EnemyGroup);
                     CoroutineManager.Instance.CStartCoroutine(entity.EnemyHandle.SortEnemy());
                     entity.StateMachine.ChangeState(eSTATE.SETFOMATION);
                 }

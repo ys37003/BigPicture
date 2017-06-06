@@ -23,7 +23,7 @@ public class EffectHandle : MonoBehaviour {
         {
             if (true == effectAble && eSTATE.ATTACK == owner.GetCurrentState())
             {
-                GameObject effect = EffectPool.Instance.Pop();
+                GameObject effect = EffectPool.Instance.Pop(0);
                 StartCoroutine(effect.GetComponent<SelfDestruct>().LifeTime());
 
                 effect.transform.position = this.transform.position + this.transform.forward ;
@@ -46,6 +46,21 @@ public class EffectHandle : MonoBehaviour {
                 break;
             }
             yield return null;
+        }
+    }
+
+    public void NomalAttack()
+    {
+        if (true == effectAble && eSTATE.ATTACK == owner.GetCurrentState())
+        {
+            GameObject effect = EffectPool.Instance.Pop(0);
+            StartCoroutine(effect.GetComponent<SelfDestruct>().LifeTime());
+
+            effect.transform.position = this.transform.position + this.transform.forward;
+
+            effect.SetActive(true);
+            effectAble = false;
+            StartCoroutine(Deley());
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Character : BaseGameEntity, ICharacter
+public class Character : BattleEntity, ICharacter
 {
     /// <summary>
     /// 기본 능력치
     /// </summary>
     public StatusData Status { get; set; }
-    public StatusData AddStatus { get; set; }
+
     public int SkillPoint { get; set; }
 
     private eDAMAGE_TYPE damageType = eDAMAGE_TYPE.PHYSICS;
@@ -187,11 +187,11 @@ public class Character : BaseGameEntity, ICharacter
         {
             try // 물리공격
             {
-                Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<AI>().Group);
+                Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<BattleEntity>().EntityGroup);
             }
             catch // 마법공격
             {
-                Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<AI>().Group );
+                Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<BattleEntity>().EntityGroup);
                 
             }
             if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
@@ -201,6 +201,17 @@ public class Character : BaseGameEntity, ICharacter
 
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
             Status.HP -= (ct.Power - Status.Armor);
+        }
+    }
+
+    public override void HanleMessage(Telegram _msg)
+    {
+        switch (_msg.message)
+        {
+            case (int)eMESSAGE_TYPE.ADDSTATUS:
+                AddStatus = (StatusData)_msg.extraInfo;
+                MessageDispatcher.Instance.DispatchMessage(2.0f, this.ID, this.ID, (int)eMESSAGE_TYPE.ADDSTATUS, new StatusData(0, 0, 0, 0, 0, 0, 0, 0));
+                return;
         }
     }
 }
