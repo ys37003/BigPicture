@@ -11,7 +11,7 @@ public class HUDUIPoolManager : Singleton<HUDUIPoolManager>
     private void Awake()
     {
         if (tfHUDUIRoot == null)
-            tfHUDUIRoot = GameObject.Find("HUD UI Root").transform;
+            tfHUDUIRoot = GameObject.Find("UI Root HUD").transform;
 
         pool = new GameObject().transform;
         pool.name = "HUDUI_Pool";

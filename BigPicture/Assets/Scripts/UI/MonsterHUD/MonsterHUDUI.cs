@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Utility;
 
 /// <summary>
 /// 리소스와 변수명을 같게 하기.
@@ -21,7 +22,7 @@ public enum eBuff
 public class MonsterHUDUI : MonoBehaviour
 {
     [SerializeField] private HPbar hpbar;
-    [SerializeField] private UIFollowTarget follow;
+    [SerializeField] private FollowTarget follow;
     [SerializeField] private UITexture emotion;
     [SerializeField] private List<UITexture> buffList;
 
@@ -35,10 +36,7 @@ public class MonsterHUDUI : MonoBehaviour
     public void Init(Transform target, StatusData status)
     {
         hpbar.SetData(status);
-
-        follow.target     = target;
-        follow.gameCamera = CameraManager.Instance.GetCamera(eCAMERA.Main);
-        follow.uiCamera   = CameraManager.Instance.GetCamera(eCAMERA.HUD);
+        follow.target = target;
     }
 
     public void SetEmotion(eEmotion e)
