@@ -4,13 +4,13 @@
 		<TalkNumber>0</TalkNumber>
 		<Order>0</Order>
 		<Name>1</Name>
-		<Description>안녕</Description>
+		<Description>안녕 펄?</Description>
 	</Talk_Detail>
 	<Talk_Detail>
 		<TalkNumber>0</TalkNumber>
 		<Order>1</Order>
 		<Name>0</Name>
-		<Description>하이염</Description>
+    <Description>너도 안녕 도넛!</Description>
 	</Talk_Detail>
 	<Talk_Detail>
 		<TalkNumber>0</TalkNumber>
@@ -23,16 +23,17 @@
 	<Talk_Detail>
 		<TalkNumber>0</TalkNumber>
 		<Order>3</Order>
-		<Name>0</Name>
+		<Name>1</Name>
 		<Description>촉촉이한테 안부를 전해줘</Description>
 		<Result>RE</Result>
 	</Talk_Detail>
 	<Talk_Detail>
 		<TalkNumber>0</TalkNumber>
 		<Order>4</Order>
-		<Name>0</Name>
+		<Name>1</Name>
 		<Description>그.. 그래…</Description>
-	</Talk_Detail>
+    <Result>RE</Result>
+  </Talk_Detail>
 	<Talk_Detail>
 		<TalkNumber>1</TalkNumber>
 		<Order>0</Order>

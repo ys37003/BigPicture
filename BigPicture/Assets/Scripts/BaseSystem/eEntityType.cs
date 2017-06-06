@@ -76,7 +76,8 @@ public enum eRECRUIT_DATASHEET
 
 public enum ePARTNER_NAME
 {
-    DONUT = 1,
+    Pearl,
+    DONUT,
     AMARIRIS,
     EAST,
     CHOCKCHOCK,

@@ -3,14 +3,20 @@ using System.Collections.Generic;
 
 public class TalkResultData
 {
+    public readonly ePARTNER_NAME Name;
     public readonly int  Talk;
     public readonly int  Order;
     public readonly int  Like;
     public readonly int  Quest;
     public readonly bool RepeatEnd;
 
-    public TalkResultData(string result)
+    public TalkResultData(ePARTNER_NAME name, string result)
     {
+        Name = name;
+        Talk = -1;
+        Order = -1;
+        RepeatEnd = false;
+
         if (result.Length <= 0)
             return;
 
@@ -67,8 +73,36 @@ public class TalkDetailData
             if (str.Length <= 0)
                 continue;
 
-            TalkResultData data = new TalkResultData(str);
+            TalkResultData data = new TalkResultData(name, str);
             ResultList.Add(data);
         }
+    }
+}
+
+public class TalkDescription
+{
+    public readonly ePARTNER_NAME Name;
+    public readonly string Description;
+    public readonly TalkResultData Result;
+
+    public TalkDescription(ePARTNER_NAME name, string desc, TalkResultData result)
+    {
+        Name = name;
+        Description = desc;
+        Result = result;
+    }
+}
+
+public class TalkChoice
+{
+    public readonly ePARTNER_NAME        Name;
+    public readonly List<string>         ChoiceList;
+    public readonly List<TalkResultData> ResultList;
+
+    public TalkChoice(ePARTNER_NAME name, List<string> choice, List<TalkResultData> result)
+    {
+        Name       = name;
+        ChoiceList = choice;
+        ResultList = result;
     }
 }
