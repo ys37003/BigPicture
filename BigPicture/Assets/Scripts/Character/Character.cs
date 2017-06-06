@@ -169,11 +169,11 @@ public class Character : BattleEntity, ICharacter
 
         while(true)
         {
-            if (sTime + second <= Time.time)
-            {
-                Status.HP += Status.RecoveryRPS;
-                sTime = Time.time;
-            }
+            //if (sTime + second <= Time.time)
+            //{
+            //    Status.HP += Status.RecoveryRPS;
+            //    sTime = Time.time;
+            //}
 
             yield return null;
         }

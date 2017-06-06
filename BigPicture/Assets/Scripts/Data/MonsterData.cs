@@ -44,4 +44,13 @@ public class MonsterData
         EyeSight   = es;
         StatusData = stat;
     }
+
+    public MonsterData(MonsterData data)
+    {
+        Tribe      = data.Tribe;
+        Job        = data.Job;
+        Range      = data.Range;
+        EyeSight   = data.EyeSight;
+        StatusData = new StatusData(data.StatusData);
+    }
 }

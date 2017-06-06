@@ -40,8 +40,6 @@ public class InputManager : Singleton<InputManager>
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         AddKey(new InputKey(KeyCode.Escape, InputType.KeyDown), new InputValue(() =>
         {
             UIManager.Instance.LastUIClose();

@@ -20,8 +20,6 @@ public class UIManager : Singleton<UIManager>
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         uiListDic.Add(UIType.Camera2D, new List<IUIBase>());
         uiListDic.Add(UIType.Camera3D, new List<IUIBase>());
 

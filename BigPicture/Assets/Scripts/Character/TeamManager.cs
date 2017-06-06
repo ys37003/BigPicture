@@ -20,11 +20,6 @@ public class TeamManager : Singleton<TeamManager>
 {
     private List<ICharacter> characterList = new List<ICharacter>();
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     private void LoadCharacter()
     {
         // 차후 구현

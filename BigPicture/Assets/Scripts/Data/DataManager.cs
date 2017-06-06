@@ -178,7 +178,7 @@ public class DataManager
 
     public MonsterData GetMonsterData(eTRIBE_TYPE _entityTribe, eJOB_TYPE _entityJob)
     {
-        return monsterDatas[(int)_entityTribe][(int)_entityJob];
+        return new MonsterData(monsterDatas[(int)_entityTribe][(int)_entityJob]);
     }
 
     public List<TalkBaseData> GetTalkBaseDataList(ePARTNER_NAME name)
