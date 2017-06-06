@@ -30,7 +30,7 @@ public class HoodSkull : AI
         EntityGroup = this.GetComponentInParent<Group>();
 
         EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type , EntityGroup );
-        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Status);
+        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Data.StatusData );
 
         AttackAble = true;
         // EyeSight Collider 초기화
@@ -95,8 +95,10 @@ public class HoodSkull : AI
 
     private void Update()
     {
-        colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
-        StateMachine.Update();
+        //colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
+
+       if(false == WorldManager.Instance.pause)
+            StateMachine.Update();
     }
 
     public override void StartBattle()

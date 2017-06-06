@@ -35,6 +35,12 @@ public class EntityManager
         return entityDic[_entityID];
     }
 
+
+    public Dictionary<int, BaseGameEntity> GetEntityList()
+    {
+        return entityDic;
+    }
+
     public int GetCount()
     {
         return entityDic.Count;

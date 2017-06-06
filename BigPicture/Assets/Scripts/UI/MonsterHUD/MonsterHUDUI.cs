@@ -8,8 +8,12 @@ using UnityEngine;
 public enum eEmotion
 {
     // ex
-    Angry,
-    Hpppy,
+    Agro,
+    Attack,
+    Hit,
+    Idle,
+    Run,
+    Walk
 }
 
 public enum eBuff

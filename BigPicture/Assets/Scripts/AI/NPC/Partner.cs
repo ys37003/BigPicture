@@ -47,7 +47,7 @@ public class Partner : AI, ICharacter
         NavAgent = this.GetComponent<NavAgent>();
         EntityGroup = this.GetComponentInParent<Group>();
         EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type , EntityGroup);
-        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Status);
+        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Data.StatusData );
         AttackAble = true;
         SkillPoint = 5;
 
@@ -96,8 +96,9 @@ public class Partner : AI, ICharacter
     // Update is called once per frame
     void Update()
     {
-        colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
-        StateMachine.Update();
+        //colEyeSight.center = new Vector3(0, this.transform.position.y + 1, Data.EyeSight);
+        if (false == WorldManager.Instance.pause)
+            StateMachine.Update();
     }
 
     public override void HanleMessage(Telegram _msg)

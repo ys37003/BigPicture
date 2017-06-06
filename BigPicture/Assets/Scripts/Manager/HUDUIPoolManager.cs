@@ -22,7 +22,7 @@ public class HUDUIPoolManager : Singleton<HUDUIPoolManager>
         MonsterHUDUI ui = null;
 
         if (monsterHudUIqueue.Count > 0)
-            monsterHudUIqueue.Dequeue();
+            ui = monsterHudUIqueue.Dequeue();
 
         if (ui == null)
         {

@@ -51,10 +51,12 @@ public class InputManager : Singleton<InputManager>
         {
             if (StatusUI.IsShow)
             {
+                WorldManager.Instance.SetPause(false);
                 StatusUI.DestroyUI();
             }
             else
             {
+                WorldManager.Instance.SetPause(true);
                 StatusUI.CreateUI();
             }
         }, null));
@@ -63,10 +65,12 @@ public class InputManager : Singleton<InputManager>
         {
             if (OptionUI.IsShow)
             {
+                WorldManager.Instance.SetPause(false);
                 OptionUI.DestroyUI();
             }
             else
             {
+                WorldManager.Instance.SetPause(true);
                 OptionUI.CreateUI();
             }
         }, null));
@@ -75,10 +79,12 @@ public class InputManager : Singleton<InputManager>
         {
             if(CharacterUI.IsShow)
             {
+                WorldManager.Instance.SetPause(false);
                 CharacterUI.DestroyUI();
             }
             else
             {
+                WorldManager.Instance.SetPause(true);
                 CharacterUI.CreateUI();
             }
         }, null));
@@ -87,10 +93,12 @@ public class InputManager : Singleton<InputManager>
         {
             if(TalkUI.IsShow)
             {
+                WorldManager.Instance.SetPause(false);
                 TalkUI.DestroyUI();
             }
             else
             {
+                WorldManager.Instance.SetPause(true);
                 TalkUI.CreateUI(null, null, DataManager.Instance().GetTalkBaseDataList(ePARTNER_NAME.DONUT)[0]);
             }
         }, null));

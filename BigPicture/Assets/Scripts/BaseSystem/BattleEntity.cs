@@ -12,5 +12,4 @@ public class BattleEntity : BaseGameEntity
         EntityGroup = _group;
         base.EntityInit(_type, _tribe, _job);
     }
-
 }
