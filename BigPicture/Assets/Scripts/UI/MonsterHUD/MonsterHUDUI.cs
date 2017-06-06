@@ -23,6 +23,7 @@ public class MonsterHUDUI : MonoBehaviour
 {
     [SerializeField] private HPbar hpbar;
     [SerializeField] private FollowTarget follow;
+    [SerializeField] private LookAtTarget lookAt;
     [SerializeField] private UITexture emotion;
     [SerializeField] private List<UITexture> buffList;
 
@@ -37,6 +38,7 @@ public class MonsterHUDUI : MonoBehaviour
     {
         hpbar.SetData(status);
         follow.target = target;
+        lookAt.target = CameraManager.Instance.GetCamera((int)eCAMERA.Main).transform;
     }
 
     public void SetEmotion(eEmotion e)
