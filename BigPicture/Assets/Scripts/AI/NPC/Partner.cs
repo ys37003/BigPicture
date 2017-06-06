@@ -8,6 +8,9 @@ public class Partner : AI, ICharacter
     private BoxCollider colEyeSight;
 
     [SerializeField]
+    private Transform hud_ui_pivot;
+
+    [SerializeField]
     private ColliderAttack colliderAttack = null;
 
     [SerializeField]
@@ -15,7 +18,7 @@ public class Partner : AI, ICharacter
 
     private CommandController commandController;
 
-    public StatusData Status { get { return Data.StatusData; } }
+    public StatusData Status { get { return Data.StatusData + AddStatus; } }
 
     public int SkillPoint { get; set; }
 
@@ -33,8 +36,10 @@ public class Partner : AI, ICharacter
         player = _player;
         job_Type = _job;
     }
+
     void Start()
     {
+        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Status);
         Data = DataManager.Instance().GetMonsterData(eTRIBE_TYPE.HOODSKULL, this.Job);
         AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
         //Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));

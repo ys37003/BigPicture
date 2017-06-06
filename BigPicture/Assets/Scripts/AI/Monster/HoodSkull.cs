@@ -8,15 +8,21 @@ public class HoodSkull : AI
     private BoxCollider colEyeSight;
 
     [SerializeField]
+    private Transform hud_ui_pivot;
+
+    [SerializeField]
     private ColliderAttack colliderAttack = null;
 
     [SerializeField]
     private GameObject spell;
 
     HpHandle hpHandle;
+
+    public StatusData Status { get { return Data.StatusData + AddStatus; } }
+
     void Start()
     {
-
+        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Status);
         Data = DataManager.Instance().GetMonsterData(this.Tribe, this.Job);
         AddStatus = new StatusData(0,0,0,0,0,0,0,0);
 
