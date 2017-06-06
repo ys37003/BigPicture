@@ -15,7 +15,11 @@ public class HPbar : MonoBehaviour
     private void onUpdateHP(float hp)
     {
         slider.value = hp / StatusData.MAX_HP;
-        labelHP.text = string.Format("{0}/", hp);
-        labelMaxHP.text = string.Format("{0}", StatusData.MAX_HP);
+
+        if (labelHP != null && labelMaxHP != null)
+        {
+            labelHP.text    = string.Format("{0}/", hp);
+            labelMaxHP.text = string.Format("{0}", StatusData.MAX_HP);
+        }
     }
 }

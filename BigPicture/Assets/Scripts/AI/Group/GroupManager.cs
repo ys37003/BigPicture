@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroupManager : Singleton<GroupManager> {
-
+public class GroupManager : Singleton<GroupManager>
+{
     [SerializeField]
     List<Group> GroupList = new List<Group>();
 	// Use this for initialization
