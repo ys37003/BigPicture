@@ -10,7 +10,7 @@ public class SpellAttack : AttackElement{
     private Color color;
     private float time;
     // Use this for initializatio
-    public override void Init(GameObject _go , AI _onwer)
+    public override void Init(AI _onwer , GameObject _go = null)
     {
         spell = _go;
         color = spell.GetComponent<MeshRenderer>().material.color;
@@ -19,10 +19,9 @@ public class SpellAttack : AttackElement{
         owner = _onwer;
     }
 
-    public override void Attack(Vector3 _pos)
+    public override void Attack(GameObject _go)
     {
-        _pos.y += 0.1f;
-        spell.transform.position = _pos;
+        spell.transform.position = _go.transform.position;
         spell.GetComponent<MeshRenderer>().enabled = true;
         color.a = 0.0f;
         spell.GetComponent<MeshRenderer>().material.color = color;

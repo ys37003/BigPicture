@@ -40,8 +40,8 @@ public class Partner : AI, ICharacter
         //Data = new MonsterData(this.Tribe, this.Job, 1, 5, new StatusData(1, 1, 1, 1, 1, 1, 1, StatusData.MAX_HP));
         Animator = this.GetComponent<Animator>();
         NavAgent = this.GetComponent<NavAgent>();
-        Group = this.GetComponentInParent<Group>();
-        EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type , Group );
+        EntityGroup = this.GetComponentInParent<Group>();
+        EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type , EntityGroup);
         AttackAble = true;
         SkillPoint = 5;
 
@@ -49,7 +49,7 @@ public class Partner : AI, ICharacter
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 10, Data.EyeSight * 2);
 
         
-        this.Group.Add(this);
+        this.EntityGroup.Add(this);
         TeamManager.Instance.AddCharacter(this);
         SetDelegate();
 
@@ -69,6 +69,7 @@ public class Partner : AI, ICharacter
 
                 colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData , AddStatus, eDAMAGE_TYPE.PHYSICS );
                 AttackElement = new PhysicsAttack();
+                AttackElement.Init(this);
                 foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
                 {
                     trigger.ColliderAttack = colliderAttack;

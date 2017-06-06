@@ -27,21 +27,26 @@ public class EffectPool : Singleton<EffectPool> {
         }
     }
 	
-	public GameObject Pop()
+	public GameObject Pop(int _value)
     {
-        GameObject dummy;
+        GameObject dummy = null;
 
-        if(0 == Random.Range(0,2))
-        {
-            dummy = effect1_Pool[0];
-            effect1_Pool.RemoveAt(0);
-        }
-        else
-        {
-            dummy = effect2_Pool[0];
-            effect2_Pool.RemoveAt(0);
-        }
 
+        switch(_value)
+        {
+            case 0:
+                {
+                    dummy = effect1_Pool[0];
+                    effect1_Pool.RemoveAt(0);
+                }
+                break;
+            case 1:
+                {
+                    dummy = effect2_Pool[0];
+                    effect2_Pool.RemoveAt(0);
+                }
+                break;
+        }
         return dummy;
     }
 
@@ -49,7 +54,7 @@ public class EffectPool : Singleton<EffectPool> {
     {
         if ("Effect1" == _go.transform.parent.name)
         {
-            effect1_Pool.Add(_go);
+            effect1_Pool.Add(_go);  
         }
         else if ("Effect2" == _go.transform.parent.name)
         {

@@ -90,7 +90,12 @@ public class StateMachine
                 this.ChangeState(eSTATE.HIT);
                 return true;
             case (int)eMESSAGE_TYPE.I_SEE_YOU:
-                dummy.Group.EnemyGroup = (Group)_msg.extraInfo;
+                dummy.EntityGroup.EnemyGroup = (Group)_msg.extraInfo;
+                return true;
+
+            case (int)eMESSAGE_TYPE.ADDSTATUS:
+                dummy.AddStatus = (StatusData)_msg.extraInfo;
+                MessageDispatcher.Instance.DispatchMessage(2.0f, dummy.ID, dummy.ID, (int)eMESSAGE_TYPE.ADDSTATUS, new StatusData(0, 0, 0, 0, 0, 0, 0, 0));
                 return true;
         }
         return false;

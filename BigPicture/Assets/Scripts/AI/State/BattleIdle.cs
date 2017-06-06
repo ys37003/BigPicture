@@ -27,9 +27,9 @@ public class BattleIdle : State
 
         entity.BattleIdle();
 
-        if (null == entity.Group.EnemyGroup || false == entity.Group.EnemyGroup.BattleAble())
+        if (null == entity.EntityGroup.EnemyGroup || false == entity.EntityGroup.EnemyGroup.BattleAble())
         {
-            entity.Group.EnemyGroup = null;
+            entity.EntityGroup.EnemyGroup = null;
             entity.EnemyHandle.Clear();
             entity.EndBattle();
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
@@ -105,7 +105,7 @@ public class BattleIdle : State
             case (int)eMESSAGE_TYPE.TO_ESCAPE:
                 {
                     entity.DestinationCheck = Time.time;
-                    Vector3 destination = entity.EscapePosition(entity.Group.NearestEnemy(entity.transform.position));
+                    Vector3 destination = entity.EscapePosition(entity.EntityGroup.NearestEnemy(entity.transform.position));
                     entity.SetTarget(destination);
                     entity.StateMachine.ChangeState(eSTATE.ESCAPE);
 

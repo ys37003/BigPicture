@@ -35,7 +35,7 @@ public class ComeOn : State {
     public void Enter(object _entity)
     {
         entity = (Partner)_entity;
-        entity.SetTarget(entity.SetDestination(entity, entity.Group));
+        entity.SetTarget(entity.SetDestination(entity, entity.EntityGroup));
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Walk", true);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Command", true);
     }

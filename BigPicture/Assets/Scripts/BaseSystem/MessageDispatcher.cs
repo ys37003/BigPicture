@@ -43,8 +43,6 @@ public class MessageDispatcher
             telegram.dispatchTime = Time.time + _delay;
       
             telegramList.Add(telegram);
-            //delayMessageSD.Add(telegram.dispatchTime, telegram);
-            //delayList.Add(telegram.dispatchTime);
         }
     }
 

@@ -34,7 +34,7 @@ public class SetFomation : State
     {
         entity = (AI)_entity;
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
-        entity.SetTarget(entity.SetFomation(entity, entity.Group.GetCenter(entity.GetEnemyPosition()) ) );
+        entity.SetTarget(entity.SetFomation(entity, entity.EntityGroup.GetCenter(entity.GetEnemyPosition()) ) );
     }
 
     public void Exit(object _entity)
