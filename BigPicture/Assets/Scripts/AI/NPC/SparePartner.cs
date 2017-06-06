@@ -10,6 +10,9 @@ public class SparePartner : MonoBehaviour
     private BoxCollider colEyeSight;
 
     [SerializeField]
+    private Transform hud_ui_pivot;
+
+    [SerializeField]
     private ColliderAttack colliderAttack = null;
 
     [SerializeField]
@@ -49,7 +52,7 @@ public class SparePartner : MonoBehaviour
     {
         this.transform.SetParent(playerGroup.transform);
         this.gameObject.AddComponent<Partner>();
-        this.gameObject.GetComponent<Partner>().Init(colEyeSight, colliderAttack, player, _job);
+        this.gameObject.GetComponent<Partner>().Init(colEyeSight, colliderAttack, player, _job , hud_ui_pivot );
         this.gameObject.GetComponentInChildren<HitCollider>().Init(this.gameObject.GetComponent<Partner>(), this.gameObject.GetComponent<Partner>());
         Destroy(this);
     }
