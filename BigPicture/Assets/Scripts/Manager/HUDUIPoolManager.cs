@@ -19,9 +19,12 @@ public class HUDUIPoolManager : Singleton<HUDUIPoolManager>
 
     public MonsterHUDUI GetMonsterHUDUI(Transform target, StatusData status)
     {
-        MonsterHUDUI ui = monsterHudUIqueue.Dequeue();
+        MonsterHUDUI ui = null;
 
-        if(ui == null)
+        if (monsterHudUIqueue.Count > 0)
+            monsterHudUIqueue.Dequeue();
+
+        if (ui == null)
         {
             GameObject go = Resources.Load<GameObject>("UI/Prefabs/MonsterHUDUI");
             go = Instantiate(go, pool, false);
@@ -30,6 +33,7 @@ public class HUDUIPoolManager : Singleton<HUDUIPoolManager>
 
         ui.transform.parent = tfHUDUIRoot;
         ui.transform.localScale = Vector3.one;
+        ui.Init(target, status);
         ui.SetActive(true);
         return ui;
     }
