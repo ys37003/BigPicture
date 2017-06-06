@@ -33,6 +33,7 @@ public class HUDUIPoolManager : Singleton<HUDUIPoolManager>
 
         ui.transform.parent = tfHUDUIRoot;
         ui.transform.localScale = Vector3.one;
+        ui.Init(target, status);
         ui.SetActive(true);
         return ui;
     }
