@@ -15,7 +15,7 @@ public class PhysicsAttack : AttackElement {
     public override void Attack(GameObject _ob)
     {
 
-        switch (Random.Range(0, 5))
+        switch (Random.Range(0, 3))
         {
             case 0:
                 {
@@ -41,7 +41,9 @@ public class PhysicsAttack : AttackElement {
         if (false == debuffAble)
             return;
 
-        StatusData data = new StatusData(-5, -5, 0, 0, 0, 0, 0, 0);
+
+        Debug.Log("Debuff");
+        StatusData data = new StatusData(-5, 0, -5, 0, 0, 0, 0, 0);
 
         BattleEntity agent = _ob.GetComponent<BattleEntity>();
         MessageDispatcher.Instance.DispatchMessage(0, owner.ID, agent.ID, (int)eMESSAGE_TYPE.ADDSTATUS, data);
@@ -55,7 +57,7 @@ public class PhysicsAttack : AttackElement {
         if (false == damageAndDebuffAble)
             return;
 
-        StatusData data = new StatusData(-2, -2, 0, 0, 0, 0, 0, 0);
+        StatusData data = new StatusData(-2, 0, -2, 0, 0, 0, 0, 0);
 
         BattleEntity agent = _ob.GetComponent<BattleEntity>();
 

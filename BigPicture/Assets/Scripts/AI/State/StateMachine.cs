@@ -95,7 +95,8 @@ public class StateMachine
 
             case (int)eMESSAGE_TYPE.ADDSTATUS:
                 dummy.AddStatus = (StatusData)_msg.extraInfo;
-                MessageDispatcher.Instance.DispatchMessage(2.0f, dummy.ID, dummy.ID, (int)eMESSAGE_TYPE.ADDSTATUS, new StatusData(0, 0, 0, 0, 0, 0, 0, 0));
+                dummy.buffUI.SetBuff(dummy.AddStatus);
+                MessageDispatcher.Instance.DispatchMessage(3.0f, dummy.ID, dummy.ID, (int)eMESSAGE_TYPE.ADDSTATUS, new StatusData(0, 0, 0, 0, 0, 0, 0, 0));
                 return true;
         }
         return false;

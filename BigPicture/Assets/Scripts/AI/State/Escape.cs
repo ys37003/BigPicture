@@ -41,6 +41,7 @@ public class Escape : State {
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        entity.HUDUI.SetEmotion(eEmotion.Walk);
         entity.AddSpeed(-2);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
     }

@@ -30,7 +30,9 @@ public class HoodSkull : AI
         EntityGroup = this.GetComponentInParent<Group>();
 
         EntityInit(eENTITY_TYPE.MONSTER, eTRIBE_TYPE.HOODSKULL, job_Type , EntityGroup );
-        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Data.StatusData );
+        HUDUI = HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Data.StatusData );
+        buffUI = this.transform.GetComponent<BuffUI>();
+        buffUI.Init(this);
 
         AttackAble = true;
         // EyeSight Collider 초기화
@@ -63,7 +65,7 @@ public class HoodSkull : AI
                     trigger.ColliderAttack = colliderAttack;
                 }
 
-                AttackRange = 2.0f;
+                AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:
                 SetDestination = Delegates.Instance.SetDestination_Foword;

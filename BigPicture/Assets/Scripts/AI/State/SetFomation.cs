@@ -33,6 +33,7 @@ public class SetFomation : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        entity.HUDUI.SetEmotion(eEmotion.Walk);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
         entity.SetTarget(entity.SetFomation(entity, entity.EntityGroup.GetCenter(entity.GetEnemyPosition()) ) );
     }

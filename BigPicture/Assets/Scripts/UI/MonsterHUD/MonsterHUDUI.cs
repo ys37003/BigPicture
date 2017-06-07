@@ -9,14 +9,20 @@ using UnityStandardAssets.Utility;
 public enum eEmotion
 {
     // ex
-    Angry,
-    Hpppy,
+    Agro,
+    Hit,
+    Attack,
+    Walk,
+    Idle,
+    Run,
 }
 
 public enum eBuff
 {
-    //ex
-    StrUp,
+    PowerUp,
+    PowerDown,
+    SpeedUp,
+    SpeedDown
 }
 
 public class MonsterHUDUI : MonoBehaviour
@@ -26,6 +32,7 @@ public class MonsterHUDUI : MonoBehaviour
     [SerializeField] private LookAtTarget lookAt;
     [SerializeField] private UITexture emotion;
     [SerializeField] private List<UITexture> buffList;
+    [SerializeField] private List<eBuff> eBuffList;
 
     private int buffCount = 0;
 
@@ -49,14 +56,36 @@ public class MonsterHUDUI : MonoBehaviour
 
     public void AddBuff(eBuff b)
     {
-        string buffPath = string.Format("UI/Buff/{0}", b.ToString());
-        buffList[buffCount].mainTexture = Resources.Load<Texture>(buffPath);
-        ++buffCount;
+        if (false == eBuffList.Contains(b))
+            eBuffList.Add(b);
+        //string buffPath = string.Format("UI/Buff/{0}", b.ToString());
+        //buffList[buffCount].mainTexture = Resources.Load<Texture>(buffPath);
+        SetBuff();
     }
 
+    void SetBuff()
+    {
+        for (int i = 0; i < buffList.Count; ++i)
+        {
+            buffList[i].mainTexture = null;
+        }
+
+        for (int i = 0; i < eBuffList.Count; ++i)
+        {
+            string buffPath = string.Format("UI/Buff/{0}", eBuffList[i].ToString());
+            buffList[i].mainTexture = Resources.Load<Texture>(buffPath);
+        }
+    }
     public void RemoveBuff(eBuff b)
     {
-        buffList[buffCount].mainTexture = null;
-        --buffCount;
+        if( true == eBuffList.Contains(b))
+            eBuffList.Remove(b);
+
+        SetBuff();
+        //for(int i = 0; i < buffCount; ++ i)
+        //    buffList[i].mainTexture = null;
+
+
+        //eBuffList.Clear();
     }
 }

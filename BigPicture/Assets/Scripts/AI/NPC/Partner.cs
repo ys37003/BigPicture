@@ -47,14 +47,15 @@ public class Partner : AI, ICharacter
         NavAgent = this.GetComponent<NavAgent>();
         EntityGroup = this.GetComponentInParent<Group>();
         EntityInit(eENTITY_TYPE.NPC, eTRIBE_TYPE.HUMAN, job_Type , EntityGroup);
-        HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Data.StatusData );
+        HUDUI = HUDUIPoolManager.Instance.GetMonsterHUDUI(hud_ui_pivot, Data.StatusData );
+        buffUI = this.transform.GetComponent<BuffUI>();
+        buffUI.Init(this);
         AttackAble = true;
         SkillPoint = 5;
 
         colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 10, Data.EyeSight * 2);
 
-        
         this.EntityGroup.Add(this);
         TeamManager.Instance.AddCharacter(this);
         SetDelegate();
@@ -80,8 +81,7 @@ public class Partner : AI, ICharacter
                 {
                     trigger.ColliderAttack = colliderAttack;
                 }
-
-                AttackRange = 2.0f;
+                AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:
                 AttackRange = 5.0f;

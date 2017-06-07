@@ -9,7 +9,7 @@ public class AI : BattleEntity
     private AttackElement attackElement;
 
     private MonsterData data;
-    
+    public MonsterHUDUI HUDUI { get; set; }
 
     private Animator animator;
     private NavAgent navAgent;
@@ -28,7 +28,7 @@ public class AI : BattleEntity
     public DGApproach Approach;
 
     EnemyHandle enemyHandle;
-
+    public BuffUI buffUI { get; set; }
 #region Get,Set
     public bool AttackAble
     {

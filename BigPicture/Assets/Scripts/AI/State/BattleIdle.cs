@@ -54,6 +54,7 @@ public class BattleIdle : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
+        entity.HUDUI.SetEmotion(eEmotion.Idle);
         if (entity.AttackRange - 1 >
                  Vector3.Distance(entity.transform.position,
                  entity.GetEnemyPosition()))

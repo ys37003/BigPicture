@@ -31,6 +31,7 @@ public class Idle : State
         entity = (AI)_entity;
 
         entity.EnemyClear();
+        entity.HUDUI.SetEmotion(eEmotion.Idle);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Idle", true);
         MessageDispatcher.Instance.DispatchMessage((int)Random.Range(7, 10), entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_WALK, null);
     }
