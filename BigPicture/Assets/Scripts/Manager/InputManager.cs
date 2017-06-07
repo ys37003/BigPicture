@@ -97,7 +97,6 @@ public class InputManager : Singleton<InputManager>
             else
             {
                 WorldManager.Instance.SetPause(true);
-                TalkUI.CreateUI(null, null, DataManager.Instance().GetTalkBaseDataList(ePARTNER_NAME.DONUT)[0]);
             }
         }, null));
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TalkUI : UIBase<TalkUI>
 {
     [SerializeField] private TalkBar[] talkBars;
-    [SerializeField] private UIFollowTarget[] uiFollows;
+    [SerializeField] private UIFollowTarget[] follows;
 
     private TalkBaseData data;
     private List<TalkDetailData> detailDataList = new List<TalkDetailData>();
@@ -19,6 +19,14 @@ public class TalkUI : UIBase<TalkUI>
         TalkUI ui = CreateUI();
         ui.data = data;
         ui.detailDataList = DataManager.Instance().GetTalkDetailDataList(data.TalkNumber);
+
+        ui.follows[0].target     = tfCharHud;
+        ui.follows[0].gameCamera = CameraManager.Instance.GetCamera(eCAMERA.Main);
+        ui.follows[0].uiCamera   = CameraManager.Instance.GetCamera(eCAMERA.UI2D);
+
+        ui.follows[1].target     = tfNpcHud;
+        ui.follows[1].gameCamera = CameraManager.Instance.GetCamera(eCAMERA.Main);
+        ui.follows[1].uiCamera   = CameraManager.Instance.GetCamera(eCAMERA.UI2D);
     }
 
     protected override void OverrideAwake()
@@ -67,11 +75,12 @@ public class TalkUI : UIBase<TalkUI>
 
             lastBar = talkBars[1];
             lastBar.onClickNext = onTalkResult;
+
             if (data.ChoiceList.Count > 0)
             {
                 lastBar.onFinishTyper = () =>
                 {
-                    talkBars[0].SetData(new TalkChoice(data.Name, data.ChoiceList, data.ResultList));
+                    talkBars[0].SetData(new TalkChoice(ePARTNER_NAME.Pearl, data.ChoiceList, data.ResultList));
                     lastBar = talkBars[0];
                     lastBar.onClickNext = onTalkResult;
                 };

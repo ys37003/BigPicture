@@ -45,7 +45,7 @@ public class MonsterHUDUI : MonoBehaviour
     {
         hpbar.SetData(status);
         follow.target = target;
-        lookAt.target = CameraManager.Instance.GetCamera((int)eCAMERA.Main).transform;
+        lookAt.target = CameraManager.Instance.GetCamera(eCAMERA.Main).transform;
     }
 
     public void SetEmotion(eEmotion e)

@@ -28,9 +28,11 @@ public class TalkBar : MonoBehaviour
     public void SetData(TalkDescription data)
     {
         descData = data;
+        choiceData = null;
 
         string illustPath = string.Format("UI/Illust/ui_conversation_illust{0}", (int)data.Name);
         texture.mainTexture = Resources.Load<Texture>(illustPath);
+        texture.MakePixelPerfect();
 
         labelDescription.text = data.Description;
 
@@ -41,9 +43,11 @@ public class TalkBar : MonoBehaviour
     public void SetData(TalkChoice data)
     {
         choiceData = data;
+        descData = null;
 
         string illustPath = string.Format("UI/Illust/ui_conversation_illust{0}", (int)data.Name);
         texture.mainTexture = Resources.Load<Texture>(illustPath);
+        texture.MakePixelPerfect();
 
         labelDescription.text = string.Empty;
 
@@ -79,7 +83,7 @@ public class TalkBar : MonoBehaviour
         {
             typerEffect.Finish();
         }
-        else if (onClickNext != null)
+        else if (descData != null && onClickNext != null)
         {
             onClickNext(descData.Result);
             onClickNext = null;
@@ -88,7 +92,7 @@ public class TalkBar : MonoBehaviour
 
     public void OnClickResult1()
     {
-        if (choiceData.ResultList.Count <= 0)
+        if (choiceData == null || choiceData.ResultList.Count <= 0)
             return;
 
         if (onClickNext != null)
@@ -100,7 +104,7 @@ public class TalkBar : MonoBehaviour
 
     public void OnClickResult2()
     {
-        if (choiceData.ResultList.Count <= 1)
+        if (choiceData == null || choiceData.ResultList.Count <= 1)
             return;
 
         if (onClickNext != null)
@@ -112,7 +116,7 @@ public class TalkBar : MonoBehaviour
 
     public void OnClickResult3()
     {
-        if (choiceData.ResultList.Count <= 2)
+        if (choiceData == null || choiceData.ResultList.Count <= 2)
             return;
 
         if (onClickNext != null)

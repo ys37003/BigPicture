@@ -10,8 +10,8 @@ public enum eCAMERA
     Main,
     Cinema,
     HUD,
-    UI2D,
     UI3D,
+    UI2D,
 }
 
 public class CameraManager : Singleton<CameraManager>
@@ -25,8 +25,6 @@ public class CameraManager : Singleton<CameraManager>
         {
             return a.depth.CompareTo(b.depth);
         });
-
-        Debug.Log("d");
     }
 
     public Camera GetCamera(eCAMERA camera)

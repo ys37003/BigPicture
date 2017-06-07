@@ -7,6 +7,9 @@ public class SparePartner : MonoBehaviour
     public ePARTNER_NAME name;
 
     [SerializeField]
+    private GameObject partner;
+
+    [SerializeField]
     private BoxCollider colEyeSight;
 
     [SerializeField]
@@ -29,21 +32,19 @@ public class SparePartner : MonoBehaviour
         name = ePARTNER_NAME.DONUT;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Human" && other.GetComponent<Character>() != null)
         {
-            this.transform.LookAt(other.transform);
-            if (Input.GetKeyDown(KeyCode.F))
+            this.partner.transform.LookAt(other.transform);
+            if (!TalkUI.IsShow && Input.GetKeyDown(KeyCode.F))
             {
-                Debug.Log("hi");
-                ReCruitManager.Instance.StartRequist(this);
+                TalkUI.CreateUI
+                (
+                    (TeamManager.Instance.GetCharacter(0) as Character).transform.Find("head_up_pivot"), 
+                    hud_ui_pivot,
+                    DataManager.Instance().GetTalkBaseDataList(name)[0]
+                );
             }
         }
     }
@@ -51,9 +52,9 @@ public class SparePartner : MonoBehaviour
     public void SetComponent()
     {
         this.transform.SetParent(playerGroup.transform);
-        this.gameObject.AddComponent<Partner>();
-        this.gameObject.GetComponent<Partner>().Init(colEyeSight, colliderAttack, player, _job , hud_ui_pivot );
-        this.gameObject.GetComponentInChildren<HitCollider>().Init(this.gameObject.GetComponent<Partner>(), this.gameObject.GetComponent<Partner>());
+        this.partner.AddComponent<Partner>();
+        this.partner.GetComponent<Partner>().Init(colEyeSight, colliderAttack, player, _job , hud_ui_pivot );
+        this.partner.GetComponentInChildren<HitCollider>().Init(this.partner.GetComponent<Partner>(), this.partner.GetComponent<Partner>());
         Destroy(this);
     }
 }
