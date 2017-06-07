@@ -10,8 +10,8 @@ public enum eCAMERA
     Main,
     Cinema,
     HUD,
-    UI2D,
     UI3D,
+    UI2D,
 }
 
 public class CameraManager : Singleton<CameraManager>
