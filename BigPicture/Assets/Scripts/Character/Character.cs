@@ -169,11 +169,11 @@ public class Character : BattleEntity, ICharacter
 
         while(true)
         {
-            //if (sTime + second <= Time.time)
-            //{
-            //    Status.HP += Status.RecoveryRPS;
-            //    sTime = Time.time;
-            //}
+            if (sTime + second <= Time.time)
+            {
+                Status.HP += Status.RecoveryRPS;
+                sTime = Time.time;
+            }
 
             yield return null;
         }
@@ -185,6 +185,17 @@ public class Character : BattleEntity, ICharacter
 
         if (ct != null && ct.TribeType != Tribe)
         {
+            if(Status.HP <= 0)
+                return;
+
+            if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
+            {
+                //return;
+            }
+
+            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
+            Status.HP -= (ct.Power - Status.Armor);
+
             try // 물리공격
             {
                 Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<BattleEntity>().EntityGroup);
@@ -192,15 +203,16 @@ public class Character : BattleEntity, ICharacter
             catch // 마법공격
             {
                 Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<BattleEntity>().EntityGroup);
-                
-            }
-            if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
-            {
-                //Debug.Log(string.Format("{0}의 공격 회피", other.name));
             }
 
-            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            Status.HP -= (ct.Power - Status.Armor);
+            if (Status.HP <= 0 && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Die"))
+            {
+                animator.Play("Die");
+            }
+            else if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit"))
+            {
+                animator.Play("Hit");
+            }
         }
     }
 
