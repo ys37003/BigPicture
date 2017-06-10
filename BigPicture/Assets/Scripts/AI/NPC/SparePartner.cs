@@ -25,25 +25,20 @@ public class SparePartner : MonoBehaviour
     private BaseGameEntity player;
 
     [SerializeField]
-    private eJOB_TYPE _job;
-
-    void Start()
-    {
-        name = ePARTNER_NAME.DONUT;
-    }
+    private eJOB_TYPE job;
 
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Human" && other.GetComponent<Character>() != null)
         {
-            this.partner.transform.LookAt(other.transform);
+            partner.transform.LookAt(other.transform);
             if (!TalkUI.IsShow && Input.GetKeyDown(KeyCode.F))
             {
                 TalkUI.CreateUI
                 (
                     (TeamManager.Instance.GetCharacter(0) as Character).transform.Find("head_up_pivot"), 
                     hud_ui_pivot,
-                    DataManager.Instance().GetTalkBaseDataList(name)[0]
+                    DataManager.Instance().GetTalkBaseData(name)
                 );
             }
         }
@@ -51,10 +46,10 @@ public class SparePartner : MonoBehaviour
 
     public void SetComponent()
     {
-        this.transform.SetParent(playerGroup.transform);
-        this.partner.AddComponent<Partner>();
-        this.partner.GetComponent<Partner>().Init(colEyeSight, colliderAttack, player, _job , hud_ui_pivot );
-        this.partner.GetComponentInChildren<HitCollider>().Init(this.partner.GetComponent<Partner>(), this.partner.GetComponent<Partner>());
+        transform.SetParent(playerGroup.transform);
+        partner.AddComponent<Partner>();
+        partner.GetComponent<Partner>().Init(colEyeSight, colliderAttack, player, job , hud_ui_pivot );
+        partner.GetComponentInChildren<HitCollider>().Init(partner.GetComponent<Partner>(), partner.GetComponent<Partner>());
         Destroy(this);
     }
 }

@@ -93,7 +93,7 @@ public class DataManager
     {
         xmlTable = loadXml.LoadXml_TalkBaseData(talkBaseData_path);
 
-        for(ePARTNER_NAME name = ePARTNER_NAME.DONUT; name < ePARTNER_NAME.END; ++name)
+        for(ePARTNER_NAME name = ePARTNER_NAME.QQ; name < ePARTNER_NAME.END; ++name)
         {
             talkBaseDataDic.Add(name, new List<TalkBaseData>());
         }
@@ -179,6 +179,41 @@ public class DataManager
     public MonsterData GetMonsterData(eTRIBE_TYPE _entityTribe, eJOB_TYPE _entityJob)
     {
         return new MonsterData(monsterDatas[(int)_entityTribe][(int)_entityJob]);
+    }
+
+    public TalkBaseData GetTalkBaseData(ePARTNER_NAME name, int talkNumber)
+    {
+        if (!talkBaseDataDic.ContainsKey(name))
+            return null;
+
+        List<TalkBaseData> list = talkBaseDataDic[name];
+
+        return list.Find((data) =>
+        {
+            return data.TalkNumber == talkNumber;
+        });
+    }
+
+    public TalkBaseData GetTalkBaseData(ePARTNER_NAME name)
+    {
+        if (!talkBaseDataDic.ContainsKey(name))
+            return null;
+
+        List<TalkBaseData> list = talkBaseDataDic[name];
+        list.Sort((a, b) =>
+        {
+            return b.TalkType.CompareTo(a.TalkType);
+        });
+
+        foreach (TalkBaseData data in list)
+        {
+            if (SaveManager.Instance.IsTalkRepeat(data.TalkNumber))
+            {
+                return data;
+            }
+        }
+
+        return null;
     }
 
     public List<TalkBaseData> GetTalkBaseDataList(ePARTNER_NAME name)

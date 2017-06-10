@@ -77,9 +77,17 @@ public enum eRECRUIT_DATASHEET
 public enum ePARTNER_NAME
 {
     Pearl,
-    DONUT,
-    AMARIRIS,
+    QQ,
+    S2,
     EAST,
+    DONUT,
+    SILVER,
     CHOCKCHOCK,
+    NPC1,
+    NPC2,
+    NPC3,
+    NPC4,
+    NPC5,
+    NPC6,
     END,
 }
