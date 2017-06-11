@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuffUI : MonoBehaviour {
-
-    [SerializeField]
     StatusData buffStatus;
-    [SerializeField]
     MonsterHUDUI HUDUI;
 
     AI owner;
