@@ -54,7 +54,7 @@ public class BattleIdle : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-        entity.HUDUI.SetEmotion(eEmotion.Idle);
+        entity.HUDUI.SetEmotion(eEmotion.Angry);
         if (entity.AttackRange - 1 >
                  Vector3.Distance(entity.transform.position,
                  entity.GetEnemyPosition()))
@@ -133,9 +133,8 @@ public class BattleIdle : State
                 {
                     BaseGameEntity hurtEntity = EntityManager.Instance.IDToEntity(_msg.sender);
                     AI hurtAI = hurtEntity.gameObject.GetComponent<AI>();
-                    Debug.Log("Before : " + hurtAI.Data.StatusData.HP);
-                    hurtAI.Data.StatusData.HP += 50;
-                    Debug.Log("After : " + hurtAI.Data.StatusData.HP);
+
+                    entity.GetComponent<Healer>().SetInjured(hurtAI);
                     entity.StateMachine.ChangeState(eSTATE.HEAL);
                 }
                 return true;

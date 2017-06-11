@@ -37,7 +37,7 @@ public class Hit : State
         //Vector3 hitPos = entity.transform.position - (entity.transform.forward/2);
         //entity.AddSpeed(-2);
         //entity.SetTarget(hitPos);
-        entity.HUDUI.SetEmotion(eEmotion.Hit);
+        entity.HUDUI.SetEmotion(eEmotion.Surprise);
         if (true == entity.DieCheck())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);

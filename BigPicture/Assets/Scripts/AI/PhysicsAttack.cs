@@ -15,7 +15,7 @@ public class PhysicsAttack : AttackElement {
     public override void Attack(GameObject _ob)
     {
 
-        switch (Random.Range(0, 3))
+        switch (Random.Range(0, 5))
         {
             case 0:
                 {

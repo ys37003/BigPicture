@@ -29,6 +29,25 @@ public class SpellAttack : AttackElement{
         CoroutineManager.Instance.CStartCoroutine(AttackDelay());
     }
 
+    void NomalAttack()
+    {
+
+    }
+
+    void Healing()
+    {
+
+    }
+
+    void Bleeding()
+    {
+
+    }
+
+    void Poisoning()
+    {
+
+    }
     IEnumerator AttackDelay()
     {
         MessageDispatcher.Instance.DispatchMessage(0.5f, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK,owner.transform.position);

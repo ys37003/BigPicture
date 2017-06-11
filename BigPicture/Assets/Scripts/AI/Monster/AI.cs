@@ -185,6 +185,11 @@ public class AI : BattleEntity
             return;
         }
 
+        if(System.Single.IsNaN(oldDistance))
+        {
+            this.NavAgent.Clear();
+        }
+
         if(0.01f > Mathf.Abs( oldDistance - Vector3.Distance(this.transform.position, this.NavAgent.destination ) ))
         {
             this.NavAgent.Clear();
@@ -194,12 +199,7 @@ public class AI : BattleEntity
     public void Escape()
     {
         this.transform.LookAt(GetEnemyPosition());
-
-        if (this.DestinationCheck + 1.0f < Time.time)
-        {
-            this.DestinationCheck = Time.time;
-            oldDistance = Vector3.Distance(this.transform.position, this.NavAgent.destination);
-        }
+        Walk();
     }
     public void Hit()
     {

@@ -39,6 +39,7 @@ public class Heal : State
     public void Exit(object _entity)
     {
         entity = (AI)_entity;
+        entity.GetComponent<Healer>().Heal(30);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", false);
     }
 

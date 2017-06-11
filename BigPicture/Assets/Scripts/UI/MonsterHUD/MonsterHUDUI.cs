@@ -9,12 +9,10 @@ using UnityStandardAssets.Utility;
 public enum eEmotion
 {
     // ex
-    Agro,
-    Hit,
-    Attack,
-    Walk,
-    Idle,
-    Run,
+  Angry,
+  Pleasure,
+  Sad,
+  Surprise
 }
 
 public enum eBuff

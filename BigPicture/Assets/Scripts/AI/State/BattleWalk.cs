@@ -37,7 +37,7 @@ public class BattleWalk : State
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-        entity.HUDUI.SetEmotion(eEmotion.Walk);
+        entity.HUDUI.SetEmotion(eEmotion.Angry);
         //entity.SetTarget(entity.EnemyList[0].transform.position);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "BattleWalk", true);
     }

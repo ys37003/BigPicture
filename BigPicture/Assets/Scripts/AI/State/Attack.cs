@@ -36,7 +36,7 @@ public class Attack : State
         entity = (AI)_entity;
         entity.AttackAble = false;
         entity.transform.LookAt(entity.GetEnemyPosition());
-        entity.HUDUI.SetEmotion(eEmotion.Attack);
+        entity.HUDUI.SetEmotion(eEmotion.Angry);
         if (null != entity.AttackElement)
         {
             entity.AttackElement.Attack(entity.EnemyHandle.GetEnemy(0).enemy);
