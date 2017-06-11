@@ -31,7 +31,6 @@ sysinfo.txt
 *.unitypackage
 
 *.exe
-*.zip
 BigPicture/Assets/LowPolyLandscape/Maps/Example_Day/LightingData.asset
 BigPicture/Assets/LowPolyLandscape/Maps/Example_Day/LightingData.asset.meta
 BigPicture/Assets/LowPolyLandscape/Maps/Example_ModularTerrain/LightingData.asset
