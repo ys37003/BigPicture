@@ -31,7 +31,6 @@ sysinfo.txt
 *.unitypackage
 
 *.exe
-*.zip
 BigPicture/Assets/LowPolyLandscape/Maps/Example_Day/LightingData.asset
 BigPicture/Assets/LowPolyLandscape/Maps/Example_Day/LightingData.asset.meta
 BigPicture/Assets/LowPolyLandscape/Maps/Example_ModularTerrain/LightingData.asset
@@ -46,4 +45,9 @@ BigPicture/Assets/Scenes/World/LightingData.asset
 BigPicture/Assets/Scenes/World/ReflectionProbe-0.exr
 BigPicture/Assets/Scenes/World/LightingData.asset.meta
 BigPicture/Assets/Scenes/World/ReflectionProbe-0.exr.meta
+<<<<<<< HEAD
 BigPicture/Assets/Resources/Dragon/dragon2.FBX
+=======
+BigPicture/BigPicture.zip
+BigPicture/Assets/LowPolyLandscape/LowPoly_Landscape.zip
+>>>>>>> 4261a09af5d46233efe5d2c5f9ea66b89cc6fd22
