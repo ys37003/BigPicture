@@ -221,7 +221,7 @@ public class CharacterController : MonoBehaviour
         {
             // 공격(마우스 좌클릭)
             bool mouse_left = Input.GetMouseButton(0);
-            animator.SetBool("Attack", mouse_left && IsAttack);
+            animator.SetBool("Attack", mouse_left && animator.GetBool("Battle"));
 
             yield return null;
         }
