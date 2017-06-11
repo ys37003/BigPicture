@@ -25,6 +25,14 @@ public class GroupManager : Singleton<GroupManager>
         return GroupList.Count;
     }
 
+    public Group GetPlayerGroup()
+    {
+        return GroupList.Find((group) =>
+        {
+            return group.GroupType == eGROUP_TYPE.PLAYER;
+        });
+    }
+
     public Group IDToGroup(int _id)
     {
         return GroupList[_id];

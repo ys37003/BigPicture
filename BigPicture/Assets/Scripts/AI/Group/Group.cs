@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum eGROUP_TYPE
+{
+    PLAYER,
+    ENEMY,
+    ETC,
+}
+
 public class Group : BaseGameEntity
 {
     public List<BaseGameEntity> member = new List<BaseGameEntity>();
     [SerializeField]
     private Transform center;
-    private Group enemyGroup;
 
-    public Group EnemyGroup
+    private Group enemyGroup;
+    public  Group EnemyGroup
     {
         get
         {
@@ -21,11 +28,18 @@ public class Group : BaseGameEntity
         set { enemyGroup = value; }
     }
 
+    private eGROUP_TYPE group_type;
+    public  eGROUP_TYPE GroupType
+    {
+        get { return group_type; }
+    }
+
     // Use this for initialization
     void Start()
     {
         GroupManager.Instance.Add(this);
     }
+
     public void Add(BaseGameEntity _member)
     {
         member.Add(_member);
@@ -148,6 +162,7 @@ public class Group : BaseGameEntity
     {
         DispatchMessageGroup(0, 0, (int)eMESSAGE_TYPE.COMMAND_COME_ON, null);
     }
+
     public void Command_Focusing()
     {
         if(null != EnemyGroup)

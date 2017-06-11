@@ -30,11 +30,25 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         StartCoroutine("Move");
         StartCoroutine("Run");
         StartCoroutine("Battle");
         StartCoroutine("Attack");
         StartCoroutine("CameraRotation");
+    }
+
+    public void Pose()
+    {
+        StopCoroutine("Move");
+        StopCoroutine("Run");
+        StopCoroutine("Battle");
+        StopCoroutine("Attack");
+        StopCoroutine("CameraRotation");
     }
 
     private IEnumerator Move()
@@ -207,7 +221,7 @@ public class CharacterController : MonoBehaviour
         {
             // 공격(마우스 좌클릭)
             bool mouse_left = Input.GetMouseButton(0);
-            animator.SetBool("Attack", mouse_left);
+            animator.SetBool("Attack", mouse_left && IsAttack);
 
             yield return null;
         }

@@ -40,6 +40,16 @@ public class InputManager : Singleton<InputManager>
 
     private void Awake()
     {
+        AddKey(new InputKey(KeyCode.Alpha1, InputType.KeyDown), new InputValue(() =>
+        {
+            GroupManager.Instance.GetPlayerGroup().Command_ComeOn();
+        }, null));
+
+        AddKey(new InputKey(KeyCode.Alpha2, InputType.KeyDown), new InputValue(() =>
+        {
+            GroupManager.Instance.GetPlayerGroup().Command_Focusing();
+        }, null));
+
         AddKey(new InputKey(KeyCode.Escape, InputType.KeyDown), new InputValue(() =>
         {
             UIManager.Instance.LastUIClose();

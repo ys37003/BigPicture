@@ -126,18 +126,27 @@ public class TalkUI : UIBase<TalkUI>
             }
             else
             {
+                if (!data.Repeat || result.RepeatEnd)
+                {
+                    SaveManager.Instance.TalkRepeatEnd(nowDetailData.TalkNumber);
+                }
+
                 DestroyUI();
             }
             return;
         }
 
-        //SaveManager.Instance.AddLikeavillity(result.Name, result.Like);
+        // 호감도 획득
+        SaveManager.Instance.AddLikeavillity(result.Name, result.Like);
 
         // 퀘스트 획득
 
         if (result.Talk >= 0)
         {
             // 다른 대화로 이동
+            data = DataManager.Instance().GetTalkBaseData(result.Name, result.Talk);
+            detailDataList = DataManager.Instance().GetTalkDetailDataList(data.TalkNumber);
+            Next(detailDataList[0]);
             return;
         }
 
@@ -150,6 +159,7 @@ public class TalkUI : UIBase<TalkUI>
 
         if (result.RepeatEnd)
         {
+            SaveManager.Instance.TalkRepeatEnd(nowDetailData.TalkNumber);
             // 대화 종료
             DestroyUI();
         }
