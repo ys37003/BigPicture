@@ -71,6 +71,18 @@ public class HitCollider : MonoBehaviour {
             //}
 
             //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
+            if(eDAMAGE_TYPE.BLEEDING == ct.GetDamageType())
+            {
+                MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.BLEEDING, null );
+                return;
+            }
+
+            if (eDAMAGE_TYPE.POISONING == ct.GetDamageType())
+            {
+                MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.POISONING, null );
+                return;
+            }
+
             if (0 < (ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor)))
             {
                ai.Data.StatusData.HP -= ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor);

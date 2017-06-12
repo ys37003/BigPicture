@@ -65,6 +65,7 @@ public class HoodSkull : AI
                     trigger.ColliderAttack = colliderAttack;
                 }
 
+                HUDUI.SetJob(eJob.Dealer);
                 AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:
@@ -72,10 +73,11 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Foword;
                 Approach = Delegates.Instance.Approach_Foword;
 
-                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.SPELL);
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.BLEEDING);
                 AttackElement = new SpellAttack();
                 AttackElement.Init(this, spell);
 
+                HUDUI.SetJob(eJob.Wizard);
                 AttackRange = 5.0f;
                 break;
             case eJOB_TYPE.SUPPORT:
@@ -83,9 +85,11 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
 
-                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.SPELL);
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.POISONING);
                 AttackElement = new SpellAttack();
                 AttackElement.Init(this, spell);
+
+                HUDUI.SetJob(eJob.Wizard);
                 AttackRange = 5.0f;
                 break;
         }

@@ -62,7 +62,7 @@ public class Dragon : AI {
                 Approach = Delegates.Instance.Approach_Foword;
 
                 colliderAttack.Init(eTRIBE_TYPE.DRAGON, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS);
-                AttackElement = new PhysicsAttack();
+                AttackElement = new BossAttack();
                 AttackElement.Init(this);
 
                 AttackRange = 5.0f;

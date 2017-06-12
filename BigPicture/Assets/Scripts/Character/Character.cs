@@ -59,7 +59,7 @@ public class Character : BattleEntity, ICharacter
         EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.HUMAN, eJOB_TYPE.DEALER , Group);
 
         // 임시
-        Init(new StatusData(1, 0, 1, 1, 1, 1, 1, StatusData.MAX_HP));
+        Init(new StatusData(20, 5, 1, 1, 1, 1, 1, StatusData.MAX_HP));
 
         StartCoroutine("UpdateState");
 

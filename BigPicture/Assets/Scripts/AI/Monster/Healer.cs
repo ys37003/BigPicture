@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Healer : MonoBehaviour {
     AI injured;
-	// Use this for initialization
-	void Start () {
+    bool healAlbe = true;
+
+    [SerializeField]
+    public AI owner;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -24,8 +28,33 @@ public class Healer : MonoBehaviour {
         return injured;
     }
 
-    public void Heal(float _value)
+    public void Heal()
     {
-        injured.Data.StatusData.HP += _value;
+        if (false == healAlbe)
+            return;
+
+        StartCoroutine(Healing());
+    }
+
+    IEnumerator Healing()
+    {
+        float oldTime = Time.time;
+        float endTime = Time.time;
+        injured.buffUI.AddBuff(eBuff.Heal);
+        while (true)
+        {
+            if (endTime + 5.0f < Time.time)
+            {
+                break;
+            }
+
+            if (oldTime + 1.0f < Time.time)
+            {
+                oldTime = Time.time;
+                injured.Data.StatusData.HP += 5;
+            }
+            yield return null;
+        }
+        injured.buffUI.RemoveBuff(eBuff.Heal);
     }
 }

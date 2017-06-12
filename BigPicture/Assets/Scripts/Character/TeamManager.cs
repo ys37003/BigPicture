@@ -5,7 +5,8 @@ using UnityEngine;
 public enum eDAMAGE_TYPE
 {
     PHYSICS,
-    SPELL,
+    BLEEDING,
+    POISONING
 }
 
 public interface ICharacter

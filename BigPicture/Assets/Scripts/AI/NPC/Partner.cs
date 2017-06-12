@@ -81,6 +81,7 @@ public class Partner : AI, ICharacter
                 {
                     trigger.ColliderAttack = colliderAttack;
                 }
+                HUDUI.SetJob(eJob.Warrior);
                 AttackRange = 1.5f;
                 break;
             case eJOB_TYPE.FORWARD:

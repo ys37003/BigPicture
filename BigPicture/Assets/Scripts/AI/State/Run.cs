@@ -38,7 +38,6 @@ public class Run : State
     {
         entity = (AI)_entity;
         entity.DestinationCheck = Time.time;
-        entity.HUDUI.SetEmotion(eEmotion.Angry);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Run", true);
         entity.SetTarget(entity.GetEnemyPosition());
         entity.AddSpeed(4.0f);

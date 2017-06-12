@@ -81,24 +81,38 @@ public class StateMachine
                 return true;
             case (int)eMESSAGE_TYPE.TO_HIT:
                 AI AI_Owner = (AI)owner;
-                if( eDAMAGE_TYPE.PHYSICS == (eDAMAGE_TYPE)_msg.extraInfo )
+
+                switch((eDAMAGE_TYPE)_msg.extraInfo)
                 {
-                    Vector3 direction =  AI_Owner.transform.position - ( AI_Owner.transform.forward / 1.5f);
-                    AI_Owner.SetTarget(direction);
+                    case eDAMAGE_TYPE.PHYSICS:
+                        {
+                            Vector3 direction = AI_Owner.transform.position - (AI_Owner.transform.forward / 1.5f);
+                            AI_Owner.SetTarget(direction);
+                        }
+                        break;
+
+                    case eDAMAGE_TYPE.BLEEDING:
+                        {
+
+                        }
+                        break;
+
+                    case eDAMAGE_TYPE.POISONING:
+                        {
+
+                        }
+                        break;
                 }
+
                 //MathAssist.Instance().AddForce_Back(AIowner.GetComponent<Rigidbody>(), 10.0f);
                 this.ChangeState(eSTATE.HIT);
                 return true;
             case (int)eMESSAGE_TYPE.I_SEE_YOU:
                 dummy.EntityGroup.EnemyGroup = (Group)_msg.extraInfo;
                 return true;
-
-            case (int)eMESSAGE_TYPE.ADDSTATUS:
-                dummy.AddStatus = (StatusData)_msg.extraInfo;
-                dummy.buffUI.SetBuff(dummy.AddStatus);
-                MessageDispatcher.Instance.DispatchMessage(3.0f, dummy.ID, dummy.ID, (int)eMESSAGE_TYPE.ADDSTATUS, new StatusData(0, 0, 0, 0, 0, 0, 0, 0));
-                return true;
         }
         return false;
     }
+
+    
 }

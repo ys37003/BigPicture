@@ -7,11 +7,6 @@ public class BuffUI : MonoBehaviour {
     MonsterHUDUI HUDUI;
 
     AI owner;
-    // Use this for initialization
-    void Start () {
-
-    }
-
     public void Init(AI _owner)
     {
         owner = _owner;
@@ -19,37 +14,13 @@ public class BuffUI : MonoBehaviour {
         HUDUI = owner.HUDUI;
     }
 
-    public void SetBuff(StatusData _statusData)
+    public void AddBuff(eBuff _buff)
     {
-        Debug.Log("Power : " + _statusData.Strength);
-        if ( 0 < _statusData.Strength )
-        {
-            HUDUI.AddBuff(eBuff.PowerUp);
-        }
-        else if(0 > _statusData.Strength)
-        {
-            Debug.Log("PowerDown");
-            HUDUI.AddBuff(eBuff.PowerDown);
-        }
-        else if( 0 == _statusData.Strength )
-        {
-            HUDUI.RemoveBuff(eBuff.PowerUp);
-            HUDUI.RemoveBuff(eBuff.PowerDown);
-        }
+        HUDUI.AddBuff(_buff);
+    }
 
-        if (0 < _statusData.Agility)
-        {
-            HUDUI.AddBuff(eBuff.SpeedUp);
-        }
-        else if (0 > _statusData.Agility)
-        {
-            Debug.Log("SpeedDown");
-            HUDUI.AddBuff(eBuff.SpeedDown);
-        }
-        else if (0 == _statusData.Agility)
-        {
-            HUDUI.RemoveBuff(eBuff.SpeedUp);
-            HUDUI.RemoveBuff(eBuff.SpeedDown);
-        }
+    public void RemoveBuff(eBuff _buff)
+    {
+        HUDUI.RemoveBuff(_buff);
     }
 }

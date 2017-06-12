@@ -15,12 +15,26 @@ public enum eEmotion
   Surprise
 }
 
+public enum eJob
+{
+    // ex
+    Archer,
+    Dealer,
+    Tanker,
+    Warrior,
+    Wizard,
+}
+
 public enum eBuff
 {
     PowerUp,
     PowerDown,
     SpeedUp,
-    SpeedDown
+    SpeedDown,
+    Bleeding,
+    Heal,
+    Shock,
+    Poisoning
 }
 
 public class MonsterHUDUI : MonoBehaviour
@@ -28,6 +42,7 @@ public class MonsterHUDUI : MonoBehaviour
     [SerializeField] private HPbar hpbar;
     [SerializeField] private FollowTarget follow;
     [SerializeField] private LookAtTarget lookAt;
+    [SerializeField] private UITexture job;
     [SerializeField] private UITexture emotion;
     [SerializeField] private List<UITexture> buffList;
     [SerializeField] private List<eBuff> eBuffList;
@@ -48,8 +63,16 @@ public class MonsterHUDUI : MonoBehaviour
 
     public void SetEmotion(eEmotion e)
     {
+        emotion.color = new Color(255, 255, 255, 1);
         string emotionPath = string.Format("UI/Emotion/{0}", e.ToString());
         emotion.mainTexture = Resources.Load<Texture>(emotionPath);
+        StartCoroutine( EmotionDelay(emotion));
+    }
+    public void SetJob(eJob e)
+    {
+        string jobPath = string.Format("UI/Job/{0}", e.ToString());
+        job.mainTexture = Resources.Load<Texture>(jobPath);
+
     }
 
     public void AddBuff(eBuff b)
@@ -74,6 +97,7 @@ public class MonsterHUDUI : MonoBehaviour
             buffList[i].mainTexture = Resources.Load<Texture>(buffPath);
         }
     }
+
     public void RemoveBuff(eBuff b)
     {
         if( true == eBuffList.Contains(b))
@@ -85,5 +109,21 @@ public class MonsterHUDUI : MonoBehaviour
 
 
         //eBuffList.Clear();
+    }
+
+    IEnumerator EmotionDelay(UITexture _emotion)
+    {
+        Color color = _emotion.color;
+        while(true)
+        {
+            Debug.Log(color.a);
+            color.a -= 0.01f;
+            _emotion.color = color;
+            if (0 > color.a )
+            {
+                break;
+            }
+            yield return null;
+        }
     }
 }

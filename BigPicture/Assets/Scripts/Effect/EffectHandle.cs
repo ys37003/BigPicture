@@ -6,10 +6,18 @@ public class EffectHandle : MonoBehaviour {
 
     bool effectAble = true;
     AI owner;
+
+    private eEffect effect = eEffect.PUNCH;
+
 	// Use this for initialization
 	void Start () {
+        effect = eEffect.PUNCH;
         owner = this.transform.GetComponentInParent<AI>();
 
+        if (null == owner)
+            owner = this.transform.parent.GetComponentInChildren<AI>();
+
+        
     }
 	
 	// Update is called once per frame
@@ -17,18 +25,24 @@ public class EffectHandle : MonoBehaviour {
 		
 	}
 
+    public void SetEffect(eEffect _effect)
+    {
+        effect = _effect;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(this.tag != other.tag)
         {
             if (true == effectAble && eSTATE.ATTACK == owner.GetCurrentState())
             {
-                GameObject effect = EffectPool.Instance.Pop(0);
-                StartCoroutine(effect.GetComponent<SelfDestruct>().LifeTime());
+                GameObject goEffect = EffectPool.Instance.Pop(effect);
 
-                effect.transform.position = this.transform.position + this.transform.forward ;
+                StartCoroutine(goEffect.GetComponent<SelfDestruct>().LifeTime());
 
-                effect.SetActive(true);
+                goEffect.transform.position = this.transform.position + this.transform.forward ;
+
+                goEffect.SetActive(true);
                 effectAble = false;
                 StartCoroutine(Deley());
             }
@@ -49,6 +63,7 @@ public class EffectHandle : MonoBehaviour {
         }
     }
 
+    
     public void NomalAttack()
     {
         if (true == effectAble && eSTATE.ATTACK == owner.GetCurrentState())

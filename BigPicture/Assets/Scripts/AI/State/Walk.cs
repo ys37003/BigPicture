@@ -36,7 +36,6 @@ public class Walk : State
     {
         entity = (AI)_entity;
         entity.DestinationCheck = Time.time;
-        entity.HUDUI.SetEmotion(eEmotion.Sad);
         entity.SetTarget(entity.SetDestination(entity, entity.EntityGroup));
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Walk", true);
     }
