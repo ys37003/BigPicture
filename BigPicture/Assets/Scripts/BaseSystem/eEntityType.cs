@@ -24,6 +24,7 @@ public enum eJOB_TYPE
     DEALER,
     SUPPORT,
     FORWARD,
+    DRAGON,
     NULL
 }
 

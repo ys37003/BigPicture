@@ -185,7 +185,7 @@ public class AI : BattleEntity
             return;
         }
 
-        if(System.Single.IsNaN(oldDistance))
+        if(true == System.Single.IsNaN(oldDistance))
         {
             this.NavAgent.Clear();
         }

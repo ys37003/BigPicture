@@ -42,6 +42,23 @@ public class Delegates
         return hit.position;
     }
 
+    public Vector3 SetDestination_Boss(BaseGameEntity _entity, Group _group)
+    {
+        Vector3 destination;
+        NavMeshHit hit;
+
+        destination = MathAssist.Instance().RandomVector3(_entity.transform.position, 10.0f);
+        NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas);
+
+        //if (false == NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas))
+        //{
+        //    Debug.Log("false");
+        //    return Vector3.zero;
+        //}
+
+        return hit.position;
+    }
+
     public Vector3 SetDestination_Foword(BaseGameEntity _entity, Group _group)
     {
         Vector3 destination;

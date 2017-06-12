@@ -17,7 +17,7 @@ public class Dragon : AI {
 
     // Use this for initialization
     void Start () {
-        Data = new MonsterData(eTRIBE_TYPE.DRAGON, eJOB_TYPE.FORWARD, 10, 10, 10, 10, 10, 10, 10, 100, 10, 50);
+        Data = new MonsterData(eTRIBE_TYPE.DRAGON, eJOB_TYPE.DRAGON, 10, 10, 10, 10, 10, 10, 10, 100, 10, 50);
         AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
 
         Animator = this.GetComponent<Animator>();
@@ -50,14 +50,12 @@ public class Dragon : AI {
         Debug.Log("Dragon State is " + StateMachine.CurrentState);
     }
 
-
     private void SetDelegate()
     {
         switch (job_Type)
         {
-
-            case eJOB_TYPE.FORWARD:
-                SetDestination = Delegates.Instance.SetDestination_Foword;
+            case eJOB_TYPE.DRAGON:
+                SetDestination = Delegates.Instance.SetDestination_Boss;
                 SetFomation = Delegates.Instance.SetFomation_Foword;
                 Approach = Delegates.Instance.Approach_Foword;
 

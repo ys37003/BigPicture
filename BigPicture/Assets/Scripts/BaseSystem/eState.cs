@@ -14,5 +14,8 @@
     COME_ON,
     ESCAPE,
     HEAL,
+    BOSS_BATTLEIDLE,
+    DRAGONBREATH,
+    FOOTSTAMP,
     NULL
 }
