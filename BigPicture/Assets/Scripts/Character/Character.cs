@@ -77,6 +77,16 @@ public class Character : BattleEntity, ICharacter
         SkillPoint = 10;
     }
 
+    public void ReStart()
+    {
+        GetComponent<CharacterController>().Init();
+    }
+
+    public void Pose()
+    {
+        GetComponent<CharacterController>().Pose();
+    }
+
     public void Move(Vector3 dir, float move)
     {
         float   turn      = Mathf.Atan2(dir.x, dir.z);
