@@ -116,7 +116,6 @@ public class MonsterHUDUI : MonoBehaviour
         Color color = _emotion.color;
         while(true)
         {
-            Debug.Log(color.a);
             color.a -= 0.01f;
             _emotion.color = color;
             if (0 > color.a )

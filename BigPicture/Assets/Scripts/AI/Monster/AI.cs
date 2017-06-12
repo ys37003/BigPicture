@@ -16,7 +16,9 @@ public class AI : BattleEntity
     private float destinationCheck;
     private float oldDistance;
 
+
     private bool attackAble = true;
+    public bool Shock { get; set; }
     [SerializeField]
     protected eJOB_TYPE job_Type;
     [SerializeField]
@@ -370,4 +372,5 @@ public class AI : BattleEntity
     {
 
     }
+
 }

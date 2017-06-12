@@ -5,20 +5,20 @@ using UnityEngine;
 public class BossAttack : AttackElement {
     private AI owner;
     bool skillAble = true;
-
-    public override void Attack(GameObject _pos)
+    ColliderAttack colliderAttack;
+    public override void Attack(GameObject _go)
     {
-        switch (Random.Range(0, 5))
+        switch (Random.Range(0, 2))
         {
             case 0:
                 {
-                   
-
+                    DragonBreath(_go);
                 }
                 break;
 
             default:
                 {
+                    FootStamp(_go);
                 }
                 break;
         }
@@ -31,15 +31,18 @@ public class BossAttack : AttackElement {
 
     void DragonBreath(GameObject _go)
     {
-
+        Debug.Log("DragonBreath");
+        MessageDispatcher.Instance.DispatchMessage(0, owner.ID, owner.ID, (int)eMESSAGE_TYPE.TO_DRAGONBREATH, null);
     }
 
     void FootStamp(GameObject _go)
     {
-
+        Debug.Log("FootStamp");
+        MessageDispatcher.Instance.DispatchMessage(0, owner.ID, owner.ID, (int)eMESSAGE_TYPE.TO_FOOTSTAMP, null);
     }
-    public override void Init(AI _onwer, GameObject _go = null)
+    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _go = null)
     {
+        colliderAttack = _colliderAttack;
         owner = _onwer;
     }
 

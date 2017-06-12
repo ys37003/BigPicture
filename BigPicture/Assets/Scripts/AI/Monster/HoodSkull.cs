@@ -57,9 +57,9 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Dealer;
                 Approach = Delegates.Instance.Approach_Dealer;
 
-                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS);
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS, this);
                 AttackElement = new PhysicsAttack();
-                AttackElement.Init(this);
+                AttackElement.Init(this, colliderAttack);
                 foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
                 {
                     trigger.ColliderAttack = colliderAttack;
@@ -73,9 +73,9 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Foword;
                 Approach = Delegates.Instance.Approach_Foword;
 
-                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.BLEEDING);
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.BLEEDING, this);
                 AttackElement = new SpellAttack();
-                AttackElement.Init(this, spell);
+                AttackElement.Init(this, colliderAttack, spell);
 
                 HUDUI.SetJob(eJob.Wizard);
                 AttackRange = 5.0f;
@@ -85,9 +85,9 @@ public class HoodSkull : AI
                 SetFomation = Delegates.Instance.SetFomation_Support;
                 Approach = Delegates.Instance.Approach_Support;
 
-                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.POISONING);
+                colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.POISONING, this);
                 AttackElement = new SpellAttack();
-                AttackElement.Init(this, spell);
+                AttackElement.Init(this, colliderAttack, spell);
 
                 HUDUI.SetJob(eJob.Wizard);
                 AttackRange = 5.0f;

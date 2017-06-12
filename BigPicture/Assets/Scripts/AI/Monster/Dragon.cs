@@ -59,14 +59,36 @@ public class Dragon : AI {
                 SetFomation = Delegates.Instance.SetFomation_Foword;
                 Approach = Delegates.Instance.Approach_Foword;
 
-                colliderAttack.Init(eTRIBE_TYPE.DRAGON, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS);
+                colliderAttack.Init(eTRIBE_TYPE.DRAGON, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS, this);
                 AttackElement = new BossAttack();
-                AttackElement.Init(this);
+                AttackElement.Init(this, colliderAttack);
 
                 AttackRange = 5.0f;
                 break;
         }
     }
+
+    public bool EndDragonBreath()
+    {
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("DragonBreath"))
+        {
+            if (0.8f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                return true;
+        }
+        return false;
+    }
+
+    public bool EndFootStamp()
+    {
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("FootStamp"))
+        {
+            if (0.8f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+                return true;
+        }
+        return false;
+    }
+
+
     void OnTriggerStay(Collider other)
     {
         eTRIBE_TYPE colType = eTRIBE_TYPE.NULL;

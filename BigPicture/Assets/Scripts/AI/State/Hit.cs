@@ -25,25 +25,17 @@ public class Hit : State
     {
         entity = (AI)_entity;
         entity.Hit();
-        //if (true == entity.EndHit())
-        //{
-            
-        //}
+        if (true == entity.EndHit())
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+        }
     }
 
     public void Enter(object _entity)
     {
         entity = (AI)_entity;
-        //Vector3 hitPos = entity.transform.position - (entity.transform.forward/2);
-        //entity.AddSpeed(-2);
-        //entity.SetTarget(hitPos);
         entity.HUDUI.SetEmotion(eEmotion.Surprise);
-        if (true == entity.DieCheck())
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
-            return;
-        }
-        MessageDispatcher.Instance.DispatchMessage(1.0f, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_BATTLEIDLE, null);
+        
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Hit", true);
     }
 

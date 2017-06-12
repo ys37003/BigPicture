@@ -67,6 +67,19 @@ public class Attack : State
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
                 entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
+
+            case (int)eMESSAGE_TYPE.TO_DRAGONBREATH:
+                {
+                    entity.StateMachine.ChangeState(eSTATE.DRAGONBREATH);
+                }
+                return true;
+
+            case (int)eMESSAGE_TYPE.TO_FOOTSTAMP:
+                {
+                    entity.StateMachine.ChangeState(eSTATE.FOOTSTAMP);
+                }
+                return true;
+
         }
 
         return false;

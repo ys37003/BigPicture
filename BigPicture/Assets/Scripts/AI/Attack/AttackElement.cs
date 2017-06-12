@@ -9,7 +9,7 @@ public class AttackElement {
 
     }
 
-    public virtual void Init(AI _onwer, GameObject _go = null)
+    public virtual void Init(AI _onwer,ColliderAttack _colliderAttack ,GameObject _go = null)
     {
 
     }

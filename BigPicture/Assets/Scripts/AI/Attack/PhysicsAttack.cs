@@ -6,9 +6,11 @@ public class PhysicsAttack : AttackElement {
 
     bool debuffAble = true;
     bool damageAndDebuffAble = true;
+    ColliderAttack colliderAttack;
     private AI owner;
-    public override void Init(AI _onwer , GameObject _go = null)
+    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _go = null)
     {
+        colliderAttack = _colliderAttack;
         owner = _onwer;
     }
 
@@ -19,89 +21,46 @@ public class PhysicsAttack : AttackElement {
         {
             case 0:
                 {
-                    Debuff(_ob);
+                    Debuff();
                 }
                 break;
 
             case 1:
                 {
-                    DamageAndDebuff(_ob);
+                    DamageAndDebuff();
                 }
                 break;
-
+            case 2:
+                {
+                    Shock();
+                }
+                break;
             default:
                 {
+                    colliderAttack.SetDamageType(eDAMAGE_TYPE.PHYSICS);
                     owner.GetComponentInChildren<EffectHandle>().SetEffect(eEffect.PUNCH);
                 }
                 break;
         }
     }
 
-    void Debuff(GameObject _go)
+    void Debuff()
     {
-        if (false == debuffAble)
-            return;
-
-        AI entity = _go.GetComponent<AI>();
-
-        Debug.Log("Debuff");
-
         owner.GetComponentInChildren<EffectHandle>().SetEffect(eEffect.SLASH);
-        StatusData data = new StatusData(-5, 0, -5, 0, 0, 0, 0, 0);
-        entity.buffUI.AddBuff(eBuff.PowerDown);
-        entity.buffUI.AddBuff(eBuff.SpeedDown);
-        BattleEntity agent = _go.GetComponent<BattleEntity>();
-        debuffAble = false;
 
-        CoroutineManager.Instance.CStartCoroutine(DebuffDelay(entity));
+        colliderAttack.SetDamageType(eDAMAGE_TYPE.DEBUFF);
     }
 
-    void DamageAndDebuff(GameObject _go)
+    void DamageAndDebuff()
     {
-        if (false == damageAndDebuffAble)
-            return;
-
-        AI entity = _go.GetComponent<AI>();
-
         owner.GetComponentInChildren<EffectHandle>().SetEffect(eEffect.SLASH);
-        StatusData data = new StatusData(-2, 0, -2, 0, 0, 0, 0, 0);
-        entity.buffUI.AddBuff(eBuff.PowerDown);
-        entity.buffUI.AddBuff(eBuff.SpeedDown);
-        BattleEntity agent = _go.GetComponent<BattleEntity>();
 
-        damageAndDebuffAble = false;
-        CoroutineManager.Instance.CStartCoroutine(DamageAndDebuffDelay(entity));
+        colliderAttack.SetDamageType(eDAMAGE_TYPE.DAMAGE_AND_DEBUFF);
     }
 
-    IEnumerator DebuffDelay(AI _ai)
+    void Shock()
     {
-        float oldTime = Time.time;
-        while(true)
-        {
-            if(oldTime + 2.0f < Time.time)
-            {
-                debuffAble = true;
-                _ai.buffUI.RemoveBuff(eBuff.PowerDown);
-                _ai.buffUI.RemoveBuff(eBuff.SpeedDown);
-                break;
-            }
-            yield return null;
-        }
-    }
-
-    IEnumerator DamageAndDebuffDelay(AI _ai)
-    {
-        float oldTime = Time.time;
-        while (true)
-        {
-            if (oldTime + 2.0f < Time.time)
-            {
-                damageAndDebuffAble = true;
-                _ai.buffUI.RemoveBuff(eBuff.PowerDown);
-                _ai.buffUI.RemoveBuff(eBuff.SpeedDown);
-                break;
-            }
-            yield return null;
-        }
+        owner.GetComponentInChildren<EffectHandle>().SetEffect(eEffect.SLASH);
+        colliderAttack.SetDamageType(eDAMAGE_TYPE.SHOCK);
     }
 }

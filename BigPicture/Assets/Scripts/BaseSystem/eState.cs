@@ -17,5 +17,6 @@
     BOSS_BATTLEIDLE,
     DRAGONBREATH,
     FOOTSTAMP,
+    SHOCK,
     NULL
 }

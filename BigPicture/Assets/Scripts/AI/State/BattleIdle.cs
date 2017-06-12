@@ -42,13 +42,11 @@ public class BattleIdle : State
             return;
         }
 
-
         if (true == entity.AttackAble)
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
             return;
         }
-
     }
 
     public void Enter(object _entity)
@@ -90,15 +88,9 @@ public class BattleIdle : State
                 entity.StateMachine.ChangeState(eSTATE.IDLE);
                 return true;
 
-            //case (int)eMESSAGE_TYPE.SET_FOMATION:
-            //    Vector3 fomation = (Vector3)_msg.extraInfo;
-            //    entity.SetTarget(fomation);
-            //    return true;
-
             case (int)eMESSAGE_TYPE.TO_RUN:
                 {
                     entity.StateMachine.ChangeState(eSTATE.RUN);
-
                 }
                 return true;
 
@@ -108,7 +100,6 @@ public class BattleIdle : State
                     Vector3 destination = entity.EscapePosition(entity.EntityGroup.NearestEnemy(entity.transform.position));
                     entity.SetTarget(destination);
                     entity.StateMachine.ChangeState(eSTATE.ESCAPE);
-
                 }
                 return true;
 
@@ -124,7 +115,6 @@ public class BattleIdle : State
                         entity.SetTarget(destination);
                         entity.StateMachine.ChangeState(eSTATE.ESCAPE);
                     }
-
                 }
                 return true;
 
@@ -137,6 +127,8 @@ public class BattleIdle : State
                     entity.StateMachine.ChangeState(eSTATE.HEAL);
                 }
                 return true;
+
+            
         }
 
         return false;

@@ -6,6 +6,7 @@ public class ColliderAttack : MonoBehaviour
     public eTRIBE_TYPE          TribeType    { get; private set; }
     public StatusData           StatusData   { get; private set; }
     public StatusData           AddStatusData { get; private set; }
+    public BattleEntity owner;
     private Animator            animator;
     private AnimatorStateInfo   stateInfo;
     private eDAMAGE_TYPE damageType;
@@ -42,19 +43,24 @@ public class ColliderAttack : MonoBehaviour
         return damageType;
     }
     
+    public void SetDamageType(eDAMAGE_TYPE _type)
+    {
+        damageType = _type;
+    }
 
     public void SetActive(bool active)
     {
         gameObject.SetActive(active);
     }
 
-    public void Init(eTRIBE_TYPE type, Animator animator, StatusData stat , StatusData addStat , eDAMAGE_TYPE _damageType)
+    public void Init(eTRIBE_TYPE type, Animator animator, StatusData stat , StatusData addStat , eDAMAGE_TYPE _damageType , BattleEntity _owner = null)
     {
         TribeType     = type;
         this.animator = animator;
         StatusData    = stat;
         AddStatusData = addStat;
         damageType = _damageType;
+        owner = _owner;
     }
 
     public void AttackStart(AnimatorStateInfo info)

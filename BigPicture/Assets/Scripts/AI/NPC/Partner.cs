@@ -74,9 +74,9 @@ public class Partner : AI, ICharacter
                 SetFomation = Delegates.Instance.SetFomation_Partner;
                 Approach = Delegates.Instance.Approach_Dealer;
 
-                colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData , AddStatus, eDAMAGE_TYPE.PHYSICS );
+                colliderAttack.Init(eTRIBE_TYPE.HUMAN, Animator, Data.StatusData , AddStatus, eDAMAGE_TYPE.PHYSICS, this);
                 AttackElement = new PhysicsAttack();
-                AttackElement.Init(this);
+                AttackElement.Init(this, colliderAttack);
                 foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
                 {
                     trigger.ColliderAttack = colliderAttack;

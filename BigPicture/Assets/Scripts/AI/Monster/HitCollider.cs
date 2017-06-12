@@ -36,63 +36,69 @@ public class HitCollider : MonoBehaviour {
             return;
         }
 
-        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState())// || eSTATE.ATTACK != ct.GetComponentInParent<AI>().GetCurrentState())
+        if (ct != null && ct.TribeType != entity.Tribe)
+        {
+            GetDamage(ct);
+        }
+    }
+
+    void DamageTypeHandle(ColliderAttack _colliderAttack)
+    {
+       
+        Debug.Log(_colliderAttack.GetDamageType());
+        switch(_colliderAttack.GetDamageType())
+        {
+            case eDAMAGE_TYPE.PHYSICS:
+                Vector3 direction = ai.transform.position - (ai.transform.forward / 1.5f);
+                ai.SetTarget(direction);
+                break;
+            case eDAMAGE_TYPE.BLEEDING:
+                CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.BleedingDelay(ai));
+                break;
+            case eDAMAGE_TYPE.POISONING:
+                CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.PoisionDelay(ai));
+                break;
+            case eDAMAGE_TYPE.DEBUFF:
+                CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.DebuffDelay(ai));
+                break;
+            case eDAMAGE_TYPE.DAMAGE_AND_DEBUFF:
+                CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.DamageAndDebuffDelay(ai));
+                break;
+            case eDAMAGE_TYPE.SHOCK:
+                MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_SHOCK, null );
+                break;
+        }
+    }
+
+    public void GetDamage(ColliderAttack ct)
+    {
+        if (eSTATE.HIT == ai.GetCurrentState() || eSTATE.DIE == ai.GetCurrentState() || eSTATE.SHOCK == ai.GetCurrentState())// || eSTATE.ATTACK != ct.GetComponentInParent<AI>().GetCurrentState())
         {
             return;
         }
 
-        if (ct != null && ct.TribeType != entity.Tribe)
+        ai.EntityGroup.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.owner.EntityGroup);
+
+        CEnemy cEnemy;
+
+        cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
+
+        if (null == cEnemy)
+            cEnemy = ai.EnemyHandle.GetEnemy(ct.transform.parent.GetComponentInChildren<BaseGameEntity>().gameObject);
+
+        MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, ct.GetDamageType());
+
+        DamageTypeHandle(ct);
+
+        if (0 < (ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor)))
         {
-
-            try // 물리공격
-            {
-                ai.EntityGroup.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<BattleEntity>().EntityGroup);
-            }
-            catch // 마법공격
-            {
-                ai.EntityGroup.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<BattleEntity>().EntityGroup);
-
-            }
-
-            CEnemy cEnemy;
-
-            cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
-
-            if (null == cEnemy)
-                cEnemy = ai.EnemyHandle.GetEnemy(ct.transform.parent.GetComponentInChildren<BaseGameEntity>().gameObject);
-
-
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, ct.GetDamageType() );
-
-            //if (ai.GetStatus().EvasionRate <= Random.Range(0, 100))
-            //{
-            //    //Debug.Log(other.name + "의 공격 회피");
-            //    return;
-            //}
-
-            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            if(eDAMAGE_TYPE.BLEEDING == ct.GetDamageType())
-            {
-                MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.BLEEDING, null );
-                return;
-            }
-
-            if (eDAMAGE_TYPE.POISONING == ct.GetDamageType())
-            {
-                MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.POISONING, null );
-                return;
-            }
-
-            if (0 < (ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor)))
-            {
-               ai.Data.StatusData.HP -= ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor);
-               cEnemy.damage += (ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor));
-            }
-            else
-            {
-                ai.Data.StatusData.HP -= 1.0f;
-                cEnemy.damage += 1.0f;
-            }
+            ai.Data.StatusData.HP -= ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor);
+            cEnemy.damage += (ct.Power - (ai.Data.StatusData.Armor + ai.AddStatus.Armor));
+        }
+        else
+        {
+            ai.Data.StatusData.HP -= 1.0f;
+            cEnemy.damage += 1.0f;
         }
     }
 }
