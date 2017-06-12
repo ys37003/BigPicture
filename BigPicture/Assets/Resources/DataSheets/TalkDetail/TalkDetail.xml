@@ -1,45 +1,134 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Talk_Detail>
-		<TalkNumber>0</TalkNumber>
+		<TalkNumber>7</TalkNumber>
 		<Order>0</Order>
 		<Name>1</Name>
-		<Description>안녕 펄?</Description>
+		<Description>펄, 여긴 어쩐 일이야?</Description>
 	</Talk_Detail>
 	<Talk_Detail>
-		<TalkNumber>0</TalkNumber>
+		<TalkNumber>7</TalkNumber>
 		<Order>1</Order>
 		<Name>0</Name>
-    <Description>너도 안녕 도넛!</Description>
+		<Description>다시 돌아오고 싶었어.</Description>
 	</Talk_Detail>
 	<Talk_Detail>
-		<TalkNumber>0</TalkNumber>
+		<TalkNumber>7</TalkNumber>
 		<Order>2</Order>
 		<Name>1</Name>
-		<Description>나 좀 도와줄래?</Description>
-		<Choice>좋아#음.. 싫어</Choice>
-		<Result>O3,L1,Q1#O4</Result>
+		<Description>차라리 돌아오지 않았으면 싶었는데… 내 모습 웃기지?</Description>
+		<Choice>모습이 왜 이렇게 변했는지 물어본다.#아무 일 없는 척 마을에 무슨 일이 있는지 물어본다.</Choice>
+		<Result>O3,L1#O8</Result>
 	</Talk_Detail>
 	<Talk_Detail>
-		<TalkNumber>0</TalkNumber>
+		<TalkNumber>7</TalkNumber>
 		<Order>3</Order>
 		<Name>1</Name>
-		<Description>촉촉이한테 안부를 전해줘</Description>
-		<Result>RE</Result>
+		<Description>네가 없는 동안 많은 일이 있었어.</Description>
 	</Talk_Detail>
 	<Talk_Detail>
-		<TalkNumber>0</TalkNumber>
+		<TalkNumber>7</TalkNumber>
 		<Order>4</Order>
 		<Name>1</Name>
-		<Description>그.. 그래…</Description>
-    <Result>RE</Result>
-  </Talk_Detail>
+		<Description>보름 전 부터 농작물이 전혀 자라지 않고, 산 속에 있던 몬스터들이 전부 내려와서 우릴 공격했어.</Description>
+	</Talk_Detail>
 	<Talk_Detail>
-		<TalkNumber>1</TalkNumber>
-		<Order>0</Order>
+		<TalkNumber>7</TalkNumber>
+		<Order>5</Order>
 		<Name>1</Name>
-		<Description>나도 파티에 참가하고 싶어</Description>
-		<Choice>좋아#생각해보고</Choice>
-		<Result>RE,L1</Result>
+		<Description>원인을 밝혀내기 위해 우리가 숲으로 향했는데…</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>6</Order>
+		<Name>1</Name>
+		<Description>그 곳에서 우리는 농작물들이 생명을 빼앗기는 것 처럼 형체를 빼앗겼어.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>7</Order>
+		<Name>1</Name>
+		<Description>아마… 다시는 원래대로 돌아오지 못할 지도 몰라.</Description>
+		<Result>O12</Result>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>8</Order>
+		<Name>1</Name>
+		<Description>마을? 마을은… 아마 모두들 떠날 준비를 하고 있을거야.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>9</Order>
+		<Name>1</Name>
+		<Description>보름 전 부터 농작물이 전혀 자라지 않고, 산 속에 있던 몬스터들이 전부 내려와서 우릴 공격했어.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>10</Order>
+		<Name>1</Name>
+		<Description>우리가 원인을 찾아보려 했지만 결국 이렇게 되어버렸어.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>11</Order>
+		<Name>1</Name>
+		<Description>아마… 다시는 원래대로 돌아오지 못할 지도 몰라.</Description>
+		<Result>O12</Result>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>12</Order>
+		<Name>0</Name>
+		<Description>다른 사람들은?</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>13</Order>
+		<Name>1</Name>
+		<Description>다들 여길 떠날 준비를 하고 있을거야.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>14</Order>
+		<Name>1</Name>
+		<Description>여기에 남겠다고 하는 사람도 있지만, 우린 그것을 이기지 못해.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>15</Order>
+		<Name>0</Name>
+		<Description>그것이라니?</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>16</Order>
+		<Name>1</Name>
+		<Description>난 너무 무서워서 그것을 제대로 쳐다보지도 못했어.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>17</Order>
+		<Name>1</Name>
+		<Description>정신을 잃고 눈을 떠 보니 전부 나처럼…</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>18</Order>
+		<Name>0</Name>
+		<Description>알겠어. 더 이상 말 하지 않아도 괜찮아.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>19</Order>
+		<Name>1</Name>
+		<Description>반대편에 있는 EAST를 설득해줘. 그 이후로 계속 다시 가겠다고 사람들을 모으고 있어.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>7</TalkNumber>
+		<Order>20</Order>
+		<Name>0</Name>
+		<Description>알겠어.</Description>
+		<Result>RE,Q2</Result>
 	</Talk_Detail>
 </data-set>

@@ -86,7 +86,7 @@ public class TalkBar : MonoBehaviour
         else if (descData != null && onClickNext != null)
         {
             onClickNext(descData.Result);
-            onClickNext = null;
+            //onClickNext = null;
         }
     }
 
