@@ -13,10 +13,6 @@ public class CinemaManager : Singleton<CinemaManager>
 {
     public Transform[] poses;
 
-    private void Awake()
-    {
-    }
-
     public void StartTitleUICinema()
     {
         Camera cinema = CameraManager.Instance.GetCamera(eCAMERA.Cinema);
@@ -74,12 +70,6 @@ public class CinemaManager : Singleton<CinemaManager>
             Destroy(tr2);
         });
         tr2.PlayForward();
-
-        float a = (tr.from.y - tr.to.y) / 0.5f;
-        float b = (tr2.from.y - tr2.to.y) / 0.1f;
-
-        Debug.Log("a " + a);
-        Debug.Log("b " + b);
     }
 
     public void EndStatusUICinema()

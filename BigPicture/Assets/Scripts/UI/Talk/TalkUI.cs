@@ -29,10 +29,6 @@ public class TalkUI : UIBase<TalkUI>
         ui.follows[1].uiCamera   = CameraManager.Instance.GetCamera(eCAMERA.UI2D);
     }
 
-    protected override void OverrideAwake()
-    {
-    }
-
     protected override void OverrideStart()
     {
         Init();
