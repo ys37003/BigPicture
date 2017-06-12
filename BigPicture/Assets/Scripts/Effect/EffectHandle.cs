@@ -9,25 +9,38 @@ public class EffectHandle : MonoBehaviour {
 
     private eEffect effect = eEffect.PUNCH;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         effect = eEffect.PUNCH;
         owner = this.transform.GetComponentInParent<AI>();
 
         if (null == owner)
             owner = this.transform.parent.GetComponentInChildren<AI>();
 
-        
+
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update() {
+
+    }
 
     public void SetEffect(eEffect _effect)
     {
         effect = _effect;
+    }
+
+    public void ActEffect()
+    {
+        GameObject goEffect = EffectPool.Instance.Pop(effect);
+
+        StartCoroutine(goEffect.GetComponent<SelfDestruct>().LifeTime());
+
+        goEffect.transform.position = this.transform.position + this.transform.forward;
+
+        goEffect.SetActive(true);
+        effectAble = false;
+        StartCoroutine(Deley());
     }
 
     private void OnTriggerEnter(Collider other)

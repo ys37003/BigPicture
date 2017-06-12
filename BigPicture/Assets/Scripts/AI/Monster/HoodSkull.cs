@@ -14,8 +14,10 @@ public class HoodSkull : AI
     private ColliderAttack colliderAttack = null;
 
     [SerializeField]
-    private GameObject spell;
+    private GameObject skillSpell;
 
+    [SerializeField]
+    private GameObject nomalSpell;
     HpHandle hpHandle;
 
     public StatusData Status { get { return Data.StatusData + AddStatus; } }
@@ -59,12 +61,12 @@ public class HoodSkull : AI
 
                 colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS, this);
                 AttackElement = new PhysicsAttack();
-                AttackElement.Init(this, colliderAttack);
                 foreach (AnimationTrigger trigger in Animator.GetBehaviours<AnimationTrigger>())
                 {
                     trigger.ColliderAttack = colliderAttack;
                 }
 
+                AttackElement.Init(this, colliderAttack);
                 HUDUI.SetJob(eJob.Dealer);
                 AttackRange = 1.5f;
                 break;
@@ -72,10 +74,11 @@ public class HoodSkull : AI
                 SetDestination = Delegates.Instance.SetDestination_Foword;
                 SetFomation = Delegates.Instance.SetFomation_Foword;
                 Approach = Delegates.Instance.Approach_Foword;
-
+               
                 colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.BLEEDING, this);
+                skillSpell.GetComponent<ColliderAttack>().Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.BLEEDING, this);
                 AttackElement = new SpellAttack();
-                AttackElement.Init(this, colliderAttack, spell);
+                AttackElement.Init(this, colliderAttack, nomalSpell,null,skillSpell);
 
                 HUDUI.SetJob(eJob.Wizard);
                 AttackRange = 5.0f;
@@ -86,8 +89,9 @@ public class HoodSkull : AI
                 Approach = Delegates.Instance.Approach_Support;
 
                 colliderAttack.Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.POISONING, this);
+                skillSpell.GetComponent<ColliderAttack>().Init(eTRIBE_TYPE.HOODSKULL, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.POISONING, this);
                 AttackElement = new SpellAttack();
-                AttackElement.Init(this, colliderAttack, spell);
+                AttackElement.Init(this, colliderAttack, nomalSpell,skillSpell);
 
                 HUDUI.SetJob(eJob.Wizard);
                 AttackRange = 5.0f;
@@ -118,7 +122,7 @@ public class HoodSkull : AI
     {
         eTRIBE_TYPE colType = eTRIBE_TYPE.NULL;
 
-        if ("Human" == other.tag || "Monster" == other.tag)
+        if ("Human" == other.tag )
         {
             try
             {

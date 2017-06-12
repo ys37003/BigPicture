@@ -13,11 +13,14 @@ public class Dragon : AI {
     [SerializeField]
     private ColliderAttack colliderAttack = null;
 
+    [SerializeField]
+    List<AttackablePart> attackablePart;
+
     public StatusData Status { get { return Data.StatusData + AddStatus; } }
 
     // Use this for initialization
     void Start () {
-        Data = new MonsterData(eTRIBE_TYPE.DRAGON, eJOB_TYPE.DRAGON, 10, 10, 10, 10, 10, 10, 10, 100, 10, 50);
+        Data = new MonsterData(eTRIBE_TYPE.DRAGON, eJOB_TYPE.DRAGON, 1, 1, 1, 10, 10, 10, 10, 100, 10, 50);
         AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
 
         Animator = this.GetComponent<Animator>();
@@ -56,8 +59,8 @@ public class Dragon : AI {
         {
             case eJOB_TYPE.DRAGON:
                 SetDestination = Delegates.Instance.SetDestination_Boss;
-                SetFomation = Delegates.Instance.SetFomation_Foword;
-                Approach = Delegates.Instance.Approach_Foword;
+                SetFomation = Delegates.Instance.SetFomation_Partner;
+                Approach = Delegates.Instance.Approach_Dealer;
 
                 colliderAttack.Init(eTRIBE_TYPE.DRAGON, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS, this);
                 AttackElement = new BossAttack();
@@ -112,5 +115,22 @@ public class Dragon : AI {
             this.EntityGroup.EnemyGroup.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.I_SEE_YOU, this.EntityGroup);
             this.EntityGroup.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, this.EntityGroup.EnemyGroup);
         }
+    }
+
+    public Vector3 GetHitColider(Vector3 _enemy)
+    {
+        attackablePart.Sort(delegate (AttackablePart A, AttackablePart B)
+        {
+            if (false == A.attackablePart && false == B.attackablePart) return 0;
+            else if (false == A.attackablePart) return 1;
+            else if (false == B.attackablePart) return -1;
+
+            if (Vector3.Distance(_enemy , A.transform.position) < Vector3.Distance(_enemy, B.transform.position)) return 1;
+            else if (Vector3.Distance(_enemy, A.transform.position) > Vector3.Distance(_enemy, B.transform.position)) return -1;
+            return 0;
+        });
+
+        Debug.Log(attackablePart[0].name);
+        return attackablePart[0].transform.position;
     }
 }

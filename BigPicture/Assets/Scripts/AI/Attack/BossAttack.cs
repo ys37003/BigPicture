@@ -32,15 +32,17 @@ public class BossAttack : AttackElement {
     void DragonBreath(GameObject _go)
     {
         Debug.Log("DragonBreath");
+        colliderAttack.SetDamageType(eDAMAGE_TYPE.BLEEDING);
         MessageDispatcher.Instance.DispatchMessage(0, owner.ID, owner.ID, (int)eMESSAGE_TYPE.TO_DRAGONBREATH, null);
     }
 
     void FootStamp(GameObject _go)
     {
         Debug.Log("FootStamp");
+        colliderAttack.SetDamageType(eDAMAGE_TYPE.SHOCK);
         MessageDispatcher.Instance.DispatchMessage(0, owner.ID, owner.ID, (int)eMESSAGE_TYPE.TO_FOOTSTAMP, null);
     }
-    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _go = null)
+    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject nomalAttack = null, GameObject _poisoning = null, GameObject _bleeding = null)
     {
         colliderAttack = _colliderAttack;
         owner = _onwer;

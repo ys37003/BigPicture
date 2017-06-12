@@ -8,6 +8,8 @@ public class Healer : MonoBehaviour {
 
     [SerializeField]
     public AI owner;
+    [SerializeField]
+    GameObject effect;
     // Use this for initialization
     void Start () {
 		
@@ -41,10 +43,14 @@ public class Healer : MonoBehaviour {
         float oldTime = Time.time;
         float endTime = Time.time;
         injured.buffUI.AddBuff(eBuff.Heal);
+        effect.SetActive(true);
+        healAlbe = false;
         while (true)
         {
+            effect.transform.position = injured.transform.position;
             if (endTime + 5.0f < Time.time)
             {
+                healAlbe = true;
                 break;
             }
 
@@ -55,6 +61,7 @@ public class Healer : MonoBehaviour {
             }
             yield return null;
         }
+        effect.SetActive(false);
         injured.buffUI.RemoveBuff(eBuff.Heal);
     }
 }

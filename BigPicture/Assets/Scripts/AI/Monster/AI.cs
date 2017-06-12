@@ -250,7 +250,7 @@ public class AI : BattleEntity
     public void SetTarget(Vector3 _destination)
     {
         
-        if ( _destination == Vector3.zero)
+        if ( _destination != Vector3.zero)
         {
             //Debug.Log("Destination is NULL");
         }

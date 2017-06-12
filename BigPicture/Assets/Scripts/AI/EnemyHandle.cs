@@ -47,7 +47,6 @@ public class EnemyHandle
 
     public CEnemy GetEnemy(int _index)
     {
-        
         return enemyList[_index];
     }
 

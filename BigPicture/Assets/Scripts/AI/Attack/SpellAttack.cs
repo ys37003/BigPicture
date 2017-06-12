@@ -5,25 +5,37 @@ using UnityEngine;
 public class SpellAttack : AttackElement{
 
     private AI owner;
-    private GameObject spell;
+    private GameObject nomalAttack;
+    private GameObject poisoning;
+    private GameObject bleeding;
     private Collider collider;
     private Color color;
     private float time;
     ColliderAttack colliderAttack;
     // Use this for initializatio
-    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _go = null)
+    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _nomalAttack = null , GameObject _poisoning = null , GameObject _bleeding = null)
     {
         colliderAttack = _colliderAttack;
-        spell = _go;
-        color = spell.GetComponent<MeshRenderer>().material.color;
-        collider = spell.GetComponent<BoxCollider>();
+        nomalAttack = _nomalAttack;
+        poisoning = _poisoning;
+        bleeding = _bleeding;
+        collider = nomalAttack.GetComponent<BoxCollider>();
+
+        if (null != poisoning)
+        {
+            poisoning.SetActive(false);
+        }
+        if (null != bleeding)
+        {
+            bleeding.SetActive(false);
+        }
         collider.enabled = false;
         owner = _onwer;
     }
 
     public override void Attack(GameObject _go)
     {
-        switch (Random.Range(0, 5))
+        switch (0)//.Range(0, 2))
         {
             case 0:
                 {
@@ -36,22 +48,11 @@ public class SpellAttack : AttackElement{
                     {
                         Poisoning(_go);
                     }
-
                 }
                 break;
-
             default:
                 {
-                    if (eJOB_TYPE.FORWARD == owner.Job)
-                    {
-                        Bleeding(_go);
-                    }
-
-                    if (eJOB_TYPE.SUPPORT == owner.Job)
-                    {
-                        Poisoning(_go);
-                    }
-                    //NomalAttack(_go);
+                    NomalAttack(_go);
                 }
                 break;
         }
@@ -59,67 +60,71 @@ public class SpellAttack : AttackElement{
 
     void NomalAttack(GameObject _go)
     {
-        spell.GetComponent<EffectHandle>().SetEffect(eEffect.EXPLOSION);
-        spell.transform.position = _go.transform.position;
-        colliderAttack.SetDamageType(eDAMAGE_TYPE.SPELL);
-        try
-        {
-            _go.GetComponentInChildren<HitCollider>().GetDamage(colliderAttack);
-        }
-        catch
-        {
-            _go.GetComponent<Character>().GetDamage(colliderAttack);
-        }
+        CoroutineManager.Instance.CStartCoroutine(EffectDeley(2.0f, _go));
     }
 
     void Bleeding(GameObject _go)
     {
-        AI entity = _go.GetComponent<AI>();
-
-        spell.GetComponent<EffectHandle>().SetEffect(eEffect.BLEEDING);
-        spell.transform.position = _go.transform.position;
-        spell.GetComponent<MeshRenderer>().enabled = true;
-        color.a = 0.0f;
-        spell.GetComponent<MeshRenderer>().material.color = color;
-        time = Time.time;
+        bleeding.transform.position = _go.transform.position;
         colliderAttack.SetDamageType(eDAMAGE_TYPE.BLEEDING);
-        CoroutineManager.Instance.CStartCoroutine(AttackDelay());
+        time = Time.time;
+        CoroutineManager.Instance.CStartCoroutine(AttackDelay(bleeding,1.5f));
     }
 
     void Poisoning(GameObject _go)
     {
         //if (false == skillAble)
         //    return;
-
-        AI entity = _go.GetComponent<AI>();
-
-        spell.GetComponent<EffectHandle>().SetEffect(eEffect.POISONING);
-        spell.transform.position = _go.transform.position;
-        spell.GetComponent<MeshRenderer>().enabled = true;
-        color.a = 0.0f;
-        spell.GetComponent<MeshRenderer>().material.color = color;
-        time = Time.time;
+        MessageDispatcher.Instance.DispatchMessage(0.5f, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK, owner.transform.position);
+        poisoning.transform.position = _go.transform.position;
         colliderAttack.SetDamageType(eDAMAGE_TYPE.POISONING);
-        CoroutineManager.Instance.CStartCoroutine(AttackDelay());
+        poisoning.SetActive(true);
+        time = Time.time;
+        CoroutineManager.Instance.CStartCoroutine(AttackDelay(poisoning,0));
     }
 
-    IEnumerator AttackDelay()
+    IEnumerator EffectDeley(float _delay,  GameObject _go)
     {
-        MessageDispatcher.Instance.DispatchMessage(0.5f, owner.ID, owner.EnemyHandle.GetEnemy(0).enemy.GetComponent<BaseGameEntity>().ID, (int)eMESSAGE_TYPE.AVOID_ATTACK,owner.transform.position);
+        float oldTime = Time.time;
         while (true)
         {
-            if (time + 0.5f < Time.time)
+            if (oldTime + _delay < Time.time)
             {
-                color.a += 0.01f;
-                spell.GetComponent<MeshRenderer>().material.color = color;
+                nomalAttack.GetComponent<EffectHandle>().SetEffect(eEffect.EXPLOSION);
+                nomalAttack.transform.position = _go.transform.position;
 
-                if (1.0f < color.a)
+                nomalAttack.GetComponent<EffectHandle>().ActEffect();
+
+                colliderAttack.SetDamageType(eDAMAGE_TYPE.SPELL);
+                try
                 {
-                    collider.enabled = true;
-                    spell.GetComponent<MeshRenderer>().enabled = false;
-                    CoroutineManager.Instance.CStartCoroutine(ColliderDelay());
-                    break;
+                    _go.GetComponentInChildren<HitCollider>().GetDamage(colliderAttack);
                 }
+                catch
+                {
+                    _go.GetComponent<Character>().GetDamage(colliderAttack);
+                }
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    IEnumerator AttackDelay(GameObject _go,float _delay)
+    {
+        float oldTime = Time.time;
+
+        while (true)
+        {
+            if(oldTime + _delay < Time.time)
+            {
+                _go.SetActive(true);
+            }
+
+            if (time + (2.0f + _delay) < Time.time)
+            {
+                _go.SetActive(false);
+                break;
             }
             yield return null;
         }
