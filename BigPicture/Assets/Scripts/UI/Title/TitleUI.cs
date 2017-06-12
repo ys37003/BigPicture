@@ -16,7 +16,7 @@ public class TitleUI : UIBase<TitleUI>
 
     private void onClickStart()
     {
-        CinemaManager.Instance.StartTitleCinema();
+        CinemaManager.Instance.StartTitleUICinema();
 
         TweenAlpha ta = gameObject.AddComponent<TweenAlpha>();
         ta.from = 1;

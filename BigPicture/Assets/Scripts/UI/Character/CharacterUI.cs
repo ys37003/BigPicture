@@ -8,6 +8,6 @@ public class CharacterUI : UIBase<CharacterUI>
 
     protected override void OverrideStart()
     {
-        hpBar.SetData(TeamManager.Instance.GetCharacter(0).Status);
+        hpBar.SetData(TeamManager.Instance.GetPlayer().Status);
     }
 }

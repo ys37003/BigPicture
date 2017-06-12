@@ -39,6 +39,9 @@ public class StatusUI : UIBase<StatusUI>
                 toggleList[i].SetActive(false);
             }
         }
+
+        CinemaManager.Instance.StartStatusUICinema();
+        TeamManager.Instance.GetPlayer().Pose();
     }
 
     protected override void OverrideStart()
@@ -48,6 +51,9 @@ public class StatusUI : UIBase<StatusUI>
 
     protected override void OverrideDestroy()
     {
+        CinemaManager.Instance.EndStatusUICinema();
+        TeamManager.Instance.GetPlayer().ReStart();
+
         // 종료시 스테이터스 재적용
         for (int i = 1; i < TeamManager.Instance.GetTeamSize(); ++i)
         {
