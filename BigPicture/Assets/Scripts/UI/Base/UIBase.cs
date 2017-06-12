@@ -98,13 +98,14 @@ public abstract class UIBase<T> : MonoBehaviour, IUIBase where T : class
     {
         uiDepth.AddWidget(GetComponentsInChildren<UIWidget>());
         uiDepth.AddPanel(GetComponentsInChildren<UIPanel>());
-        UIManager.Instance.AddUI(this as IUIBase);
 
         OverrideAwake();
     }
 
     private void Start()
     {
+        UIManager.Instance.AddUI(this as IUIBase);
+
         OverrideStart();
     }
 
