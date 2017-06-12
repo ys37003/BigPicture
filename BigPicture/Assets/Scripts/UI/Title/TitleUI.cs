@@ -1,16 +1,48 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TitleUI : UIBase<TitleUI>
 {
-    // Use this for initialization
-    void Start()
-    {
+    [SerializeField] private UIButton btnStart, btnLoad, BtnSetting, btnCredit, btnExit;
 
+    private void Awake()
+    {
+        EventDelegate.Add(btnStart.onClick, onClickStart);
+        EventDelegate.Add(btnLoad.onClick, onClickLoad);
+        EventDelegate.Add(BtnSetting.onClick, onClickSetting);
+        EventDelegate.Add(btnCredit.onClick, onClickCredit);
+        EventDelegate.Add(btnExit.onClick, onClickExit);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void onClickStart()
     {
+        CinemaManager.Instance.StartTitleCinema();
 
+        TweenAlpha ta = gameObject.AddComponent<TweenAlpha>();
+        ta.from = 1;
+        ta.to = 0;
+        ta.duration = 1;
+        EventDelegate.Add(ta.onFinished, () =>
+        {
+            DestroyUI();
+        });
+        ta.PlayForward();
+    }
+
+    private void onClickLoad()
+    {
+    }
+
+    private void onClickSetting()
+    {
+    }
+
+    private void onClickCredit()
+    {
+    }
+
+    private void onClickExit()
+    {
+        Application.CancelQuit();
     }
 }
