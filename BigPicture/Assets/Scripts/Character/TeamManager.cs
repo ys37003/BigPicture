@@ -4,9 +4,13 @@ using UnityEngine;
 
 public enum eDAMAGE_TYPE
 {
+    SPELL,
     PHYSICS,
     BLEEDING,
-    POISONING
+    POISONING,
+    DEBUFF,
+    DAMAGE_AND_DEBUFF,
+    SHOCK,
 }
 
 public interface ICharacter

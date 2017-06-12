@@ -36,7 +36,6 @@ public class Character : BattleEntity, ICharacter
 
     [SerializeField] private Animator       animator       = null;
     [SerializeField] private ColliderAttack colliderAttack = null;
-
     /// <summary>
     /// 구르기 속도는 이동속도(MoveSpeed) %이다.
     /// ex) RollSpeed가 0.7이면 7(MoveSpeed * 0.7)의 속도로 구른다.
@@ -57,13 +56,12 @@ public class Character : BattleEntity, ICharacter
         }
 
         EntityInit(eENTITY_TYPE.PLAYER, eTRIBE_TYPE.HUMAN, eJOB_TYPE.DEALER , Group);
-
         // 임시
         Init(new StatusData(20, 5, 1, 1, 1, 1, 1, StatusData.MAX_HP));
 
         StartCoroutine("UpdateState");
 
-        colliderAttack.Init(eTRIBE_TYPE.HUMAN, animator, Status , AddStatus , eDAMAGE_TYPE.PHYSICS);
+        colliderAttack.Init(eTRIBE_TYPE.HUMAN, animator, Status , AddStatus , eDAMAGE_TYPE.PHYSICS,this);
         foreach (AnimationTrigger trigger in animator.GetBehaviours<AnimationTrigger>())
         {
             trigger.ColliderAttack = colliderAttack;
@@ -185,34 +183,35 @@ public class Character : BattleEntity, ICharacter
 
         if (ct != null && ct.TribeType != Tribe)
         {
-            if(Status.HP <= 0)
-                return;
+           
 
-            if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
-            {
-                //return;
-            }
+            GetDamage(ct);
+        }
+    }
 
-            //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
-            Status.HP -= (ct.Power - Status.Armor);
+    public void GetDamage(ColliderAttack ct)
+    {
 
-            try // 물리공격
-            {
-                Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.GetComponentInParent<BattleEntity>().EntityGroup);
-            }
-            catch // 마법공격
-            {
-                Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, other.transform.parent.GetComponentInChildren<BattleEntity>().EntityGroup);
-            }
+        if (Status.HP <= 0)
+            return;
 
-            if (Status.HP <= 0 && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Die"))
-            {
-                animator.Play("Die");
-            }
-            else if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit"))
-            {
-                animator.Play("Hit");
-            }
+            Group.DispatchMessageGroup(0, this.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.owner.EntityGroup);
+   
+        if (ct.StatusData.EvasionRate <= Random.Range(0, 100))
+        {
+            //return;
+        }
+
+        //데미지 계산 (물리공격력 + 마법공격력 - 방어력)
+        Status.HP -= (ct.Power - Status.Armor);
+
+        if (Status.HP <= 0 && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Die"))
+        {
+            animator.Play("Die");
+        }
+        else if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit"))
+        {
+            animator.Play("Hit");
         }
     }
 

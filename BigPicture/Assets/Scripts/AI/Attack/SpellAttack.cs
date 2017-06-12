@@ -9,11 +9,11 @@ public class SpellAttack : AttackElement{
     private Collider collider;
     private Color color;
     private float time;
-
-    bool skillAble = true;
+    ColliderAttack colliderAttack;
     // Use this for initializatio
-    public override void Init(AI _onwer , GameObject _go = null)
+    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _go = null)
     {
+        colliderAttack = _colliderAttack;
         spell = _go;
         color = spell.GetComponent<MeshRenderer>().material.color;
         collider = spell.GetComponent<BoxCollider>();
@@ -27,12 +27,12 @@ public class SpellAttack : AttackElement{
         {
             case 0:
                 {
-                    if(eDAMAGE_TYPE.BLEEDING ==  spell.GetComponent<ColliderAttack>().GetDamageType())
+                    if(eJOB_TYPE.FORWARD == owner.Job)
                     {
                         Bleeding(_go);
                     }
 
-                    if (eDAMAGE_TYPE.POISONING == spell.GetComponent<ColliderAttack>().GetDamageType())
+                    if (eJOB_TYPE.SUPPORT == owner.Job)
                     {
                         Poisoning(_go);
                     }
@@ -42,7 +42,16 @@ public class SpellAttack : AttackElement{
 
             default:
                 {
-                    NomalAttack(_go);
+                    if (eJOB_TYPE.FORWARD == owner.Job)
+                    {
+                        Bleeding(_go);
+                    }
+
+                    if (eJOB_TYPE.SUPPORT == owner.Job)
+                    {
+                        Poisoning(_go);
+                    }
+                    //NomalAttack(_go);
                 }
                 break;
         }
@@ -52,17 +61,19 @@ public class SpellAttack : AttackElement{
     {
         spell.GetComponent<EffectHandle>().SetEffect(eEffect.EXPLOSION);
         spell.transform.position = _go.transform.position;
-        color.a = 0.0f;
-        spell.GetComponent<MeshRenderer>().material.color = color;
-        time = Time.time;
-        CoroutineManager.Instance.CStartCoroutine(AttackDelay());
+        colliderAttack.SetDamageType(eDAMAGE_TYPE.SPELL);
+        try
+        {
+            _go.GetComponentInChildren<HitCollider>().GetDamage(colliderAttack);
+        }
+        catch
+        {
+            _go.GetComponent<Character>().GetDamage(colliderAttack);
+        }
     }
 
     void Bleeding(GameObject _go)
     {
-        if (false == skillAble)
-            return;
-
         AI entity = _go.GetComponent<AI>();
 
         spell.GetComponent<EffectHandle>().SetEffect(eEffect.BLEEDING);
@@ -71,14 +82,14 @@ public class SpellAttack : AttackElement{
         color.a = 0.0f;
         spell.GetComponent<MeshRenderer>().material.color = color;
         time = Time.time;
+        colliderAttack.SetDamageType(eDAMAGE_TYPE.BLEEDING);
         CoroutineManager.Instance.CStartCoroutine(AttackDelay());
-        CoroutineManager.Instance.CStartCoroutine(BleedingDelay(entity));
     }
 
     void Poisoning(GameObject _go)
     {
-        if (false == skillAble)
-            return;
+        //if (false == skillAble)
+        //    return;
 
         AI entity = _go.GetComponent<AI>();
 
@@ -88,8 +99,8 @@ public class SpellAttack : AttackElement{
         color.a = 0.0f;
         spell.GetComponent<MeshRenderer>().material.color = color;
         time = Time.time;
+        colliderAttack.SetDamageType(eDAMAGE_TYPE.POISONING);
         CoroutineManager.Instance.CStartCoroutine(AttackDelay());
-        CoroutineManager.Instance.CStartCoroutine(PoisionDelay(entity));
     }
 
     IEnumerator AttackDelay()
@@ -126,69 +137,5 @@ public class SpellAttack : AttackElement{
             }
             yield return null;
         }
-    }
-
-    IEnumerator SkillDelay()
-    {
-        float oldTime = Time.time;
-        while (true)
-        {
-            if (oldTime + 5.0f < Time.time)
-            {
-                skillAble = true;
-                break;
-            }
-            yield return null;
-        }
-    }
-
-    IEnumerator BleedingDelay(AI _ai)
-    {
-        float oldTime = Time.time;
-        float endTIme = Time.time;
-        _ai.buffUI.AddBuff(eBuff.Bleeding);
-        while (true)
-        {
-            if (endTIme + 5.0f < Time.time)
-            {
-                break;
-            }
-
-            if (oldTime + 1.0f < Time.time)
-            {
-                oldTime = Time.time;
-                _ai.Data.StatusData.HP -= 5;
-            }
-            yield return null;
-        }
-        _ai.buffUI.RemoveBuff(eBuff.Bleeding);
-        skillAble = true;
-    }
-
-    IEnumerator PoisionDelay(AI _ai)
-    {
-        float oldTime = Time.time;
-        float endTIme = Time.time;
-        _ai.AddStatus = new StatusData(0, 0, -5, 0, 0, 0, 0, 0);
-        _ai.buffUI.AddBuff(eBuff.SpeedDown);
-        _ai.buffUI.AddBuff(eBuff.Poisoning);
-        while (true)
-        {
-            if (endTIme + 5.0f < Time.time)
-            {
-                break;
-            }
-
-            if (oldTime + 1.0f < Time.time)
-            {
-                oldTime = Time.time;
-                _ai.Data.StatusData.HP -= 3;
-            }
-            yield return null;
-        }
-        skillAble = true;
-        _ai.AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
-        _ai.buffUI.RemoveBuff(eBuff.SpeedDown);
-        _ai.buffUI.RemoveBuff(eBuff.Poisoning);
     }
 }

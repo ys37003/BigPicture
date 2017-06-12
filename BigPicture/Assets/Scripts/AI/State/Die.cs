@@ -27,6 +27,7 @@ public class Die : State
         entity.Die();
         if (true == entity.EndDie())
         {
+            HUDUIPoolManager.Instance.SetMonsterHUDUI(entity.HUDUI);
             AnimatorManager.Instance().SetAnimation(entity.Animator, "Die", false);
         }
     }
