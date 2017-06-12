@@ -38,7 +38,7 @@ public class CinemaManager : Singleton<CinemaManager>
         TweenPosition tp = go.AddComponent<TweenPosition>();
         tp.from = CameraManager.Instance.GetCamera(eCAMERA.Main).transform.localPosition;
         tp.to = poses[(int)eCINEMA_POS.STATUS].localPosition;
-        tp.duration = 0.7f;
+        tp.duration = 0.4f;
         tp.delay = 0;
         EventDelegate.Add(tp.onFinished, () =>
         {
@@ -52,7 +52,7 @@ public class CinemaManager : Singleton<CinemaManager>
         TweenRotation tr = go.AddComponent<TweenRotation>();
         tr.from = CameraManager.Instance.GetCamera(eCAMERA.Main).transform.localEulerAngles;
         tr.to = poses[(int)eCINEMA_POS.STATUS].localEulerAngles;
-        tr.duration = 0.7f;
+        tr.duration = 0.4f;
         tr.delay = 0;
         EventDelegate.Add(tr.onFinished, () =>
         {
@@ -64,7 +64,7 @@ public class CinemaManager : Singleton<CinemaManager>
         tr2.from = cp.eulerAngles;
         tr2.to = tfChar.eulerAngles;
         tr2.duration = 0.3f;
-        tr2.delay = 0.7f;
+        tr2.delay = 0.4f;
         EventDelegate.Add(tr2.onFinished, () =>
         {
             Destroy(tr2);
