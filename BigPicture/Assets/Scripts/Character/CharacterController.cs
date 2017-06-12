@@ -28,7 +28,7 @@ public class CharacterController : MonoBehaviour
 
     public bool IsAttack { get { return animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"); } }
 
-    private void Awake()
+    private void Start()
     {
         Init();
     }
@@ -71,13 +71,10 @@ public class CharacterController : MonoBehaviour
 
             animator.SetFloat("Move", move);
 
-            if (IsMove == false)
-            {
-                // 카메라의 정면을 기준으로 캐릭터 방향 설정
-                forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
-                right = followedCamera.right;
-            }
-            else if(!IsAttack)
+            forward = Vector3.Scale(followedCamera.forward, new Vector3(1, 0, 1)).normalized;
+            right = followedCamera.right;
+
+            if (!IsAttack)
             {
                 // 카메라 정면을 기준으로 입력한 방향으로 이동
                 character.Move(transform.InverseTransformDirection(v * forward + h * right), move);

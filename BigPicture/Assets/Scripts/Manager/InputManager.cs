@@ -85,20 +85,6 @@ public class InputManager : Singleton<InputManager>
 
         AddKey(new InputKey(KeyCode.F3, InputType.KeyDown), new InputValue(() =>
         {
-            if(CharacterUI.IsShow)
-            {
-                WorldManager.Instance.SetPause(false);
-                CharacterUI.DestroyUI();
-            }
-            else
-            {
-                WorldManager.Instance.SetPause(true);
-                CharacterUI.CreateUI();
-            }
-        }, null));
-
-        AddKey(new InputKey(KeyCode.F4, InputType.KeyDown), new InputValue(() =>
-        {
             if(TalkUI.IsShow)
             {
                 WorldManager.Instance.SetPause(false);

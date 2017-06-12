@@ -36,7 +36,7 @@ public class SparePartner : MonoBehaviour
             {
                 TalkUI.CreateUI
                 (
-                    (TeamManager.Instance.GetCharacter(0) as Character).transform.Find("head_up_pivot"), 
+                    TeamManager.Instance.GetPlayer().transform.Find("head_up_pivot"), 
                     hud_ui_pivot,
                     DataManager.Instance().GetTalkBaseData(name)
                 );

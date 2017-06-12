@@ -47,6 +47,11 @@ public class TeamManager : Singleton<TeamManager>
         return new List<ICharacter>(characterList);
     }
 
+    public Character GetPlayer()
+    {
+        return characterList[0] as Character;
+    }
+
     public ICharacter GetCharacter(int index)
     {
         if (index >= characterList.Count)
