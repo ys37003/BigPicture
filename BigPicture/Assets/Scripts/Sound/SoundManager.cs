@@ -9,16 +9,35 @@ public class SoundManager : Singleton<SoundManager>
 
     [SerializeField]
     GameObject playerPos;
+
     [SerializeField]
     private float value;
 
     [SerializeField]
     float Distance;
 
+    [SerializeField]
+    AudioSource bgm;
+
+    [SerializeField]
+    AudioClip townBgm, bossBgm;
+
     // Update is called once per frame
     void Update()
     {
         VolumeHandle();
+    }
+
+    public void ChangeTownBgm()
+    {
+        bgm.clip = townBgm;
+        bgm.Play();
+    }
+
+    public void ChangeBossBgm()
+    {
+        bgm.clip = bossBgm;
+        bgm.Play();
     }
 
     void VolumeHandle()

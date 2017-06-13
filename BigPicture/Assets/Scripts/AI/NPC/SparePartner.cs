@@ -67,6 +67,7 @@ public class SparePartner : MonoBehaviour
                 yield return new WaitForSeconds(0.3f);
 
                 NoticeUI.CreateUI(string.Format("{0}가 동료가 되었다.", name.ToString()));
+                SimpleQuestUI.DestroyUI();
                 SetComponent();
             }
         }

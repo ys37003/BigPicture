@@ -73,7 +73,7 @@ public class Character : BattleEntity, ICharacter
     public void Init(StatusData status)
     {
         Status = status;
-        AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0,0);
+        AddStatus = new StatusData(20, 0, 0, 0, 0, 0, 0,0);
         SkillPoint = 10;
     }
 

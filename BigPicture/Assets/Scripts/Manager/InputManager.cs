@@ -56,6 +56,8 @@ public class InputManager : Singleton<InputManager>
             {
                 (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
             }
+
+            SoundManager.Instance.ChangeTownBgm();
         }, null));
 
         AddKey(new InputKey(KeyCode.F2, InputType.KeyDown), new InputValue(() =>
@@ -72,6 +74,8 @@ public class InputManager : Singleton<InputManager>
             {
                 (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
             }
+
+            SoundManager.Instance.ChangeTownBgm();
         }, null));
 
         AddKey(new InputKey(KeyCode.F3, InputType.KeyDown), new InputValue(() =>
@@ -88,6 +92,8 @@ public class InputManager : Singleton<InputManager>
             {
                 (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
             }
+
+            SoundManager.Instance.ChangeBossBgm();
         }, null));
 
         AddKey(new InputKey(KeyCode.Alpha1, InputType.KeyDown), new InputValue(() =>
