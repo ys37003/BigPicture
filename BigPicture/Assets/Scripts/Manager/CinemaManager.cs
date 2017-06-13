@@ -27,6 +27,7 @@ public class CinemaManager : Singleton<CinemaManager>
             Destroy(tt);
             CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 1000;
             CharacterUI.CreateUI();
+            InventoryUI.CreateUI();
         });
         tt.PlayForward();
     }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum InputType
 {
@@ -37,9 +38,42 @@ public struct InputValue
 public class InputManager : Singleton<InputManager>
 {
     private Dictionary<InputKey, InputValue> InputDic = new Dictionary<InputKey, InputValue>();
+    [SerializeField] private Transform tfPlayerGroup, tfTeleport1, tfTeleport2;
 
     private void Awake()
     {
+        AddKey(new InputKey(KeyCode.F1, InputType.KeyDown), new InputValue(() =>
+        {
+            List<ICharacter> list = TeamManager.Instance.GetCharacterList();
+            for(int i = 1; i<list.Count; ++i)
+            {
+                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            }
+
+            tfPlayerGroup.position = tfTeleport1.position;
+
+            for (int i = 1; i < list.Count; ++i)
+            {
+                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            }
+        }, null));
+
+        AddKey(new InputKey(KeyCode.F2, InputType.KeyDown), new InputValue(() =>
+        {
+            List<ICharacter> list = TeamManager.Instance.GetCharacterList();
+            for (int i = 1; i < list.Count; ++i)
+            {
+                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            }
+
+            tfPlayerGroup.position = tfTeleport2.position;
+
+            for (int i = 1; i < list.Count; ++i)
+            {
+                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            }
+        }, null));
+
         AddKey(new InputKey(KeyCode.Alpha1, InputType.KeyDown), new InputValue(() =>
         {
             GroupManager.Instance.GetPlayerGroup().Command_ComeOn();
@@ -55,7 +89,7 @@ public class InputManager : Singleton<InputManager>
             UIManager.Instance.LastUIClose();
         }, null));
 
-        AddKey(new InputKey(KeyCode.F1, InputType.KeyDown), new InputValue(() =>
+        AddKey(new InputKey(KeyCode.I, InputType.KeyDown), new InputValue(() =>
         {
             if (StatusUI.IsShow)
             {
@@ -69,7 +103,7 @@ public class InputManager : Singleton<InputManager>
             }
         }, null));
 
-        AddKey(new InputKey(KeyCode.F2, InputType.KeyDown), new InputValue(() =>
+        AddKey(new InputKey(KeyCode.O, InputType.KeyDown), new InputValue(() =>
         {
             if (OptionUI.IsShow)
             {
@@ -80,19 +114,6 @@ public class InputManager : Singleton<InputManager>
             {
                 WorldManager.Instance.SetPause(true);
                 OptionUI.CreateUI();
-            }
-        }, null));
-
-        AddKey(new InputKey(KeyCode.F3, InputType.KeyDown), new InputValue(() =>
-        {
-            if(TalkUI.IsShow)
-            {
-                WorldManager.Instance.SetPause(false);
-                TalkUI.DestroyUI();
-            }
-            else
-            {
-                WorldManager.Instance.SetPause(true);
             }
         }, null));
     }

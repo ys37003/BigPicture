@@ -10,7 +10,7 @@ public class QuestUI : UIBase<QuestUI>
 
     QuestData data;
 
-    private void Awake()
+    protected override void OverrideAwake()
     {
         EventDelegate.Add(btnClose.onClick, onClickClose);
         EventDelegate.Add(btnOK.onClick, onClickClose);
