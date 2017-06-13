@@ -35,7 +35,6 @@ public class Delegates
         Vector3 destination = MathAssist.Instance().RandomVector3(foword.transform.position, 2.0f);
         if (false == NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas))
         {
-            Debug.Log("false");
             return Vector3.zero;
         }
 
@@ -69,7 +68,6 @@ public class Delegates
         destination = MathAssist.Instance().RandomVector3(foword.transform.position, 2.0f);
         if( false == NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas))
         {
-            Debug.Log("false");
             return Vector3.zero;
         }
 
@@ -84,7 +82,6 @@ public class Delegates
 
         if (false == NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas))
         {
-            Debug.Log("false");
             return Vector3.zero;
         }
 
@@ -99,7 +96,6 @@ public class Delegates
         NavMeshHit hit;
         if (false == NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas))
         {
-            Debug.Log("false");
             return Vector3.zero;
         }
 
@@ -115,7 +111,6 @@ public class Delegates
         NavMeshHit hit;
         if (false == NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas))
         {
-            Debug.Log("false");
             return Vector3.zero;
         }
         return hit.position;
@@ -134,7 +129,6 @@ public class Delegates
         NavMeshHit hit;
         if (false == NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas))
         {
-            Debug.Log("false");
             return Vector3.zero;
         }
         return hit.position;

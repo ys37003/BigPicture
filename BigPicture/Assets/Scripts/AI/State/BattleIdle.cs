@@ -35,16 +35,18 @@ public class BattleIdle : State
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);
             return;
         }
-        if (true == entity.AttackAble)
-        {
-            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
-            return;
-        }
+
         if (entity.AttackRange < entity.TargetDistance())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_RUN, null);
             return;
         }
+        if (true == entity.AttackAble)
+        {
+            MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_ATTACK, null);
+            return;
+        }
+       
 
     }
 

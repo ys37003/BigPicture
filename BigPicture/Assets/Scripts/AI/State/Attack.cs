@@ -37,11 +37,11 @@ public class Attack : State
         entity.AttackAble = false;
         entity.transform.LookAt(entity.GetEnemyPosition());
         entity.HUDUI.SetEmotion(eEmotion.Angry);
+       
         if (null != entity.AttackElement)
         {
             entity.AttackElement.Attack(entity.EnemyHandle.GetEnemy(0).enemy);
         }
-
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Attack", true);
     }
 
@@ -77,6 +77,11 @@ public class Attack : State
             case (int)eMESSAGE_TYPE.TO_FOOTSTAMP:
                 {
                     entity.StateMachine.ChangeState(eSTATE.FOOTSTAMP);
+                }
+                return true;
+            case (int)eMESSAGE_TYPE.TO_SUMONMONSTER:
+                {
+                    entity.StateMachine.ChangeState(eSTATE.SUMONMONSTER);
                 }
                 return true;
 

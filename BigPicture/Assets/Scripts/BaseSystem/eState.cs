@@ -18,5 +18,6 @@
     DRAGONBREATH,
     FOOTSTAMP,
     SHOCK,
+    SUMONMONSTER,
     NULL
 }

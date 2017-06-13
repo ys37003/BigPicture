@@ -8,7 +8,7 @@ public class PhysicsAttack : AttackElement {
     bool damageAndDebuffAble = true;
     ColliderAttack colliderAttack;
     private AI owner;
-    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject nomalAttack = null, GameObject _poisoning = null, GameObject _bleeding = null)
+    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _nomalAttack = null, GameObject _skill1 = null, GameObject _skill2 = null, GameObject _skill3 = null)
     {
         colliderAttack = _colliderAttack;
         owner = _onwer;

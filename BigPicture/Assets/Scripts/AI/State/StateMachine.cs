@@ -26,12 +26,15 @@ public class StateMachine
     public void Update()
     {
         AI entity = (AI)owner;
+        
+        currentState.Excute(owner);
+
         if (true == entity.DieCheck())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
             return;
         }
-        currentState.Excute(owner);
+
     }
 
     public void ChangeState( eSTATE _stateType )
@@ -69,6 +72,7 @@ public class StateMachine
             case eSTATE.DRAGONBREATH: currentState = DragonBreath.Instance(); break;
             case eSTATE.FOOTSTAMP: currentState    = FootStamp.Instance();    break;
             case eSTATE.SHOCK: currentState        = Shock.Instance();        break;
+            case eSTATE.SUMONMONSTER: currentState = SumonMonster.Instance(); break;
         }                                                                    
     }
 
@@ -96,6 +100,9 @@ public class StateMachine
                 return true;
             case (int)eMESSAGE_TYPE.I_SEE_YOU:
                 entity.EntityGroup.EnemyGroup = (Group)_msg.extraInfo;
+                return true;
+            case (int)eMESSAGE_TYPE.TO_DIE:
+                entity.StateMachine.ChangeState(eSTATE.DIE);
                 return true;
         }
         return false;

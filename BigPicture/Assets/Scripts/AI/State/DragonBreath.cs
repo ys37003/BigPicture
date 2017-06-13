@@ -35,12 +35,14 @@ public class DragonBreath : State {
     public void Enter(object _entity)
     {
         entity = (Dragon)_entity;
+        entity.AttackAble = false;
         AnimatorManager.Instance().SetAnimation(entity.Animator, "DragonBreath", true);
     }
 
     public void Exit(object _entity)
     {
         entity = (Dragon)_entity;
+        MessageDispatcher.Instance.DispatchMessage(Random.Range(3, 5), entity.ID, entity.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "DragonBreath", false);
     }
 

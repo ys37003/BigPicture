@@ -16,8 +16,17 @@ public class Dragon : AI {
     [SerializeField]
     List<AttackablePart> attackablePart;
 
+    [SerializeField]
+    private GameObject Breath;
+    [SerializeField]
+    private GameObject Stamp;
+    [SerializeField]
+    private GameObject Sumon;
+
     public StatusData Status { get { return Data.StatusData + AddStatus; } }
 
+    [SerializeField]
+    public SumonList sumonList;
     // Use this for initialization
     void Start () {
         Data = new MonsterData(eTRIBE_TYPE.DRAGON, eJOB_TYPE.DRAGON, 1, 1, 1, 10, 10, 10, 10, 100, 10, 50);
@@ -48,9 +57,6 @@ public class Dragon : AI {
 	void Update () {
         if (false == WorldManager.Instance.pause)
             StateMachine.Update();
-
-
-        Debug.Log("Dragon State is " + StateMachine.CurrentState);
     }
 
     private void SetDelegate()
@@ -62,9 +68,12 @@ public class Dragon : AI {
                 SetFomation = Delegates.Instance.SetFomation_Partner;
                 Approach = Delegates.Instance.Approach_Dealer;
 
-                colliderAttack.Init(eTRIBE_TYPE.DRAGON, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS, this);
+                //colliderAttack.Init(eTRIBE_TYPE.DRAGON, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.PHYSICS, this);
                 AttackElement = new BossAttack();
-                AttackElement.Init(this, colliderAttack);
+
+                Breath.GetComponent<ColliderAttack>().Init(eTRIBE_TYPE.DRAGON, Animator, Data.StatusData,AddStatus, eDAMAGE_TYPE.BLEEDING, this);
+                Stamp.GetComponent<ColliderAttack>().Init(eTRIBE_TYPE.DRAGON, Animator, Data.StatusData, AddStatus, eDAMAGE_TYPE.SHOCK, this);
+                AttackElement.Init(this, colliderAttack,null , Breath , Stamp , Sumon);
 
                 AttackRange = 5.0f;
                 break;
@@ -132,5 +141,47 @@ public class Dragon : AI {
 
         Debug.Log(attackablePart[0].name);
         return attackablePart[0].transform.position;
+    }
+
+    public override void BattleIdle()
+    {
+        EnemyHandle.RemoveEnemy();
+
+        if (null == this.EntityGroup.EnemyGroup)
+        {
+            this.EnemyClear();
+        }
+        else
+        {
+            if (0 == EnemyHandle.Count())
+            {
+                GameObject dummy = this.EntityGroup.NearestEnemy(this.transform.position);
+                if (null != dummy)
+                {
+                    CEnemy enemy = new CEnemy();
+                    enemy.enemy = dummy;
+                    enemy.damage = 0;
+                    EnemyHandle.Add(enemy);
+                }
+            }
+        }
+    }
+
+    public override void StartBattle()
+    {
+        for(int i = 0; i < EnemyHandle.EnemyList.Count; ++i)
+        {
+            GameObject dummy = EnemyHandle.EnemyList[i].enemy;
+            dummy.GetComponent<AI>().AttackRange = 5.0f;
+        }
+    }
+
+    public override void EndBattle()
+    {
+        for (int i = 0; i < EnemyHandle.EnemyList.Count; ++i)
+        {
+            GameObject dummy = EnemyHandle.EnemyList[i].enemy;
+            dummy.GetComponent<AI>().AttackRange = 1.2f;
+        }
     }
 }

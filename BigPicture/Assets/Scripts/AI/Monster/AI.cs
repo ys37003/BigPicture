@@ -106,7 +106,7 @@ public class AI : BattleEntity
     {
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
         {
-            if (1.0f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+            if (0.8f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
                 return true;
         }
         return false;
@@ -114,6 +114,11 @@ public class AI : BattleEntity
 
     public bool EndAttack()
     {
+        if ("Dragon" == this.tag && Animator.GetCurrentAnimatorStateInfo(0).IsName("BattleIdle"))
+        {
+            return true;
+        }
+
         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
             if (0.8f < Animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
@@ -151,7 +156,7 @@ public class AI : BattleEntity
     {
     }
 
-    public void BattleIdle()
+    public virtual void BattleIdle()
     {
         this.transform.LookAt(GetEnemyPosition());
 

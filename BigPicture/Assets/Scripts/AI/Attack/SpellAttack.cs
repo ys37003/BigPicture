@@ -13,12 +13,14 @@ public class SpellAttack : AttackElement{
     private float time;
     ColliderAttack colliderAttack;
     // Use this for initializatio
-    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _nomalAttack = null , GameObject _poisoning = null , GameObject _bleeding = null)
+    // poision == skill1
+    // bleeding == skill2
+    public override void Init(AI _onwer, ColliderAttack _colliderAttack, GameObject _nomalAttack = null, GameObject _skill1 = null, GameObject _skill2 = null, GameObject _skill3 = null)
     {
         colliderAttack = _colliderAttack;
         nomalAttack = _nomalAttack;
-        poisoning = _poisoning;
-        bleeding = _bleeding;
+        poisoning = _skill1;
+        bleeding = _skill2;
         collider = nomalAttack.GetComponent<BoxCollider>();
 
         if (null != poisoning)
@@ -35,7 +37,7 @@ public class SpellAttack : AttackElement{
 
     public override void Attack(GameObject _go)
     {
-        switch (0)//.Range(0, 2))
+        switch (Random.Range(0, 3))
         {
             case 0:
                 {

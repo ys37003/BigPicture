@@ -44,7 +44,6 @@ public class HitCollider : MonoBehaviour {
 
     void DamageTypeHandle(ColliderAttack _colliderAttack)
     {
-        Debug.Log(_colliderAttack.GetDamageType());
         switch(_colliderAttack.GetDamageType())
         {
             case eDAMAGE_TYPE.PHYSICS:

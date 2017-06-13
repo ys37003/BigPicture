@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FootStamp : State
 {
-
     private static FootStamp instance;
     Dragon entity;
 
@@ -36,14 +35,14 @@ public class FootStamp : State
     public void Enter(object _entity)
     {
         entity = (Dragon)_entity;
-
+        entity.AttackAble = false;
         AnimatorManager.Instance().SetAnimation(entity.Animator, "FootStamp", true);
     }
 
     public void Exit(object _entity)
     {
         entity = (Dragon)_entity;
-
+        MessageDispatcher.Instance.DispatchMessage(Random.Range(3, 5), entity.ID, entity.ID, (int)eMESSAGE_TYPE.ATTACKABLE, null);
         AnimatorManager.Instance().SetAnimation(entity.Animator, "FootStamp", false);
     }
 

@@ -35,7 +35,6 @@ public class Hit : State
     {
         entity = (AI)_entity;
         entity.HUDUI.SetEmotion(eEmotion.Surprise);
-        
         AnimatorManager.Instance().SetAnimation(entity.Animator, "Hit", true);
     }
 
@@ -59,9 +58,7 @@ public class Hit : State
             case (int)eMESSAGE_TYPE.TO_BATTLEIDLE:
                 entity.StateMachine.ChangeState(eSTATE.BATTLEIDLE);
                 return true;
-            case (int)eMESSAGE_TYPE.TO_DIE:
-                entity.StateMachine.ChangeState(eSTATE.DIE);
-                return true;
+            
         }
         return false;
     }
