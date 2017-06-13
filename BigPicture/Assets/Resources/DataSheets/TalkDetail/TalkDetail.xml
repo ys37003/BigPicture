@@ -30,7 +30,8 @@
 		<Order>0</Order>
 		<Name>1</Name>
 		<Description>펄, 여긴 어쩐 일이야?</Description>
-	</Talk_Detail>
+    <Result>S3,O1</Result>
+  </Talk_Detail>
 	<Talk_Detail>
 		<TalkNumber>7</TalkNumber>
 		<Order>1</Order>

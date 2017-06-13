@@ -88,9 +88,8 @@ public class CinemaManager : Singleton<CinemaManager>
         EventDelegate.Add(tt.onFinished, () =>
         {
             Destroy(tt);
+            CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 1000;
         });
         tt.PlayForward();
-
-        CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 1000;
     }
 }

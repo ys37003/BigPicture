@@ -132,18 +132,29 @@ public class TalkUI : UIBase<TalkUI>
             return;
         }
 
-        // 호감도 획득
-        SaveManager.Instance.AddLikeavillity(result.Name, result.Like);
+        if(result.Like >= 1)
+        {
+            // 호감도 획득
+            SaveManager.Instance.AddLikeavillity(result.Name, result.Like);
+            NoticeUI.CreateUI(string.Format("호감도 {0}을 획득하였습니다.", result.Like));
+        }
 
         // 퀘스트 획득
-        if(result.Quest >= 1)
+        if (result.Quest >= 1)
         {
             QuestData data = DataManager.Instance().GetQuestData(result.Quest);
             if (data != null)
             {
                 SimpleQuestUI ui = SimpleQuestUI.CreateUI();
                 ui.SetData(data);
+                NoticeUI.CreateUI(string.Format("퀘스트{0}을 획득하였습니다.", data.Number));
             }
+        }
+
+        if(result.SkillPoint >= 1)
+        {
+            TeamManager.Instance.GetPlayer().SkillPoint += result.SkillPoint;
+            NoticeUI.CreateUI(string.Format("스킬포인트 {0}을 획득하였습니다.", result.SkillPoint));
         }
 
         if (result.Talk >= 0)

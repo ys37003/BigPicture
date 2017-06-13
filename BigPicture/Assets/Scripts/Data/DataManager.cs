@@ -158,8 +158,8 @@ public class DataManager
 
     void QuestDataInit()
     {
-        questDataDic.Add(1, new QuestData(1, "동쪽에 있는 QQ에게 말 걸기"));
-        questDataDic.Add(2, new QuestData(2, "EAST에게 찾아 가기"));
+        questDataDic.Add(1, new QuestData(1, "동쪽에 있는 QQ에게 말 걸기\n보상 : 스킬포인트3"));
+        questDataDic.Add(2, new QuestData(2, "EAST에게 찾아 가기\n보상 : 스킬포인트1"));
     }
 
     void ReCruitDataInit()
