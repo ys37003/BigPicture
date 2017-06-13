@@ -34,11 +34,16 @@ public class SparePartner : MonoBehaviour
             partner.transform.LookAt(other.transform);
             if (!TalkUI.IsShow && Input.GetKeyDown(KeyCode.F))
             {
+                TalkBaseData data = DataManager.Instance().GetTalkBaseData(name);
+
+                if (data == null)
+                    return;
+
                 TalkUI.CreateUI
                 (
                     TeamManager.Instance.GetPlayer().transform.Find("head_up_pivot"), 
                     hud_ui_pivot,
-                    DataManager.Instance().GetTalkBaseData(name)
+                    data
                 );
             }
         }

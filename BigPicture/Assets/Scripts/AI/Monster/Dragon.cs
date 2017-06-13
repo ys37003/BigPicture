@@ -50,7 +50,7 @@ public class Dragon : AI {
             StateMachine.Update();
 
 
-        Debug.Log("Dragon State is " + StateMachine.CurrentState);
+        //Debug.Log("Dragon State is " + StateMachine.CurrentState);
     }
 
     private void SetDelegate()
