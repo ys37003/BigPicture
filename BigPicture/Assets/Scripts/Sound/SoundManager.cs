@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : Singleton<SoundManager> {
-
+public class SoundManager : Singleton<SoundManager>
+{
     [SerializeField]
     List<AudioSource> townNoise;
 
@@ -14,15 +14,11 @@ public class SoundManager : Singleton<SoundManager> {
 
     [SerializeField]
     float Distance;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        VolumeHandle();
 
+    // Update is called once per frame
+    void Update()
+    {
+        VolumeHandle();
     }
 
     void VolumeHandle()
@@ -32,7 +28,7 @@ public class SoundManager : Singleton<SoundManager> {
             float distance = Vector3.Distance(playerPos.transform.position, townNoise[i].transform.position);
 
             Distance = distance;
-            if(60 < distance )
+            if (60 < distance)
             {
                 townNoise[i].volume = 0;
             }
