@@ -30,8 +30,8 @@
 		<Order>0</Order>
 		<Name>1</Name>
 		<Description>펄, 여긴 어쩐 일이야?</Description>
-    <Result>S3,O1</Result>
-  </Talk_Detail>
+		<Result>S3,O1</Result>
+	</Talk_Detail>
 	<Talk_Detail>
 		<TalkNumber>7</TalkNumber>
 		<Order>1</Order>
@@ -156,5 +156,45 @@
 		<Name>0</Name>
 		<Description>알겠어.</Description>
 		<Result>RE,Q2</Result>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>8</TalkNumber>
+		<Order>0</Order>
+		<Name>0</Name>
+		<Description>EAST 여기 있었구나.\n널 찾고 있었어.</Description>
+		<Result>S1,O1</Result>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>8</TalkNumber>
+		<Order>1</Order>
+		<Name>3</Name>
+		<Description>무슨 일이야?\n난 사람들을 모으고 있어서 바쁘다구.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>8</TalkNumber>
+		<Order>2</Order>
+		<Name>0</Name>
+		<Description>나도 마을을 되찾기 위해 싸울거야.\n너도 함께 하지 않을래?</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>8</TalkNumber>
+		<Order>3</Order>
+		<Name>3</Name>
+		<Description>도중에 도망가지 않고 끝까지 싸운다면 너와 함께 갈게. </Description>
+		<Choice>좋아, 약속할게!#음 그건…</Choice>
+		<Result>O4,L5#O5</Result>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>8</TalkNumber>
+		<Order>4</Order>
+		<Name>3</Name>
+		<Description>좋아 잘 지내보자!</Description>
+		<Result>RE</Result>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>8</TalkNumber>
+		<Order>5</Order>
+		<Name>3</Name>
+		<Description>실망이야 펄…</Description>
 	</Talk_Detail>
 </data-set>
