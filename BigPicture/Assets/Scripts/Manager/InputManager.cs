@@ -38,7 +38,7 @@ public struct InputValue
 public class InputManager : Singleton<InputManager>
 {
     private Dictionary<InputKey, InputValue> InputDic = new Dictionary<InputKey, InputValue>();
-    [SerializeField] private Transform tfPlayerGroup, tfTeleport1, tfTeleport2;
+    [SerializeField] private Transform tfPlayerGroup, tfTeleport1, tfTeleport2, tfTeleport3;
 
     private void Awake()
     {
@@ -67,6 +67,22 @@ public class InputManager : Singleton<InputManager>
             }
 
             tfPlayerGroup.position = tfTeleport2.position;
+
+            for (int i = 1; i < list.Count; ++i)
+            {
+                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            }
+        }, null));
+
+        AddKey(new InputKey(KeyCode.F3, InputType.KeyDown), new InputValue(() =>
+        {
+            List<ICharacter> list = TeamManager.Instance.GetCharacterList();
+            for (int i = 1; i < list.Count; ++i)
+            {
+                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            }
+
+            tfPlayerGroup.position = tfTeleport3.position;
 
             for (int i = 1; i < list.Count; ++i)
             {

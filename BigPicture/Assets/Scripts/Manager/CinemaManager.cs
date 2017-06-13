@@ -7,6 +7,7 @@ public enum eCINEMA_POS
 {
     TITLE,
     STATUS,
+    Map
 }
 
 public class CinemaManager : Singleton<CinemaManager>
@@ -90,6 +91,57 @@ public class CinemaManager : Singleton<CinemaManager>
         {
             Destroy(tt);
             CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 1000;
+        });
+        tt.PlayForward();
+    }
+
+    public void StartMapCinema()
+    {
+        Camera cinema = CameraManager.Instance.GetCamera(eCAMERA.Cinema);
+        GameObject go = cinema.gameObject;
+        TweenTransform tt = go.AddComponent<TweenTransform>();
+        tt.from = CameraManager.Instance.GetCamera(eCAMERA.Main).transform;
+        tt.to = poses[(int)eCINEMA_POS.Map];
+        tt.duration = 4;
+        tt.delay = 0.5f;
+
+        CharacterUI.ShowUI(false);
+        CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 1;
+
+        EventDelegate.Add(tt.onFinished, () =>
+        {
+            InventoryUI.ShowMapBackButton(true);
+
+            if(SimpleQuestUI.IsShow)
+            {
+                SimpleQuestUI.ShowUI(false);
+            }
+
+            Destroy(tt);
+        });
+        tt.PlayForward();
+    }
+
+    public void EndMapCinema()
+    {
+        Camera cinema = CameraManager.Instance.GetCamera(eCAMERA.Cinema);
+        GameObject go = cinema.gameObject;
+        TweenTransform tt = go.AddComponent<TweenTransform>();
+        tt.from = poses[(int)eCINEMA_POS.Map];
+        tt.to = CameraManager.Instance.GetCamera(eCAMERA.Main).transform;
+        tt.duration = 4;
+        tt.delay = 0.5f;
+        EventDelegate.Add(tt.onFinished, () =>
+        {
+            Destroy(tt);
+            CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 1000;
+            InventoryUI.ShowMapBackButton(false);
+            CharacterUI.ShowUI(true);
+
+            if (!SimpleQuestUI.IsShow)
+            {
+                SimpleQuestUI.ShowUI(true);
+            }
         });
         tt.PlayForward();
     }

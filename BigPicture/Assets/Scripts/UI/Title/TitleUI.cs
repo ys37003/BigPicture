@@ -35,16 +35,36 @@ public class TitleUI : UIBase<TitleUI>
 
     private void onClickLoad()
     {
+        NoticeUI.CreateUI("개발 중입니다.");
     }
 
     private void onClickSetting()
     {
+        NoticeUI.CreateUI("개발 중입니다.");
     }
 
     private void onClickCredit()
     {
-        goMain.SetActive(false);
-        goCredit.SetActive(true);
+        TweenAlpha ta = goMain.AddComponent<TweenAlpha>();
+        ta.from = 1;
+        ta.to = 0;
+        ta.duration = 1;
+        EventDelegate.Add(ta.onFinished, () =>
+        {
+            Destroy(ta);
+        });
+        ta.PlayForward();
+
+        TweenAlpha ta2 = goCredit.AddComponent<TweenAlpha>();
+        ta2.from = 0;
+        ta2.to = 1;
+        ta2.duration = 0.7f;
+        ta2.delay = 0.8f;
+        EventDelegate.Add(ta2.onFinished, () =>
+        {
+            Destroy(ta2);
+        });
+        ta2.PlayForward();
     }
 
     private void onClickExit()
@@ -54,7 +74,25 @@ public class TitleUI : UIBase<TitleUI>
 
     private void onClickBack()
     {
-        goMain.SetActive(true);
-        goCredit.SetActive(false);
+        TweenAlpha ta = goMain.AddComponent<TweenAlpha>();
+        ta.from = 0;
+        ta.to = 1;
+        ta.duration = 1;
+        ta.delay = 0.8f;
+        EventDelegate.Add(ta.onFinished, () =>
+        {
+            Destroy(ta);
+        });
+        ta.PlayForward();
+
+        TweenAlpha ta2 = goCredit.AddComponent<TweenAlpha>();
+        ta2.from = 1;
+        ta2.to = 0;
+        ta2.duration = 0.7f;
+        EventDelegate.Add(ta2.onFinished, () =>
+        {
+            Destroy(ta2);
+        });
+        ta2.PlayForward();
     }
 }
