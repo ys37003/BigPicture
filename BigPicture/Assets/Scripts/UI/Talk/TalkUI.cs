@@ -136,6 +136,15 @@ public class TalkUI : UIBase<TalkUI>
         SaveManager.Instance.AddLikeavillity(result.Name, result.Like);
 
         // 퀘스트 획득
+        if(result.Quest >= 1)
+        {
+            QuestData data = DataManager.Instance().GetQuestData(result.Quest);
+            if (data != null)
+            {
+                SimpleQuestUI ui = SimpleQuestUI.CreateUI();
+                ui.SetData(data);
+            }
+        }
 
         if (result.Talk >= 0)
         {

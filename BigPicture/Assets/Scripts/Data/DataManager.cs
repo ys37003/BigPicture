@@ -39,6 +39,8 @@ public class DataManager
     private List<List<QuestionStruct>> reCruitDatas = new List<List<QuestionStruct>>();
     public readonly string reCruitData_path = "DataSheets/Recruit/RecruitElement";
 
+    private Dictionary<int, QuestData> questDataDic = new Dictionary<int, QuestData>();
+
     private XmlNodeList[] xmlTable;
     private LoadXML loadXml = new LoadXML();
 
@@ -48,7 +50,8 @@ public class DataManager
         MonsterDataInit();
         TalkBaseDataInit();
         TalkDetailDataInit();
-        Likeability();
+        LikeabilityInit();
+        QuestDataInit();
 
         ReCruitDataInit();
     }
@@ -140,7 +143,7 @@ public class DataManager
         }
     }
 
-    void Likeability()
+    void LikeabilityInit()
     {
         xmlTable = loadXml.LoadXml_LikeAbilityData(likeAbilityData_path);
 
@@ -151,6 +154,12 @@ public class DataManager
 
             likeAbilityDataDic.Add(name, like);
         }
+    }
+
+    void QuestDataInit()
+    {
+        questDataDic.Add(1, new QuestData(1, "동쪽에 있는 QQ에게 말 걸기"));
+        questDataDic.Add(2, new QuestData(2, "EAST에게 찾아 가기"));
     }
 
     void ReCruitDataInit()
@@ -230,6 +239,14 @@ public class DataManager
             return null;
 
         return talkDetailDataDic[talkNumber];
+    }
+
+    public QuestData GetQuestData(int number)
+    {
+        if (!questDataDic.ContainsKey(number))
+            return null;
+
+        return questDataDic[number];
     }
 
     public List<QuestionStruct> GetRecruitData(ePARTNER_NAME _name)
