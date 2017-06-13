@@ -27,6 +27,11 @@ public class SparePartner : MonoBehaviour
     [SerializeField]
     private eJOB_TYPE job;
 
+    private void Awake()
+    {
+        StartCoroutine("LikeavilityCheck");
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Human" && other.GetComponent<Character>() != null)
@@ -49,9 +54,27 @@ public class SparePartner : MonoBehaviour
         }
     }
 
+    private IEnumerator LikeavilityCheck()
+    {
+        while(true)
+        {
+            yield return null;
+
+            if (SaveManager.Instance.GetLikeavillity(name) >= 5)
+            {
+                yield return new WaitForSeconds(1);
+                NoticeUI.DestroyUI();
+                yield return new WaitForSeconds(0.3f);
+
+                NoticeUI.CreateUI(string.Format("{0}가 동료가 되었다.", name.ToString()));
+                SetComponent();
+            }
+        }
+    }
+
     public void SetComponent()
     {
-        transform.SetParent(playerGroup.transform);
+        partner.transform.SetParent(playerGroup.transform);
         partner.AddComponent<Partner>();
         partner.GetComponent<Partner>().Init(colEyeSight, colliderAttack, player, job , hud_ui_pivot );
         partner.GetComponentInChildren<HitCollider>().Init(partner.GetComponent<Partner>(), partner.GetComponent<Partner>());

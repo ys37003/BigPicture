@@ -12,4 +12,10 @@
 		<TalkNumber>7</TalkNumber>
 		<Repeat>0</Repeat>
 	</Talk_Base>
+	<Talk_Base>
+		<Name>3</Name>
+		<TalkType>99</TalkType>
+		<TalkNumber>8</TalkNumber>
+		<Repeat>0</Repeat>
+	</Talk_Base>
 </data-set>
