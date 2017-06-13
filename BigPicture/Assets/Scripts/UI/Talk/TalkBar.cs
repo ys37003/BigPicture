@@ -25,8 +25,20 @@ public class TalkBar : MonoBehaviour
         EventDelegate.Add(typerEffect.onFinished, OnFinishTyper);
     }
 
+    private void Start()
+    {
+        SetActive(false);
+    }
+
+    public void SetActive(bool active)
+    {
+        gameObject.SetActive(active);
+    }
+
     public void SetData(TalkDescription data)
     {
+        SetActive(true);
+
         descData = data;
         choiceData = null;
 
@@ -42,6 +54,8 @@ public class TalkBar : MonoBehaviour
 
     public void SetData(TalkChoice data)
     {
+        SetActive(true);
+
         choiceData = data;
         descData = null;
 
@@ -86,7 +100,6 @@ public class TalkBar : MonoBehaviour
         else if (descData != null && onClickNext != null)
         {
             onClickNext(descData.Result);
-            //onClickNext = null;
         }
     }
 

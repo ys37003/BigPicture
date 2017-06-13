@@ -25,6 +25,7 @@ public class CinemaManager : Singleton<CinemaManager>
         EventDelegate.Add(tt.onFinished, () =>
         {
             Destroy(tt);
+            CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 1000;
             CharacterUI.CreateUI();
         });
         tt.PlayForward();
@@ -70,6 +71,8 @@ public class CinemaManager : Singleton<CinemaManager>
             Destroy(tr2);
         });
         tr2.PlayForward();
+
+        CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 0.01f;
     }
 
     public void EndStatusUICinema()
@@ -85,6 +88,7 @@ public class CinemaManager : Singleton<CinemaManager>
         EventDelegate.Add(tt.onFinished, () =>
         {
             Destroy(tt);
+            CameraManager.Instance.GetCamera(eCAMERA.HUD).farClipPlane = 1000;
         });
         tt.PlayForward();
     }

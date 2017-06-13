@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Talk_Detail>
+		<TalkNumber>4</TalkNumber>
+		<Order>0</Order>
+		<Name>11</Name>
+		<Description>이 둘 좀 말려봐, 어제부터 계속 싸우더니.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>4</TalkNumber>
+		<Order>1</Order>
+		<Name>11</Name>
+		<Description>최근에 산 속에 살던 몬스터들이 전부 마을로 내려왔어.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>4</TalkNumber>
+		<Order>2</Order>
+		<Name>11</Name>
+		<Description>방범대가 마을을 지키고 있지만 몬스터의 숫자가 늘어나면 이제 더 이상 방법이 없어.</Description>
+	</Talk_Detail>
+	<Talk_Detail>
+		<TalkNumber>4</TalkNumber>
+		<Order>3</Order>
+		<Name>11</Name>
+		<Description>펄. 마을 동쪽에 있는 QQ에게 가 보지 않겠어? 자세한 이야기를 들어볼 수 있을거야.</Description>
+		<Result>RE,Q1,N0</Result>
+	</Talk_Detail>
+	<Talk_Detail>
 		<TalkNumber>7</TalkNumber>
 		<Order>0</Order>
 		<Name>1</Name>
 		<Description>펄, 여긴 어쩐 일이야?</Description>
-	</Talk_Detail>
+    <Result>S3,O1</Result>
+  </Talk_Detail>
 	<Talk_Detail>
 		<TalkNumber>7</TalkNumber>
 		<Order>1</Order>

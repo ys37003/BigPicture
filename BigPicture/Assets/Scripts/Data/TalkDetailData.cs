@@ -8,6 +8,7 @@ public class TalkResultData
     public readonly int  Order;
     public readonly int  Like;
     public readonly int  Quest;
+    public readonly int  SkillPoint;
     public readonly bool RepeatEnd;
 
     public TalkResultData(ePARTNER_NAME name, string result)
@@ -37,6 +38,10 @@ public class TalkResultData
             else if (r.Substring(0, 1) == "Q")
             {
                 Quest = int.Parse(r.Substring(1));
+            }
+            else if (r.Substring(0,1) == "S")
+            {
+                SkillPoint = int.Parse(r.Substring(1));
             }
             else if (r.Substring(0, 1) == "R")
             {
