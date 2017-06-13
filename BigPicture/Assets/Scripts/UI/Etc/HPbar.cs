@@ -18,7 +18,7 @@ public class HPbar : MonoBehaviour
 
         if (labelHP != null && labelMaxHP != null)
         {
-            labelHP.text    = string.Format("{0}/", hp);
+            labelHP.text    = string.Format("{0}/", (int)hp);
             labelMaxHP.text = string.Format("{0}", StatusData.MAX_HP);
         }
     }

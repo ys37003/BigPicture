@@ -6,7 +6,7 @@ public class SimpleQuestUI : UIBase<SimpleQuestUI>
 {
     [SerializeField] SimpleQuestBar bar;
 
-    private void Awake()
+    protected override void OverrideAwake()
     {
         bar.SetActive(false);
     }
