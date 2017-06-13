@@ -14,21 +14,27 @@ public class BossAttack : AttackElement {
 
     public override void Attack(GameObject _go)
     {
-        switch (Random.Range(0, 2))
+        switch (Random.Range(0, 5))
         {
             case 0:
                 {
-                    SummonMonster(_go);
+                    DragonBreath(_go);
                 }
                 break;
             case 1:
                 {
-                    FootStamp(_go);
+                    
                 }
                 break;
             case 2:
                 {
-                    DragonBreath(_go);
+                    SummonMonster(_go);
+                }
+                break;
+
+            default:
+                {
+                    FootStamp(_go);
                 }
                 break;
 
@@ -46,6 +52,7 @@ public class BossAttack : AttackElement {
         {
             Sumon.transform.position = owner.sumonList.groupList[0].transform.position;
             owner.sumonList.groupList[0].SetActive(true);
+            owner.sumonList.groupList[0].transform.parent = null;
             owner.sumonList.groupList.RemoveAt(0);
             CoroutineManager.Instance.CStartCoroutine(AttackDelay(Sumon, 0f));
             MessageDispatcher.Instance.DispatchMessage(0, owner.ID, owner.ID, (int)eMESSAGE_TYPE.TO_SUMONMONSTER, null);

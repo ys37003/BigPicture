@@ -52,17 +52,12 @@ public class Dragon : AI {
         EnemyHandle = new EnemyHandle(this.gameObject);
         StateMachine = new StateMachine(this);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (false == WorldManager.Instance.pause)
             StateMachine.Update();
-<<<<<<< HEAD
-=======
-
-
-        //Debug.Log("Dragon State is " + StateMachine.CurrentState);
->>>>>>> d9d2db784d7519df296e8e108f3ec6ec6f86df26
     }
 
     private void SetDelegate()
