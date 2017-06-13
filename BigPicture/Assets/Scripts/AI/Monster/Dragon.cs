@@ -29,7 +29,7 @@ public class Dragon : AI {
     public SumonList sumonList;
     // Use this for initialization
     void Start () {
-        Data = new MonsterData(eTRIBE_TYPE.DRAGON, eJOB_TYPE.DRAGON, 1, 1, 1, 10, 10, 10, 10, 100, 10, 50);
+        Data = new MonsterData(eTRIBE_TYPE.DRAGON, eJOB_TYPE.DRAGON, 5, 5, 5, 5, 5, 5, 5, 100, 10, 50);
         AddStatus = new StatusData(0, 0, 0, 0, 0, 0, 0, 0);
 
         Animator = this.GetComponent<Animator>();

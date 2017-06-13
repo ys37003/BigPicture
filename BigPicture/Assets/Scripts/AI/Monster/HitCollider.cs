@@ -8,10 +8,12 @@ public class HitCollider : MonoBehaviour {
     private BaseGameEntity entity;
     [SerializeField]
     private AI ai;
+
+    AudioSource hitSound;
 	// Use this for initialization
 	void Start () {
-		
-	}
+        hitSound = GameObject.Find("HitSound").GetComponent<AudioSource>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,23 +49,45 @@ public class HitCollider : MonoBehaviour {
         switch(_colliderAttack.GetDamageType())
         {
             case eDAMAGE_TYPE.PHYSICS:
-                Vector3 direction = ai.transform.position - (ai.transform.forward / 1.5f);
-                ai.SetTarget(direction);
+                {
+                    hitSound.Play();
+                    Vector3 direction = ai.transform.position - (ai.transform.forward / 1.5f);
+                    ai.SetTarget(direction);
+                }
                 break;
             case eDAMAGE_TYPE.BLEEDING:
-                CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.BleedingDelay(ai));
+                {
+                    CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.BleedingDelay(ai));
+                }
                 break;
             case eDAMAGE_TYPE.POISONING:
-                CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.PoisionDelay(ai));
+                {
+                    hitSound.Play();
+                    CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.PoisionDelay(ai));
+                }
                 break;
             case eDAMAGE_TYPE.DEBUFF:
-                CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.DebuffDelay(ai));
+                {
+                    hitSound.Play();
+                    Vector3 direction = ai.transform.position - (ai.transform.forward / 1.5f);
+                    ai.SetTarget(direction);
+                    CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.DebuffDelay(ai));
+                }
                 break;
             case eDAMAGE_TYPE.DAMAGE_AND_DEBUFF:
-                CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.DamageAndDebuffDelay(ai));
+                {
+                    Vector3 direction = ai.transform.position - (ai.transform.forward / 1.5f);
+                    ai.SetTarget(direction);
+                    CoroutineManager.Instance.CStartCoroutine(ConditionManager.Instance.DamageAndDebuffDelay(ai));
+                }
                 break;
             case eDAMAGE_TYPE.SHOCK:
-                MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_SHOCK, null );
+                {
+                    hitSound.Play();
+                    Vector3 direction = ai.transform.position - (ai.transform.forward / 1.5f);
+                    ai.SetTarget(direction);
+                    MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_SHOCK, null);
+                }
                 break;
         }
     }
@@ -85,6 +109,8 @@ public class HitCollider : MonoBehaviour {
             cEnemy = ai.EnemyHandle.GetEnemy(ct.transform.parent.GetComponentInChildren<BaseGameEntity>().gameObject);
 
         MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, ct.GetDamageType());
+
+       
 
         DamageTypeHandle(ct);
 
