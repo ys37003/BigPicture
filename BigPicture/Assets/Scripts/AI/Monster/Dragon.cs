@@ -35,8 +35,8 @@ public class Dragon : AI {
         AttackAble = true;
         // EyeSight Collider 초기화
         //colEyeSight = this.transform.FindChild("EyeSightCol").GetComponent<BoxCollider>();
-        colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
-        colEyeSight.size = new Vector3(Data.EyeSight * 3, 10, Data.EyeSight * 2);
+        colEyeSight.center = new Vector3(0, this.transform.position.y - 50, Data.EyeSight);
+        colEyeSight.size = new Vector3(Data.EyeSight * 3, 50 , Data.EyeSight * 2);
 
         SetDelegate();
         EntityGroup.Add(this);

@@ -25,14 +25,13 @@ public class StateMachine
     // Update is called once per frame
     public void Update()
     {
-        currentState.Excute(owner);
         AI entity = (AI)owner;
-
         if (true == entity.DieCheck())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_DIE, null);
             return;
         }
+        currentState.Excute(owner);
     }
 
     public void ChangeState( eSTATE _stateType )
