@@ -78,14 +78,7 @@ public class Delegates
     {
         BaseGameEntity player = _group.TypeToEntity(eENTITY_TYPE.PLAYER);
         Vector3 destination = MathAssist.Instance().RandomVector3(player.transform.position, 5.0f);
-        NavMeshHit hit;
-
-        if (false == NavMesh.SamplePosition(destination, out hit, 1, NavMesh.AllAreas))
-        {
-            return Vector3.zero;
-        }
-
-        return hit.position;
+        return destination;
     }
 
 

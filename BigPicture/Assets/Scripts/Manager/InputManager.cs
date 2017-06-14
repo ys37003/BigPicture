@@ -98,11 +98,13 @@ public class InputManager : Singleton<InputManager>
 
         AddKey(new InputKey(KeyCode.Alpha1, InputType.KeyDown), new InputValue(() =>
         {
+            Debug.Log("ComeOn");
             GroupManager.Instance.GetPlayerGroup().Command_ComeOn();
         }, null));
 
         AddKey(new InputKey(KeyCode.Alpha2, InputType.KeyDown), new InputValue(() =>
         {
+            Debug.Log("Focusing");
             GroupManager.Instance.GetPlayerGroup().Command_Focusing();
         }, null));
 

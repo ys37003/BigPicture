@@ -28,11 +28,8 @@ public class Group : BaseGameEntity
         set { enemyGroup = value; }
     }
 
-    private eGROUP_TYPE group_type;
-    public  eGROUP_TYPE GroupType
-    {
-        get { return group_type; }
-    }
+    
+    public eGROUP_TYPE GroupType;
 
     // Use this for initialization
     void Start()
