@@ -105,6 +105,7 @@ public class StateMachine
                 entity.StateMachine.ChangeState(eSTATE.DIE);
                 return true;
         }
+
         return false;
     }
 }

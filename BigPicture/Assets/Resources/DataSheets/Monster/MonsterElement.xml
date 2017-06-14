@@ -11,7 +11,7 @@
 		<Recovery>0</Recovery>
 		<Luck>3</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>0</Tribe>
@@ -24,7 +24,7 @@
 		<Recovery>0</Recovery>
 		<Luck>3</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>0</Tribe>
@@ -37,7 +37,7 @@
 		<Recovery>0</Recovery>
 		<Luck>3</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>0</Tribe>
@@ -50,7 +50,7 @@
 		<Recovery>0</Recovery>
 		<Luck>3</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>0</Tribe>
@@ -63,7 +63,7 @@
 		<Recovery>0</Recovery>
 		<Luck>3</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>1</Tribe>
@@ -76,7 +76,7 @@
 		<Recovery>0</Recovery>
 		<Luck>2</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>1</Tribe>
@@ -89,7 +89,7 @@
 		<Recovery>0</Recovery>
 		<Luck>2</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>1</Tribe>
@@ -102,7 +102,7 @@
 		<Recovery>0</Recovery>
 		<Luck>2</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>1</Tribe>
@@ -115,7 +115,7 @@
 		<Recovery>0</Recovery>
 		<Luck>2</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>1</Tribe>
@@ -128,7 +128,7 @@
 		<Recovery>0</Recovery>
 		<Luck>2</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>2</Tribe>
@@ -141,7 +141,7 @@
 		<Recovery>0</Recovery>
 		<Luck>4</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>2</Tribe>
@@ -154,7 +154,7 @@
 		<Recovery>0</Recovery>
 		<Luck>4</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>2</Tribe>
@@ -167,7 +167,7 @@
 		<Recovery>0</Recovery>
 		<Luck>4</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>2</Tribe>
@@ -180,7 +180,7 @@
 		<Recovery>0</Recovery>
 		<Luck>4</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 	<record>
 		<Tribe>2</Tribe>
@@ -193,6 +193,6 @@
 		<Recovery>0</Recovery>
 		<Luck>4</Luck>
     <Range>10</Range>
-    <EyeSight>15</EyeSight>
+    <EyeSight>8</EyeSight>
   </record>
 </data-set>

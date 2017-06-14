@@ -25,7 +25,7 @@ public class ComeOn : State {
     public void Excute(object _entity)
     {
         entity = (Partner)_entity;
-
+        entity.Walk();
         if (true == entity.IsArrive())
         {
             MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_IDLE, null);

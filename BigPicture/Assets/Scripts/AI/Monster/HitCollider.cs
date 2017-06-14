@@ -103,10 +103,10 @@ public class HitCollider : MonoBehaviour {
 
         CEnemy cEnemy;
 
-        cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BaseGameEntity>().gameObject);
+        cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BattleEntity>().gameObject);
 
         if (null == cEnemy)
-            cEnemy = ai.EnemyHandle.GetEnemy(ct.transform.parent.GetComponentInChildren<BaseGameEntity>().gameObject);
+            cEnemy = ai.EnemyHandle.GetEnemy(ct.transform.parent.GetComponentInChildren<BattleEntity>().gameObject);
 
         MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, ct.GetDamageType());
 
