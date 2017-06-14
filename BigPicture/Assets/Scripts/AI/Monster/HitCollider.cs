@@ -101,16 +101,19 @@ public class HitCollider : MonoBehaviour {
 
         ai.EntityGroup.DispatchMessageGroup(0, ai.ID, (int)eMESSAGE_TYPE.FIND_ENEMY, ct.owner.EntityGroup);
 
-        CEnemy cEnemy;
+        CEnemy cEnemy = null;
+        BattleEntity dummy = ct.GetComponentInParent<BattleEntity>();
 
-        cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BattleEntity>().gameObject);
-
-        if (null == cEnemy)
+        if (null != dummy)
+        {
+            cEnemy = ai.EnemyHandle.GetEnemy(ct.GetComponentInParent<BattleEntity>().gameObject);
+        }
+        else
+        {
             cEnemy = ai.EnemyHandle.GetEnemy(ct.transform.parent.GetComponentInChildren<BattleEntity>().gameObject);
+        }
 
         MessageDispatcher.Instance.DispatchMessage(0, entity.ID, entity.ID, (int)eMESSAGE_TYPE.TO_HIT, ct.GetDamageType());
-
-       
 
         DamageTypeHandle(ct);
 

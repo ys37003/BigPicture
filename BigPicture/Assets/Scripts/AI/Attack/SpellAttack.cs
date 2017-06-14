@@ -98,11 +98,14 @@ public class SpellAttack : AttackElement{
                 nomalAttack.GetComponent<EffectHandle>().ActEffect();
 
                 colliderAttack.SetDamageType(eDAMAGE_TYPE.SPELL);
-                try
+
+                HitCollider dummy = _go.GetComponentInChildren<HitCollider>();
+
+                if(null != dummy)
                 {
-                    _go.GetComponentInChildren<HitCollider>().GetDamage(colliderAttack);
+                    dummy.GetDamage(colliderAttack);
                 }
-                catch
+                else
                 {
                     _go.GetComponent<Character>().GetDamage(colliderAttack);
                 }

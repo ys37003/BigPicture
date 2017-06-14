@@ -53,7 +53,7 @@ public class Partner : AI, ICharacter
         AttackAble = true;
         SkillPoint = 5;
 
-        colEyeSight.center = new Vector3(0, this.transform.position.y, Data.EyeSight);
+        colEyeSight.center = new Vector3(0, this.transform.localPosition.y, Data.EyeSight);
         colEyeSight.size = new Vector3(Data.EyeSight * 3, 10, Data.EyeSight * 2);
 
         this.EntityGroup.Add(this);
