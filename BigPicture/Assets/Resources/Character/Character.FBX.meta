@@ -116,7 +116,7 @@ ModelImporter:
     4300000: Object003
     4300002: Object004
     4300004: Box004
-    7400000: idle
+    7400000: battle_idle
     7400002: run
     7400004: attack1
     7400006: attack2
@@ -151,7 +151,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: idle
+      name: battle_idle
       takeName: Take 001
       firstFrame: 0
       lastFrame: 40

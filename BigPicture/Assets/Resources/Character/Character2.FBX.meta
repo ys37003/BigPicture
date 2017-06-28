@@ -90,8 +90,8 @@ ModelImporter:
     4300004: Box004
     7400000: Take 001
     7400002: roll
-    7400004: battle_idle
-    7400006: battle_walk
+    7400004: idle
+    7400006: walk
     9500000: //RootNode
     13700000: Object003
     13700002: Object004
@@ -383,7 +383,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: battle_idle
+      name: idle
       takeName: Take 001
       firstFrame: 221
       lastFrame: 349
@@ -515,7 +515,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: battle_walk
+      name: walk
       takeName: Take 001
       firstFrame: 350
       lastFrame: 390
