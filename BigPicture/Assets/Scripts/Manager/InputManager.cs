@@ -38,63 +38,63 @@ public struct InputValue
 public class InputManager : Singleton<InputManager>
 {
     private Dictionary<InputKey, InputValue> InputDic = new Dictionary<InputKey, InputValue>();
-    [SerializeField] private Transform tfPlayerGroup, tfTeleport1, tfTeleport2, tfTeleport3;
+    [SerializeField] private Transform tfPlayerGroup;//, tfTeleport1, tfTeleport2, tfTeleport3;
 
     private void Awake()
     {
-        AddKey(new InputKey(KeyCode.F1, InputType.KeyDown), new InputValue(() =>
-        {
-            List<ICharacter> list = TeamManager.Instance.GetCharacterList();
-            for(int i = 1; i<list.Count; ++i)
-            {
-                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            }
+        //AddKey(new InputKey(KeyCode.F1, InputType.KeyDown), new InputValue(() =>
+        //{
+        //    List<ICharacter> list = TeamManager.Instance.GetCharacterList();
+        //    for(int i = 1; i<list.Count; ++i)
+        //    {
+        //        (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        //    }
 
-            tfPlayerGroup.position = tfTeleport1.position;
+        //    tfPlayerGroup.position = tfTeleport1.position;
 
-            for (int i = 1; i < list.Count; ++i)
-            {
-                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            }
+        //    for (int i = 1; i < list.Count; ++i)
+        //    {
+        //        (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        //    }
 
-            SoundManager.Instance.ChangeTownBgm();
-        }, null));
+        //    SoundManager.Instance.ChangeTownBgm();
+        //}, null));
 
-        AddKey(new InputKey(KeyCode.F2, InputType.KeyDown), new InputValue(() =>
-        {
-            List<ICharacter> list = TeamManager.Instance.GetCharacterList();
-            for (int i = 1; i < list.Count; ++i)
-            {
-                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            }
+        //AddKey(new InputKey(KeyCode.F2, InputType.KeyDown), new InputValue(() =>
+        //{
+        //    List<ICharacter> list = TeamManager.Instance.GetCharacterList();
+        //    for (int i = 1; i < list.Count; ++i)
+        //    {
+        //        (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        //    }
 
-            tfPlayerGroup.position = tfTeleport2.position;
+        //    tfPlayerGroup.position = tfTeleport2.position;
 
-            for (int i = 1; i < list.Count; ++i)
-            {
-                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            }
+        //    for (int i = 1; i < list.Count; ++i)
+        //    {
+        //        (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        //    }
 
-            SoundManager.Instance.ChangeTownBgm();
-        }, null));
+        //    SoundManager.Instance.ChangeTownBgm();
+        //}, null));
 
-        AddKey(new InputKey(KeyCode.F3, InputType.KeyDown), new InputValue(() =>
-        {
-            List<ICharacter> list = TeamManager.Instance.GetCharacterList();
-            for (int i = 1; i < list.Count; ++i)
-            {
-                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            }
+        //AddKey(new InputKey(KeyCode.F3, InputType.KeyDown), new InputValue(() =>
+        //{
+        //    List<ICharacter> list = TeamManager.Instance.GetCharacterList();
+        //    for (int i = 1; i < list.Count; ++i)
+        //    {
+        //        (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        //    }
 
-            tfPlayerGroup.position = tfTeleport3.position;
+        //    tfPlayerGroup.position = tfTeleport3.position;
 
-            for (int i = 1; i < list.Count; ++i)
-            {
-                (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            }
+        //    for (int i = 1; i < list.Count; ++i)
+        //    {
+        //        (list[i] as Partner).gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        //    }
 
-            SoundManager.Instance.ChangeBossBgm();
-        }, null));
+        //    SoundManager.Instance.ChangeBossBgm();
+        //}, null));
 
         AddKey(new InputKey(KeyCode.Alpha1, InputType.KeyDown), new InputValue(() =>
         {
